@@ -1,7 +1,9 @@
 package DAO;
 
 import java.sql.Statement;
+
 import javax.persistence.EntityManager;
+
 import Model.PadraoEntidade;
 
 /**
@@ -27,21 +29,21 @@ public abstract class DAO {
 	/**
 	 * Indica para o BD que uma transicao será iniciada
 	 **/
-	public void inicarTransicao() {
+	protected void inicarTransicao() {
 		em.getTransaction().begin();
 	}
 	
 	/**
 	 * Concretiza uma transicao com o BD
 	 **/
-	public void fazerCommit() {
+	protected void fazerCommit() {
 		em.getTransaction().commit();
 	}
 	
 	/**
 	 * Inserir um objeto PadraoEntidade no BD 
 	 **/
-	public abstract boolean inserirAtualizar(PadraoEntidade entidade);
+	protected abstract boolean saveEntidade(PadraoEntidade entidade);
 	
 	/**
 	 * Remover um objeto PadraoEntidade do BD 
@@ -61,16 +63,16 @@ public abstract class DAO {
 	/**
 	 * Consultar um objeto PadraoEntidade do BD 
 	 **/
-	public abstract PadraoEntidade consultar(String codigo);
+	protected abstract PadraoEntidade consultar(String codigo);
 	
-	public abstract boolean removerPorCodigoPK(String codigo);
+	protected abstract boolean removerPorCodigoPK(String codigo);
 	
-	public abstract boolean removerPorObjetoEntidade(PadraoEntidade entidade);
+	protected abstract boolean removerPorObjetoEntidade(PadraoEntidade entidade);
 	
 	/**
 	 * Atualizar um objeto PadraoEntidade do BD 
 	 **/
-	public boolean atualizar(PadraoEntidade entidade) {
+	protected boolean atualizar(PadraoEntidade entidade) {
 		try{
 			//atualizar
 			System.out.println("Alterando");
@@ -98,6 +100,12 @@ public abstract class DAO {
 			System.out.println("Erro: Não foi possivel deletar objeto");
 			return false;
 		}
-		
 	}
+	
+	/**
+	 * Pegar a Conexao que esta sendo utilizada
+	 **/
+	protected abstract JPAUtil getConexaoBD();
+	protected abstract void setConexaoBD(JPAUtil conexaoBD);
+	
 }

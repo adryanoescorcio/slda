@@ -5,7 +5,6 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 
 import DAO.AlunoDAO;
-import DAO.JPAUtil;
 
 /**
  * Classe concreta referente a Entidade Aluno do BD.
@@ -22,29 +21,27 @@ public class Aluno implements PadraoEntidade {
 	@Transient
 	private static final String NOMECOLUNAPK = "codigoaluno";
 	@Transient
-	private JPAUtil conexaoBD = null;
-	@Transient
 	private AlunoDAO dao = null;
 	
 	@Id
-	private String codigoAluno;
-	private String nomeAluno;
-	private String INEP;
-	private String CPF_Aluno;
-	private String RG_Aluno;
-	private String sexoAluno;
-	private String corAluno;
-	private String dataNascimento;
-	private String cidadeNascAluno;
-	private String estadoNascAluno;
-	private String nomePai;
-	private String cidadePaiNasc;
-	private String estadoPaiNasc;
-	private String nomeMae;
-	private String cidadeMaeNasc;
-	private String estadoMaeNasc;
-	private String enderecoAluno;
-	private String telefoneAluno;
+	private String codigoAluno = null;
+	private String nomeAluno = null;
+	private String INEP = null;
+	private String CPF_Aluno = null;
+	private String RG_Aluno = null;
+	private String sexoAluno = null;
+	private String corAluno = null;
+	private String dataNascimento = null;
+	private String cidadeNascAluno = null;
+	private String estadoNascAluno = null;
+	private String nomePai = null;
+	private String cidadePaiNasc = null;
+	private String estadoPaiNasc = null;
+	private String nomeMae = null;
+	private String cidadeMaeNasc = null;
+	private String estadoMaeNasc = null;
+	private String enderecoAluno = null;
+	private String telefoneAluno = null;
 	
 	
 	public String getNomeAluno() {
@@ -150,7 +147,6 @@ public class Aluno implements PadraoEntidade {
 		this.telefoneAluno = telefoneAluno;
 	}
 	
-	
 	@Override
 	public String getCodigo() {
 		return this.codigoAluno;
@@ -161,23 +157,11 @@ public class Aluno implements PadraoEntidade {
 		this.codigoAluno = codigo;
 	}
 	
-	@Override
-	public JPAUtil getConexaoBD() {
-		return this.conexaoBD;
-	}
-	
-	@Override
-	public void setConexaoBD(JPAUtil conexaoBD) {
-		this.conexaoBD = conexaoBD;
-		this.dao = new AlunoDAO(this.conexaoBD);
-		
-	}
-	
 	/**
 	 * Descreve todos os atributos do objeto
 	 **/
 	@Override
-	public String toString() {
+	public String toString() throws NullPointerException {
 		return "" +
 			"CodigoAluno: "+this.codigoAluno+", " +
 			"Nome: "+this.nomeAluno+", " +
@@ -198,35 +182,6 @@ public class Aluno implements PadraoEntidade {
 			"Endereco: "+this.enderecoAluno+", " +
 			"Telefone: "+this.telefoneAluno+", " +
 			"";
-	}
-	
-	/**
-	 * Metodo para inserir aluno no Banco de Dados
-	 **/	
-	public boolean inserirAtualizarAlunoBD(Aluno aluno){		
-		try {
-			return dao.inserirAtualizar(aluno);
-		} catch (NullPointerException e) {
-			System.out.println("Não foi setado EM da classe:" + e.getMessage());
-			return false;
-		}
-	}
-	
-	/**
-	 * Remover aluno do Banco de Dados
-	 * @param <li><b>String</b> codigoAluno</li> <b>or</b>
-	 * <li><b>PadraoEntidade</b> aluno </li>
-	 **/
-	public boolean removerAlunoBD(Object params) {
-		try {
-			return dao.removerPorObjetoEntidade((PadraoEntidade) params);
-		} catch (Exception e) {
-			return dao.removerPorCodigoPK((String) params);
-		}
-	}
-	
-	public Aluno buscarAlunoBD(String codigo) {
-		return (Aluno) dao.consultar(codigo);
 	}
 	
 	@Override

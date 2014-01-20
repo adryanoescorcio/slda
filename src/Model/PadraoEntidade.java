@@ -1,11 +1,10 @@
 package Model;
 
-import DAO.JPAUtil;
 
 /**
  * Interface que todas as entidades devem possuir
  * @author Adryano Escorcio
- * @version 1.0
+ * @version 1.5
  * 
  **/
 public interface PadraoEntidade {
@@ -19,12 +18,6 @@ public interface PadraoEntidade {
 	 * Modificar o Codigo(PK) da entidade
 	 **/
 	public void setCodigo(String codigo);
-	
-	/**
-	 * Pegar a Conexao que esta sendo utilizada
-	 **/
-	public JPAUtil getConexaoBD();
-	public void setConexaoBD(JPAUtil conexaoBD);
 	
 	/**
 	 * Pegar o nome da tabela referente a classe no BD

@@ -3,10 +3,13 @@
  */
 package Teste;
 
+import java.util.Random;
+
 import javax.persistence.EntityManager;
 
 import org.junit.Test;
 
+import DAO.AlunoDAO;
 import DAO.JPAUtil;
 import Model.Aluno;
 
@@ -16,25 +19,26 @@ import Model.Aluno;
  * @author Adryano Escorcio
  * @version 1.0
  **/
-public class TesteApp {
+public class TesteAppAluno {
 
+	private static final int INTERVALO = 999999999;
 	EntityManager em;
 	private JPAUtil conexaoBD;
-	private Aluno alunoGenerico;
+	private AlunoDAO dao;
+	private Random rand;
 	
 	/**
 	 * Construtor que inicializa a conexao teste
 	 **/
-	public TesteApp() {
+	public TesteAppAluno() {
 		this.conexaoBD = new JPAUtil();
-		
-		// criando um objeto aluno generico para utilizar a conexao
-		alunoGenerico = new Aluno();
-		alunoGenerico.setConexaoBD(conexaoBD);
+		this.dao = new AlunoDAO(conexaoBD);
 	}
-		
+	
+	
 	/**
 	 * Testar ser o objeto Aluno está sendo persistido com sucesso
+	 * <br> Testar a utilização sequencial da conexao
 	 * TESTE 1
 	 **/
 	@Test
@@ -43,12 +47,15 @@ public class TesteApp {
 		// instanciando aluno
 		Aluno alunoTeste = new Aluno();
 
+		
+		
 		// Setando os valores
-		alunoTeste.setCodigo("301203254326758");
-		alunoTeste.setCPF_Aluno("3242523222");
+		alunoTeste.setCodigo(numAleatorio());
+		
+		alunoTeste.setCPF_Aluno(numAleatorio());
 		alunoTeste.setNomeAluno("Daniel Souza");
-		alunoTeste.setINEP("238923939");
-		alunoTeste.setRG_Aluno("2389285435343");
+		alunoTeste.setINEP(numAleatorio());
+		alunoTeste.setRG_Aluno(numAleatorio());
 		alunoTeste.setSexoAluno("Masculino");
 		alunoTeste.setCorAluno("Branca");
 		alunoTeste.setDataNascimento("07/02/1994");
@@ -61,15 +68,22 @@ public class TesteApp {
 		alunoTeste.setCidadeMaeNasc("Sao José dos Patos");
 		alunoTeste.setEstadoMaeNasc("Rio Branco");
 		alunoTeste.setEnderecoAluno("Rua 25 Quadra 24");
-		alunoTeste.setTelefoneAluno("32471232");
-		
-		// Necessario setar o EM para conectar no BD
-		alunoTeste.setConexaoBD(conexaoBD);
+		alunoTeste.setTelefoneAluno(numAleatorio());
 		
 		System.out.println("\n#### Iniciando Teste 1 ####");
 		
 		// inserindo aluno
-		boolean retorno = alunoTeste.inserirAtualizarAlunoBD(alunoTeste);
+		boolean retorno = dao.save(alunoTeste);
+		
+		Aluno alunoTeste2 = new Aluno();
+
+		// Setando os valores
+		alunoTeste2.setCodigo(numAleatorio());
+		
+		alunoTeste2.setCPF_Aluno(numAleatorio());
+		alunoTeste2.setNomeAluno("Daniel Souza");
+		alunoTeste2.setINEP(numAleatorio());
+		dao.save(alunoTeste2);
 		
 		// verificando o retorno
 		if(retorno)
@@ -79,7 +93,9 @@ public class TesteApp {
 	/**
 	 * Testar se o objeto Aluno esta sendo removido.
 	 * <br>Testar a utilização acumulativa da conexao inserir->(consultar)remover.
+	 * <br> TESTE 2
 	 **/
+	
 	@Test
 	public void removerAluno(){
 		
@@ -92,24 +108,40 @@ public class TesteApp {
 		alunoTesteRemover.setINEP("232232323232332");
 		alunoTesteRemover.setRG_Aluno("324234234243234242432");
 		
-		// Necessario setar o EM para conectar no BD
-		alunoTesteRemover.setConexaoBD(conexaoBD);
-		
 		System.out.println("\n#### Iniciando Teste 2 ####");
 		// aluno é inserido
-		alunoTesteRemover.inserirAtualizarAlunoBD(alunoTesteRemover);
+		dao.save(alunoTesteRemover);
 		
 		// remover aluno
-		boolean retorno = alunoTesteRemover.removerAlunoBD("000000020000002000000002000002");
+		boolean retorno = dao.remover("000000020000002000000002000002");
 		
 		if(retorno)
 			System.out.println("****** OK Teste 2. ******");
 	}
-	/***
+	
+	/**
+	 * Teste para busca aluno no BD
+	 * TESTE 3
+	 **/
 	@Test
 	public void consultarAluno(){
-		Aluno alunoBuscar= alunoGenerico.buscarAlunoBD("34234234");
-		System.out.println("\n#### Iniciando Teste 2 ####");
+		System.out.println("\n#### Iniciando Teste 3 ####");
+		
+		// Codigo: 20120124500
+		Aluno alunoBuscar= dao.buscar("20120124500");
+		
+		try{
+			System.out.println(alunoBuscar.toString());
+		} catch (NullPointerException e) {
+			System.out.println("Atencao: Não existe nenhum aluno com o codigo digitado");
+		}
+		
+		System.out.println("****** OK Teste 3. ******");
 	}
 	
+	public String numAleatorio(){
+		rand = new Random();
+		String numAle = String.valueOf(rand.nextInt(INTERVALO));
+		return numAle;
+	}
 }

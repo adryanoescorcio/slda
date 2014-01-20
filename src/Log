@@ -1,4 +1,4 @@
 #16/01
-
+(V1.5) - AlunoDAO (arrumando coerencia da classe) (responsabilidade simples)
 JUnit instalado, sistema de testes da aplicação organizados
 Conexão com o Banco de Dados SQLite foi concluido com sucesso

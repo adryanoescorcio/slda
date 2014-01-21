@@ -24,8 +24,9 @@ public class TesteAppAluno {
 	private static final int INTERVALO = 999999999;
 	EntityManager em;
 	private JPAUtil conexaoBD;
-	private AlunoDAO dao;
+	
 	private Random rand;
+	private AlunoDAO dao;
 	
 	/**
 	 * Construtor que inicializa a conexao teste
@@ -35,6 +36,19 @@ public class TesteAppAluno {
 		this.dao = new AlunoDAO(conexaoBD);
 	}
 	
+	/**
+	 * Testar se a Conexao está funcionando e persistindo
+	 **/
+//	@Test
+	public void conexao() {
+		EntityManager em = dao.getEm();
+		System.out.println(em.isOpen()); 
+		em.getTransaction().begin();
+		Aluno aluno = new Aluno();
+		aluno.setCodigo(numAleatorio());
+		em.persist(aluno);
+		em.getTransaction().commit();
+	}
 	
 	/**
 	 * Testar ser o objeto Aluno está sendo persistido com sucesso
@@ -43,15 +57,13 @@ public class TesteAppAluno {
 	 **/
 	@Test
 	public void inserirAtualizarAluno() {
-		
+	
 		// instanciando aluno
 		Aluno alunoTeste = new Aluno();
-
-		
 		
 		// Setando os valores
 		alunoTeste.setCodigo(numAleatorio());
-		
+
 		alunoTeste.setCPF_Aluno(numAleatorio());
 		alunoTeste.setNomeAluno("Daniel Souza");
 		alunoTeste.setINEP(numAleatorio());
@@ -73,21 +85,21 @@ public class TesteAppAluno {
 		System.out.println("\n#### Iniciando Teste 1 ####");
 		
 		// inserindo aluno
-		boolean retorno = dao.save(alunoTeste);
+		boolean retorno = this.dao.save(alunoTeste);
 		
 		Aluno alunoTeste2 = new Aluno();
 
 		// Setando os valores
-		alunoTeste2.setCodigo(numAleatorio());
+		alunoTeste2.setCodigo("20120124588");
 		
-		alunoTeste2.setCPF_Aluno(numAleatorio());
-		alunoTeste2.setNomeAluno("Daniel Souza");
-		alunoTeste2.setINEP(numAleatorio());
+		alunoTeste2.setCPF_Aluno("20120124500");
+		alunoTeste2.setNomeAluno("Souza");
+		alunoTeste2.setINEP("20120124500");
 		dao.save(alunoTeste2);
 		
 		// verificando o retorno
 		if(retorno)
-			System.out.println("****** OK Teste 1. ******");
+			System.out.println("****** OK Teste 1 ******");
 	}
 	
 	/**
@@ -113,7 +125,7 @@ public class TesteAppAluno {
 		dao.save(alunoTesteRemover);
 		
 		// remover aluno
-		boolean retorno = dao.remover("000000020000002000000002000002");
+		boolean retorno = dao.remover(alunoTesteRemover);
 		
 		if(retorno)
 			System.out.println("****** OK Teste 2. ******");

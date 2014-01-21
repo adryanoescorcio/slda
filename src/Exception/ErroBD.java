@@ -1,4 +1,4 @@
-package Excepetion;
+package Exception;
 
 
 /**

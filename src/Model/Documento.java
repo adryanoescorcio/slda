@@ -6,6 +6,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+/**
+ * Classe concreta referente a Entidade Documento do BD.
+ * 
+ * @author Adryano Escorcio
+ * @version 1.5
+ * @implements PadraoEntidade
+ **/
 @Entity
 public class Documento implements PadraoEntidade {
 
@@ -13,7 +20,7 @@ public class Documento implements PadraoEntidade {
 	private static final String NOMETABLE = "documento";
 	@Transient
 	private static final String NOMECOLUNAPK = "protocolopedidodocumento";
-	
+
 	@Id
 	private String protocoloPedidoDocumento = null;
 	private String nomeDocumento = null;
@@ -22,17 +29,10 @@ public class Documento implements PadraoEntidade {
 	private String dataPedido = null;
 	private String dataEntrega = null;
 	private String status = null;
+	
 	@ManyToOne
 	private Aluno aluno = null;
 	
-	public String getProtocoloPedidoDocumento() {
-		return protocoloPedidoDocumento;
-	}
-
-	public void setProtocoloPedidoDocumento(String protocoloPedidoDocumento) {
-		this.protocoloPedidoDocumento = protocoloPedidoDocumento;
-	}
-
 	public String getNomeDocumento() {
 		return nomeDocumento;
 	}

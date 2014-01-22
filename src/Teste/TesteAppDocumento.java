@@ -48,7 +48,7 @@ public class TesteAppDocumento {
 		em.getTransaction().commit();
 	}
 		
-//	@Test
+	@Test
 	public void inserirAtualizarDocumento() {
 	
 		// instanciando aluno
@@ -93,11 +93,11 @@ public class TesteAppDocumento {
 				
 		
 		// verificando o retorno
-//		if(retorno)
-//			System.out.println("\n****** Teste 1 - 100% OK ******");
+		if(retorno)
+			System.out.println("\n****** Teste 1 - 100% OK ******");
 	}
 	
-//	@Test
+	@Test
 	public void removerAluno(){
 		
 		// instanciando aluno
@@ -117,8 +117,10 @@ public class TesteAppDocumento {
 			System.out.println("****** OK Teste 2. ******");
 	}
 	
-//	@Test
+	@Test
 	public void testarBuscaAlterar() {
+		System.out.println("\n#### Iniciando Teste 3 ####");
+		
 		Documento doc = dao.buscar("854336025");
 		doc.setDataEntrega("3332322");
 		
@@ -128,6 +130,7 @@ public class TesteAppDocumento {
 		doc.setStatus("dsdfsdfdsfsdfsdfsdfsd");
 		dao.transicaoCommit();
 		System.out.println(doc.toString());
+		System.out.println("****** OK Teste 3. ******");
 	}
 	
 	public String numAleatorio(){

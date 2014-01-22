@@ -7,11 +7,12 @@ import javax.persistence.EntityManager;
 import Model.PadraoEntidade;
 
 /**
- * Classe abstrata que implementa as funções genericas do CRUD
+ * Classe abstrata que implementa as funções genericas do CRUD<br>
  * do Banco de Dados SQLite.
+ * <p><b>Observação:</b><br>Excepetion SQL não são capturadas.
  * 
  * @author Adryano Escorcio
- * @version 1.0
+ * @version 2.0
  **/
 public abstract class DAO {
 	
@@ -31,38 +32,28 @@ public abstract class DAO {
 	/**
 	 * Indica para o BD que uma transicao será iniciada
 	 **/
-	protected void iniciarTransicao() {
+	protected void beginTransaction() {
 		this.em.getTransaction().begin();
 	}
 	
 	/**
 	 * Concretiza uma transicao com o BD
 	 **/
-	protected void fazerCommit() {
+	protected void doCommit() {
 		this.em.getTransaction().commit();
-		this.em.clear();
-	}
-	
-	public boolean transicaoCommit() {
-		try {
-			this.iniciarTransicao();
-			this.fazerCommit();
-			return true;
-		} catch (Exception e) {
-			System.out.println("Erro ao executar operação");
-			return false;
-		}
+		this.em.clear(); // limpa a conexao
 	}
 	
 	/**
-	 * Inserir um objeto PadraoEntidade no BD 
+	 * Inserir um objeto PadraoEntidade no BD
+	 * <p><b>Observação:</b><br> Entidade não inicia a transação com BD
 	 **/
 	protected boolean saveEntidade(PadraoEntidade entidade){
 		
 		try {
 			System.out.println("Salvando: " + entidade.getCodigo());
 			em.persist(entidade);
-			this.fazerCommit();
+			this.doCommit();
 			return true;
 		} catch(Exception e) {
 			System.out.println("Erro ao persistir");
@@ -109,7 +100,7 @@ public abstract class DAO {
 			//atualizar
 			System.out.println("Alterando");
 			em.merge(entidade);
-			this.fazerCommit();
+			this.doCommit();
 			return true;
 			
 		} catch(Exception e) {
@@ -119,7 +110,7 @@ public abstract class DAO {
 	}
 
 	/**
-	 * Codigo SQL para remover entidade do BD
+	 * Codigo SQL para remover <b>PadraoEntidade</b> entidade do BD
 	 **/
 	protected boolean queryDeletarRow(PadraoEntidade entidade) {
 		try{
@@ -136,51 +127,10 @@ public abstract class DAO {
 	}
 	
 	/**
-	 * Pegar a Conexao que esta sendo utilizada
-	 **/
-	public JPAUtil getConexaoBD() {
-		return this.conexao;
-	}
-	public void setConexaoBD(JPAUtil conexaoBD){
-		this.conexao = conexaoBD;
-	}
-	
-	public EntityManager getEm() {
-		return em;
-	}
-	
-	public Statement getStm() {
-		return stm;
-	}
-	
-	public void setEm(EntityManager em) {
-		this.em = em;
-	}
-	
-	public void setStm(Statement stm) {
-		this.stm = stm;
-	}
-	/**
-	 * Remover Entidade do Banco de Dados
-	 * @param <li><b>String</b> codigoEntidade</li> <b>or</b>
-	 * <li><b>PadraoEntidade</b> entidade </li>
-	 **/
-	public boolean remover(Object params) {
-		this.iniciarTransicao();
-		
-		try {
-			return this.removerPorObjetoEntidade((PadraoEntidade) params);
-			
-		} catch (Exception e) {
-			return this.removerPorCodigoPK((String) params);
-		}
-	}
-	
-	/**
-	 * Metodo para inserir/atualiza o Aluno no Banco de Dados
+	 * Metodo para inserir/atualiza o Entidade no Banco de Dados.
 	 **/	
 	protected boolean save(PadraoEntidade objeto){
-		this.iniciarTransicao();
+		this.beginTransaction();
 		
 		try {
 			// verificar se a entidade já existe no banco de dados
@@ -205,4 +155,65 @@ public abstract class DAO {
 			return false;
 		}
 	}
+	
+	/**
+	 * Pegar a Conexao que esta sendo utilizada.
+	 **/
+	public JPAUtil getConexaoBD() {
+		return this.conexao;
+	}
+	public void setConexaoBD(JPAUtil conexaoBD){
+		this.conexao = conexaoBD;
+	}
+	
+	public EntityManager getEm() {
+		return em;
+	}
+	
+	public Statement getStm() {
+		return stm;
+	}
+	
+	public void setEm(EntityManager em) {
+		this.em = em;
+	}
+	
+	public void setStm(Statement stm) {
+		this.stm = stm;
+	}
+	
+	/**
+	 * Remover Entidade do Banco de Dados
+	 * @param <li><b>String</b> codigoEntidade</li> <b>or</b>
+	 * <li><b>PadraoEntidade</b> entidade </li>
+	 **/
+	public boolean remover(Object params) {
+		this.beginTransaction();
+		
+		try {
+			return this.removerPorObjetoEntidade((PadraoEntidade) params);
+			
+		} catch (Exception e) {
+			return this.removerPorCodigoPK((String) params);
+		}
+	}
+	
+	/**
+	 * Metodo inicia uma transacão e realiza o commit.
+	 * <p><b>Obervação:</b><br>Usado para persistencia indireta de objetos, 
+	 * ou seja quando um objeto é setado do BD e seus atributos alterado. Para efetivar a alteração execute o metodo.
+	 * @return True, caso a execução tenha terminado com sucesso. <br> False, caso a execução tenha terminado com erro.
+	 **/
+	public boolean transactionBeginAndCommit() {
+		try {
+			this.beginTransaction();
+			this.doCommit();
+			return true;
+			
+		} catch (Exception e) {
+			System.out.println("Erro ao executar operação");
+			return false;
+		}
+	}
+
 }

@@ -128,7 +128,7 @@ public class TesteAppDocumento {
 		
 		doc = dao.buscar("792293492");
 		doc.setStatus("dsdfsdfdsfsdfsdfsdfsd");
-		dao.transicaoCommit();
+		dao.transactionBeginAndCommit();
 		System.out.println(doc.toString());
 		System.out.println("****** OK Teste 3. ******");
 	}

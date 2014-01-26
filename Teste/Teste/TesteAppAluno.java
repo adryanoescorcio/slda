@@ -12,6 +12,7 @@ import org.junit.Test;
 import DAO.AlunoDAO;
 import DAO.JPAUtil;
 import Model.Aluno;
+import Model.Caixa;
 
 /**
  * Classe de Teste da aplicação
@@ -39,14 +40,14 @@ public class TesteAppAluno {
 	/**
 	 * Testar se a Conexao está funcionando e persistindo
 	 **/
-//	@Test
+	@Test
 	public void conexao() {
 		EntityManager em = dao.getEm();
 		System.out.println(em.isOpen()); 
 		em.getTransaction().begin();
-		Aluno aluno = new Aluno();
-		aluno.setCodigo(numAleatorio());
-		em.persist(aluno);
+		Caixa caixa = new Caixa();
+		caixa.setCodigo(numAleatorio());
+		em.persist(caixa);
 		em.getTransaction().commit();
 	}
 	
@@ -87,6 +88,7 @@ public class TesteAppAluno {
 		// inserindo aluno
 		boolean retorno = this.dao.save(alunoTeste);
 		
+	
 		Aluno alunoTeste2 = new Aluno();
 
 		// Setando os valores

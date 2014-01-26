@@ -121,12 +121,13 @@ public class TesteAppDocumento {
 	public void testarBuscaAlterar() {
 		System.out.println("\n#### Iniciando Teste 3 ####");
 		
-		Documento doc = dao.buscar("854336025");
+		Documento doc = dao.buscar("854336025"); 
 		doc.setDataEntrega("3332322");
 		
 		dao.getEm().clear();
 		
-		doc = dao.buscar("792293492");
+		doc = dao.buscar("854336025");
+		System.out.println("**** Status " + doc.getStatus());
 		doc.setStatus("dsdfsdfdsfsdfsdfsdfsd");
 		dao.transactionBeginAndCommit();
 		System.out.println(doc.toString());

@@ -9,7 +9,7 @@
       <class>Model.Documento</class>
       <properties>
         <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:file/sldav1.db" />
+        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:sldav1.db" />
         <property name="eclipselink.ddl-generation" value="create-tables" />
       </properties>
     </persistence-unit>

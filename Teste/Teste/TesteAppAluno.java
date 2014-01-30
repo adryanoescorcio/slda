@@ -40,7 +40,7 @@ public class TesteAppAluno {
 	/**
 	 * Testar se a Conexao está funcionando e persistindo
 	 **/
-	@Test
+	//@Test
 	public void conexao() {
 		EntityManager em = dao.getEm();
 		System.out.println(em.isOpen()); 

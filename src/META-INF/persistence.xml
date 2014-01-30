@@ -7,10 +7,14 @@
       <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
       <class>Model.Aluno</class>
       <class>Model.Documento</class>
+      <class>Model.Caixa</class>
+      <class>Model.Arquivo</class>
+      <class>Model.Ata</class>
+      <class>Model.AtaResultado</class>
       <properties>
         <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
         <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:sldav1.db" />
-        <property name="eclipselink.ddl-generation" value="create-tables" />
+        <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
       </properties>
     </persistence-unit>
  </persistence>

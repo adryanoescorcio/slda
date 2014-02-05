@@ -1,10 +1,11 @@
 package Model;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Transient;
 
-import DAO.AlunoDAO;
+import PrimaryKey.AlunoPK;
+import PrimaryKey.Key;
 
 /**
  * Classe concreta referente a Entidade Aluno do BD.
@@ -20,11 +21,10 @@ public class Aluno implements PadraoEntidade {
 	private static final String NOMETABLE = "aluno";
 	@Transient
 	private static final String NOMECOLUNAPK = "codigoaluno";
-	@Transient
-	private AlunoDAO dao = null;
 	
-	@Id
-	private String codigoAluno = null;
+	@EmbeddedId
+	private AlunoPK alunoPK = new AlunoPK();
+	
 	private String nomeAluno = null;
 	private String INEP = null;
 	private String CPF_Aluno = null;
@@ -42,7 +42,6 @@ public class Aluno implements PadraoEntidade {
 	private String estadoMaeNasc = null;
 	private String enderecoAluno = null;
 	private String telefoneAluno = null;
-	
 	
 	public String getNomeAluno() {
 		return nomeAluno;
@@ -179,21 +178,11 @@ public class Aluno implements PadraoEntidade {
 	public void setTelefoneAluno(String telefoneAluno) {
 		this.telefoneAluno = telefoneAluno;
 	}
-	
-	@Override
-	public String getCodigo() {
-		return this.codigoAluno;
-	}
-	
-	@Override
-	public void setCodigo(String codigo) {
-		this.codigoAluno = codigo;
-	}
-	
+		
 	@Override
 	public String toString() throws NullPointerException {
 		return "" +
-			"CodigoAluno: "+this.codigoAluno+", " +
+			"CodigoAluno: "+this.alunoPK.toString()+", " +
 			"Nome: "+this.nomeAluno+", " +
 			"CPF: "+this.CPF_Aluno+", " +
 			"RG: "+this.RG_Aluno+", " +
@@ -224,4 +213,20 @@ public class Aluno implements PadraoEntidade {
 		return NOMECOLUNAPK;
 	}
 
+	@Override
+	public Key getCodigoKEY() {
+		return this.alunoPK;
+	}
+
+	@Override
+	public void setCodigoKEY(Key codigo) {
+		this.alunoPK = (AlunoPK) codigo;
+	}
+	
+	@Override
+	public void setCodigo(String codigo) {
+		this.alunoPK.setCodigo(codigo);
+	}
+
+	
 }

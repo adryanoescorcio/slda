@@ -1,30 +1,20 @@
-package Model;
+package PrimaryKey;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 
 @Embeddable
-public class AtaPK implements Serializable {
+public class AtaPK implements Key {
 	
-	private static final long serialVersionUID = -9049915368830597004L;
-	
-	@Column
-	private String turmaAta;
-	@Column
-	private String turnoAta;
-	@Column
-	private String anoAta;
-	
-	public AtaPK() {
-		
-	}
+	private String codAluno = null;
+	private String turmaAta = null;
+	private String turnoAta = null;
+	private String anoAta = null;
 	
 	@Override
     public boolean equals(Object obj) {
-        if(obj instanceof AtaPK){
+       
+		if(obj instanceof AtaPK){
             AtaPK ataPk = (AtaPK) obj;
  
             if(!ataPk.getTurmaAta().equals(turmaAta)){
@@ -49,6 +39,12 @@ public class AtaPK implements Serializable {
     public int hashCode() {
         return turmaAta.hashCode() + turnoAta.hashCode() + anoAta.hashCode();
     }
+	
+	@Override
+	public String toString() {
+		return this.anoAta+this.codAluno+this.turmaAta+this.turnoAta;
+		
+	}
  
 	public String getTurmaAta() {
 		return turmaAta;
@@ -72,6 +68,26 @@ public class AtaPK implements Serializable {
 
 	public void setAnoAta(String anoAta) {
 		this.anoAta = anoAta;
+	}
+
+	public String getCodAluno() {
+		return codAluno;
+	}
+
+	public void setCodAluno(String codAluno) {
+		this.codAluno = codAluno;
+	}
+
+	@Override
+	public Key getCodigo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setCodigo(Key codigo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

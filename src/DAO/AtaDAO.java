@@ -32,14 +32,18 @@ public class AtaDAO extends DAO {
 	/**
 	 * Buscar Caixa usando o codigo
 	 **/
-	public Ata buscar(String codigo) {
+	public Ata buscar(AtaPK codigo) {
 		return (Ata) this.consultar(codigo);
 	}
 	
+	protected PadraoEntidade consultar(AtaPK codigo) {
+		return em.find(Ata.class, codigo);
+	}
+
 	@Override
 	protected PadraoEntidade consultar(String codigo) {
 		// TODO Auto-generated method stub
-		return em.find(Ata.class, codigo);
+		return null;
 	}
 }
 

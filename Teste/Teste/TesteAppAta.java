@@ -28,21 +28,9 @@ public class TesteAppAta {
 	public void conexao() {
 		EntityManager em = dao.getEm();
 		System.out.println(em.isOpen()); 
-		em.getTransaction().begin();
-		Ata ata = new Ata();
-		AtaPK atapk = new AtaPK();
-		atapk.setTurmaAta("302");
-		atapk.setAnoAta("2014");
-		atapk.setTurnoAta("Vespertino");
-		ata.setAtapk(atapk);
-		ata.setCodigo("302 - 2014 - Vespetino");
-		ata.setModalidadeAta("EJA");
-		ata.setEnsinoAta("Medio");
-		em.persist(ata); 
-		em.getTransaction().commit();
 	}
 	
-	@Test
+//	@Test
 	public void inserirAtualizarAta() {
 	
 		// instanciando caixa
@@ -53,7 +41,7 @@ public class TesteAppAta {
 		atapk.setTurmaAta("402");
 		atapk.setAnoAta("2014");
 		atapk.setTurnoAta("Vespertino");
-		ata.setAtapk(atapk);
+//		ata.setAtapk(atapk);
 		ata.setCodigo(getCodigoDaAta(atapk));
 		ata.setModalidadeAta("Normal");
 		ata.setEnsinoAta("Medio");
@@ -69,7 +57,7 @@ public class TesteAppAta {
 			System.out.println("\n****** Teste 1 - 100% OK ******");
 	}
 	
-	@Test
+//	@Test
 	public void removerAluno(){
 		
 		Ata ata = new Ata();
@@ -78,7 +66,7 @@ public class TesteAppAta {
 		atapk.setTurmaAta("406");
 		atapk.setAnoAta("2013");
 		atapk.setTurnoAta("Vespertino");
-		ata.setAtapk(atapk);
+//		ata.setAtapk(atapk);
 		ata.setCodigo(getCodigoDaAta(atapk));
 		ata.setModalidadeAta("Normal");
 		ata.setEnsinoAta("Superior");
@@ -94,7 +82,7 @@ public class TesteAppAta {
 			System.out.println("****** OK Teste 2. ******");
 	}
 	
-	@Test
+//	@Test
 	public void consultarCaixa(){
 		System.out.println("\n#### Iniciando Teste 3 ####");
 		

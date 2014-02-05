@@ -1,5 +1,8 @@
 package Model;
 
+import PrimaryKey.Key;
+
+
 /**
  * Interface que todas as entidades devem possuir
  * @author Adryano Escorcio
@@ -10,16 +13,17 @@ public interface PadraoEntidade {
 	/**
 	 * Pegar o Codigo(PK) da entidade
 	 **/
-	public String getCodigo();
+	public Key getCodigoKEY();
 
 	/**
 	 * Modificar o Codigo(PK) da entidade
 	 **/
-	public void setCodigo(String codigo);
+	public void setCodigoKEY(Key chaveEntidade);
 	
 	/**
 	 * Retorna o nome da tabela que é referente a classe no BD
 	 **/
+	
 	public String getNomeTabelaBD();
 	
 	/**
@@ -32,4 +36,7 @@ public interface PadraoEntidade {
 	 **/
 	@Override
 	public String toString();
+
+	
+	void setCodigo(String codigo);
 }

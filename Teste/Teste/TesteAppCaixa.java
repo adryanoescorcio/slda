@@ -54,7 +54,7 @@ public class TesteAppCaixa {
 		
 		// Setando os valores
 		caixa.setCodigo(numAleatorio());
-		caixa.setStatus("Aguardando...");
+		caixa.setStatus("Morto");
 		caixa.setTurno("Matutino");
 		
 		System.out.println("\n####### Iniciando Teste 1 #######");
@@ -94,7 +94,7 @@ public class TesteAppCaixa {
 		System.out.println("\n#### Iniciando Teste 3 ####");
 		
 		// Codigo: 20120124500
-		Caixa caixabd = dao.buscar("20120124500");
+		Caixa caixabd = dao.buscar("118609431");
 		
 		try{
 			System.out.println(caixabd.toString());

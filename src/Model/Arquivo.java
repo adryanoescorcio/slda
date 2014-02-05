@@ -1,10 +1,8 @@
 package Model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 /**
@@ -21,18 +19,16 @@ public class Arquivo implements PadraoEntidade{
 	@Transient
 	private static final String NOMETABLE = "arquivo";
 	@Transient
-	private static final String NOMECOLUNAPK = "aluno_codigoAluno";
-
+	private static final String NOMECOLUNAPK = "aluno_codigoaluno";
+	
 	@Id
-	@OneToOne
-	private Aluno aluno = null;
+	@ManyToOne
+	private Aluno aluno;
 	
 	@ManyToOne
-	private Caixa caixa = null;
+	private Caixa caixa;
 	
-	@Column(nullable=false, unique=true)
 	private String codDossie = null;
-	
 	private String datadeEntradaArquivo = null;
 	
 	public Aluno getAluno() {
@@ -69,37 +65,35 @@ public class Arquivo implements PadraoEntidade{
 	}
 
 	@Override
-	public String getCodigo() {
-		// TODO Auto-generated method stub
-		return aluno.getCodigo();
-	}
-
-	@Override
-	public void setCodigo(String codigo) {
-		// TODO Auto-generated method stub
-		aluno.setCodigo(codigo);
-	}
-
-	@Override
 	public String getNomeTabelaBD() {
-		// TODO Auto-generated method stub
 		return NOMETABLE;
 	}
 
 	@Override
 	public String getNomeColunaPKBD() {
-		// TODO Auto-generated method stub
 		return NOMECOLUNAPK;
 	}
 	
 	@Override
 	public String toString() {
 		return "" +
-				"Codigo do Aluno: "+this.aluno.getCodigo()+ ", " +
-				"Codigo da Caixa: "+this.caixa.getCodigo()+ ", " +
-				"Codigo do Dossie: "+this.codDossie+ ", " +
-				"Data de Entrada do Arquivo: "+this.datadeEntradaArquivo+ ", " +
+				"Aluno: "+this.aluno.getCodigo()+ ", " +
+				"Caixa: "+this.caixa.getCodigo()+ ", " +
+				"Codigo: "+this.codDossie+ ", " +
+				"Entrada: "+this.datadeEntradaArquivo+ ", " +
 				"";
+	}
+
+	@Override
+	public String getCodigo() {
+		return this.aluno.getCodigo();
+	}
+
+	@Override
+	public void setCodigo(String codigo) {
+		this.aluno.setCodigo(codigo);
 	}
 	
 }
+
+

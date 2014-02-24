@@ -1,8 +1,9 @@
 package DAO;
 
 import Model.Aluno;
-import Model.PadraoEntidade;
+import Model.InterfacePadraoEntidade;
 import PrimaryKey.AlunoPK;
+import PrimaryKey.InterfaceKey;
 
 /**
  * Classe concreta para realizar o CRUD da Entidade Aluno.
@@ -43,7 +44,7 @@ public class AlunoDAO extends DAO {
 	}
 	
 	@Override
-	protected PadraoEntidade consultar(PrimaryKey.Key codigo) {
+	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
 		return em.find(Aluno.class, codigo);
 	}
 

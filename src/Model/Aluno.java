@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import PrimaryKey.AlunoPK;
-import PrimaryKey.Key;
+import PrimaryKey.InterfaceKey;
 
 /**
  * Classe concreta referente a Entidade Aluno do BD.
@@ -15,7 +15,7 @@ import PrimaryKey.Key;
  * @implements PadraoEntidade
  **/
 @Entity
-public class Aluno implements PadraoEntidade {
+public class Aluno implements InterfacePadraoEntidade {
 	
 	@Transient
 	private static final String NOMETABLE = "aluno";
@@ -203,6 +203,14 @@ public class Aluno implements PadraoEntidade {
 			"";
 	}
 	
+	public void setCodigo(String codigo) {
+		this.alunoPK.setCodigo(codigo);
+	}
+	
+	public String getCodigo() {
+		return this.alunoPK.toString();
+	}
+	
 	@Override
 	public String getNomeTabelaBD() {
 		return NOMETABLE;
@@ -214,19 +222,15 @@ public class Aluno implements PadraoEntidade {
 	}
 
 	@Override
-	public Key getCodigoKEY() {
+	public InterfaceKey getCodigoKEY() {
 		return this.alunoPK;
 	}
 
 	@Override
-	public void setCodigoKEY(Key codigo) {
+	public void setCodigoKEY(InterfaceKey codigo) {
 		this.alunoPK = (AlunoPK) codigo;
 	}
 	
-	@Override
-	public void setCodigo(String codigo) {
-		this.alunoPK.setCodigo(codigo);
-	}
 
 	
 }

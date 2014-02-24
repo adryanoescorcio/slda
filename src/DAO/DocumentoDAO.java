@@ -1,7 +1,9 @@
 package DAO;
 
 import Model.Documento;
-import Model.PadraoEntidade;
+import Model.InterfacePadraoEntidade;
+import PrimaryKey.DocumentoPK;
+import PrimaryKey.InterfaceKey;
 
 /**
  * Classe concreta para realizar o CRUD da Entidade Aluno.
@@ -12,6 +14,8 @@ import Model.PadraoEntidade;
  * */
 public class DocumentoDAO extends DAO {
 
+	private DocumentoPK pk;
+	
 	/**
 	 * <b>Construtor</b><p>
 	 * Transmite a conexao do BD para super classe.<br>
@@ -39,11 +43,14 @@ public class DocumentoDAO extends DAO {
 	 * Buscar Documento usando o protocolo(codigo)
 	 **/
 	public Documento buscar(String codigo) {
-		return (Documento) this.consultar(codigo);
+		pk = new DocumentoPK();
+		pk.setCodigo(codigo);
+		
+		return (Documento) this.consultar(pk);
 	}
-	
+
 	@Override
-	protected PadraoEntidade consultar(String codigo) {
+	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
 		return em.find(Documento.class, codigo);
 	}
 }

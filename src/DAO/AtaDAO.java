@@ -1,8 +1,9 @@
 package DAO;
 
 import Model.Ata;
-import Model.AtaPK;
-import Model.PadraoEntidade;
+import Model.InterfacePadraoEntidade;
+import PrimaryKey.AtaPK;
+import PrimaryKey.InterfaceKey;
 
 /**
  * Classe concreta para realizar o CRUD da Entidade Caixa.
@@ -30,20 +31,15 @@ public class AtaDAO extends DAO {
 	}
 	
 	/**
-	 * Buscar Caixa usando o codigo
+	 * Buscar Caixa usando o codigo. Necessário criar uma AtaPK
 	 **/
 	public Ata buscar(AtaPK codigo) {
 		return (Ata) this.consultar(codigo);
 	}
 	
-	protected PadraoEntidade consultar(AtaPK codigo) {
-		return em.find(Ata.class, codigo);
-	}
-
 	@Override
-	protected PadraoEntidade consultar(String codigo) {
-		// TODO Auto-generated method stub
-		return null;
+	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
+		return em.find(Ata.class, codigo);
 	}
 }
 

@@ -1,6 +1,6 @@
 package Model;
 
-import PrimaryKey.Key;
+import PrimaryKey.InterfaceKey;
 
 
 /**
@@ -8,17 +8,17 @@ import PrimaryKey.Key;
  * @author Adryano Escorcio
  * @version 1.5
  **/
-public interface PadraoEntidade {
+public interface InterfacePadraoEntidade {
 	
 	/**
 	 * Pegar o Codigo(PK) da entidade
 	 **/
-	public Key getCodigoKEY();
+	public InterfaceKey getCodigoKEY();
 
 	/**
 	 * Modificar o Codigo(PK) da entidade
 	 **/
-	public void setCodigoKEY(Key chaveEntidade);
+	public void setCodigoKEY(InterfaceKey chaveEntidade);
 	
 	/**
 	 * Retorna o nome da tabela que é referente a classe no BD
@@ -37,6 +37,4 @@ public interface PadraoEntidade {
 	@Override
 	public String toString();
 
-	
-	void setCodigo(String codigo);
 }

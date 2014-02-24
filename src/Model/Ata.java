@@ -4,8 +4,11 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
+import PrimaryKey.AtaPK;
+import PrimaryKey.InterfaceKey;
+
 @Entity
-public class Ata implements PadraoEntidade {
+public class Ata implements InterfacePadraoEntidade {
 
 	@Transient
 	private static final String NOMETABLE = "ata";
@@ -86,16 +89,19 @@ public class Ata implements PadraoEntidade {
 	/**
 	 * Não implementada para esta Entidade que possui chave composta.
 	 **/
+	public void setCodigo(String turnoAta, String turmaAta, String anoAta) {
+		this.ata.setTurnoAta(turnoAta);
+		this.ata.setAnoAta(anoAta);
+		this.ata.setTurmaAta(turmaAta);
+	}
+	
 	@Override
-	public String getCodigo() {
-		return null;
+	public InterfaceKey getCodigoKEY() {
+		return this.ata;
 	}
 
-	/**
-	 * Não implementada para esta Entidade que possui chave composta.
-	 **/
 	@Override
-	public void setCodigo(String codigo) {
-		
+	public void setCodigoKEY(InterfaceKey chaveEntidade) {
+		this.ata = (AtaPK) chaveEntidade;
 	}
 }

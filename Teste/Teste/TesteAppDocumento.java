@@ -28,10 +28,10 @@ public class TesteAppDocumento {
 	public TesteAppDocumento() {
 		this.conexaoBD = new JPAUtil();
 		this.dao = new DocumentoDAO(conexaoBD);
-		this.aluno.setCodigo("20120124500");
+		this.aluno.setCodigo("777291288");
 	}
 	
-//	@Test
+	@Test
 	public void conexao() {
 		EntityManager em = dao.getEm();
 		System.out.println(em.isOpen()); 
@@ -40,7 +40,7 @@ public class TesteAppDocumento {
 		Documento doc = new Documento();
 		doc.setCodigo(numAleatorio());
 		Aluno aluno = new Aluno();
-		aluno.setCodigo("20120124500");
+		aluno.setCodigo("777291288");
 		
 		doc.setAluno(aluno);
 		
@@ -68,7 +68,7 @@ public class TesteAppDocumento {
 		System.out.println("\n+++ Primeiro Teste - Inserir");
 		
 		AlunoDAO daoAluno = new AlunoDAO(conexaoBD);
-		Aluno aluno2 = daoAluno.buscar("20120124500");
+		Aluno aluno2 = daoAluno.buscar("777291288");
 		
 		// inserindo aluno
 		boolean retorno = dao.save(doc);
@@ -77,7 +77,7 @@ public class TesteAppDocumento {
 		Documento doc2 = new Documento();
 
 		// Setando os valores
-		doc2.setCodigo("134287583");
+		doc2.setCodigo("396718113");
 		dao.save(doc2);
 		
 		System.out.println("\n+++ Terceiro Teste - Atualizar");

@@ -6,11 +6,11 @@
     <persistence-unit name="manager" transaction-type="RESOURCE_LOCAL">
       <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
       <class>Model.Aluno</class>
-<!--       <class>Model.Documento</class> -->
-<!--       <class>Model.Caixa</class> -->
-<!--       <class>Model.Arquivo</class> -->
-<!--       <class>Model.Ata</class> -->
-<!--       <class>Model.AtaResultado</class> -->
+      <class>Model.Documento</class>
+      <class>Model.Caixa</class>
+      <class>Model.Arquivo</class>
+      <class>Model.Ata</class>
+      <class>Model.AtaResultado</class>
       <properties>
         <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
         <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:sldav1.db" />

@@ -1,10 +1,13 @@
 package Model;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
+
+import PrimaryKey.DocumentoPK;
+import PrimaryKey.InterfaceKey;
 
 /**
  * Classe concreta referente a Entidade Documento do BD.
@@ -14,15 +17,15 @@ import javax.persistence.Transient;
  * @implements PadraoEntidade
  **/
 @Entity
-public class Documento implements PadraoEntidade {
+public class Documento implements InterfacePadraoEntidade {
 
 	@Transient
 	private static final String NOMETABLE = "documento";
 	@Transient
 	private static final String NOMECOLUNAPK = "protocolopedidodocumento";
-
-	@Id
-	private String protocoloPedidoDocumento = null;
+	
+	@EmbeddedId
+	private DocumentoPK documentopk = new DocumentoPK(); 
 	private String nomeDocumento = null;
 	@Column(length=100)
 	private String descricao = null;
@@ -92,8 +95,8 @@ public class Documento implements PadraoEntidade {
 	@Override
 	public String toString() {
 		return "" +
-				"Codigo: "+this.protocoloPedidoDocumento+ ", " +
-				"Codigo Aluno: "+this.getAluno().getCodigo()+ ", " +
+				"Codigo: "+ this.documentopk.toString()+ ", " +
+				"Codigo Aluno: "+this.getAluno().toString()+ ", " +
 				"Codigo Aluno: "+this.nomeDocumento+ ", " +
 				"Codigo Aluno: "+this.descricao+ ", " +
 				"Codigo Aluno: "+this.dataEntrega+ ", " +
@@ -102,15 +105,6 @@ public class Documento implements PadraoEntidade {
 				"";
 	}
 	
-	@Override
-	public String getCodigo() {
-		return this.protocoloPedidoDocumento;
-	}
-
-	@Override
-	public void setCodigo(String codigo) {
-		this.protocoloPedidoDocumento = codigo;
-	}
 
 	@Override
 	public String getNomeTabelaBD() {
@@ -120,6 +114,20 @@ public class Documento implements PadraoEntidade {
 	@Override
 	public String getNomeColunaPKBD() {
 		return NOMECOLUNAPK;
+	}
+
+	@Override
+	public InterfaceKey getCodigoKEY() {
+		return this.documentopk;
+	}
+
+	@Override
+	public void setCodigoKEY(InterfaceKey chaveEntidade) {
+		this.documentopk = (DocumentoPK) chaveEntidade;
+	}
+
+	public void setCodigo(String codigo) {
+		this.documentopk.setCodigo(codigo);
 	}
 
 }

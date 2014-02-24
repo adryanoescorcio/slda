@@ -56,8 +56,8 @@ public class TesteAppArquivo {
 	public void inserirAtualizarDocumento() {
 		
 		// Setando os valores
-		Caixa caixa = caixaDAO.buscar("118609431");
-		Aluno aluno = alunoDAO.buscar("2012032456779");
+		Caixa caixa = caixaDAO.buscar("941066905");
+		Aluno aluno = alunoDAO.buscar("310951701");
 		Arquivo arquivo = new Arquivo();
 		arquivo.setAluno(aluno);
 		arquivo.setCaixa(caixa);
@@ -72,9 +72,9 @@ public class TesteAppArquivo {
 		boolean retorno = dao.save(arquivo);
 		
 		System.out.println("\n+++ Segundo Teste - Atualizar");
-		Caixa caixa2 = caixaDAO.buscar("976643059");
+		Caixa caixa2 = caixaDAO.buscar("781373626");
 		Arquivo arquivo2 = new Arquivo();
-		Aluno aluno2 = alunoDAO.buscar("2012032456779");
+		Aluno aluno2 = alunoDAO.buscar("827768098");
 		arquivo2.setCaixa(caixa2);
 		arquivo2.setAluno(aluno2);
 		
@@ -86,13 +86,13 @@ public class TesteAppArquivo {
 			System.out.println("\n****** Teste 1 - 100% OK ******");
 	}
 	
-	@Test
+//	@Test
 	public void removerAluno(){
 		
 		// instanciando aluno
 		Arquivo arq = new Arquivo();
-		arq.setAluno(alunoDAO.buscar("20120124566"));
-		arq.setCaixa(caixaDAO.buscar("976643059"));
+		arq.setAluno(alunoDAO.buscar("777291288"));
+		arq.setCaixa(caixaDAO.buscar("781373626"));
 		arq.setCodDossie(numAleatorio());
 		System.out.println("\n#### Iniciando Teste 2 ####");
 		// aluno é inserido
@@ -105,14 +105,14 @@ public class TesteAppArquivo {
 			System.out.println("****** OK Teste 2. ******");
 	}
 
-	@Test
+//	@Test
 	public void testarBuscaAlterar() {
 		System.out.println("\n#### Iniciando Teste 3 ####");
 		
 		//buscando a partir do codAluno
-		Arquivo arq = dao.buscar("201203245133");
+//		Arquivo arq = dao.buscar("201203245133");
 		
-		System.out.println(arq.toString());
+//		System.out.println(arq.toString());
 		System.out.println("****** OK Teste 3. ******");
 	}
 	

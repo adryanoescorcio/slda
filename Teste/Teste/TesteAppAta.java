@@ -9,12 +9,12 @@ import org.junit.Test;
 import DAO.AtaDAO;
 import DAO.JPAUtil;
 import Model.Ata;
-import Model.AtaPK;
+import PrimaryKey.AtaPK;
 
 public class TesteAppAta {
 
 	private static final int INTERVALO = 999999999;
-	EntityManager em;
+	private EntityManager em;
 	private JPAUtil conexaoBD;
 	private Random rand;
 	private AtaDAO dao;
@@ -24,25 +24,20 @@ public class TesteAppAta {
 		dao = new AtaDAO(conexaoBD);
 	}
 
-    @Test
+//    @Test
 	public void conexao() {
 		EntityManager em = dao.getEm();
 		System.out.println(em.isOpen()); 
 	}
 	
-//	@Test
+	@Test
 	public void inserirAtualizarAta() {
 	
 		// instanciando caixa
 		Ata ata = new Ata();
 		
 		// Setando os valores
-		AtaPK atapk = new AtaPK();
-		atapk.setTurmaAta("402");
-		atapk.setAnoAta("2014");
-		atapk.setTurnoAta("Vespertino");
-//		ata.setAtapk(atapk);
-		ata.setCodigo(getCodigoDaAta(atapk));
+		ata.setCodigo("Matutino","202","2012");
 		ata.setModalidadeAta("Normal");
 		ata.setEnsinoAta("Medio");
 		
@@ -66,8 +61,7 @@ public class TesteAppAta {
 		atapk.setTurmaAta("406");
 		atapk.setAnoAta("2013");
 		atapk.setTurnoAta("Vespertino");
-//		ata.setAtapk(atapk);
-		ata.setCodigo(getCodigoDaAta(atapk));
+		ata.setCodigo("Matutino","202","2012");
 		ata.setModalidadeAta("Normal");
 		ata.setEnsinoAta("Superior");
 		
@@ -87,10 +81,10 @@ public class TesteAppAta {
 		System.out.println("\n#### Iniciando Teste 3 ####");
 		
 		// Codigo: 20120124500
-		Ata ata = dao.buscar("402 - 2014 - Vespertino");
+//		Ata ata = dao.buscar("402 - 2014 - Vespertino");
 		
 		try{
-			System.out.println(ata.toString());
+//			System.out.println(ata.toString());
 		} catch (NullPointerException e) {
 			System.out.println("Atencao: Não existe nenhuma caixa com o codigo digitado");
 		}

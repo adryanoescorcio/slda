@@ -4,8 +4,8 @@ import java.sql.Statement;
 
 import javax.persistence.EntityManager;
 
-import Model.PadraoEntidade;
-import PrimaryKey.Key;
+import Model.InterfacePadraoEntidade;
+import PrimaryKey.InterfaceKey;
 
 /**
  * Classe abstrata que implementa as funções genericas do CRUD<br>
@@ -49,7 +49,7 @@ public abstract class DAO {
 	 * Inserir um objeto PadraoEntidade no BD
 	 * <p><b>Observação:</b><br> Entidade não inicia a transação com BD
 	 **/
-	protected boolean saveEntidade(PadraoEntidade entidade){
+	protected boolean saveEntidade(InterfacePadraoEntidade entidade){
 		
 		try {
 			System.out.println("Salvando: " + entidade.getCodigoKEY());
@@ -65,7 +65,7 @@ public abstract class DAO {
 	 * Remover um objeto PadraoEntidade do BD.
 	 * <h1><b>Atençao:</b></h1> Note a diferença das assinaturas de metodos. 
 	 **/
-	protected boolean remover(PadraoEntidade entidade){
+	protected boolean remover(InterfacePadraoEntidade entidade){
 	
 		try {
 			System.out.println("Removendo: "+entidade.getCodigoKEY());
@@ -83,14 +83,14 @@ public abstract class DAO {
 	/**
 	 * Consultar um objeto PadraoEntidade do BD 
 	 **/
-	protected abstract PadraoEntidade consultar(Key key);
+	protected abstract InterfacePadraoEntidade consultar(InterfaceKey key);
 	
-	protected boolean removerPorCodigoPK(Key codigo){
+	protected boolean removerPorCodigoPK(InterfaceKey codigo){
 		return this.remover(
 				this.consultar(codigo));
 	}
 	
-	protected boolean removerPorObjetoEntidade(PadraoEntidade entidade){
+	protected boolean removerPorObjetoEntidade(InterfacePadraoEntidade entidade){
 		return this.remover(
 				this.consultar(
 						entidade.getCodigoKEY()));
@@ -99,7 +99,7 @@ public abstract class DAO {
 	/**
 	 * Atualizar um objeto PadraoEntidade do BD 
 	 **/
-	protected boolean atualizar(PadraoEntidade entidade) {
+	protected boolean atualizar(InterfacePadraoEntidade entidade) {
 		try{
 			//atualizar
 			System.out.println("Alterando");
@@ -115,12 +115,12 @@ public abstract class DAO {
 	/**
 	 * Metodo para inserir/atualiza o Entidade no Banco de Dados.
 	 **/	
-	protected boolean save(PadraoEntidade objeto){
+	protected boolean save(InterfacePadraoEntidade objeto){
 		this.beginTransaction();
 		
 		try {
 			// verificar se a entidade já existe no banco de dados
-			PadraoEntidade entidade = this.consultar(objeto.getCodigoKEY());
+			InterfacePadraoEntidade entidade = this.consultar(objeto.getCodigoKEY());
 			
 			//se não existir no BD, persistir entidade
 			if(entidade == null) {			
@@ -179,10 +179,10 @@ public abstract class DAO {
 		this.beginTransaction();
 		
 		try {
-			return this.removerPorObjetoEntidade((PadraoEntidade) params);
+			return this.removerPorObjetoEntidade((InterfacePadraoEntidade) params);
 			
 		} catch (Exception e) {
-			return this.removerPorCodigoPK((Key) params);
+			return this.removerPorCodigoPK((InterfaceKey) params);
 		}
 	}
 	

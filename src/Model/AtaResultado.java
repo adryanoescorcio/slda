@@ -2,90 +2,69 @@ package Model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Transient;
+import PrimaryKey.AtaResultadoPK;
+import PrimaryKey.InterfaceKey;
 
 @Entity
-public class AtaResultado implements PadraoEntidade{
+public class AtaResultado implements InterfacePadraoEntidade{
 
 	@Transient
 	private static final String NOMETABLE = "ataResultado";
 	@Transient
 	private static final String NOMECOLUNAPK = "codAluno; turmaAta; anoAta; turnoAta";
 	
-	/**
-	 * A entidade aluno sai da tabela porque a AtaPK possui um atributo que guarda o codigo do aluno.
-	 * Tem como conseguencia aumento do processamento para busca o aluno no BD.
-	 **/
-	@Transient
-	private Aluno aluno = null;
-
-	@Id
-	@GeneratedValue
-	private String ataResultadoPK = null;
-	
 	@EmbeddedId
-	private AtaPK ata = new AtaPK();
+	private AtaResultadoPK atapk = new AtaResultadoPK();
 	
-	
-	@Override
-	public String getCodigo() {
-		return ataResultadoPK;
-	}
-
-	/**
-	 * Não Implementado para essa Entidade porque o ID é AutoIncrement.
-	 **/
-	@Override
-	public void setCodigo(String codigo) {
-		// vazio
+	public void setCodigo(String aluno, String turnoAta, String turmaAta, String anoAta) {
+		atapk.setAluno(aluno);
+		atapk.setAnoAta(anoAta);
+		atapk.setTurmaAta(turmaAta);
+		atapk.setTurnoAta(turnoAta);
 	}
 	
 	@Override
 	public String getNomeTabelaBD() {
-		return ataResultadoPK;
+		return NOMETABLE;
 	}
+	
 	@Override
 	public String getNomeColunaPKBD() {
-		// TODO
-		return null;
-	}
-
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-		this.ata.setCodAluno(aluno.getCodigo());
+		return NOMECOLUNAPK;
 	}
 
 	public String getTurmaAta() {
-		return ata.getTurmaAta();
+		return atapk.getTurmaAta();
 	}
 
 	public void setTurmaAta(String turmaAta) {
-		ata.setTurmaAta(turmaAta);
+		atapk.setTurmaAta(turmaAta);
 	}
 
 	public String getTurnoAta() {
-		return ata.getTurnoAta();
+		return atapk.getTurnoAta();
 	}
 
 	public void setTurnoAta(String turnoAta) {
-		ata.setTurnoAta(turnoAta);
+		atapk.setTurnoAta(turnoAta);
 	}
 
 	public String getAnoAta() {
-		return ata.getAnoAta();
+		return atapk.getAnoAta();
 	}
 
 	public void setAnoAta(String anoAta) {
-		ata.setAnoAta(anoAta);
+		atapk.setAnoAta(anoAta);
 	}
 	
-	public AtaPK getAta() {
-		return ata;
+	@Override
+	public InterfaceKey getCodigoKEY() {
+		return atapk;
+	}
+
+	@Override
+	public void setCodigoKEY(InterfaceKey chaveEntidade) {
+		this.atapk = (AtaResultadoPK) chaveEntidade;
 	}
 }

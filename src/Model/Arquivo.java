@@ -1,9 +1,11 @@
 package Model;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
+
+import PrimaryKey.ArquivoPK;
+import PrimaryKey.InterfaceKey;
 
 /**
  * Classe concreta referente a Entidade Arquivo do BD.
@@ -14,19 +16,21 @@ import javax.persistence.Transient;
  **/
 
 @Entity
-public class Arquivo implements PadraoEntidade{
+public class Arquivo implements InterfacePadraoEntidade{
 	
 	@Transient
 	private static final String NOMETABLE = "arquivo";
 	@Transient
 	private static final String NOMECOLUNAPK = "aluno_codigoaluno";
 	
-	@Id
-	@ManyToOne
-	private Aluno aluno;
+	@EmbeddedId
+	private ArquivoPK arquivopk = new ArquivoPK();
 	
-	@ManyToOne
-	private Caixa caixa;
+	@Transient
+	private Aluno aluno = null;
+	
+	@Transient
+	private Caixa caixa = null;
 	
 	private String codDossie = null;
 	private String datadeEntradaArquivo = null;
@@ -37,6 +41,7 @@ public class Arquivo implements PadraoEntidade{
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
+		this.arquivopk.setCodigoAluno(aluno.getCodigo());
 	}
 
 	public Caixa getCaixa() {
@@ -45,6 +50,7 @@ public class Arquivo implements PadraoEntidade{
 
 	public void setCaixa(Caixa caixa) {
 		this.caixa = caixa;
+		this.arquivopk.setCodigoCaixa(caixa.getCodigo());
 	}
 
 	public String getCodDossie() {
@@ -77,21 +83,35 @@ public class Arquivo implements PadraoEntidade{
 	@Override
 	public String toString() {
 		return "" +
-				"Aluno: "+this.aluno.getCodigo()+ ", " +
-				"Caixa: "+this.caixa.getCodigo()+ ", " +
-				"Codigo: "+this.codDossie+ ", " +
-				"Entrada: "+this.datadeEntradaArquivo+ ", " +
-				"";
+			"Aluno: "+this.aluno.getCodigo()+ ", " +
+			"Caixa: "+this.caixa.getCodigo()+ ", " +
+			"Codigo: "+this.codDossie+ ", " +
+			"Entrada: "+this.datadeEntradaArquivo+ ", " +
+			"";
 	}
-
-	@Override
+	
 	public String getCodigo() {
 		return this.aluno.getCodigo();
 	}
-
-	@Override
+	
 	public void setCodigo(String codigo) {
 		this.aluno.setCodigo(codigo);
+	}
+
+	/**
+	 * Não Implementado para esta classe
+	 **/
+	@Override
+	public InterfaceKey getCodigoKEY() {
+		return this.arquivopk;
+	}
+
+	/**
+	 * Não Implementado para esta classe
+	 **/
+	@Override
+	public void setCodigoKEY(InterfaceKey chaveEntidade) {
+		this.arquivopk = (ArquivoPK) chaveEntidade;
 	}
 	
 }

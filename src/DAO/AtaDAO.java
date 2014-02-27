@@ -1,7 +1,6 @@
 package DAO;
 
 import Model.Ata;
-import Model.AtaPK;
 import Model.PadraoEntidade;
 
 /**

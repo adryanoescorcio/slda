@@ -8,10 +8,8 @@ import org.junit.Test;
 import DAO.AlunoDAO;
 import DAO.AtaDAO;
 import DAO.AtaResultadoDAO;
-import DAO.CaixaDAO;
 import DAO.JPAUtil;
 import Model.Aluno;
-import Model.Ata;
 import Model.AtaPK;
 import Model.AtaResultado;
 
@@ -22,15 +20,11 @@ public class TesteAppAtaResultado {
 	private JPAUtil conexaoBD;
 	private Random rand;
 	private AtaResultadoDAO dao;
-	private AlunoDAO alunoDAO;
-	private AtaDAO ataDAO;
-	
-
 	public TesteAppAtaResultado() {
 		this.conexaoBD = new JPAUtil();
 		dao = new AtaResultadoDAO(conexaoBD);
-		alunoDAO = new AlunoDAO(conexaoBD);
-		ataDAO = new AtaDAO(conexaoBD);
+		new AlunoDAO(conexaoBD);
+		new AtaDAO(conexaoBD);
 	}
 
     @Test

@@ -1,4 +1,4 @@
-package Views;
+package Forms;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class AlterarAluno extends JPanel{
 
+	private static final String DIR_MAIN_ICONES = "../Icones/";
 	//DECLARAÇÃO DE VARIÁVEIS
 	JButton botaoSalvar;
 	JButton botaoBuscar;
@@ -193,7 +194,7 @@ public class AlterarAluno extends JPanel{
 		combo4.addItem("SE");
 		combo4.addItem("TO");
 		
-		Icon iconSalvar = new ImageIcon(getClass().getResource("img/save3.png"));
+		Icon iconSalvar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"save3.png"));
 		botaoSalvar = new JButton(" Salvar", iconSalvar);
 		botaoBuscar = new JButton("Buscar");
 		

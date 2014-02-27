@@ -1,4 +1,4 @@
-package Views;
+package Forms;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class CadastrarAta extends JPanel{
 
+	private static final String DIR_MAIN_ICONES = "../Icones/";
 	//DECLARAÇÃO DE VARIÁVEIS
 	JButton botaoInserir;
 	JButton botaoSalvar;
@@ -40,7 +41,7 @@ public class CadastrarAta extends JPanel{
 		setLayout(new BorderLayout());
 		
 		//INICIALIZAÇÃO DE VARIÁVEIS
-		Icon iconSalvar = new ImageIcon(getClass().getResource("img/save3.png"));
+		Icon iconSalvar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"save3.png"));
 		botaoSalvar = new JButton("  Salvar", iconSalvar);
 		botaoInserir = new JButton("Inserir Aluno");
 		

@@ -1,4 +1,4 @@
-package Views;
+package Forms;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * Classe que representa a tela Arquivo - Localizar
+ * Classe que representa a tela Arquivo - Pedido
  * 
  * @author Walysson Oliveira
  * @version 1.5
@@ -20,9 +20,13 @@ import javax.swing.JTextField;
  **/
 
 @SuppressWarnings("serial")
-public class LocalizarArquivo extends JPanel{
+public class PedidoArquivo extends JPanel{
 
 	//DECLARAÇÃO DE VARIÁVEIS
+	JButton botaoRegPedido;
+	JButton botaoRegEntrega;
+	JButton botaoVerificar;
+	
 	JTextField tf1;
 	JTextField tf2;
 	JTextField tf3;
@@ -32,15 +36,17 @@ public class LocalizarArquivo extends JPanel{
 	JTextField tf7;
 	JTextField tf8;
 		
-	JButton botao;
-	
 	JComboBox<String> combo;
-	
-	public LocalizarArquivo() {
+
+	public PedidoArquivo() {
 
 		setLayout(new GridLayout(20, 4, 5, 5));
 		
 		//INICIALIZAÇÃO DE VARIÁVEIS
+		botaoRegPedido = new JButton("Registrar");
+		botaoRegEntrega = new JButton("Registrar");
+		botaoVerificar = new JButton("Verificar");
+		
 		tf1 = new JTextField();
 		tf2 = new JTextField();
 		tf3 = new JTextField();
@@ -50,22 +56,28 @@ public class LocalizarArquivo extends JPanel{
 		tf7 = new JTextField();
 		tf8 = new JTextField();
 		
-		botao = new JButton("Localizar");
-		
 		combo = new JComboBox<String>();
 		
 		//CONFIGURAÇÕES DE VARIÁVEIS
 		//------>ESSA CAIXA DE SELEÇÃO TAMBÉM PODE SER SUBSTITUIDA POR UMA JTABLE
-		//------>ELA MOSTRA AS ATAS COM O NOME DO ALUNO
-		
+		//------>ELA MOSTRA OS DOCUMENTOS QUE FORAM PEDIDOS, MAS AINDA NÃO FORAM ENTREGUES
+				
 		/*------>COLOQUEI ALGUNS ITENS SÓ PRA VER SE O TAMANHO ESTÁ BOM, MAS ELA TEM QUE SER INICIALIZADA VAZIA
-		 * E PREENCHIDA PELAS ATAS DO BD COM O NOME DO ALUNO
+		 * E PREENCHIDA PELOS DOCUMENTOS COM SITUAÇÃO AINDA ATIVO OU NÃO FINALIZADO
 		 */
 		combo.setBackground(Color.WHITE);
 		combo.addItem("");
-		combo.addItem("Testes para ver se o tamanho está bom: Aprovado");
-		combo.addItem("Turno: Verpertino - Turma: 203 - Ano:2013");
-		combo.addItem("Turno: Matutino - Turma: 34702 - Ano:2014");
+		combo.addItem("1");
+		combo.addItem("2");
+		combo.addItem("3");
+		combo.addItem("Testes para ver se o tamanho está bom: Reprovado");
+		combo.addItem("Protocolo: 12345678 - Walysson Carlos Dos Santos Oliveira");
+		combo.addItem("5");
+		combo.addItem("6");
+		combo.addItem("7");
+		combo.addItem("5");
+		combo.addItem("5");
+		combo.addItem("5");
 		
 		//PAINEIS DE DIVISÃO DE CÉLULA
 		JPanel linha = new JPanel();
@@ -112,40 +124,50 @@ public class LocalizarArquivo extends JPanel{
 		linha10.setLayout(new GridLayout(1, 2, 5, 5));
 		linha10.setBackground(Color.WHITE);
 		
-		Label nome = new Label("Localizar Documentos do Aluno");
-		nome.setFont(new Font("san_serif", Font.BOLD, 19));
-		nome.setForeground(Color.GRAY);
-	
+		Label nome1 = new Label("Registrar Pedido de Documento");
+		nome1.setFont(new Font("san_serif", Font.BOLD, 19));
+		nome1.setForeground(Color.GRAY);
+
+		Label nome2 = new Label("Registrar Entrega");
+		nome2.setFont(new Font("san_serif", Font.BOLD, 19));
+		nome2.setForeground(Color.GRAY);
+		
+		Label nome3 = new Label("Verificar Pendentes");
+		nome3.setFont(new Font("san_serif", Font.BOLD, 19));
+		nome3.setForeground(Color.GRAY);
+		
 		//ADICIONANDO COMPONENTES AOS PAINEIS DE DIVISÃO DE CÉLULA
-		linha1.add(new JLabel("Matrícula do Aluno:"));			linha1.add(tf2);						
-		linha2.add(botao);										linha2.add(new Label(""));
-		linha3.add(new JLabel("Código da Caixa:"));				linha3.add(tf3);						
-		linha4.add(new JLabel("Turno:"));						linha4.add(tf4);
-		linha5.add(new JLabel("Status:"));						linha5.add(tf5);
-		linha6.add(new JLabel("Código do Dossiê:"));			linha6.add(tf6);
-		linha7.add(new JLabel("Data de Entrada do Aluno:"));	linha7.add(tf7);
+		linha1.add(new JLabel("Documento:"));					linha1.add(tf2);						
+		linha2.add(new JLabel("Matrícula do Aluno:"));			linha2.add(tf3);						
+		linha3.add(new JLabel("Nome do Aluno:"));				linha3.add(tf4);						
+		linha4.add(botaoRegPedido);								linha4.add(new Label(""));
 	
+		linha5.add(new JLabel("Número do Protocolo:"));			linha5.add(tf5);						
+		linha6.add(botaoRegEntrega);							linha6.add(new Label(""));
+		
+		linha7.add(botaoVerificar);								linha7.add(new Label(""));
+
 		//ADICIONANDO COMPONENTES À TELA
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(nome);											add(new Label(""));			add(new Label(""));			
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(new JLabel("Nome do Aluno:"));					add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(tf1);											add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(linha1);										add(linha2);				add(new Label(""));
+		add(new Label(""));					add(nome1);											add(new Label(""));			add(new Label(""));			
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(linha3);										add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(linha4);										add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(linha5);										add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(linha6);										add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(linha7);										add(new Label(""));			add(new Label(""));
+		add(new Label(""));					add(linha1);										add(new Label(""));			add(new Label(""));
+		add(new Label(""));					add(linha2);										add(new Label(""));			add(new Label(""));
+		add(new Label(""));					add(linha3);										add(linha4);				add(new Label(""));
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(new JLabel("Atas que Contém o nome do Aluno:"));add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(combo);											add(new Label(""));			add(new Label(""));
+		add(new Label(""));					add(nome2);											add(new Label(""));			add(new Label(""));
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
+		add(new Label(""));					add(linha5);										add(linha6);				add(new Label(""));
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
+		add(new Label(""));					add(nome3);											add(new Label(""));			add(new Label(""));
+		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
+		add(new Label(""));					add(combo);											add(linha7);				add(new Label(""));
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
-
+		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
+		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
+	
 		setBackground(Color.WHITE);
 
 	}

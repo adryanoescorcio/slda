@@ -1,4 +1,4 @@
-package Views;
+package Forms;
 
 import java.awt.Color;
 
@@ -22,11 +22,25 @@ import javax.swing.JTabbedPane;
 @SuppressWarnings("serial")
 public class Principal extends JFrame{
 	
-	JTabbedPane camadaExterna;
+	private static final String DIR_MAIN_ICONES = "../Icones/";
 	
+	JTabbedPane camadaExterna;
 	JTabbedPane camadaAluno;
 	JTabbedPane camadaArquivo;
 	JTabbedPane camadaAta;
+	
+	Icon iconLocalizar;
+	Icon iconAluno;
+	Icon iconCaixa;
+	Icon iconAta;
+	Icon iconArquivo;
+	Icon iconCadastrar;
+	Icon iconExcluir;
+	Icon iconMovimentacao;
+	Icon iconAlterar;
+	
+	MenuUser menuUser = new MenuUser();
+	
 	
 	public Principal(){
 		super("SLDA - Sistema de Localização de Documentos do Aluno");
@@ -48,13 +62,7 @@ public class Principal extends JFrame{
 		camadaAta.setBackground(Color.WHITE);
 		
 		//---------> CRIANDO O USUARIO EXPORTAR E SEUS ITENS <-----------
-		JMenu menuUsuario = new JMenu("Usuário");	
-		//ADICIONA UM MNEMÔNICO OU ATALHO(ALT + U) 
-		menuUsuario.setMnemonic('U');
-		JMenuItem itemFazerLogin = new JMenuItem("Fazer Login"); 
-		menuUsuario.add(itemFazerLogin); 
-		JMenuItem itemFazerLogoff = new JMenuItem("Fazer Logoff"); 
-		menuUsuario.add(itemFazerLogoff); 
+		
 		
 		//---------> CRIANDO O MENU EXPORTAR E SEU ITEM <-----------
 		JMenu menuExportar = new JMenu("Exportar");	
@@ -89,24 +97,16 @@ public class Principal extends JFrame{
 		menuAvancado.add(itemControle);
 		
 		//---------> CRIANDO A BARRA DE MENUS E ADICIONANDO MENUS A ELA<-----------
+		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		menuBar.add(menuUsuario);
+		menuBar.add(menuUser.getMenuUsuario());
 		menuBar.add(menuExportar);
 		menuBar.add(menuImportar);
 		menuBar.add(menuVisualizar);
 		menuBar.add(menuAvancado);
-		
-		//---------> CRIANDO OS ÍCONES<-----------
-		Icon iconLocalizar = new ImageIcon(getClass().getResource("img/localizar.jpg"));
-		Icon iconAluno = new ImageIcon(getClass().getResource("img/aluno.jpg"));
-		Icon iconCaixa = new ImageIcon(getClass().getResource("img/caixa.jpg"));
-		Icon iconAta = new ImageIcon(getClass().getResource("img/ata.jpg"));
-		Icon iconArquivo = new ImageIcon(getClass().getResource("img/arquivo.jpg"));
-		Icon iconCadastrar = new ImageIcon(getClass().getResource("img/cadastrar.jpg"));
-		Icon iconExcluir = new ImageIcon(getClass().getResource("img/excluir.jpg"));
-		Icon iconMovimentacao = new ImageIcon(getClass().getResource("img/documento.jpg"));
-		Icon iconAlterar = new ImageIcon(getClass().getResource("img/alterar.jpg"));
+				
+		criandoIcones();
 	
 		//INSTANCIANDO OS PAINEIS
 		JPanel localizarAluno = new LocalizarArquivo();
@@ -147,6 +147,20 @@ public class Principal extends JFrame{
 		setSize(1050, 700);
 	}
 		
+	private void criandoIcones() {
+		
+		//---------> CRIANDO OS ÍCONES<-----------
+		 iconLocalizar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"localizar.jpg"));
+		 iconAluno = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"aluno.jpg"));
+		 iconCaixa = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"caixa.jpg"));
+		 iconAta = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"ata.jpg"));
+		 iconArquivo = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"arquivo.jpg"));
+		 iconCadastrar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"cadastrar.jpg"));
+		 iconExcluir = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"excluir.jpg"));
+		 iconMovimentacao = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"documento.jpg"));
+		 iconAlterar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"alterar.jpg"));
+	}
+
 	public static void main(String[] args) {
 		Principal tela = new Principal();
 		

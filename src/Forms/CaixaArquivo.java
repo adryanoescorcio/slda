@@ -1,4 +1,4 @@
-package Views;
+package Forms;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -23,6 +23,8 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class CaixaArquivo extends JPanel{
 
+	private static final String DIR_MAIN_ICONES = "../Icones/";
+	
 	JButton botaoSalvar;
 	JButton botaoInserir;
 	JButton botaoInativa;
@@ -40,7 +42,7 @@ public class CaixaArquivo extends JPanel{
 		
 		setLayout(new GridLayout(20, 4, 5, 5));
 		
-		Icon iconSalvar = new ImageIcon(getClass().getResource("img/save3.png"));
+		Icon iconSalvar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"save3.png"));
 		botaoSalvar = new JButton("  Salvar", iconSalvar);
 		botaoInserir = new JButton("Inserir");
 		botaoInativa = new JButton("Definir");

@@ -41,7 +41,7 @@ public class JPAUtil {
 			this.factory = Persistence.createEntityManagerFactory("manager");
 			this.em = factory.createEntityManager();
 		} catch(Exception e) {
-			System.out.println("Erro: conexao JPA");
+			System.out.println("Erro: conexao JPA" +e.getMessage());
 		}
 		
 		// Conexao com JDBC

@@ -1,8 +1,9 @@
 package DAO;
 
-import Model.AtaPK;
 import Model.AtaResultado;
-import Model.PadraoEntidade;
+import Model.InterfacePadraoEntidade;
+import PrimaryKey.AtaResultadoPK;
+import PrimaryKey.InterfaceKey;
 
 public class AtaResultadoDAO extends DAO {
 
@@ -25,18 +26,13 @@ public class AtaResultadoDAO extends DAO {
 	/**
 	 * Buscar Caixa usando o codigo
 	 **/
-	public AtaResultado buscar(String codigo) {
+	public AtaResultado buscar(AtaResultadoPK codigo) {
 		return (AtaResultado) this.consultar(codigo);
 	}
 	
-	protected PadraoEntidade consultar(AtaPK atapk) {
-		return em.find(AtaResultado.class, atapk);
-	}
-
 	@Override
-	protected PadraoEntidade consultar(String codigo) {
-		// TODO Auto-generated method stub
-		return null;
+	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
+		return em.find(AtaResultado.class, codigo);
 	}
 
 }

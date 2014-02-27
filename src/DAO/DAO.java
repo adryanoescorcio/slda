@@ -4,7 +4,8 @@ import java.sql.Statement;
 
 import javax.persistence.EntityManager;
 
-import Model.PadraoEntidade;
+import Model.InterfacePadraoEntidade;
+import PrimaryKey.InterfaceKey;
 
 /**
  * Classe abstrata que implementa as funções genericas do CRUD<br>
@@ -48,12 +49,11 @@ public abstract class DAO {
 	 * Inserir um objeto PadraoEntidade no BD
 	 * <p><b>Observação:</b><br> Entidade não inicia a transação com BD
 	 **/
-	protected boolean saveEntidade(PadraoEntidade entidade){
+	protected boolean saveEntidade(InterfacePadraoEntidade entidade){
 		
 		try {
-			System.out.println("Salvando: " + entidade.getCodigo());
+			System.out.println("Salvando: " + entidade.getCodigoKEY());
 			em.persist(entidade);
-			this.doCommit();
 			return true;
 		} catch(Exception e) {
 			System.out.println("Erro ao persistir");
@@ -65,42 +65,45 @@ public abstract class DAO {
 	 * Remover um objeto PadraoEntidade do BD.
 	 * <h1><b>Atençao:</b></h1> Note a diferença das assinaturas de metodos. 
 	 **/
-	protected boolean remover(PadraoEntidade entidade){
-		// verificar se entidade realmente existe no BD
-			if(entidade != null) {
-				
-				return this.queryDeletarRow(entidade);
-				
-			} else {
-				System.out.println("Erro: Nenhum objeto foi encontrado.");
-				return false;
-			}
+	protected boolean remover(InterfacePadraoEntidade entidade){
+	
+		try {
+			System.out.println("Removendo: "+entidade.getCodigoKEY());
+			em.remove(entidade);
+					
+			return true;
+		} catch (Exception e) {
+			System.out.println("Erro: Remover.");
+			return false;
+		} finally {
+			this.doCommit();
+		}
 	}
 	
 	/**
 	 * Consultar um objeto PadraoEntidade do BD 
 	 **/
-	protected abstract PadraoEntidade consultar(String codigo);
+	protected abstract InterfacePadraoEntidade consultar(InterfaceKey key);
 	
-	protected boolean removerPorCodigoPK(String codigo){
+	protected boolean removerPorCodigoPK(InterfaceKey codigo){
 		return this.remover(
 				this.consultar(codigo));
 	}
 	
-	protected boolean removerPorObjetoEntidade(PadraoEntidade entidade){
+	protected boolean removerPorObjetoEntidade(InterfacePadraoEntidade entidade){
 		return this.remover(
-				this.consultar(entidade.getCodigo()));
+				this.consultar(
+						entidade.getCodigoKEY()));
 	}
 	
 	/**
 	 * Atualizar um objeto PadraoEntidade do BD 
 	 **/
-	protected boolean atualizar(PadraoEntidade entidade) {
+	protected boolean atualizar(InterfacePadraoEntidade entidade) {
 		try{
 			//atualizar
 			System.out.println("Alterando");
 			em.merge(entidade);
-			this.doCommit();
 			return true;
 			
 		} catch(Exception e) {
@@ -110,31 +113,14 @@ public abstract class DAO {
 	}
 
 	/**
-	 * Codigo SQL para remover <b>PadraoEntidade</b> entidade do BD
-	 **/
-	protected boolean queryDeletarRow(PadraoEntidade entidade) {
-		try{
-			System.out.println("Removendo: "+entidade.getCodigo());
-			stm.executeUpdate("" +
-					"DELETE FROM " +entidade.getNomeTabelaBD()+ " WHERE " +
-					entidade.getNomeColunaPKBD()+ " = \"" +entidade.getCodigo()+ "\"");
-			return true;
-			
-		}catch(Exception e){
-			System.out.println("Erro: Não foi possivel deletar objeto");
-			return false;
-		}
-	}
-	
-	/**
 	 * Metodo para inserir/atualiza o Entidade no Banco de Dados.
 	 **/	
-	protected boolean save(PadraoEntidade objeto){
+	protected boolean save(InterfacePadraoEntidade objeto){
 		this.beginTransaction();
 		
 		try {
 			// verificar se a entidade já existe no banco de dados
-			PadraoEntidade entidade = this.consultar(objeto.getCodigo());
+			InterfacePadraoEntidade entidade = this.consultar(objeto.getCodigoKEY());
 			
 			//se não existir no BD, persistir entidade
 			if(entidade == null) {			
@@ -153,6 +139,8 @@ public abstract class DAO {
 		} catch (NullPointerException e) {
 			System.out.println("Não foi setado EM da classe:" + e.getMessage());
 			return false;
+		} finally {
+			this.doCommit();
 		}
 	}
 	
@@ -191,10 +179,10 @@ public abstract class DAO {
 		this.beginTransaction();
 		
 		try {
-			return this.removerPorObjetoEntidade((PadraoEntidade) params);
+			return this.removerPorObjetoEntidade((InterfacePadraoEntidade) params);
 			
 		} catch (Exception e) {
-			return this.removerPorCodigoPK((String) params);
+			return this.removerPorCodigoPK((InterfaceKey) params);
 		}
 	}
 	
@@ -215,5 +203,4 @@ public abstract class DAO {
 			return false;
 		}
 	}
-
 }

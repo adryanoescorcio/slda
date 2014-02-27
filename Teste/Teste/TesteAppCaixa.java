@@ -33,13 +33,13 @@ public class TesteAppCaixa {
 		this.dao = new CaixaDAO(conexaoBD);
 	}
 	
-	//@Test
+	@Test
 	public void conexao() {
 		EntityManager em = dao.getEm();
 		System.out.println(em.isOpen()); 
 		em.getTransaction().begin();
 		Caixa caixa = new Caixa();
-		caixa.setCodigo("123");
+		caixa.setCodigo(numAleatorio());
 		caixa.setStatus("Cheio");
 		caixa.setTurno("Noturno");
 		em.persist(caixa); 
@@ -54,7 +54,7 @@ public class TesteAppCaixa {
 		
 		// Setando os valores
 		caixa.setCodigo(numAleatorio());
-		caixa.setStatus("Aguardando...");
+		caixa.setStatus("Morto");
 		caixa.setTurno("Matutino");
 		
 		System.out.println("\n####### Iniciando Teste 1 #######");
@@ -94,7 +94,7 @@ public class TesteAppCaixa {
 		System.out.println("\n#### Iniciando Teste 3 ####");
 		
 		// Codigo: 20120124500
-		Caixa caixabd = dao.buscar("20120124500");
+		Caixa caixabd = dao.buscar("941066905");
 		
 		try{
 			System.out.println(caixabd.toString());

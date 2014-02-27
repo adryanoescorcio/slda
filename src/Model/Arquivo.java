@@ -1,11 +1,11 @@
 package Model;
 
-import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+
+import PrimaryKey.ArquivoPK;
+import PrimaryKey.InterfaceKey;
 
 /**
  * Classe concreta referente a Entidade Arquivo do BD.
@@ -16,23 +16,23 @@ import javax.persistence.Transient;
  **/
 
 @Entity
-public class Arquivo implements PadraoEntidade{
+public class Arquivo implements InterfacePadraoEntidade{
 	
 	@Transient
 	private static final String NOMETABLE = "arquivo";
 	@Transient
-	private static final String NOMECOLUNAPK = "aluno_codigoAluno";
-
-	@Id
-	@OneToOne
+	private static final String NOMECOLUNAPK = "aluno_codigoaluno";
+	
+	@EmbeddedId
+	private ArquivoPK arquivopk = new ArquivoPK();
+	
+	@Transient
 	private Aluno aluno = null;
 	
-	@ManyToOne
+	@Transient
 	private Caixa caixa = null;
 	
-	@Column(nullable=false, unique=true)
 	private String codDossie = null;
-	
 	private String datadeEntradaArquivo = null;
 	
 	public Aluno getAluno() {
@@ -41,6 +41,7 @@ public class Arquivo implements PadraoEntidade{
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
+		this.arquivopk.setCodigoAluno(aluno.getCodigo());
 	}
 
 	public Caixa getCaixa() {
@@ -49,6 +50,7 @@ public class Arquivo implements PadraoEntidade{
 
 	public void setCaixa(Caixa caixa) {
 		this.caixa = caixa;
+		this.arquivopk.setCodigoCaixa(caixa.getCodigo());
 	}
 
 	public String getCodDossie() {
@@ -69,37 +71,49 @@ public class Arquivo implements PadraoEntidade{
 	}
 
 	@Override
-	public String getCodigo() {
-		// TODO Auto-generated method stub
-		return aluno.getCodigo();
-	}
-
-	@Override
-	public void setCodigo(String codigo) {
-		// TODO Auto-generated method stub
-		aluno.setCodigo(codigo);
-	}
-
-	@Override
 	public String getNomeTabelaBD() {
-		// TODO Auto-generated method stub
 		return NOMETABLE;
 	}
 
 	@Override
 	public String getNomeColunaPKBD() {
-		// TODO Auto-generated method stub
 		return NOMECOLUNAPK;
 	}
 	
 	@Override
 	public String toString() {
 		return "" +
-				"Codigo do Aluno: "+this.aluno.getCodigo()+ ", " +
-				"Codigo da Caixa: "+this.caixa.getCodigo()+ ", " +
-				"Codigo do Dossie: "+this.codDossie+ ", " +
-				"Data de Entrada do Arquivo: "+this.datadeEntradaArquivo+ ", " +
-				"";
+			"Aluno: "+this.aluno.getCodigo()+ ", " +
+			"Caixa: "+this.caixa.getCodigo()+ ", " +
+			"Codigo: "+this.codDossie+ ", " +
+			"Entrada: "+this.datadeEntradaArquivo+ ", " +
+			"";
+	}
+	
+	public String getCodigo() {
+		return this.aluno.getCodigo();
+	}
+	
+	public void setCodigo(String codigo) {
+		this.aluno.setCodigo(codigo);
+	}
+
+	/**
+	 * Não Implementado para esta classe
+	 **/
+	@Override
+	public InterfaceKey getCodigoKEY() {
+		return this.arquivopk;
+	}
+
+	/**
+	 * Não Implementado para esta classe
+	 **/
+	@Override
+	public void setCodigoKEY(InterfaceKey chaveEntidade) {
+		this.arquivopk = (ArquivoPK) chaveEntidade;
 	}
 	
 }
+
+

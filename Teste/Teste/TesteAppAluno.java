@@ -12,7 +12,9 @@ import org.junit.Test;
 import DAO.AlunoDAO;
 import DAO.JPAUtil;
 import Model.Aluno;
-import Model.Caixa;
+import PrimaryKey.AlunoPK;
+
+import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
 
 /**
  * Classe de Teste da aplicação
@@ -40,15 +42,15 @@ public class TesteAppAluno {
 	/**
 	 * Testar se a Conexao está funcionando e persistindo
 	 **/
-	//@Test
+//	@Test
 	public void conexao() {
-		EntityManager em = dao.getEm();
-		System.out.println(em.isOpen()); 
-		em.getTransaction().begin();
-		Caixa caixa = new Caixa();
-		caixa.setCodigo(numAleatorio());
-		em.persist(caixa);
-		em.getTransaction().commit();
+	  EntityManager em = dao.getEm();
+      System.out.println(em.isOpen()); 
+      em.getTransaction().begin();
+      Aluno aluno = new Aluno();
+      aluno.setCodigo(numAleatorio());
+      em.persist(aluno);
+      em.getTransaction().commit();
 	}
 	
 	/**
@@ -92,7 +94,7 @@ public class TesteAppAluno {
 		Aluno alunoTeste2 = new Aluno();
 
 		// Setando os valores
-		alunoTeste2.setCodigo("20120124588");
+		alunoTeste2.setCodigo(numAleatorio());
 		
 		alunoTeste2.setCPF_Aluno("20120124500");
 		alunoTeste2.setNomeAluno("Souza");
@@ -116,7 +118,7 @@ public class TesteAppAluno {
 		// instanciando aluno
 		Aluno alunoTesteRemover = new Aluno();
 		
-		alunoTesteRemover.setCodigo("000000020000002000000002000002");
+		alunoTesteRemover.setCodigo("00000000020000000202");
 		alunoTesteRemover.setCPF_Aluno("00000000020000000202");
 		alunoTesteRemover.setNomeAluno("Tron");
 		alunoTesteRemover.setINEP("232232323232332");
@@ -142,7 +144,7 @@ public class TesteAppAluno {
 		System.out.println("\n#### Iniciando Teste 3 ####");
 		
 		// Codigo: 20120124500
-		Aluno alunoBuscar= dao.buscar("20120124500");
+		Aluno alunoBuscar= dao.buscar("777291288");
 		
 		try{
 			System.out.println(alunoBuscar.toString());
@@ -152,10 +154,11 @@ public class TesteAppAluno {
 		
 		System.out.println("****** OK Teste 3. ******");
 	}
-	
-	public String numAleatorio(){
+
+	public String numAleatorio() {
 		rand = new Random();
 		String numAle = String.valueOf(rand.nextInt(INTERVALO));
 		return numAle;
 	}
+	
 }

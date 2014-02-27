@@ -1,40 +1,54 @@
 package Model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Transient;
 
-@Entity
-public class Ata implements PadraoEntidade, Serializable{
+import PrimaryKey.AtaPK;
+import PrimaryKey.InterfaceKey;
 
-	private static final long serialVersionUID = -5403084140557561137L;
+@Entity
+public class Ata implements InterfacePadraoEntidade {
 
 	@Transient
 	private static final String NOMETABLE = "ata";
 	@Transient
 	private static final String NOMECOLUNAPK = "turmaAta; anoAta; turnoAta";
-	
-	@Id
-	private String ataCodigo;
-	@Embedded
-	private AtaPK atapk;
-	@Column
-	private String modalidadeAta;
-	@Column
-	private String ensinoAta;
+		
+	@EmbeddedId
+	private AtaPK ata = new AtaPK();
+
+	private String modalidadeAta = null;
+	private String ensinoAta = null;
 	
 	public AtaPK getAtapk() {
-		return atapk;
-	}
-
-	public void setAtapk(AtaPK atapk) {
-		this.atapk = atapk;
+		return ata;
 	}
 	
+	public String getTurmaAta() {
+		return ata.getTurmaAta();
+	}
+
+	public void setTurmaAta(String turmaAta) {
+		ata.setTurmaAta(turmaAta);
+	}
+
+	public String getTurnoAta() {
+		return ata.getTurnoAta();
+	}
+
+	public void setTurnoAta(String turnoAta) {
+		ata.setTurnoAta(turnoAta);
+	}
+
+	public String getAnoAta() {
+		return ata.getAnoAta();
+	}
+
+	public void setAnoAta(String anoAta) {
+		ata.setAnoAta(anoAta);
+	}
+
 	public String getModalidadeAta() {
 		return modalidadeAta;
 	}
@@ -52,36 +66,42 @@ public class Ata implements PadraoEntidade, Serializable{
 	}
 
 	@Override
-	public String getCodigo() {
-		// TODO Auto-generated method stub
-		return ataCodigo;
-	}
-
-	@Override
-	public void setCodigo(String codigo) {
-		this.ataCodigo = codigo;
-	}
-
-	@Override
 	public String getNomeTabelaBD() {
-		// TODO Auto-generated method stub
 		return NOMETABLE;
 	}
 
 	@Override
 	public String getNomeColunaPKBD() {
-		// TODO Auto-generated method stub
 		return NOMECOLUNAPK;
 	}
 	
 	@Override
 	public String toString() {
 		return "" +
-				"Turma: "+this.atapk.getTurmaAta()+ ", " +
-				"Ano: "+this.atapk.getAnoAta()+ ", " +
-				"Turno: "+this.atapk.getTurnoAta()+ ", " +
-				"Modalidade de Ensino: "+this.modalidadeAta+ ", " +
-				"Nivel de Ensino: "+this.ensinoAta+ ", " +
-				"";
+			"Turma: "+this.ata.getTurmaAta()+ ", " +
+			"Ano: "+this.ata.getAnoAta()+ ", " +
+			"Turno: "+this.ata.getTurnoAta()+ ", " +
+			"Modalidade de Ensino: "+this.modalidadeAta+ ", " +
+			"Nivel de Ensino: "+this.ensinoAta+ ", " +
+			"";
+	}
+
+	/**
+	 * Não implementada para esta Entidade que possui chave composta.
+	 **/
+	public void setCodigo(String turnoAta, String turmaAta, String anoAta) {
+		this.ata.setTurnoAta(turnoAta);
+		this.ata.setAnoAta(anoAta);
+		this.ata.setTurmaAta(turmaAta);
+	}
+	
+	@Override
+	public InterfaceKey getCodigoKEY() {
+		return this.ata;
+	}
+
+	@Override
+	public void setCodigoKEY(InterfaceKey chaveEntidade) {
+		this.ata = (AtaPK) chaveEntidade;
 	}
 }

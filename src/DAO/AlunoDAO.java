@@ -1,7 +1,9 @@
 package DAO;
 
 import Model.Aluno;
-import Model.PadraoEntidade;
+import Model.InterfacePadraoEntidade;
+import PrimaryKey.AlunoPK;
+import PrimaryKey.InterfaceKey;
 
 /**
  * Classe concreta para realizar o CRUD da Entidade Aluno.
@@ -13,6 +15,8 @@ import Model.PadraoEntidade;
  * */
 public class AlunoDAO extends DAO {
 	
+	private AlunoPK pk;
+
 	/**
 	 * <b>Construtor</b><p>
 	 * Transmite a conexao do BD para super classe.<br>
@@ -33,11 +37,14 @@ public class AlunoDAO extends DAO {
 	 * Buscar Aluno usando o CodigoAluno
 	 **/
 	public Aluno buscar(String codigo) {
-		return (Aluno) this.consultar(codigo);
+		pk = new AlunoPK();
+		pk.setCodigo(codigo);
+		
+		return (Aluno) this.consultar(pk);
 	}
 	
 	@Override
-	protected PadraoEntidade consultar(String codigo) {
+	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
 		return em.find(Aluno.class, codigo);
 	}
 

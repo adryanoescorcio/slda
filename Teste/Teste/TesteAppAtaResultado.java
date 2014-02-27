@@ -9,8 +9,6 @@ import DAO.AlunoDAO;
 import DAO.AtaDAO;
 import DAO.AtaResultadoDAO;
 import DAO.JPAUtil;
-import Model.Aluno;
-import Model.AtaPK;
 import Model.AtaResultado;
 
 public class TesteAppAtaResultado {
@@ -32,16 +30,10 @@ public class TesteAppAtaResultado {
 		EntityManager em = dao.getEm();
 		System.out.println(em.isOpen()); 
 		em.getTransaction().begin();
+		
 		AtaResultado ataResultado = new AtaResultado();
-		Aluno aluno = new Aluno();
-		aluno.setCodigo(numAleatorio());
-		AtaPK ata = new AtaPK();
-		ata.setAnoAta("2014");
-		ata.setTurmaAta("309");
-		ata.setTurnoAta("Vespertino");
-		ataResultado.setCodigo("688560366 - 309 - 2014 - Vespertino");
-		ataResultado.setCodAluno("688560366");
-		ataResultado.setAta(ata);
+		ataResultado.setCodigo("777291288","Matutino","202","2012");
+
 		em.persist(ataResultado); 
 		em.getTransaction().commit();
 	}

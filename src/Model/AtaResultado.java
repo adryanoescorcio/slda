@@ -1,55 +1,71 @@
 package Model;
 
-import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Transient;
+import PrimaryKey.AtaResultadoPK;
+import PrimaryKey.InterfaceKey;
 
 @Entity
-public class AtaResultado implements PadraoEntidade{
+public class AtaResultado implements InterfacePadraoEntidade{
 
-	@Transient
-	private static final String NOMETABLE = "ataResultado";
-	@Transient
-	private static final String NOMECOLUNAPK = "codAluno; turmaAta; anoAta; turnoAta";
+        @Transient
+        private static final String NOMETABLE = "ataResultado";
+        @Transient
+        private static final String NOMECOLUNAPK = "codAluno; turmaAta; anoAta; turnoAta";
+       
+        @EmbeddedId
+        private AtaResultadoPK atapk = new AtaResultadoPK();
+       
+        public void setCodigo(String aluno, String turnoAta, String turmaAta, String anoAta) {
+                atapk.setAluno(aluno);
+                atapk.setAnoAta(anoAta);
+                atapk.setTurmaAta(turmaAta);
+                atapk.setTurnoAta(turnoAta);
+        }
+       
+        @Override
+        public String getNomeTabelaBD() {
+                return NOMETABLE;
+        }
+       
+        @Override
+        public String getNomeColunaPKBD() {
+                return NOMECOLUNAPK;
+        }
 
-	@Id
-	private String ataResultadopk;
-	
-	private String codAluno;
-	@Embedded
-	private AtaPK ata;
-	@Override
-	public String getCodigo() {
-		// TODO Auto-generated method stub
-		return ataResultadopk;
-	}
-	@Override
-	public void setCodigo(String codigo) {
-		this.ataResultadopk = codigo;
-		
-	}
-	@Override
-	public String getNomeTabelaBD() {
-		// TODO Auto-generated method stub
-		return ataResultadopk;
-	}
-	@Override
-	public String getNomeColunaPKBD() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public String getCodAluno() {
-		return codAluno;
-	}
-	public void setCodAluno(String codAluno) {
-		this.codAluno = codAluno;
-	}
-	public AtaPK getAta() {
-		return ata;
-	}
-	public void setAta(AtaPK ata) {
-		this.ata = ata;
-	}
-	
+        public String getTurmaAta() {
+                return atapk.getTurmaAta();
+        }
+
+        public void setTurmaAta(String turmaAta) {
+                atapk.setTurmaAta(turmaAta);
+        }
+
+        public String getTurnoAta() {
+                return atapk.getTurnoAta();
+        }
+
+        public void setTurnoAta(String turnoAta) {
+                atapk.setTurnoAta(turnoAta);
+        }
+
+        public String getAnoAta() {
+                return atapk.getAnoAta();
+        }
+
+        public void setAnoAta(String anoAta) {
+                atapk.setAnoAta(anoAta);
+        }
+       
+        @Override
+        public InterfaceKey getCodigoKEY() {
+                return atapk;
+        }
+
+        @Override
+        public void setCodigoKEY(InterfaceKey chaveEntidade) {
+                this.atapk = (AtaResultadoPK) chaveEntidade;
+        }
 }
+

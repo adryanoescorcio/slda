@@ -1,6 +1,8 @@
 package DAO;
 import Model.Arquivo;
-import Model.PadraoEntidade;
+import Model.InterfacePadraoEntidade;
+import PrimaryKey.ArquivoPK;
+import PrimaryKey.InterfaceKey;
 
 /**
  * Classe concreta para realizar o CRUD da Entidade Arquivo.
@@ -30,12 +32,12 @@ public class ArquivoDAO extends DAO {
 	/**
 	 * Buscar Caixa usando o codigo
 	 **/
-	public Arquivo buscar(String codigo) {
+	public Arquivo buscar(ArquivoPK codigo) {
 		return (Arquivo) this.consultar(codigo);
 	}
 	
 	@Override
-	protected PadraoEntidade consultar(String codigo) {
+	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
 		return em.find(Arquivo.class, codigo);
 	}
 	

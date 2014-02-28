@@ -5,9 +5,7 @@ import java.awt.Color;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -39,8 +37,11 @@ public class Principal extends JFrame{
 	Icon iconMovimentacao;
 	Icon iconAlterar;
 	
-	MenuUser menuUser = new MenuUser();
-	
+	MenuUsuario menuUsuario = new MenuUsuario();
+	MenuExportar menuExportar = new MenuExportar();
+	MenuImportar menuImportar = new MenuImportar();
+	MenuVisualizar menuVisualizar = new MenuVisualizar();
+	MenuAvancado menuAvancado = new MenuAvancado();
 	
 	public Principal(){
 		super("SLDA - Sistema de Localização de Documentos do Aluno");
@@ -61,50 +62,14 @@ public class Principal extends JFrame{
 		camadaArquivo.setBackground(Color.WHITE);
 		camadaAta.setBackground(Color.WHITE);
 		
-		//---------> CRIANDO O USUARIO EXPORTAR E SEUS ITENS <-----------
-		
-		
-		//---------> CRIANDO O MENU EXPORTAR E SEU ITEM <-----------
-		JMenu menuExportar = new JMenu("Exportar");	
-		//ADICIONA UM MNEMÔNICO OU ATALHO(ALT + E) 
-		menuExportar.setMnemonic('E');
-		JMenuItem itemBackup = new JMenuItem("Realizar Backup"); 
-		menuExportar.add(itemBackup); 
-		
-		//---------> CRIANDO O MENU IMPORTAR E SEU ITEM <-----------
-		JMenu menuImportar = new JMenu("Importar");	
-		//ADICIONA UM MNEMÔNICO OU ATALHO(ALT + I) 
-		menuImportar.setMnemonic('I');
-		JMenuItem itemOutroBD = new JMenuItem("Usar outro Banco de Dados"); 
-		menuImportar.add(itemOutroBD);
-		
-		//---------> CRIANDO O MENU VISUALIZAR E SEUS ITENS <-----------
-		JMenu menuVisualizar = new JMenu("Visualizar");
-		//ADICIONA UM MNEMÔNICO OU ATALHO(ALT + V)
-		menuVisualizar.setMnemonic('V');
-		JMenuItem itemVisAlunos = new JMenuItem("Todos os Alunos"); 
-		menuVisualizar.add(itemVisAlunos); 
-		JMenuItem itemVisCaixas = new JMenuItem("Todas as Caixas"); 
-		menuVisualizar.add(itemVisCaixas);
-		JMenuItem itemVisAtas = new JMenuItem("Todas as Atas"); 
-		menuVisualizar.add(itemVisAtas);
-		
-		//---------> CRIANDO O MENU AVANÇADO E SEUS ITENS <-----------
-		JMenu menuAvancado = new JMenu("Opções Avançadas");	
-		//ADICIONA UM MNEMÔNICO OU ATALHO(ALT + A) 
-		menuAvancado.setMnemonic('A');
-		JMenuItem itemControle = new JMenuItem("Controle de Usuários"); 
-		menuAvancado.add(itemControle);
-		
 		//---------> CRIANDO A BARRA DE MENUS E ADICIONANDO MENUS A ELA<-----------
-		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		menuBar.add(menuUser.getMenuUsuario());
-		menuBar.add(menuExportar);
-		menuBar.add(menuImportar);
-		menuBar.add(menuVisualizar);
-		menuBar.add(menuAvancado);
+		menuBar.add(menuUsuario.getMenuUsuario());
+		menuBar.add(menuExportar.getMenuExportar());
+		menuBar.add(menuImportar.getMenuImportar());
+		menuBar.add(menuVisualizar.getMenuVisualizar());
+		menuBar.add(menuAvancado.getMenuAvancado());
 				
 		criandoIcones();
 	

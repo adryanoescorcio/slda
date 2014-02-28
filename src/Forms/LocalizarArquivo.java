@@ -1,8 +1,5 @@
 package Forms;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Label;
 
 import javax.swing.JButton;
@@ -16,11 +13,11 @@ import javax.swing.JTextField;
  * 
  * @author Walysson Oliveira
  * @version 1.5
- * @extends JPanel
+ * @extends TelaPadrao
  **/
 
 @SuppressWarnings("serial")
-public class LocalizarArquivo extends JPanel{
+public class LocalizarArquivo extends TelaPadrao{
 
 	//DECLARAÇÃO DE VARIÁVEIS
 	JTextField tf1;
@@ -38,7 +35,7 @@ public class LocalizarArquivo extends JPanel{
 	
 	public LocalizarArquivo() {
 
-		setLayout(new GridLayout(20, 4, 5, 5));
+		setLayout(layout);
 		
 		//INICIALIZAÇÃO DE VARIÁVEIS
 		tf1 = new JTextField();
@@ -61,83 +58,36 @@ public class LocalizarArquivo extends JPanel{
 		/*------>COLOQUEI ALGUNS ITENS SÓ PRA VER SE O TAMANHO ESTÁ BOM, MAS ELA TEM QUE SER INICIALIZADA VAZIA
 		 * E PREENCHIDA PELAS ATAS DO BD COM O NOME DO ALUNO
 		 */
-		combo.setBackground(Color.WHITE);
+		combo.setBackground(corDeFundo);
 		combo.addItem("");
 		combo.addItem("Testes para ver se o tamanho está bom: Aprovado");
 		combo.addItem("Turno: Verpertino - Turma: 203 - Ano:2013");
 		combo.addItem("Turno: Matutino - Turma: 34702 - Ano:2014");
 		
-		//PAINEIS DE DIVISÃO DE CÉLULA
-		JPanel linha = new JPanel();
-		linha.setLayout(new GridLayout(1, 2, 5, 5));
-		linha.setBackground(Color.WHITE);
-		
-		JPanel linha1 = new JPanel();
-		linha1.setLayout(new GridLayout(1, 2, 5, 5));
-		linha1.setBackground(Color.WHITE);
-		
-		JPanel linha2 = new JPanel();
-		linha2.setLayout(new GridLayout(1, 2, 5, 5));
-		linha2.setBackground(Color.WHITE);
-		
-		JPanel linha3 = new JPanel();
-		linha3.setLayout(new GridLayout(1, 2, 5, 5));
-		linha3.setBackground(Color.WHITE);
-		
-		JPanel linha4 = new JPanel();
-		linha4.setLayout(new GridLayout(1, 2, 5, 5));
-		linha4.setBackground(Color.WHITE);
-		
-		JPanel linha5 = new JPanel();
-		linha5.setLayout(new GridLayout(1, 2, 5, 5));
-		linha5.setBackground(Color.WHITE);
-		
-		JPanel linha6 = new JPanel();
-		linha6.setLayout(new GridLayout(1, 2, 5, 5));
-		linha6.setBackground(Color.WHITE);
-		
-		JPanel linha7 = new JPanel();
-		linha7.setLayout(new GridLayout(1, 2, 5, 5));
-		linha7.setBackground(Color.WHITE);
-		
-		JPanel linha8 = new JPanel();
-		linha8.setLayout(new GridLayout(1, 2, 5, 5));
-		linha8.setBackground(Color.WHITE);
-		
-		JPanel linha9 = new JPanel();
-		linha9.setLayout(new GridLayout(1, 2, 5, 5));
-		linha9.setBackground(Color.WHITE);
-		
-		JPanel linha10 = new JPanel();
-		linha10.setLayout(new GridLayout(1, 2, 5, 5));
-		linha10.setBackground(Color.WHITE);
-		
-		Label nome = new Label("Localizar Documentos do Aluno");
-		nome.setFont(new Font("san_serif", Font.BOLD, 19));
-		nome.setForeground(Color.GRAY);
+		//CRIANDO E ADICIONANDO PAINEIS DE DIVISÃO DE CÉLULA
+		JPanel linha1L = criarDividirEConfigurarCelula(new JLabel("Matrícula do Aluno:"), tf2);
+		JPanel linha1R = criarDividirEConfigurarCelula(botao, new Label(""));
+		JPanel linha2 = criarDividirEConfigurarCelula(new JLabel("Código da Caixa:"), tf3);
+		JPanel linha3 = criarDividirEConfigurarCelula(new JLabel("Turno:"), tf4);
+		JPanel linha4 = criarDividirEConfigurarCelula(new JLabel("Status:"), tf5);
+		JPanel linha5 = criarDividirEConfigurarCelula(new JLabel("Código do Dossiê:"), tf6);
+		JPanel linha6 = criarDividirEConfigurarCelula(new JLabel("Data de Entrada do Aluno:"), tf7);
 	
-		//ADICIONANDO COMPONENTES AOS PAINEIS DE DIVISÃO DE CÉLULA
-		linha1.add(new JLabel("Matrícula do Aluno:"));			linha1.add(tf2);						
-		linha2.add(botao);										linha2.add(new Label(""));
-		linha3.add(new JLabel("Código da Caixa:"));				linha3.add(tf3);						
-		linha4.add(new JLabel("Turno:"));						linha4.add(tf4);
-		linha5.add(new JLabel("Status:"));						linha5.add(tf5);
-		linha6.add(new JLabel("Código do Dossiê:"));			linha6.add(tf6);
-		linha7.add(new JLabel("Data de Entrada do Aluno:"));	linha7.add(tf7);
-	
+		Label titulo = getTitulo("Localizar Documentos do Aluno");
+											
 		//ADICIONANDO COMPONENTES À TELA
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(nome);											add(new Label(""));			add(new Label(""));			
+		add(new Label(""));					add(titulo);										add(new Label(""));			add(new Label(""));			
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
 		add(new Label(""));					add(new JLabel("Nome do Aluno:"));					add(new Label(""));			add(new Label(""));
 		add(new Label(""));					add(tf1);											add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(linha1);										add(linha2);				add(new Label(""));
+		add(new Label(""));					add(linha1L);										add(linha1R);				add(new Label(""));
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
+		add(new Label(""));					add(linha2);										add(new Label(""));			add(new Label(""));
 		add(new Label(""));					add(linha3);										add(new Label(""));			add(new Label(""));
 		add(new Label(""));					add(linha4);										add(new Label(""));			add(new Label(""));
 		add(new Label(""));					add(linha5);										add(new Label(""));			add(new Label(""));
 		add(new Label(""));					add(linha6);										add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(linha7);										add(new Label(""));			add(new Label(""));
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
 		add(new Label(""));					add(new JLabel("Atas que Contém o nome do Aluno:"));add(new Label(""));			add(new Label(""));
 		add(new Label(""));					add(combo);											add(new Label(""));			add(new Label(""));
@@ -146,7 +96,7 @@ public class LocalizarArquivo extends JPanel{
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
 
-		setBackground(Color.WHITE);
+		setBackground(corDeFundo);
 
 	}
 

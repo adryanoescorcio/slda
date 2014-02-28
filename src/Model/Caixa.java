@@ -14,7 +14,6 @@ import PrimaryKey.InterfaceKey;
  * @version 1.5
  * @implements PadraoEntidade
  **/
-
 @Entity
 public class Caixa implements InterfacePadraoEntidade{
 
@@ -25,6 +24,7 @@ public class Caixa implements InterfacePadraoEntidade{
 
 	@EmbeddedId
 	private CaixaPK caixapk = new CaixaPK();
+	
 	private String status;
 	private String turno;
 	
@@ -65,10 +65,10 @@ public class Caixa implements InterfacePadraoEntidade{
 	@Override
 	public String toString() {
 		return "" +
-				"Codigo: "+this.caixapk.toString()+ ", " +
-				"Status: "+this.status+ ", " +
-				"Turno: "+this.turno+ ", " +
-				"";
+			"Codigo: "+this.caixapk.toString()+ ", " +
+			"Status: "+this.status+ ", " +
+			"Turno: "+this.turno+ ", " +
+			"";
 	}
 
 	@Override
@@ -80,5 +80,4 @@ public class Caixa implements InterfacePadraoEntidade{
 	public void setCodigoKEY(InterfaceKey chaveEntidade) {
 		this.caixapk = (CaixaPK) chaveEntidade;
 	}
-	
 }

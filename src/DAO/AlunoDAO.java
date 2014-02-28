@@ -15,8 +15,6 @@ import PrimaryKey.InterfaceKey;
  * */
 public class AlunoDAO extends DAO {
 	
-	private AlunoPK pk;
-
 	/**
 	 * <b>Construtor</b><p>
 	 * Transmite a conexao do BD para super classe.<br>
@@ -36,11 +34,8 @@ public class AlunoDAO extends DAO {
 	/**
 	 * Buscar Aluno usando o CodigoAluno
 	 **/
-	public Aluno buscar(String codigo) {
-		pk = new AlunoPK();
-		pk.setCodigo(codigo);
-		
-		return (Aluno) this.consultar(pk);
+	public Aluno buscar(AlunoPK codigo) {
+		return (Aluno) this.consultar(codigo);
 	}
 	
 	@Override

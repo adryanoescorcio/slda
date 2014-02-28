@@ -10,11 +10,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- * Classe que realiza a conexao com o Banco de 
- * Dados SQLite<br> embarcado na App e faz a 
- * conexao com o arquivo persistence.xml.
- * <br>Abrindo vários tipos de manipulação de Dados.
- * 
+ Classe que realiza a conexao com o Banco de 
+ Dados SQLite<br> embarcado na App e faz a 
+ conexao com o arquivo persistence.xml.
+ 
+ <br>Abrindo vários tipos de manipulação de Dados. 
  *@param EntityManagerFactory factory<br>
 	<b>EntityManager</b> em <br>
 	<b>Connection</b> conn <br>
@@ -23,6 +23,9 @@ import javax.persistence.Persistence;
  * @version 1.5
  **/
 public class JPAUtil {
+	
+	private static final String CLASS_BD = "org.sqlite.JDBC";
+	private static final String CONEXAO_BD = "jdbc:sqlite:sldav1.db";
 	
 	//Direciona o arquivo XML para conectar o BD
 	private EntityManagerFactory factory;
@@ -46,8 +49,8 @@ public class JPAUtil {
 		
 		// Conexao com JDBC
 		try {
-			Class.forName("org.sqlite.JDBC");
-			conn = DriverManager.getConnection("jdbc:sqlite:sldav1.db");
+			Class.forName(CLASS_BD);
+			conn = DriverManager.getConnection(CONEXAO_BD);
 			setStm(conn.createStatement());
 		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println("Erro: conexao JDBC");

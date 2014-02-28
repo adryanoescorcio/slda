@@ -6,7 +6,13 @@ import javax.persistence.Transient;
 
 import PrimaryKey.AtaPK;
 import PrimaryKey.InterfaceKey;
-
+/**
+ * Classe concreta referente a Entidade Ata do BD.
+ * 
+ * @author Adryano Escorcio
+ * @version 1.5
+ * @implements PadraoEntidade
+ **/
 @Entity
 public class Ata implements InterfacePadraoEntidade {
 
@@ -29,24 +35,12 @@ public class Ata implements InterfacePadraoEntidade {
 		return ata.getTurmaAta();
 	}
 
-	public void setTurmaAta(String turmaAta) {
-		ata.setTurmaAta(turmaAta);
-	}
-
 	public String getTurnoAta() {
 		return ata.getTurnoAta();
 	}
 
-	public void setTurnoAta(String turnoAta) {
-		ata.setTurnoAta(turnoAta);
-	}
-
 	public String getAnoAta() {
 		return ata.getAnoAta();
-	}
-
-	public void setAnoAta(String anoAta) {
-		ata.setAnoAta(anoAta);
 	}
 
 	public String getModalidadeAta() {
@@ -90,9 +84,7 @@ public class Ata implements InterfacePadraoEntidade {
 	 * Não implementada para esta Entidade que possui chave composta.
 	 **/
 	public void setCodigo(String turnoAta, String turmaAta, String anoAta) {
-		this.ata.setTurnoAta(turnoAta);
-		this.ata.setAnoAta(anoAta);
-		this.ata.setTurmaAta(turmaAta);
+		this.ata.setCodigo(turmaAta, turnoAta, anoAta);
 	}
 	
 	@Override

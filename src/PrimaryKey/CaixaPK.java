@@ -2,6 +2,13 @@ package PrimaryKey;
 
 import javax.persistence.Embeddable;
 
+/**
+ * Classe concreta referente a Chave Primária da Entidade Caixa do BD.
+ * 
+ * @author Adryano Escorcio
+ * @version 1.0
+ * @implements InterfaceKey
+ **/
 @Embeddable
 public class CaixaPK implements InterfaceKey {
 

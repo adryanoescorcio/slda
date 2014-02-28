@@ -17,9 +17,9 @@ import PrimaryKey.InterfaceKey;
  **/
 public abstract class DAO {
 	
-	protected EntityManager em;
-	protected Statement stm;
-	private JPAUtil conexao;
+	protected EntityManager em; // Conexão JPA
+	protected Statement stm; // Conexão JDBC
+	private JPAUtil conexao; // Conexão BD
 	
 	/**
 	 * Construtor que recebe a conexao do BD

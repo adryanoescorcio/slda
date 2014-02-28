@@ -13,17 +13,20 @@ import DAO.JPAUtil;
 import Model.Aluno;
 import Model.Arquivo;
 import Model.Caixa;
+import PrimaryKey.AlunoPK;
+import PrimaryKey.CaixaPK;
 
 public class TesteAppArquivo {
 
 	private static final int INTERVALO = 999999999;
 	EntityManager em;
 	private JPAUtil conexaoBD;
-	
 	private Random rand;
 	private ArquivoDAO dao;
 	private AlunoDAO alunoDAO;
 	private CaixaDAO caixaDAO;
+	private AlunoPK pkAlu;
+	private CaixaPK pkCai;
 	
 	/**
 	 * Construtor que inicializa a conexao teste
@@ -42,11 +45,16 @@ public class TesteAppArquivo {
 		EntityManager em = dao.getEm();
 		System.out.println(em.isOpen()); 
 		em.getTransaction().begin();
-		Caixa caixa = caixaDAO.buscar("118609431");
-		Aluno aluno = alunoDAO.buscar("20120124588"); 
+		
+		pkCai = new CaixaPK();
+		pkCai.setCodigo("118609431");
+		Caixa caixa = caixaDAO.buscar(pkCai);
+		
+		pkAlu = new AlunoPK();
+		pkAlu.setCodigo("20120124588");
+		Aluno aluno = alunoDAO.buscar(pkAlu); 
 		Arquivo arquivo = new Arquivo();
-		arquivo.setAluno(aluno);
-		arquivo.setCaixa(caixa);
+		arquivo.setCodigo(aluno, caixa);
 		arquivo.setCodDossie(numAleatorio());
 		em.persist(arquivo); 
 		em.getTransaction().commit();
@@ -55,12 +63,15 @@ public class TesteAppArquivo {
 	@Test
 	public void inserirAtualizarDocumento() {
 		
+		pkCai = new CaixaPK();
+		pkCai.setCodigo("941066905");
 		// Setando os valores
-		Caixa caixa = caixaDAO.buscar("941066905");
-		Aluno aluno = alunoDAO.buscar("310951701");
+		Caixa caixa = caixaDAO.buscar(pkCai);
+		pkAlu = new AlunoPK();
+		pkAlu.setCodigo("310951701");
+		Aluno aluno = alunoDAO.buscar(pkAlu);
 		Arquivo arquivo = new Arquivo();
-		arquivo.setAluno(aluno);
-		arquivo.setCaixa(caixa);
+		arquivo.setCodigo(aluno, caixa);
 		arquivo.setCodDossie(numAleatorio());
 		arquivo.setDatadeEntradaArquivo("21/08/2012");
 		
@@ -72,11 +83,14 @@ public class TesteAppArquivo {
 		boolean retorno = dao.save(arquivo);
 		
 		System.out.println("\n+++ Segundo Teste - Atualizar");
-		Caixa caixa2 = caixaDAO.buscar("781373626");
+		pkCai = new CaixaPK();
+		pkCai.setCodigo("781373626");
+		Caixa caixa2 = caixaDAO.buscar(pkCai);
 		Arquivo arquivo2 = new Arquivo();
-		Aluno aluno2 = alunoDAO.buscar("827768098");
-		arquivo2.setCaixa(caixa2);
-		arquivo2.setAluno(aluno2);
+		pkAlu = new AlunoPK();
+		pkAlu.setCodigo("827768098");
+		Aluno aluno2 = alunoDAO.buscar(pkAlu);
+		arquivo2.setCodigo(aluno2, caixa2);
 		
 		dao.save(arquivo2);
 		
@@ -86,16 +100,21 @@ public class TesteAppArquivo {
 			System.out.println("\n****** Teste 1 - 100% OK ******");
 	}
 	
-//	@Test
+	@Test
 	public void removerAluno(){
 		
 		// instanciando aluno
 		Arquivo arq = new Arquivo();
-		arq.setAluno(alunoDAO.buscar("777291288"));
-		arq.setCaixa(caixaDAO.buscar("781373626"));
+		pkAlu = new AlunoPK();
+		pkAlu.setCodigo("144007556");
+		
+		pkCai = new CaixaPK();
+		pkCai.setCodigo("781373626");
+		arq.setCodigo(alunoDAO.buscar(pkAlu), caixaDAO.buscar(pkCai));
 		arq.setCodDossie(numAleatorio());
 		System.out.println("\n#### Iniciando Teste 2 ####");
-		// aluno é inserido
+		
+		// aluno é inserido, verifica se o aluno existe e não esta repetido
 		dao.save(arq);
 		
 		// remover aluno

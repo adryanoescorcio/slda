@@ -5,6 +5,12 @@ import Model.InterfacePadraoEntidade;
 import PrimaryKey.AtaResultadoPK;
 import PrimaryKey.InterfaceKey;
 
+/**
+ * Classe concreta para realizar o CRUD da Entidade AtaResultado.
+ * <p><b>Extends</b><br>DAO
+ * @author Adryano Escorcio
+ * @version 1.5
+ * */
 public class AtaResultadoDAO extends DAO {
 
 	/**

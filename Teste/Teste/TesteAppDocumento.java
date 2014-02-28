@@ -11,13 +11,14 @@ import DAO.DocumentoDAO;
 import DAO.JPAUtil;
 import Model.Aluno;
 import Model.Documento;
+import PrimaryKey.AlunoPK;
 
 public class TesteAppDocumento {
 
 	private static final int INTERVALO = 999999999;
 	EntityManager em;
 	private JPAUtil conexaoBD;
-	
+	private AlunoPK pk;
 	private Random rand;
 	private DocumentoDAO dao;
 	private Aluno aluno = new Aluno();
@@ -68,7 +69,9 @@ public class TesteAppDocumento {
 		System.out.println("\n+++ Primeiro Teste - Inserir");
 		
 		AlunoDAO daoAluno = new AlunoDAO(conexaoBD);
-		Aluno aluno2 = daoAluno.buscar("777291288");
+		pk = new AlunoPK();
+		pk.setCodigo("777291288");
+		Aluno aluno2 = daoAluno.buscar(pk);
 		
 		// inserindo aluno
 		boolean retorno = dao.save(doc);

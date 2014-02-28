@@ -2,7 +2,6 @@ package Model;
 
 import PrimaryKey.InterfaceKey;
 
-
 /**
  * Interface que todas as entidades devem possuir
  * @author Adryano Escorcio

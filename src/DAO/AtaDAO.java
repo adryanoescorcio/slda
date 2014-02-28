@@ -6,11 +6,11 @@ import PrimaryKey.AtaPK;
 import PrimaryKey.InterfaceKey;
 
 /**
- * Classe concreta para realizar o CRUD da Entidade Caixa.
+ * Classe concreta para realizar o CRUD da Entidade Ata.
  * <p><b>Extends</b><br>DAO
  *  
  * @author Walysson Oliveira
- * @version 1.0
+ * @version 1.5
  * */
 public class AtaDAO extends DAO {
 

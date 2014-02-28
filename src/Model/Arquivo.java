@@ -14,7 +14,6 @@ import PrimaryKey.InterfaceKey;
  * @version 1.5
  * @implements PadraoEntidade
  **/
-
 @Entity
 public class Arquivo implements InterfacePadraoEntidade{
 	
@@ -22,15 +21,13 @@ public class Arquivo implements InterfacePadraoEntidade{
 	private static final String NOMETABLE = "arquivo";
 	@Transient
 	private static final String NOMECOLUNAPK = "aluno_codigoaluno";
+	@Transient
+	private Aluno aluno = null;
+	@Transient
+	private Caixa caixa = null;
 	
 	@EmbeddedId
 	private ArquivoPK arquivopk = new ArquivoPK();
-	
-	@Transient
-	private Aluno aluno = null;
-	
-	@Transient
-	private Caixa caixa = null;
 	
 	private String codDossie = null;
 	private String datadeEntradaArquivo = null;
@@ -39,18 +36,14 @@ public class Arquivo implements InterfacePadraoEntidade{
 		return aluno;
 	}
 
-	public void setAluno(Aluno aluno) {
+	public void setCodigo(Aluno aluno, Caixa caixa) {
 		this.aluno = aluno;
-		this.arquivopk.setCodigoAluno(aluno.getCodigo());
+		this.arquivopk.setCodigo(caixa.getCodigo(), aluno.getCodigo());
+		this.caixa = caixa;
 	}
 
 	public Caixa getCaixa() {
 		return caixa;
-	}
-
-	public void setCaixa(Caixa caixa) {
-		this.caixa = caixa;
-		this.arquivopk.setCodigoCaixa(caixa.getCodigo());
 	}
 
 	public String getCodDossie() {
@@ -94,26 +87,13 @@ public class Arquivo implements InterfacePadraoEntidade{
 		return this.aluno.getCodigo();
 	}
 	
-	public void setCodigo(String codigo) {
-		this.aluno.setCodigo(codigo);
-	}
-
-	/**
-	 * Não Implementado para esta classe
-	 **/
 	@Override
 	public InterfaceKey getCodigoKEY() {
 		return this.arquivopk;
 	}
 
-	/**
-	 * Não Implementado para esta classe
-	 **/
 	@Override
 	public void setCodigoKEY(InterfaceKey chaveEntidade) {
 		this.arquivopk = (ArquivoPK) chaveEntidade;
 	}
-	
 }
-
-

@@ -32,7 +32,7 @@ public class TesteAppAtaResultado {
 		em.getTransaction().begin();
 		
 		AtaResultado ataResultado = new AtaResultado();
-		ataResultado.setCodigo("777291288","Matutino","202","2012");
+		ataResultado.setCodigo("877291288","Matutino","202","2012");
 
 		em.persist(ataResultado); 
 		em.getTransaction().commit();

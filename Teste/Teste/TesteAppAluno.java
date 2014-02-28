@@ -14,8 +14,6 @@ import DAO.JPAUtil;
 import Model.Aluno;
 import PrimaryKey.AlunoPK;
 
-import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
-
 /**
  * Classe de Teste da aplicação
  * 
@@ -30,6 +28,7 @@ public class TesteAppAluno {
 	
 	private Random rand;
 	private AlunoDAO dao;
+	private AlunoPK pk;
 	
 	/**
 	 * Construtor que inicializa a conexao teste
@@ -142,9 +141,9 @@ public class TesteAppAluno {
 	@Test
 	public void consultarAluno(){
 		System.out.println("\n#### Iniciando Teste 3 ####");
-		
-		// Codigo: 20120124500
-		Aluno alunoBuscar= dao.buscar("777291288");
+		pk = new AlunoPK();
+		pk.setCodigo("777291288");
+		Aluno alunoBuscar= dao.buscar(pk);
 		
 		try{
 			System.out.println(alunoBuscar.toString());

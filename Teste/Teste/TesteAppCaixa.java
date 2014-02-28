@@ -9,6 +9,7 @@ import org.junit.Test;
 import DAO.CaixaDAO;
 import DAO.JPAUtil;
 import Model.Caixa;
+import PrimaryKey.CaixaPK;
 
 /**
  * Classe de Teste da aplicação
@@ -24,6 +25,7 @@ public class TesteAppCaixa {
 	private JPAUtil conexaoBD;
 	private Random rand;
 	private CaixaDAO dao;
+	private CaixaPK pkCai;
 	
 	/**
 	 * Construtor que inicializa a conexao teste
@@ -93,8 +95,9 @@ public class TesteAppCaixa {
 	public void consultarCaixa(){
 		System.out.println("\n#### Iniciando Teste 3 ####");
 		
-		// Codigo: 20120124500
-		Caixa caixabd = dao.buscar("941066905");
+		pkCai = new CaixaPK();
+		pkCai.setCodigo("941066905");
+		Caixa caixabd = dao.buscar(pkCai);
 		
 		try{
 			System.out.println(caixabd.toString());

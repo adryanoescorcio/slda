@@ -10,7 +10,7 @@ import PrimaryKey.InterfaceKey;
  * <p><b>Extends</b><br>DAO
  *  
  * @author Adryano Escorcio
- * @version 1.0
+ * @version 1.5
  * */
 public class DocumentoDAO extends DAO {
 

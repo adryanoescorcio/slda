@@ -10,12 +10,10 @@ import PrimaryKey.InterfaceKey;
  * <p><b>Extends</b><br>DAO
  *  
  * @author Walysson Oliveira
- * @version 1.0
+ * @version 1.5
  * */
 public class CaixaDAO extends DAO {
 
-	private CaixaPK pk;
-	
 	/**
 	 * <b>Construtor</b><p>
 	 * Transmite a conexao do BD para super classe.<br>
@@ -35,11 +33,8 @@ public class CaixaDAO extends DAO {
 	/**
 	 * Buscar Caixa usando o codigo
 	 **/
-	public Caixa buscar(String codigo) {
-		pk = new CaixaPK();
-		pk.setCodigo(codigo);
-		
-		return (Caixa) this.consultar(pk);
+	public Caixa buscar(CaixaPK codigo) {
+		return (Caixa) this.consultar(codigo);
 	}
 	
 	@Override

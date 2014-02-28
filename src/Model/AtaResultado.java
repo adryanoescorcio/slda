@@ -6,6 +6,13 @@ import javax.persistence.Transient;
 import PrimaryKey.AtaResultadoPK;
 import PrimaryKey.InterfaceKey;
 
+/**
+ * Classe concreta referente a Entidade AtaResultado do BD.
+ * 
+ * @author Adryano Escorcio
+ * @version 1.5
+ * @implements PadraoEntidade
+ **/
 @Entity
 public class AtaResultado implements InterfacePadraoEntidade{
 
@@ -18,10 +25,7 @@ public class AtaResultado implements InterfacePadraoEntidade{
         private AtaResultadoPK atapk = new AtaResultadoPK();
        
         public void setCodigo(String aluno, String turnoAta, String turmaAta, String anoAta) {
-                atapk.setAluno(aluno);
-                atapk.setAnoAta(anoAta);
-                atapk.setTurmaAta(turmaAta);
-                atapk.setTurnoAta(turnoAta);
+            atapk.setCodigo(aluno, turmaAta, turnoAta, anoAta);
         }
        
         @Override
@@ -38,24 +42,12 @@ public class AtaResultado implements InterfacePadraoEntidade{
                 return atapk.getTurmaAta();
         }
 
-        public void setTurmaAta(String turmaAta) {
-                atapk.setTurmaAta(turmaAta);
-        }
-
         public String getTurnoAta() {
                 return atapk.getTurnoAta();
         }
 
-        public void setTurnoAta(String turnoAta) {
-                atapk.setTurnoAta(turnoAta);
-        }
-
         public String getAnoAta() {
                 return atapk.getAnoAta();
-        }
-
-        public void setAnoAta(String anoAta) {
-                atapk.setAnoAta(anoAta);
         }
        
         @Override
@@ -68,4 +60,3 @@ public class AtaResultado implements InterfacePadraoEntidade{
                 this.atapk = (AtaResultadoPK) chaveEntidade;
         }
 }
-

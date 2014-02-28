@@ -14,7 +14,6 @@ import PrimaryKey.AtaPK;
 public class TesteAppAta {
 
 	private static final int INTERVALO = 999999999;
-	private EntityManager em;
 	private JPAUtil conexaoBD;
 	private Random rand;
 	private AtaDAO dao;
@@ -52,15 +51,13 @@ public class TesteAppAta {
 			System.out.println("\n****** Teste 1 - 100% OK ******");
 	}
 	
-//	@Test
-	public void removerAluno(){
+	@Test
+	public void removerAta(){
 		
 		Ata ata = new Ata();
 		// instanciando caixa
 		AtaPK atapk = new AtaPK();
-		atapk.setTurmaAta("406");
-		atapk.setAnoAta("2013");
-		atapk.setTurnoAta("Vespertino");
+		atapk.setCodigo("406", "Vespertino", "2013");
 		ata.setCodigo("Matutino","202","2012");
 		ata.setModalidadeAta("Normal");
 		ata.setEnsinoAta("Superior");
@@ -77,7 +74,7 @@ public class TesteAppAta {
 	}
 	
 //	@Test
-	public void consultarCaixa(){
+	public void consultarAta(){
 		System.out.println("\n#### Iniciando Teste 3 ####");
 		
 		// Codigo: 20120124500

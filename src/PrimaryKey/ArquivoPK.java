@@ -3,6 +3,13 @@ package PrimaryKey;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+/**
+ * Classe concreta referente a Chave Primária da Entidade Arquivo do BD.
+ * 
+ * @author Adryano Escorcio
+ * @version 1.0
+ * @implements InterfaceKey
+ **/
 @Embeddable
 public class ArquivoPK implements InterfaceKey {
 	
@@ -14,12 +21,10 @@ public class ArquivoPK implements InterfaceKey {
 		return codigoCaixa;
 	}
 	
-	public void setCodigoCaixa(String codigoCaixa) {
-		this.codigoCaixa = codigoCaixa;
-	}
 	
-	public void setCodigoAluno(String codigo) {
-		this.codigoAluno = codigo;
+	public void setCodigo(String codigoCaixa, String codigoAluno) {
+		this.codigoCaixa = codigoCaixa;
+		this.codigoAluno = codigoAluno;
 	}
 	
 	public String getCodigoAluno() {

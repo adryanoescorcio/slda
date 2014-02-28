@@ -9,7 +9,7 @@ import PrimaryKey.InterfaceKey;
  * <p><b>Extends</b><br>DAO
  *  
  * @author Walysson Oliveira
- * @version 1.0
+ * @version 1.5
  * */
 public class ArquivoDAO extends DAO {
 

@@ -230,7 +230,4 @@ public class Aluno implements InterfacePadraoEntidade {
 	public void setCodigoKEY(InterfaceKey codigo) {
 		this.alunoPK = (AlunoPK) codigo;
 	}
-	
-
-	
 }

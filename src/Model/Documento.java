@@ -95,14 +95,14 @@ public class Documento implements InterfacePadraoEntidade {
 	@Override
 	public String toString() {
 		return "" +
-				"Codigo: "+ this.documentopk.toString()+ ", " +
-				"Codigo Aluno: "+this.getAluno().toString()+ ", " +
-				"Codigo Aluno: "+this.nomeDocumento+ ", " +
-				"Codigo Aluno: "+this.descricao+ ", " +
-				"Codigo Aluno: "+this.dataEntrega+ ", " +
-				"Codigo Aluno: "+this.dataPedido+ ", " +
-				"Codigo Aluno: "+this.status+ ", " +
-				"";
+			"Codigo: "+ this.documentopk.toString()+ ", " +
+			"Codigo Aluno: "+this.getAluno().toString()+ ", " +
+			"Codigo Aluno: "+this.nomeDocumento+ ", " +
+			"Codigo Aluno: "+this.descricao+ ", " +
+			"Codigo Aluno: "+this.dataEntrega+ ", " +
+			"Codigo Aluno: "+this.dataPedido+ ", " +
+			"Codigo Aluno: "+this.status+ ", " +
+			"";
 	}
 	
 

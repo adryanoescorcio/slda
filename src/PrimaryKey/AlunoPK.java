@@ -21,6 +21,10 @@ public class AlunoPK implements InterfaceKey {
 		this.codigoAluno = codigo;
 	}
 	
+	public String getCodigo() {
+		return this.codigoAluno;
+	}
+	
 	@Override
 	public String toString() {
 		return codigoAluno;

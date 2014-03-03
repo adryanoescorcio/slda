@@ -1,5 +1,9 @@
 package DAO;
 
+import java.util.List;
+
+import javax.persistence.Query;
+
 import Model.Ata;
 import Model.InterfacePadraoEntidade;
 import PrimaryKey.AtaPK;
@@ -41,4 +45,27 @@ public class AtaDAO extends DAO {
         protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
                 return em.find(Ata.class, codigo);
         }
+        
+        //METODO QUE RETORNA UMA MATRIZ DE ATAS CONTENDO TODAS AS ATAS DO BANCO PARA PREENCHER UMA JTABLE
+    	public String[][] visualizarTodasAtas(){
+    		String[][] matriz;
+    		Query query = em.createNamedQuery("Ata.findAll");
+    		@SuppressWarnings("unchecked")
+    		List<Ata> atas = query.getResultList();
+    		
+    		matriz = new String[atas.size()][5];
+    		
+    		for (int i = 0; i < atas.size(); i++) {
+    			Ata ata = atas.get(i); 
+    			
+    			matriz[i][0] = ata.getTurnoAta();
+    			matriz[i][1] = ata.getAnoAta();
+    			matriz[i][2] = ata.getTurnoAta();
+    			matriz[i][3] = ata.getModalidadeAta();
+    			matriz[i][4] = ata.getEnsinoAta();
+    				
+    		}
+    		
+    		return matriz;
+    	}
 }

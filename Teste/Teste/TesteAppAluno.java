@@ -67,7 +67,7 @@ public class TesteAppAluno {
 		alunoTeste.setCodigo(numAleatorio());
 
 		alunoTeste.setCPF_Aluno(numAleatorio());
-		alunoTeste.setNomeAluno("Daniel Souza");
+		alunoTeste.setNomeAluno("Alan Kardec Souza");
 		alunoTeste.setINEP(numAleatorio());
 		alunoTeste.setRG_Aluno(numAleatorio());
 		alunoTeste.setSexoAluno("Masculino");

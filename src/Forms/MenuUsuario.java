@@ -3,11 +3,11 @@ package Forms;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-public class MenuUser {
+public class MenuUsuario {
 
 	private JMenu menuUsuario;
 
-	public MenuUser() {
+	public MenuUsuario() {
 		menuUsuario = new JMenu("Usuário");	
 		//ADICIONA UM MNEMÔNICO OU ATALHO(ALT + U) 
 		menuUsuario.setMnemonic('U');

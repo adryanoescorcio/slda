@@ -2,6 +2,7 @@ package Model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
 import PrimaryKey.CaixaPK;
@@ -14,6 +15,8 @@ import PrimaryKey.InterfaceKey;
  * @version 1.5
  * @implements PadraoEntidade
  **/
+
+@NamedQuery(name="Caixa.findAll", query="SELECT c FROM Caixa c")
 @Entity
 public class Caixa implements InterfacePadraoEntidade{
 

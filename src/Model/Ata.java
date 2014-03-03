@@ -2,11 +2,13 @@ package Model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
 import PrimaryKey.AtaPK;
 import PrimaryKey.InterfaceKey;
 
+@NamedQuery(name="Ata.findAll", query="SELECT a FROM Ata a")
 @Entity
 public class Ata implements InterfacePadraoEntidade {
 

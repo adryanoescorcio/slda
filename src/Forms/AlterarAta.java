@@ -5,6 +5,8 @@ import java.awt.GridLayout;
 import java.awt.Label;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -28,10 +30,10 @@ public class AlterarAta extends TelaPadrao{
 	
 	JTextField tf1;
 	JTextField tf2;
-	JTextField tf3;
-	JTextField tf4;
-	JTextField tf5;
-	JTextField tf6;
+	JFormattedTextField tff1;
+	JComboBox<String> comboTurno;
+	JComboBox<String> comboModalidade;
+	JComboBox<String> comboEnsino;
 		
 	public AlterarAta() {
 		//LAYOUT DA TELA 
@@ -46,10 +48,12 @@ public class AlterarAta extends TelaPadrao{
 		
 		tf1 = new JTextField();
 		tf2 = new JTextField();
-		tf3 = new JTextField();
-		tf4 = new JTextField();
-		tf5 = new JTextField();
-		tf6 = new JTextField();
+		tff1 = new JFormattedTextField();
+		
+		comboTurno = criarEConfigurarComboDeTurno();
+		comboModalidade = criarEConfigurarComboDeModalidade();
+		comboEnsino = criarEConfigurarComboDeEnsino();		
+		
 		
 		//PAINEIS DE DIVISÃO DE CÉLULA
 		JPanel centro = new JPanel();
@@ -58,14 +62,14 @@ public class AlterarAta extends TelaPadrao{
 		
 		//CRIANDO E ADICIONANDO PAINEIS DE DIVISÃO DE CÉLULA
 		JPanel linha1 = criarDividirEConfigurarCelula(new JLabel("Turma:"), tf1);
-		JPanel linha2 = criarDividirEConfigurarCelula(new JLabel("Turno:"), tf2);
-		JPanel linha3L = criarDividirEConfigurarCelula(new JLabel("Ano:"), tf3);
+		JPanel linha2 = criarDividirEConfigurarCelula(new JLabel("Turno:"), comboTurno);
+		JPanel linha3L = criarDividirEConfigurarCelula(new JLabel("Ano:"), tff1);
 		JPanel linha3R = criarDividirEConfigurarCelula(botaoBuscar ,new Label(""));
-		JPanel linha4 = criarDividirEConfigurarCelula(new JLabel("Modalidade de Ensino:"), tf4);
-		JPanel linha5 = criarDividirEConfigurarCelula(new JLabel("Grau de Ensino:"), tf5);
-		JPanel linha6 = criarDividirEConfigurarCelula(new JLabel("Matrícula do(s) Aluno(s):"), tf6);
-		JPanel linha7 = criarDividirEConfigurarCelula(botaoInserir, new Label(""));
-		JPanel linha8 = criarDividirEConfigurarCelula(botaoSalvar, new Label(""));
+		JPanel linha4 = criarDividirEConfigurarCelula(new JLabel("Modalidade de Ensino:"), comboModalidade);
+		JPanel linha5 = criarDividirEConfigurarCelula(new JLabel("Grau de Ensino:"), comboEnsino);
+		JPanel linha6L = criarDividirEConfigurarCelula(new JLabel("Matrícula do(s) Aluno(s):"), tf2);
+		JPanel linha6R = criarDividirEConfigurarCelula(botaoInserir, botaoExcluir);
+		JPanel linha7 = criarDividirEConfigurarCelula(botaoSalvar, new Label(""));
 		
 		Label titulo = getTitulo("Ata");
 			
@@ -80,9 +84,9 @@ public class AlterarAta extends TelaPadrao{
 		centro.add(new Label(""));			centro.add(linha4);							centro.add(new Label(""));		centro.add(new Label(""));
 		centro.add(new Label(""));			centro.add(linha5);							centro.add(new JLabel(""));		centro.add(new Label(""));
 		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(linha6);							centro.add(linha7);				centro.add(new Label(""));
+		centro.add(new Label(""));			centro.add(linha6L);						centro.add(linha6R);			centro.add(new Label(""));
 		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(linha8);				centro.add(new Label(""));
+		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(linha7);				centro.add(new Label(""));
 		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
 		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
 		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));

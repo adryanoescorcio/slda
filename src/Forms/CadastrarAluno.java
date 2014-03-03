@@ -61,10 +61,10 @@ public class CadastrarAluno extends TelaPadrao{
 		
 		tff1 = new JFormattedTextField();
 		tff2 = new JFormattedTextField();
-		tff3 = new JFormattedTextField();
+		tff3 = new JFormattedTextField(getMascaraCPF());
 		tff4 = new JFormattedTextField();
-		tff5 = new JFormattedTextField();
-		tff6 = new JFormattedTextField();
+		tff5 = new JFormattedTextField(getMascaraData());
+		tff6 = new JFormattedTextField(getMascaraTelefone());
 		
 		tf1 = new JTextField();
 		tf2 = new JTextField();

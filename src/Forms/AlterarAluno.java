@@ -61,10 +61,10 @@ public class AlterarAluno extends TelaPadrao{
 		//INICIALIZAÇÃO DE VARIÁVEIS
 		tff1 = new JFormattedTextField();
 		tff2 = new JFormattedTextField();
-		tff3 = new JFormattedTextField();
+		tff3 = new JFormattedTextField(getMascaraCPF());
 		tff4 = new JFormattedTextField();
-		tff5 = new JFormattedTextField();
-		tff6 = new JFormattedTextField();
+		tff5 = new JFormattedTextField(getMascaraData());
+		tff6 = new JFormattedTextField(getMascaraTelefone());
 		
 		tf1 = new JTextField();
 		tf2 = new JTextField();
@@ -96,9 +96,9 @@ public class AlterarAluno extends TelaPadrao{
 		botaoBuscar = new JButton("Buscar");
 			
 		//CRIANDO E ADICIONANDO PAINEIS DE DIVISÃO DE CÉLULA
-		JPanel linha1R = criarDividirEConfigurarCelula(new JLabel("  Matricula:"), tff1);
-		JPanel linha1L = criarDividirEConfigurarCelula(botaoBuscar, new Label(""));
-		JPanel linha2R = criarDividirEConfigurarCelula(new JLabel("  INEP:"), tff2);
+		JPanel linha1L = criarDividirEConfigurarCelula(new JLabel("  Matricula:"), tff1);
+		JPanel linha1R = criarDividirEConfigurarCelula(botaoBuscar, new Label(""));
+		JPanel linha2 = criarDividirEConfigurarCelula(new JLabel("  INEP:"), tff2);
 		JPanel linha3L = criarDividirEConfigurarCelula(new JLabel("  CPF:"), tff3);
 		JPanel linha3R = criarDividirEConfigurarCelula(new JLabel("  Rg:"), tff4);
 		JPanel linha4L = criarDividirEConfigurarCelula(new JLabel("  UF de Nascimento"), combo1);
@@ -120,7 +120,7 @@ public class AlterarAluno extends TelaPadrao{
 		add(new Label(""));									add(new Label(""));									add(new Label(""));										add(new Label(""));
 		add(new Label(""));									add(titulo);										add(new Label(""));										add(new Label(""));			
 		add(new Label(""));									add(new JLabel("  Nome:"));							add(tf1);												add(new Label(""));	
-		add(new Label(""));									add(new Label(""));									add(linha2R);											add(new Label(""));
+		add(new Label(""));									add(new Label(""));									add(linha2);											add(new Label(""));
 		add(new Label(""));									add(linha3L);										add(linha3R);											add(new Label(""));
 		add(new Label(""));									add(linha4L);										add(linha4R);											add(new Label(""));
 		add(new Label(""));									add(linha5L);										add(linha5R);											add(new Label(""));

@@ -1,5 +1,9 @@
 package DAO;
 
+import java.util.List;
+
+import javax.persistence.Query;
+
 import Model.Caixa;
 import Model.InterfacePadraoEntidade;
 import PrimaryKey.CaixaPK;
@@ -45,5 +49,26 @@ public class CaixaDAO extends DAO {
 	@Override
 	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
 		return em.find(Caixa.class, codigo);
+	}
+	
+	//METODO QUE RETORNA UMA MATRIZ DE CAIXAS CONTENDO TODAS AS CAIXAS DO BANCO PARA PREENCHER UMA JTABLE
+	public String[][] visualizarTodasCaixas(){
+		String[][] matriz;
+		Query query = em.createNamedQuery("Caixa.findAll");
+		@SuppressWarnings("unchecked")
+		List<Caixa> caixas = query.getResultList();
+		
+		matriz = new String[caixas.size()][3];
+		
+		for (int i = 0; i < caixas.size(); i++) {
+			Caixa caixa = caixas.get(i); 
+			
+			matriz[i][0] = caixa.getCodigo();
+			matriz[i][1] = caixa.getTurno();
+			matriz[i][2] = caixa.getStatus();
+				
+		}
+		
+		return matriz;
 	}
 }

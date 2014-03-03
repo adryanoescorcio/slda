@@ -3,6 +3,13 @@ package Forms;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+/**
+ * Classe que controla o menu Importar e seus itens
+ * 
+ * @author Walysson Oliveira
+ * @version 1.5
+ **/
+
 public class MenuImportar {
 
 	JMenu menuImportar;

@@ -71,8 +71,6 @@ public class Principal extends JFrame{
 		menuBar.add(menuVisualizar.getMenuVisualizar());
 		menuBar.add(menuAvancado.getMenuAvancado());
 				
-		criandoIcones();
-	
 		//INSTANCIANDO OS PAINEIS
 		JPanel localizarAluno = new LocalizarArquivo();
 		JPanel cadastrarAluno = new CadastrarAluno();
@@ -83,6 +81,8 @@ public class Principal extends JFrame{
 		JPanel excluirAta = new ExcluirAta();
 		JPanel caixaArquivo = new CaixaArquivo();
 		JPanel pedidoArquivo = new PedidoArquivo();
+		
+		criandoIcones();
 		
 		//DEFININDO OS PAINEIS DA CAMADA ARQUIVO
 		camadaArquivo.addTab("Localizar", iconLocalizar, localizarAluno);

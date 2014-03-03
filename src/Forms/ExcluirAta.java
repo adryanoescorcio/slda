@@ -5,6 +5,8 @@ import java.awt.GridLayout;
 import java.awt.Label;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -25,10 +27,11 @@ public class ExcluirAta extends TelaPadrao{
 	
 	JTextField tf1;
 	JTextField tf2;
-	JTextField tf3;
-	JTextField tf4;
-	JTextField tf5;
-	JTextField tf6;
+	JFormattedTextField tff1;
+	JComboBox<String> comboTurno;
+	JComboBox<String> comboModalidade;
+	JComboBox<String> comboEnsino;
+	
 		
 	public ExcluirAta() {
 		//LAYOUT DA TELA 
@@ -41,11 +44,12 @@ public class ExcluirAta extends TelaPadrao{
 		
 		tf1 = new JTextField();
 		tf2 = new JTextField();
-		tf3 = new JTextField();
-		tf4 = new JTextField();
-		tf5 = new JTextField();
-		tf6 = new JTextField();
-	
+		tff1 = new JFormattedTextField();
+		
+		comboTurno = criarEConfigurarComboDeTurno();
+		comboModalidade = criarEConfigurarComboDeModalidade();
+		comboEnsino = criarEConfigurarComboDeEnsino();		
+		
 		//PAINEIS DE DIVISÃO DE CÉLULA
 		JPanel centro = new JPanel();
 		centro.setLayout(new GridLayout(20, 4, 5, 5));
@@ -53,12 +57,12 @@ public class ExcluirAta extends TelaPadrao{
 				
 		//CRIANDO E ADICIONANDO PAINEIS DE DIVISÃO DE CÉLULA
 		JPanel linha1 = criarDividirEConfigurarCelula(new JLabel("Turma:"), tf1);
-		JPanel linha2 = criarDividirEConfigurarCelula(new JLabel("Turno:"), tf2);
-		JPanel linha3L = criarDividirEConfigurarCelula(new JLabel("Ano:"), tf3);
+		JPanel linha2 = criarDividirEConfigurarCelula(new JLabel("Turno:"), comboTurno);
+		JPanel linha3L = criarDividirEConfigurarCelula(new JLabel("Ano:"), tff1);
 		JPanel linha3R = criarDividirEConfigurarCelula(botaoBuscar ,new Label(""));
-		JPanel linha4 = criarDividirEConfigurarCelula(new JLabel("Modalidade de Ensino:"), tf4);
-		JPanel linha5 = criarDividirEConfigurarCelula(new JLabel("Grau de Ensino:"), tf5);
-		JPanel linha6 = criarDividirEConfigurarCelula(new JLabel("Matrícula do(s) Aluno(s):"), tf6);
+		JPanel linha4 = criarDividirEConfigurarCelula(new JLabel("Modalidade de Ensino:"), comboModalidade);
+		JPanel linha5 = criarDividirEConfigurarCelula(new JLabel("Grau de Ensino:"), comboEnsino);
+		JPanel linha6 = criarDividirEConfigurarCelula(new JLabel(""), botaoExcluir);
 		
 		Label titulo = getTitulo("Ata");
 			

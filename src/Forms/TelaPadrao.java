@@ -5,11 +5,13 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Label;
+import java.text.ParseException;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.text.MaskFormatter;
 
 @SuppressWarnings("serial")
 public abstract class TelaPadrao extends JPanel {
@@ -18,6 +20,7 @@ public abstract class TelaPadrao extends JPanel {
 	protected Icon iconSalvar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"save3.png"));
 	protected GridLayout layout = new GridLayout(20, 4, 5, 5);
 	protected Color corDeFundo = Color.WHITE;
+	MaskFormatter data, tel, cpf;
 	
 	public Label getTitulo(String titulo){
 		Label nome = new Label(titulo);
@@ -35,7 +38,7 @@ public abstract class TelaPadrao extends JPanel {
 		jpanel.add(comp2);
 		jpanel.setBackground(Color.WHITE);
 		return jpanel;
-	};
+	}
 	
 	//METODO QUE CRIA, DIVIDE UMA CÉLULA DO GRIDLAYOUT E A CONFIGURA PARA 4 COMPONENTES
 	public JPanel criarDividirEConfigurarCelula(Component comp1, Component comp2, Component comp3, Component comp4){
@@ -47,7 +50,7 @@ public abstract class TelaPadrao extends JPanel {
 		jpanel.add(comp4);
 		jpanel.setBackground(Color.WHITE);
 		return jpanel;
-	};
+	}
 	
 	//METODO QUE CRIA UMA CAIXA DE COMBINAÇÃO COM O NOME DAS UFs DO BRASIL E A CONFIGURA
 	public JComboBox<String> criarEConfigurarComboDeUF(){
@@ -85,7 +88,7 @@ public abstract class TelaPadrao extends JPanel {
 		combo.addItem("TO");
 
 		return combo;
-	};
+	}
 
 	//METODO QUE CRIA UMA CAIXA DE COMBINAÇÃO COM O NOME DAS UFs DO BRASIL E A CONFIGURA
 	public JComboBox<String> criarEConfigurarComboDeCor(){
@@ -101,6 +104,73 @@ public abstract class TelaPadrao extends JPanel {
 		combo.addItem("INDÍGENA");
 		
 		return combo;
-	};
+	}
+	
+	public JComboBox<String> criarEConfigurarComboDeTurno(){
+		
+		JComboBox<String> combo = new JComboBox<String>();
+		
+		combo.setBackground(Color.WHITE);
+		combo.addItem("");
+		combo.addItem("MATUTINO");
+		combo.addItem("VESPERTINO");
+		combo.addItem("NOTURNO");
+		
+		return combo;
+	}
+	
+	public JComboBox<String> criarEConfigurarComboDeModalidade(){
+		
+		JComboBox<String> combo = new JComboBox<String>();
+		
+		combo.setBackground(Color.WHITE);
+		combo.addItem("");
+		combo.addItem("NORMAL");
+		combo.addItem("EJA");
+		
+		return combo;
+	}
+	
+	public JComboBox<String> criarEConfigurarComboDeEnsino(){
+		
+		JComboBox<String> combo = new JComboBox<String>();
+		
+		combo.setBackground(Color.WHITE);
+		combo.addItem("");
+		combo.addItem("FUNDAMENTAL");
+		combo.addItem("MEDIO");
+		
+		return combo;
+	}
+	
+	public MaskFormatter getMascaraData(){
+		try {
+			data = new MaskFormatter(" ##/##/####");
+			data.setPlaceholderCharacter('_');
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
+	public MaskFormatter getMascaraTelefone(){
+		try {
+			tel = new MaskFormatter("(##) ####-####");
+			tel.setPlaceholderCharacter('_');
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return tel;
+	}
+	
+	public MaskFormatter getMascaraCPF(){
+		try {
+			cpf = new MaskFormatter("###.###.###-##");
+			cpf.setPlaceholderCharacter('_');
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return cpf;
+	}
 
 }

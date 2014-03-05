@@ -42,11 +42,8 @@ public class DocumentoDAO extends DAO {
 	/**
 	 * Buscar Documento usando o protocolo(codigo)
 	 **/
-	public Documento buscar(String codigo) {
-		pk = new DocumentoPK();
-		pk.setCodigo(codigo);
-		
-		return (Documento) this.consultar(pk);
+	public Documento buscar(DocumentoPK codigo) {
+		return (Documento) this.consultar(codigo);
 	}
 
 	@Override

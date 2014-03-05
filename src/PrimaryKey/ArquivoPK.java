@@ -7,7 +7,7 @@ import javax.persistence.Embeddable;
  * Classe concreta referente a Chave Primária da Entidade Arquivo do BD.
  * 
  * @author Adryano Escorcio
- * @version 1.0
+ * @version 1.3
  * @implements InterfaceKey
  **/
 @Embeddable
@@ -20,7 +20,6 @@ public class ArquivoPK implements InterfaceKey {
 	public String getCodigoCaixa() {
 		return codigoCaixa;
 	}
-	
 	
 	public void setCodigo(String codigoCaixa, String codigoAluno) {
 		this.codigoCaixa = codigoCaixa;

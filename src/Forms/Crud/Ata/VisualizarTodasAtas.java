@@ -1,4 +1,4 @@
-package Forms;
+package Forms.Crud.Ata;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

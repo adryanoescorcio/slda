@@ -1,4 +1,4 @@
-package Teste;
+package Teste.TesteIsolados;  
 
 import java.util.Random;
 
@@ -6,45 +6,64 @@ import javax.persistence.EntityManager;
 
 import org.junit.Test;
 
-import DAO.AtaDAO;
+import DAO.CaixaDAO;
 import DAO.JPAUtil;
-import Model.Ata;
-import PrimaryKey.AtaPK;
+import Model.Caixa;
+import PrimaryKey.CaixaPK;
 
-public class TesteAppAta {
+/**
+ * Classe de Teste da aplicação
+ * 
+ * @author Walysson Oliveira
+ * @version 1.0
+ **/
+
+public class TesteAppCaixa {
 
 	private static final int INTERVALO = 999999999;
+	EntityManager em;
 	private JPAUtil conexaoBD;
 	private Random rand;
-	private AtaDAO dao;
-
-	public TesteAppAta() {
+	private CaixaDAO dao;
+	private CaixaPK pkCai;
+	
+	/**
+	 * Construtor que inicializa a conexao teste
+	 **/
+	public TesteAppCaixa() {
 		this.conexaoBD = new JPAUtil();
-		dao = new AtaDAO(conexaoBD);
-	}
-
-//    @Test
-	public void conexao() {
-		EntityManager em = dao.getEm();
-		System.out.println(em.isOpen()); 
+		this.dao = new CaixaDAO(conexaoBD);
 	}
 	
 	@Test
-	public void inserirAtualizarAta() {
+	public void conexao() {
+		EntityManager em = dao.getEm();
+		System.out.println(em.isOpen()); 
+		em.getTransaction().begin();
+		Caixa caixa = new Caixa();
+		caixa.setCodigo(numAleatorio());
+		caixa.setStatus("Cheio");
+		caixa.setTurno("Noturno");
+		em.persist(caixa); 
+		em.getTransaction().commit();
+	}
+		
+	@Test
+	public void inserirAtualizarCaixa() {
 	
 		// instanciando caixa
-		Ata ata = new Ata();
+		Caixa caixa = new Caixa();
 		
 		// Setando os valores
-		ata.setCodigo("Matutino","202","2012");
-		ata.setModalidadeAta("Normal");
-		ata.setEnsinoAta("Medio");
+		caixa.setCodigo(numAleatorio());
+		caixa.setStatus("Morto");
+		caixa.setTurno("Matutino");
 		
 		System.out.println("\n####### Iniciando Teste 1 #######");
 		System.out.println("\n+++ Primeiro Teste - Inserir");
 				
 		// inserindo caixa
-		boolean retorno = dao.save(ata);
+		boolean retorno = dao.save(caixa);
 				
 		// verificando o retorno
 		if(retorno)
@@ -52,36 +71,36 @@ public class TesteAppAta {
 	}
 	
 	@Test
-	public void removerAta(){
+	public void removerAluno(){
 		
-		Ata ata = new Ata();
 		// instanciando caixa
-		AtaPK atapk = new AtaPK();
-		atapk.setCodigo("406", "Vespertino", "2013");
-		ata.setCodigo("Matutino","202","2012");
-		ata.setModalidadeAta("Normal");
-		ata.setEnsinoAta("Superior");
+		Caixa caixaremove = new Caixa();
+		
+		caixaremove.setCodigo("000000020000002000000002000002");
+		caixaremove.setStatus("teste");
+		caixaremove.setTurno("teste");
 		
 		System.out.println("\n#### Iniciando Teste 2 ####");
 		// caixa é inserida
-		dao.save(ata);
+		dao.save(caixaremove);
 		
 		// remover aluno
-		boolean retorno = dao.remover(ata);
+		boolean retorno = dao.remover(caixaremove);
 		
 		if(retorno)
 			System.out.println("****** OK Teste 2. ******");
 	}
 	
-//	@Test
-	public void consultarAta(){
+	@Test
+	public void consultarCaixa(){
 		System.out.println("\n#### Iniciando Teste 3 ####");
 		
-		// Codigo: 20120124500
-//		Ata ata = dao.buscar("402 - 2014 - Vespertino");
+		pkCai = new CaixaPK();
+		pkCai.setCodigo("941066905");
+		Caixa caixabd = dao.buscar(pkCai);
 		
 		try{
-//			System.out.println(ata.toString());
+			System.out.println(caixabd.toString());
 		} catch (NullPointerException e) {
 			System.out.println("Atencao: Não existe nenhuma caixa com o codigo digitado");
 		}
@@ -93,10 +112,6 @@ public class TesteAppAta {
 		rand = new Random();
 		String numAle = String.valueOf(rand.nextInt(INTERVALO));
 		return numAle;
-	}
-	
-	public String getCodigoDaAta(AtaPK atapk){
-		return atapk.getTurmaAta() + " - " + atapk.getAnoAta() + " - " + atapk.getTurnoAta();
 	}
 
 }

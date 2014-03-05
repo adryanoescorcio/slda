@@ -1,4 +1,4 @@
-package Forms;
+package Forms.Crud.Arquivo;
 
 import java.awt.Label;
 
@@ -6,6 +6,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import Forms.TelaPadrao;
 
 /**
  * Classe que representa a tela Arquivo - Caixa

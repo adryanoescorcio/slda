@@ -1,4 +1,4 @@
-package Forms;
+package Forms.Crud.Ata;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -11,8 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Forms.TelaPadrao;
+
 /**
- * Classe que representa a tela Ata - Excluir
+ * Classe que representa a tela Ata - Alterar
  * 
  * @author Walysson Oliveira
  * @version 1.5
@@ -20,8 +22,11 @@ import javax.swing.JTextField;
  **/
 
 @SuppressWarnings("serial")
-public class ExcluirAta extends TelaPadrao{
+public class AlterarAta extends TelaPadrao{
 
+	//DECLARAÇÃO DE VARIÁVEIS
+	JButton botaoInserir;
+	JButton botaoSalvar;
 	JButton botaoExcluir;
 	JButton botaoBuscar;
 	
@@ -31,15 +36,16 @@ public class ExcluirAta extends TelaPadrao{
 	JComboBox<String> comboTurno;
 	JComboBox<String> comboModalidade;
 	JComboBox<String> comboEnsino;
-	
 		
-	public ExcluirAta() {
+	public AlterarAta() {
 		//LAYOUT DA TELA 
 		// ------> OPTEI EM USAR O BORDERLAYOUT PQ PRETENDO INSERIR UM JTABLE NO LADO DIREITO PARA INSERIR OU EXCLUIR UM ALUNO DA ATA
 		setLayout(new BorderLayout());
 		
 		//INICIALIZAÇÃO DE VARIÁVEIS
-		botaoExcluir = new JButton("Excluir");
+		botaoSalvar = new JButton("  Salvar", iconSalvar);
+		botaoInserir = new JButton("Inserir Aluno");
+		botaoExcluir = new JButton("Excluir Aluno");
 		botaoBuscar = new JButton("Buscar");
 		
 		tf1 = new JTextField();
@@ -50,11 +56,12 @@ public class ExcluirAta extends TelaPadrao{
 		comboModalidade = criarEConfigurarComboDeModalidade();
 		comboEnsino = criarEConfigurarComboDeEnsino();		
 		
+		
 		//PAINEIS DE DIVISÃO DE CÉLULA
 		JPanel centro = new JPanel();
 		centro.setLayout(new GridLayout(20, 4, 5, 5));
 		centro.setBackground(corDeFundo);
-				
+		
 		//CRIANDO E ADICIONANDO PAINEIS DE DIVISÃO DE CÉLULA
 		JPanel linha1 = criarDividirEConfigurarCelula(new JLabel("Turma:"), tf1);
 		JPanel linha2 = criarDividirEConfigurarCelula(new JLabel("Turno:"), comboTurno);
@@ -62,7 +69,9 @@ public class ExcluirAta extends TelaPadrao{
 		JPanel linha3R = criarDividirEConfigurarCelula(botaoBuscar ,new Label(""));
 		JPanel linha4 = criarDividirEConfigurarCelula(new JLabel("Modalidade de Ensino:"), comboModalidade);
 		JPanel linha5 = criarDividirEConfigurarCelula(new JLabel("Grau de Ensino:"), comboEnsino);
-		JPanel linha6 = criarDividirEConfigurarCelula(new JLabel(""), botaoExcluir);
+		JPanel linha6L = criarDividirEConfigurarCelula(new JLabel("Matrícula do(s) Aluno(s):"), tf2);
+		JPanel linha6R = criarDividirEConfigurarCelula(botaoInserir, botaoExcluir);
+		JPanel linha7 = criarDividirEConfigurarCelula(botaoSalvar, new Label(""));
 		
 		Label titulo = getTitulo("Ata");
 			
@@ -77,14 +86,14 @@ public class ExcluirAta extends TelaPadrao{
 		centro.add(new Label(""));			centro.add(linha4);							centro.add(new Label(""));		centro.add(new Label(""));
 		centro.add(new Label(""));			centro.add(linha5);							centro.add(new JLabel(""));		centro.add(new Label(""));
 		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(linha6);							centro.add(new JLabel(""));		centro.add(new Label(""));
+		centro.add(new Label(""));			centro.add(linha6L);						centro.add(linha6R);			centro.add(new Label(""));
+		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
+		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(linha7);				centro.add(new Label(""));
 		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
 		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
 		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
 		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
-		
+	
 		//ADICIONANDO COMPONENTES À TELA
 		add(centro, BorderLayout.CENTER);
 		

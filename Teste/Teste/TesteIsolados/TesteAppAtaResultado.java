@@ -1,4 +1,4 @@
-package Teste;
+package Teste.TesteIsolados;
 import java.util.Random;
 
 import javax.persistence.EntityManager;

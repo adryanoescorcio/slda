@@ -1,4 +1,4 @@
-package Forms;
+package Forms.Crud.Aluno;
 
 import java.awt.Label;
 
@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import Forms.TelaPadrao;
 
 /**
  * Classe que representa a tela Aluno - Cadastrar

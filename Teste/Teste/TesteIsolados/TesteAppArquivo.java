@@ -1,4 +1,4 @@
-package Teste;
+package Teste.TesteIsolados;
 
 import java.util.Random;
 
@@ -22,6 +22,7 @@ public class TesteAppArquivo {
 	EntityManager em;
 	private JPAUtil conexaoBD;
 	private Random rand;
+	
 	private ArquivoDAO dao;
 	private AlunoDAO alunoDAO;
 	private CaixaDAO caixaDAO;
@@ -64,7 +65,7 @@ public class TesteAppArquivo {
 	public void inserirAtualizarDocumento() {
 		
 		pkCai = new CaixaPK();
-		pkCai.setCodigo("941066905");
+		pkCai.setCodigo(numAleatorio());
 		// Setando os valores
 		Caixa caixa = caixaDAO.buscar(pkCai);
 		pkAlu = new AlunoPK();
@@ -106,10 +107,10 @@ public class TesteAppArquivo {
 		// instanciando aluno
 		Arquivo arq = new Arquivo();
 		pkAlu = new AlunoPK();
-		pkAlu.setCodigo("144007556");
+		pkAlu.setCodigo("207030540");
 		
 		pkCai = new CaixaPK();
-		pkCai.setCodigo("781373626");
+		pkCai.setCodigo("207030540");
 		arq.setCodigo(alunoDAO.buscar(pkAlu), caixaDAO.buscar(pkCai));
 		arq.setCodDossie(numAleatorio());
 		System.out.println("\n#### Iniciando Teste 2 ####");

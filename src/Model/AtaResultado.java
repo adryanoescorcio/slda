@@ -10,7 +10,7 @@ import PrimaryKey.InterfaceKey;
  * Classe concreta referente a Entidade AtaResultado do BD.
  * 
  * @author Adryano Escorcio
- * @version 1.5
+ * @version 1.8
  * @implements PadraoEntidade
  **/
 @Entity
@@ -58,5 +58,14 @@ public class AtaResultado implements InterfacePadraoEntidade{
         @Override
         public void setCodigoKEY(InterfaceKey chaveEntidade) {
                 this.atapk = (AtaResultadoPK) chaveEntidade;
+        }
+        
+        public String toString() {
+        	return "" +
+        			"Turma: "+this.atapk.getTurmaAta()+ ", " +
+        			"Ano: "+this.atapk.getAnoAta()+ ", " +
+        			"Turno: "+this.atapk.getTurnoAta()+ ", " +
+        			"Aluno: "+this.atapk.getAluno()+ ", " +
+        			"";
         }
 }

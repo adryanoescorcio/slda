@@ -1,4 +1,4 @@
-package Teste;
+package Teste.TesteIsolados;
 
 import java.util.Random;
 
@@ -12,6 +12,7 @@ import DAO.JPAUtil;
 import Model.Aluno;
 import Model.Documento;
 import PrimaryKey.AlunoPK;
+import PrimaryKey.DocumentoPK;
 
 public class TesteAppDocumento {
 
@@ -123,13 +124,15 @@ public class TesteAppDocumento {
 	@Test
 	public void testarBuscaAlterar() {
 		System.out.println("\n#### Iniciando Teste 3 ####");
+		DocumentoPK documentoPK = new DocumentoPK();
+		documentoPK.setCodigo("854336025");
 		
-		Documento doc = dao.buscar("854336025"); 
+		Documento doc = dao.buscar(documentoPK); 
 		doc.setDataEntrega("3332322");
 		
 		dao.getEm().clear();
 		
-		doc = dao.buscar("854336025");
+		doc = dao.buscar(documentoPK);
 		System.out.println("**** Status " + doc.getStatus());
 		doc.setStatus("dsdfsdfdsfsdfsdfsdfsd");
 		dao.transactionBeginAndCommit();

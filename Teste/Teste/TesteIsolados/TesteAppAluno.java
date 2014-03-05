@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Teste;
+package Teste.TesteIsolados;
 
 import java.util.Random;
 
@@ -23,7 +23,7 @@ import PrimaryKey.AlunoPK;
 public class TesteAppAluno {
 
 	private static final int INTERVALO = 999999999;
-	EntityManager em;
+	private EntityManager em;
 	private JPAUtil conexaoBD;
 	
 	private Random rand;
@@ -41,7 +41,7 @@ public class TesteAppAluno {
 	/**
 	 * Testar se a Conexao está funcionando e persistindo
 	 **/
-//	@Test
+	@Test
 	public void conexao() {
 	  EntityManager em = dao.getEm();
       System.out.println(em.isOpen()); 
@@ -156,8 +156,7 @@ public class TesteAppAluno {
 
 	public String numAleatorio() {
 		rand = new Random();
-		String numAle = String.valueOf(rand.nextInt(INTERVALO));
-		return numAle;
+		return String.valueOf(rand.nextInt(INTERVALO));
 	}
 	
 }

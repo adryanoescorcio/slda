@@ -1,4 +1,4 @@
-package Forms;
+package Forms.Crud.Arquivo;
 
 import java.awt.Label;
 
@@ -7,6 +7,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import Forms.TelaPadrao;
 
 /**
  * Classe que representa a tela Arquivo - Localizar

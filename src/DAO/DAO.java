@@ -180,7 +180,6 @@ public abstract class DAO {
 		
 		try {
 			return this.removerPorObjetoEntidade((InterfacePadraoEntidade) params);
-			
 		} catch (Exception e) {
 			return this.removerPorCodigoPK((InterfaceKey) params);
 		}

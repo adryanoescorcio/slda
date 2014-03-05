@@ -11,7 +11,7 @@ import PrimaryKey.InterfaceKey;
  * Classe concreta referente a Entidade Arquivo do BD.
  * 
  * @author Walysson Oliveira
- * @version 1.5
+ * @version 1.8
  * @implements PadraoEntidade
  **/
 @Entity
@@ -38,8 +38,8 @@ public class Arquivo implements InterfacePadraoEntidade{
 
 	public void setCodigo(Aluno aluno, Caixa caixa) {
 		this.aluno = aluno;
-		this.arquivopk.setCodigo(caixa.getCodigo(), aluno.getCodigo());
 		this.caixa = caixa;
+		this.arquivopk.setCodigo(caixa.getCodigo(), aluno.getCodigo());
 	}
 
 	public Caixa getCaixa() {
@@ -53,7 +53,6 @@ public class Arquivo implements InterfacePadraoEntidade{
 	public void setCodDossie(String codDossie) {
 		this.codDossie = codDossie;
 	}
-
 
 	public String getDatadeEntradaArquivo() {
 		return datadeEntradaArquivo;
@@ -76,20 +75,20 @@ public class Arquivo implements InterfacePadraoEntidade{
 	@Override
 	public String toString() {
 		return "" +
-			"Aluno: "+this.aluno.getCodigo()+ ", " +
-			"Caixa: "+this.caixa.getCodigo()+ ", " +
+			"Aluno: "+this.arquivopk.getCodigoAluno()+ ", " +
+			"Caixa: "+this.arquivopk.getCodigoCaixa()+ ", " +
 			"Codigo: "+this.codDossie+ ", " +
 			"Entrada: "+this.datadeEntradaArquivo+ ", " +
 			"";
 	}
 	
 	public String getCodigo() {
-		return this.aluno.getCodigo();
+		return this.arquivopk.getCodigoAluno();
 	}
 	
 	@Override
 	public InterfaceKey getCodigoKEY() {
-		return this.arquivopk;
+		return (ArquivoPK) this.arquivopk;
 	}
 
 	@Override

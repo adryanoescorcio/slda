@@ -1,4 +1,4 @@
-package Forms;
+package Forms.Crud.Aluno;
 
 import java.awt.Label;
 
@@ -11,8 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import Forms.TelaPadrao;
+
 /**
- * Classe que representa a tela Aluno - Cadastrar
+ * Classe que representa a tela Aluno - Alterar
  * 
  * @author Walysson Oliveira
  * @version 1.5
@@ -20,49 +22,51 @@ import javax.swing.JTextField;
  **/
 
 @SuppressWarnings("serial")
-public class ExcluirAluno extends TelaPadrao{
+public class AlterarAluno extends TelaPadrao{
 
-		//DECLARAÇÃO DE VARIÁVEIS
-		JButton botaoExcluir;
-		JButton botaoBuscar;
-		JFormattedTextField tff1;
-		JFormattedTextField tff2;
-		JFormattedTextField tff3;
-		JFormattedTextField tff4;
-		JFormattedTextField tff5;
-		JFormattedTextField tff6;
+	//DECLARAÇÃO DE VARIÁVEIS
+	JButton botaoSalvar;
+	JButton botaoBuscar;
+	
+	JFormattedTextField tff1;
+	JFormattedTextField tff2;
+	JFormattedTextField tff3;
+	JFormattedTextField tff4;
+	JFormattedTextField tff5;
+	JFormattedTextField tff6;
+	
+	JTextField tf1;
+	JTextField tf2;
+	JTextField tf3;
+	JTextField tf4;
+	JTextField tf5;
+	JTextField tf6;
+	JTextField tf7;
+	JTextField tf8;
+	JTextField tf9;
+	
+	JComboBox<String> combo1;
+	JComboBox<String> combo2;
+	JComboBox<String> combo3;
+	JComboBox<String> combo4;
+	
+	ButtonGroup grupo;
+	JRadioButton radioM;
+	JRadioButton radioF;
 		
-		JTextField tf1;
-		JTextField tf2;
-		JTextField tf3;
-		JTextField tf4;
-		JTextField tf5;
-		JTextField tf6;
-		JTextField tf7;
-		JTextField tf8;
-		JTextField tf9;
+	//MÉTODO CONSTRUTOR DA CLASSE
+	public AlterarAluno() {
 		
-		JComboBox<String> combo1;
-		JComboBox<String> combo2;
-		JComboBox<String> combo3;
-		JComboBox<String> combo4;
-		
-		ButtonGroup grupo;
-		JRadioButton radioM;
-		JRadioButton radioF;
-			
-		//MÉTODO CONSTRUTOR DA CLASSE
-		public ExcluirAluno() {
-		
+		//LAYOUT DA TELA
 		setLayout(layout);
-		
+	
 		//INICIALIZAÇÃO DE VARIÁVEIS
 		tff1 = new JFormattedTextField();
 		tff2 = new JFormattedTextField();
-		tff3 = new JFormattedTextField();
+		tff3 = new JFormattedTextField(getMascaraCPF());
 		tff4 = new JFormattedTextField();
-		tff5 = new JFormattedTextField();
-		tff6 = new JFormattedTextField();
+		tff5 = new JFormattedTextField(getMascaraData());
+		tff6 = new JFormattedTextField(getMascaraTelefone());
 		
 		tf1 = new JTextField();
 		tf2 = new JTextField();
@@ -89,10 +93,10 @@ public class ExcluirAluno extends TelaPadrao{
 		grupo.add(radioM);
 		radioF.setBackground(corDeFundo);
 		radioM.setBackground(corDeFundo);
-
-		botaoExcluir = new JButton("Excluir");
-		botaoBuscar = new JButton("Buscar");
 		
+		botaoSalvar = new JButton(" Salvar", iconSalvar);
+		botaoBuscar = new JButton("Buscar");
+			
 		//CRIANDO E ADICIONANDO PAINEIS DE DIVISÃO DE CÉLULA
 		JPanel linha1L = criarDividirEConfigurarCelula(new JLabel("  Matricula:"), tff1);
 		JPanel linha1R = criarDividirEConfigurarCelula(botaoBuscar, new Label(""));
@@ -109,14 +113,14 @@ public class ExcluirAluno extends TelaPadrao{
 		JPanel linha9 =criarDividirEConfigurarCelula(combo4, new Label(""));
 		JPanel linha10 =criarDividirEConfigurarCelula(tf6, new Label(""));
 		JPanel linha11 = criarDividirEConfigurarCelula(tf7, new Label(""));
-		JPanel linha12 = criarDividirEConfigurarCelula(botaoExcluir, new Label(""));
+		JPanel linha12 = criarDividirEConfigurarCelula(botaoSalvar, new Label(""));
 		
 		Label titulo = getTitulo("Aluno");
-								
+			
 		//ADICIONANDO COMPONENTES À TELA
 		add(new Label(""));									add(linha1L);										add(linha1R);											add(new Label(""));
 		add(new Label(""));									add(new Label(""));									add(new Label(""));										add(new Label(""));
-		add(new Label(""));									add(titulo);											add(new Label(""));										add(new Label(""));			
+		add(new Label(""));									add(titulo);										add(new Label(""));										add(new Label(""));			
 		add(new Label(""));									add(new JLabel("  Nome:"));							add(tf1);												add(new Label(""));	
 		add(new Label(""));									add(new Label(""));									add(linha2);											add(new Label(""));
 		add(new Label(""));									add(linha3L);										add(linha3R);											add(new Label(""));

@@ -1,4 +1,4 @@
-package Forms;
+package Forms.Crud.Aluno;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

@@ -19,7 +19,7 @@ import Forms.TelaPadrao;
  **/
 
 @SuppressWarnings("serial")
-public class LocalizarArquivo extends TelaPadrao{
+public class LocalizarArquivo extends TelaPadrao {
 
 	//DECLARAÇÃO DE VARIÁVEIS
 	JTextField tf1;

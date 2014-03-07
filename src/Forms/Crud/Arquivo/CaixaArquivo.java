@@ -37,7 +37,7 @@ public class CaixaArquivo extends TelaPadrao{
 		
 		setLayout(layout);
 		
-		botaoSalvar = new JButton("  Salvar", iconSalvar);
+		botaoSalvar = new JButton("  Salvar", null);
 		botaoInserir = new JButton("Inserir");
 		botaoInativa = new JButton("Definir");
 		

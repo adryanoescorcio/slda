@@ -94,7 +94,7 @@ public class AlterarAluno extends TelaPadrao{
 		radioF.setBackground(corDeFundo);
 		radioM.setBackground(corDeFundo);
 		
-		botaoSalvar = new JButton(" Salvar", iconSalvar);
+		botaoSalvar = new JButton(" Salvar", null);
 		botaoBuscar = new JButton("Buscar");
 			
 		//CRIANDO E ADICIONANDO PAINEIS DE DIVISÃO DE CÉLULA

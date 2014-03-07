@@ -59,7 +59,7 @@ public class CadastrarAluno extends TelaPadrao{
 			
 		//INICIALIZAÇÃO DE VARIÁVEIS
 		
-		botao = new JButton("  Salvar", iconSalvar);
+		botao = new JButton("  Salvar", null);
 		
 		tff1 = new JFormattedTextField();
 		tff2 = new JFormattedTextField();

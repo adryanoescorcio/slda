@@ -42,7 +42,7 @@ public class CadastrarAta extends TelaPadrao{
 		setLayout(new BorderLayout());
 		
 		//INICIALIZAÇÃO DE VARIÁVEIS
-		botaoSalvar = new JButton("  Salvar", iconSalvar);
+		botaoSalvar = new JButton("  Salvar", null);
 		botaoInserir = new JButton("Inserir Aluno");
 		
 		tf1 = new JTextField();

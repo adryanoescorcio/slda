@@ -16,11 +16,12 @@ import javax.swing.text.MaskFormatter;
 @SuppressWarnings("serial")
 public abstract class TelaPadrao extends JPanel {
 
-	protected static final String DIR_MAIN_ICONES = "../Icones/";
-	protected Icon iconSalvar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"save3.png"));
+	
+//	private static final String DIR_MAIN_ICONES = "../../Icones/";
+//	protected Icon iconSalvar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"save3.png"));
 	protected GridLayout layout = new GridLayout(20, 4, 5, 5);
 	protected Color corDeFundo = Color.WHITE;
-	MaskFormatter data, tel, cpf;
+	protected MaskFormatter data, tel, cpf;
 	
 	public Label getTitulo(String titulo){
 		Label nome = new Label(titulo);

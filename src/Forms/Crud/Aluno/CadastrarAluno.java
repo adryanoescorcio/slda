@@ -59,7 +59,7 @@ public class CadastrarAluno extends TelaPadrao{
 			
 		//INICIALIZAÇÃO DE VARIÁVEIS
 		
-		botao = new JButton("  Salvar", null);
+		botao = new JButton("  Salvar", iconSalvar);
 		
 		tff1 = new JFormattedTextField();
 		tff2 = new JFormattedTextField();
@@ -78,10 +78,10 @@ public class CadastrarAluno extends TelaPadrao{
 		tf8 = new JTextField();
 		tf9 = new JTextField();
 		
-		combo1 = criarEConfigurarComboDeUF();
-		combo2 = criarEConfigurarComboDeCor();
-		combo3 = criarEConfigurarComboDeUF();
-		combo4 = criarEConfigurarComboDeUF();
+		combo1 = getComboBoxEstadosBR();
+		combo2 = getComboxCorRaca();
+		combo3 = getComboBoxEstadosBR();
+		combo4 = getComboBoxEstadosBR();
 	
 		grupo = new ButtonGroup();
 		radioM = new JRadioButton("M");
@@ -91,8 +91,8 @@ public class CadastrarAluno extends TelaPadrao{
 		
 		grupo.add(radioF);
 		grupo.add(radioM);
-		radioF.setBackground(corDeFundo);
-		radioM.setBackground(corDeFundo);
+		radioF.setBackground(COR_DE_FUNDO);
+		radioM.setBackground(COR_DE_FUNDO);
 				
 		//CRIANDO E ADICIONANDO PAINEIS DE DIVISÃO DE CÉLULA
 		JPanel linha2L = criarDividirEConfigurarCelula(new JLabel("  Matrícula:"), tff1);
@@ -134,7 +134,7 @@ public class CadastrarAluno extends TelaPadrao{
 		add(new Label(""));					add(new Label(""));									add(linha12);				add(new Label(""));
 
 		//DIFININDO O FUNDO DE TELA COMO BRANCO
-		setBackground(corDeFundo);
+		setBackground(COR_DE_FUNDO);
 	}
 
 }

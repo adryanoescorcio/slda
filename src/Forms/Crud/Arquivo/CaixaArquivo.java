@@ -85,7 +85,7 @@ public class CaixaArquivo extends TelaPadrao{
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
 
-		setBackground(corDeFundo);
+		setBackground(COR_DE_FUNDO);
 
 	}
 

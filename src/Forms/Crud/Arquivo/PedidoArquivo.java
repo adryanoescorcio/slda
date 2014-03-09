@@ -60,7 +60,7 @@ public class PedidoArquivo extends TelaPadrao{
 		/*------>COLOQUEI ALGUNS ITENS SÓ PRA VER SE O TAMANHO ESTÁ BOM, MAS ELA TEM QUE SER INICIALIZADA VAZIA
 		 * E PREENCHIDA PELOS DOCUMENTOS COM SITUAÇÃO AINDA ATIVO OU NÃO FINALIZADO
 		 */
-		combo.setBackground(corDeFundo);
+		combo.setBackground(COR_DE_FUNDO);
 		combo.addItem("");
 		combo.addItem("1");
 		combo.addItem("2");
@@ -109,7 +109,7 @@ public class PedidoArquivo extends TelaPadrao{
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
 		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
 	
-		setBackground(corDeFundo);
+		setBackground(COR_DE_FUNDO);
 
 	}
 

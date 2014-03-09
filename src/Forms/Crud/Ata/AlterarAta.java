@@ -52,15 +52,15 @@ public class AlterarAta extends TelaPadrao{
 		tf2 = new JTextField();
 		tff1 = new JFormattedTextField();
 		
-		comboTurno = criarEConfigurarComboDeTurno();
-		comboModalidade = criarEConfigurarComboDeModalidade();
-		comboEnsino = criarEConfigurarComboDeEnsino();		
+		comboTurno = getComboBoxTurno();
+		comboModalidade = getComboBoxModalidade();
+		comboEnsino = getComboBoxEnsino();		
 		
 		
 		//PAINEIS DE DIVISÃO DE CÉLULA
 		JPanel centro = new JPanel();
 		centro.setLayout(new GridLayout(20, 4, 5, 5));
-		centro.setBackground(corDeFundo);
+		centro.setBackground(COR_DE_FUNDO);
 		
 		//CRIANDO E ADICIONANDO PAINEIS DE DIVISÃO DE CÉLULA
 		JPanel linha1 = criarDividirEConfigurarCelula(new JLabel("Turma:"), tf1);
@@ -98,7 +98,7 @@ public class AlterarAta extends TelaPadrao{
 		add(centro, BorderLayout.CENTER);
 		
 		//DIFININDO O FUNDO DE TELA COMO BRANCO
-		setBackground(corDeFundo);
+		setBackground(COR_DE_FUNDO);
 
 	}
 

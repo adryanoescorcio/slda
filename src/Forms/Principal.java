@@ -77,6 +77,7 @@ public class Principal {
 	 * Painel Principal e mais externo da JFrame. 
 	 **/
 	private JPanel mainJPanel = new JPanel(new BorderLayout(2, 2));
+	
 	//INSTANCIANDO OS PAINEIS CRUD
 	// ALUNO
 	private LocalizarArquivo localizarAluno = new LocalizarArquivo();
@@ -102,31 +103,27 @@ public class Principal {
 		configuracaoMainJFrame();
 		
 		//SETANDO AS CAMADAS COM O FUNDO BRANCO
-		
 		camadaExterna.setOpaque(true);
-		camadaAluno.setOpaque(true);
-		camadaArquivo.setOpaque(true);
-		camadaAta.setOpaque(true);
 
 		//DEFININDO OS PAINEIS DA CAMADA ARQUIVO
-		camadaArquivo.addTab("Localizar", iconLocalizar, localizarAluno);
-		camadaArquivo.addTab("Caixa", iconCaixa, caixaArquivo);
+		camadaArquivo.addTab("Cadastrar", iconCadastrar, localizarAluno.telaPrincipal());
+		camadaArquivo.addTab("Pesquisar", iconCaixa, caixaArquivo);
 		camadaArquivo.addTab("Pedido", iconMovimentacao, pedidoArquivo);
 		
 		//DEFININDO OS PAINEIS DA CAMADA ALUNO
 		camadaAluno.addTab("Cadastrar", iconCadastrar, cadastrarAluno);
-		camadaAluno.addTab("Alterar", iconAlterar, alterarAluno);
+		camadaAluno.addTab("Pesquisar", iconAlterar, alterarAluno);
 		camadaAluno.addTab("Excluir", iconExcluir, excluirAluno);
 		
 		//DEFININDO OS PAINEIS DA CAMADA ATA
 		camadaAta.addTab("Cadastrar", iconCadastrar, cadastrarAta);
-		camadaAta.addTab("Alterar", iconAlterar, alterarAta);
+		camadaAta.addTab("Pesquisar", iconAlterar, alterarAta);
 		camadaAta.addTab("Excluir", iconExcluir, excluirAta);
 		
 		//DEFININDO OS PAINEIS DA CAMADA EXTERNA 
-		camadaExterna.addTab("Arquivo", iconArquivo, camadaArquivo);
+		camadaExterna.addTab("Caixa", iconArquivo, camadaArquivo);
 		camadaExterna.addTab("Aluno", iconAluno, camadaAluno);
-		camadaExterna.addTab("  Ata", iconAta, camadaAta);
+		camadaExterna.addTab("Ata", iconAta, camadaAta);
 	}
 	
 	private void alterandoFontes() {
@@ -169,15 +166,15 @@ public class Principal {
 	 **/
 	private void criandoIcones() {
 		//---------> CRIANDO OS ÍCONES<-----------
-		 iconLocalizar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"localizar.jpg"));
-		 iconAluno = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"aluno.jpg"));
-		 iconCaixa = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"caixa.jpg"));
-		 iconAta = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"ata.jpg"));
+		 iconLocalizar = new ImageIcon(DIR_MAIN_ICONES+"localizar.png");
+		 iconAluno = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"aluno.png"));
+		 iconCaixa = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"caixa.png"));
+		 iconAta = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"ata.png"));
 		 iconArquivo = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"arquivo.png"));
-		 iconCadastrar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"cadastrar.jpg"));
-		 iconExcluir = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"excluir.jpg"));
-		 iconMovimentacao = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"documento.jpg"));
-		 iconAlterar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"alterar.jpg"));
+		 iconCadastrar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"cadastrar.png"));
+		 iconExcluir = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"excluir.png"));
+		 iconMovimentacao = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"documento.png"));
+		 iconAlterar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"alterar.png"));
 	}
 
 	public static void main(String[] args) {

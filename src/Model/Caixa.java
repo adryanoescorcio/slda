@@ -30,6 +30,7 @@ public class Caixa implements InterfacePadraoEntidade{
 	
 	private String status;
 	private String turno;
+	private String letra;
 	
 	public String getStatus() {
 		return status;
@@ -82,5 +83,13 @@ public class Caixa implements InterfacePadraoEntidade{
 	@Override
 	public void setCodigoKEY(InterfaceKey chaveEntidade) {
 		this.caixapk = (CaixaPK) chaveEntidade;
+	}
+
+	public String getLetra() {
+		return this.letra;
+	}
+
+	public void setLetra(String string) {
+		this.letra = string;
 	}
 }

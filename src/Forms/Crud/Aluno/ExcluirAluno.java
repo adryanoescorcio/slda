@@ -76,10 +76,10 @@ public class ExcluirAluno extends TelaPadrao{
 		tf8 = new JTextField();
 		tf9 = new JTextField();
 		
-		combo1 = criarEConfigurarComboDeUF();
-		combo2 = criarEConfigurarComboDeCor();
-		combo3 = criarEConfigurarComboDeUF();
-		combo4 = criarEConfigurarComboDeUF();
+		combo1 = getComboBoxEstadosBR();
+		combo2 = getComboxCorRaca();
+		combo3 = getComboBoxEstadosBR();
+		combo4 = getComboBoxEstadosBR();
 		
 		grupo = new ButtonGroup();
 		
@@ -89,8 +89,8 @@ public class ExcluirAluno extends TelaPadrao{
 		//CONFIGURAÇÕES DE VARIÁVEIS
 		grupo.add(radioF);
 		grupo.add(radioM);
-		radioF.setBackground(corDeFundo);
-		radioM.setBackground(corDeFundo);
+		radioF.setBackground(COR_DE_FUNDO);
+		radioM.setBackground(COR_DE_FUNDO);
 
 		botaoExcluir = new JButton("Excluir");
 		botaoBuscar = new JButton("Buscar");
@@ -136,7 +136,7 @@ public class ExcluirAluno extends TelaPadrao{
 		add(new Label(""));									add(new Label(""));									add(linha12);											add(new Label(""));
 
 		//DIFININDO O FUNDO DE TELA COMO BRANCO
-		setBackground(corDeFundo);
+		setBackground(COR_DE_FUNDO);
 
 	}
 

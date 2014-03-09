@@ -1,7 +1,9 @@
 package Forms;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Label;
@@ -16,17 +18,30 @@ import javax.swing.text.MaskFormatter;
 @SuppressWarnings("serial")
 public abstract class TelaPadrao extends JPanel {
 
+	// Constantes
+	protected static final String DIR_ICONES = "src/Icones/";
+	protected static final Color COR_DE_FUNDO = Color.WHITE;
 	
-//	private static final String DIR_MAIN_ICONES = "../../Icones/";
-//	protected Icon iconSalvar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"save3.png"));
+	// Tipos de Fonte
+	protected Font font_PLA_15 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
+	protected Font font_NEG_15 = new Font(Font.SANS_SERIF,Font.BOLD,15);
+	
+	protected Icon iconSalvar = new ImageIcon(DIR_ICONES+"save3.png");
+	
 	protected GridLayout layout = new GridLayout(20, 4, 5, 5);
-	protected Color corDeFundo = Color.WHITE;
+	
+	
 	protected MaskFormatter data, tel, cpf;
+	
+	private JPanel painelSalvarLimpar;
+	
+	public TelaPadrao() {
+		setLayout(new BorderLayout(1,1));
+	}
 	
 	public Label getTitulo(String titulo){
 		Label nome = new Label(titulo);
-		nome.setFont(new Font("san_serif", Font.BOLD, 19));
-		nome.setForeground(Color.GRAY);
+		nome.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 19));
 	
 		return nome;
 	}
@@ -52,9 +67,86 @@ public abstract class TelaPadrao extends JPanel {
 		jpanel.setBackground(Color.WHITE);
 		return jpanel;
 	}
+
+	public JPanel painelNull(int i, int j) {
+		JPanel painelNull = new JPanel();
+		painelNull.setPreferredSize(new Dimension(i,j));
+		
+		return painelNull;
+	}
 	
-	//METODO QUE CRIA UMA CAIXA DE COMBINAÇÃO COM O NOME DAS UFs DO BRASIL E A CONFIGURA
-	public JComboBox<String> criarEConfigurarComboDeUF(){
+	public JPanel painelContentComponent(String lado, Component componente) {
+		JPanel painelContent = new JPanel(new BorderLayout());
+		painelContent.add(lado,componente);
+		
+		return painelContent;
+	}
+	
+	protected JComboBox<String> getComboBoxTurno() {
+		
+		JComboBox<String> comboTurno = new JComboBox<String>();
+		
+		comboTurno.addItem(null);
+		comboTurno.addItem("1 - Matutino");
+		comboTurno.addItem("2 - Vespertino");
+		comboTurno.addItem("3 - Noturno");
+		comboTurno.setBackground(Color.white);
+		comboTurno.setFont(font_PLA_15);
+		
+		return comboTurno;
+	}
+	
+	protected JComboBox<String> getComboBoxLetra() {
+		JComboBox<String> comboLetra = new JComboBox<String>();
+		
+		comboLetra.addItem(null);
+		comboLetra.addItem("A");
+		comboLetra.addItem("B");
+		comboLetra.addItem("C");
+		comboLetra.addItem("D");
+		comboLetra.addItem("E");
+		comboLetra.addItem("F");
+		comboLetra.addItem("G");
+		comboLetra.addItem("H");
+		comboLetra.addItem("I");
+		comboLetra.addItem("J");
+		comboLetra.addItem("K");
+		comboLetra.addItem("L");
+		comboLetra.addItem("M");
+		comboLetra.addItem("N");
+		comboLetra.addItem("O");
+		comboLetra.addItem("P");
+		comboLetra.addItem("R");
+		comboLetra.addItem("S");
+		comboLetra.addItem("T");
+		comboLetra.addItem("U");
+		comboLetra.addItem("V");
+		comboLetra.addItem("W");
+		comboLetra.addItem("X");
+		comboLetra.addItem("Y");
+		comboLetra.addItem("Z");
+		comboLetra.setBackground(Color.white);
+		comboLetra.setFont(font_PLA_15);
+		
+		return comboLetra;
+	}
+	
+	protected JComboBox<String> getComboBoxStatus() {
+		JComboBox<String> comboStatus = new JComboBox<String>();
+		
+		comboStatus.addItem("Corrente");
+		comboStatus.addItem("Intermediário");
+		comboStatus.addItem("Permanente");
+		comboStatus.setBackground(Color.white);
+		comboStatus.setFont(font_PLA_15);
+		
+		return comboStatus;
+	}
+	
+	/**
+	 * METODO QUE CRIA UMA CAIXA DE COMBINAÇÃO COM O NOME DAS UFs DO BRASIL E A CONFIGURA
+	 **/
+	public JComboBox<String> getComboBoxEstadosBR(){
 		
 		JComboBox<String> combo = new JComboBox<String>();
 		
@@ -91,8 +183,10 @@ public abstract class TelaPadrao extends JPanel {
 		return combo;
 	}
 
-	//METODO QUE CRIA UMA CAIXA DE COMBINAÇÃO COM O NOME DAS UFs DO BRASIL E A CONFIGURA
-	public JComboBox<String> criarEConfigurarComboDeCor(){
+	/**
+	 * Metodo que cria comboBox com a variedade de Cor/Raça da população
+	 **/
+	public JComboBox<String> getComboxCorRaca(){
 		
 		JComboBox<String> combo = new JComboBox<String>();
 		
@@ -106,21 +200,11 @@ public abstract class TelaPadrao extends JPanel {
 		
 		return combo;
 	}
-	
-	public JComboBox<String> criarEConfigurarComboDeTurno(){
-		
-		JComboBox<String> combo = new JComboBox<String>();
-		
-		combo.setBackground(Color.WHITE);
-		combo.addItem("");
-		combo.addItem("MATUTINO");
-		combo.addItem("VESPERTINO");
-		combo.addItem("NOTURNO");
-		
-		return combo;
-	}
-	
-	public JComboBox<String> criarEConfigurarComboDeModalidade(){
+
+	/**
+	 * Metodo que cria comboBox com as Modalidades de Ensino
+	 **/
+	public JComboBox<String> getComboBoxModalidade(){
 		
 		JComboBox<String> combo = new JComboBox<String>();
 		
@@ -132,7 +216,7 @@ public abstract class TelaPadrao extends JPanel {
 		return combo;
 	}
 	
-	public JComboBox<String> criarEConfigurarComboDeEnsino(){
+	public JComboBox<String> getComboBoxEnsino(){
 		
 		JComboBox<String> combo = new JComboBox<String>();
 		
@@ -173,5 +257,10 @@ public abstract class TelaPadrao extends JPanel {
 		}
 		return cpf;
 	}
-
+	
+	public JPanel SalvarLimparBotoes() {
+		painelSalvarLimpar = new JPanel(new BorderLayout(2,2));
+		painelSalvarLimpar.add("Weast",painelNull(20,20));
+		return painelSalvarLimpar;
+	}
 }

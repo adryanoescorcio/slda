@@ -1,14 +1,24 @@
 package Forms.Crud.Arquivo;
 
-import java.awt.Label;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.io.File;
+import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import Forms.TelaPadrao;
+import Forms.TablesModel.CaixaTableModel;
+import Model.Caixa;
 
 /**
  * Classe que representa a tela Arquivo - Localizar
@@ -21,85 +31,150 @@ import Forms.TelaPadrao;
 @SuppressWarnings("serial")
 public class LocalizarArquivo extends TelaPadrao {
 
-	//DECLARAÇÃO DE VARIÁVEIS
-	JTextField tf1;
-	JTextField tf2;
-	JTextField tf3;
-	JTextField tf4;
-	JTextField tf5;
-	JTextField tf6;
-	JTextField tf7;
-	JTextField tf8;
-		
-	JButton botao;
+	private static final int DIST = 5;
+
+	private JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
+	private JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
+	private JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));
+	private JPanel painelInternoSul = new JPanel(new BorderLayout(2,2));
+	private JPanel painelEsquerdo = new JPanel(new GridLayout(4,1,DIST,DIST));
+	private JPanel painelDireito = new JPanel(new GridLayout(4,1,DIST,DIST));
+	private JPanel painelTabela= new JPanel(new BorderLayout(2,2));	
 	
-	JComboBox<String> combo;
+	private JScrollPane scroll = new JScrollPane();
+	
+	private JLabel lbCodigo = new JLabel("Codigo Caixa: ");
+	private JLabel lbCodigo2 = new JLabel("Codigo Caixa: ");
+	private JLabel lbTurno = new JLabel("Turno: ");
+	private JLabel lbLetra = new JLabel("Letra: ");
+	private JLabel lbStatus = new JLabel("Status: ");
+	
+	private JTextField tfCodigo = new JTextField();
+	private JTextField tfLocalizar = new JTextField();
+	
+	private ImageIcon icone = new ImageIcon(DIR_ICONES+"search.png");
+
+	private JButton btnSalvar = new JButton("Salvar");
+	private JButton btnLimpar = new JButton("Limpar");
+	private JButton btnExcluir = new JButton("Excluir");
+	private JButton btnAlterar = new JButton("Alterar");
+	private JButton btnPesquisar = new JButton(icone);
+
+	private ArrayList<Caixa> lista = new ArrayList<Caixa>();
+	private CaixaTableModel modelo = new CaixaTableModel(lista);
+	private JTable tabela = new JTable(modelo);
 	
 	public LocalizarArquivo() {
+		
+		painelEsquerdo.setPreferredSize(new Dimension(100,0));
+		painelEsquerdo.add(lbCodigo);
+		painelEsquerdo.add(lbTurno);
+		painelEsquerdo.add(lbLetra);
+		painelEsquerdo.add(lbStatus);
+		
+		painelDireito.add(tfCodigo);
+		painelDireito.add(painelContentComponent("West", getComboBoxTurno()));
+		painelDireito.add(painelContentComponent("West", getComboBoxLetra()));
+		painelDireito.add(painelContentComponent("West", getComboBoxStatus()));
+		
+		alterarFontes();
+		painelInternoNorte();
+		telaPrincipal();
+	}
 
-		setLayout(layout);
+	private void painelInternoNorte() {
+		JPanel controleSuperior = new JPanel(new BorderLayout(2,2));
 		
-		//INICIALIZAÇÃO DE VARIÁVEIS
-		tf1 = new JTextField();
-		tf2 = new JTextField();
-		tf3 = new JTextField();
-		tf4 = new JTextField();
-		tf5 = new JTextField();
-		tf6 = new JTextField();
-		tf7 = new JTextField();
-		tf8 = new JTextField();
+		controleSuperior.setPreferredSize(new Dimension(0,120));
+		controleSuperior.add("West",painelEsquerdo);
+		controleSuperior.add("Center",painelDireito);
+		controleSuperior.add("East",painelNull(400, 0));
 		
-		botao = new JButton("Localizar");
+		painelInternoNorte.add("Center",controleSuperior);
+		painelInternoNorte.add("South",painelInternoSul());
+	}
+
+	public JPanel telaPrincipal() {
 		
-		combo = new JComboBox<String>();
+		painelLocalizarArquivo.add("North",painelInternoNorte);
 		
-		//CONFIGURAÇÕES DE VARIÁVEIS
-		//------>ESSA CAIXA DE SELEÇÃO TAMBÉM PODE SER SUBSTITUIDA POR UMA JTABLE
-		//------>ELA MOSTRA AS ATAS COM O NOME DO ALUNO
+		mainJPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		
-		/*------>COLOQUEI ALGUNS ITENS SÓ PRA VER SE O TAMANHO ESTÁ BOM, MAS ELA TEM QUE SER INICIALIZADA VAZIA
-		 * E PREENCHIDA PELAS ATAS DO BD COM O NOME DO ALUNO
-		 */
-		combo.setBackground(corDeFundo);
-		combo.addItem("");
-		combo.addItem("Testes para ver se o tamanho está bom: Aprovado");
-		combo.addItem("Turno: Verpertino - Turma: 203 - Ano:2013");
-		combo.addItem("Turno: Matutino - Turma: 34702 - Ano:2014");
+		mainJPanel.add("Center",painelLocalizarArquivo);
+		mainJPanel.add("West",painelNull(20, 0));
+		mainJPanel.add("East",painelNull(20, 0));
+		mainJPanel.add("North",painelNull(0, 15));
 		
-		//CRIANDO E ADICIONANDO PAINEIS DE DIVISÃO DE CÉLULA
-		JPanel linha1L = criarDividirEConfigurarCelula(new JLabel("Matrícula do Aluno:"), tf2);
-		JPanel linha1R = criarDividirEConfigurarCelula(botao, new Label(""));
-		JPanel linha2 = criarDividirEConfigurarCelula(new JLabel("Código da Caixa:"), tf3);
-		JPanel linha3 = criarDividirEConfigurarCelula(new JLabel("Turno:"), tf4);
-		JPanel linha4 = criarDividirEConfigurarCelula(new JLabel("Status:"), tf5);
-		JPanel linha5 = criarDividirEConfigurarCelula(new JLabel("Código do Dossiê:"), tf6);
-		JPanel linha6 = criarDividirEConfigurarCelula(new JLabel("Data de Entrada do Aluno:"), tf7);
+		return mainJPanel;
+	}
+
+	private JPanel painelInternoSul() {
+		painelInternoSul.add("Center",painelContentComponent("West", painelBotoes()));
+		painelInternoSul.add("North",painelNull(0, 5));
+		painelInternoSul.add("West",painelNull(220, 0));
+		painelInternoSul.add("South",painelTable());
+		
+		return painelInternoSul;
+	}
 	
-		Label titulo = getTitulo("Localizar Documentos do Aluno");
-											
-		//ADICIONANDO COMPONENTES À TELA
-		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(titulo);										add(new Label(""));			add(new Label(""));			
-		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(new JLabel("Nome do Aluno:"));					add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(tf1);											add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(linha1L);										add(linha1R);				add(new Label(""));
-		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(linha2);										add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(linha3);										add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(linha4);										add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(linha5);										add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(linha6);										add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(new JLabel("Atas que Contém o nome do Aluno:"));add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(combo);											add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
-		add(new Label(""));					add(new Label(""));									add(new Label(""));			add(new Label(""));
+	private JPanel painelTable() {
+		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
+		scroll.setViewportView(tabela); // insere a tabela no painel Scroll
+		
+		painelTabela.add("North", painelNull(0, 10));
+		painelTabela.add("Center",scroll);
+		painelTabela.add("South",painelLocaliza());
+		
+		return painelTabela;
+	}
 
-		setBackground(corDeFundo);
+	private JPanel painelLocaliza() {
+		JPanel painelLocalizar = new JPanel(new BorderLayout(2,2));
+		JPanel painelContentLocalizar = new JPanel(new BorderLayout(2,2));
+		
+		painelLocalizar.add("East", painelContentComponent("East", btnPesquisar));
+		painelLocalizar.add("Center", tfLocalizar);
+		painelLocalizar.add("West", painelContentComponent("West", lbCodigo2));
+		painelLocalizar.add("North", painelNull(0, 5));
+		
+		painelContentLocalizar.add("Center", painelLocalizar);
+		painelContentLocalizar.add("East", painelNull(400, 0));
+		
+		return painelContentLocalizar;
+	}
 
+	private JPanel painelBotoes() {
+		JPanel painelBotoes = new JPanel(new BorderLayout(2,2));
+		JPanel painelContentBotoes = new JPanel(new GridLayout(1,2,5,5));
+		
+		painelContentBotoes.add(btnSalvar);
+		painelContentBotoes.add(btnAlterar);
+		painelContentBotoes.add(btnExcluir);
+		painelContentBotoes.add(btnLimpar);
+		
+		painelBotoes.add("Center", painelContentBotoes);
+		
+		return painelBotoes;
+	}
+
+	private void alterarFontes() {
+		lbCodigo.setFont(font_PLA_15);
+		lbCodigo2.setFont(font_PLA_15);
+		lbLetra.setFont(font_PLA_15);
+		lbTurno.setFont(font_PLA_15);
+		lbStatus.setFont(font_PLA_15);
+		
+		tfCodigo.setFont(font_NEG_15);
+		tfLocalizar.setFont(font_NEG_15);
+		
+		btnSalvar.setFont(font_PLA_15);
+		btnPesquisar.setFont(font_PLA_15);
+		btnLimpar.setFont(font_PLA_15);
+		btnAlterar.setFont(font_PLA_15);
+		btnExcluir.setFont(font_PLA_15);
+		
+		btnPesquisar.setPreferredSize(new Dimension(25,25));
+		btnPesquisar.setRolloverEnabled(false);
 	}
 
 }

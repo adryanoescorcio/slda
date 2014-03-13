@@ -106,12 +106,12 @@ public class Principal {
 		camadaExterna.setOpaque(true);
 
 		//DEFININDO OS PAINEIS DA CAMADA ARQUIVO
-		camadaArquivo.addTab("Cadastrar", iconCadastrar, localizarAluno.telaPrincipal());
+		camadaArquivo.addTab("Cadastrar", iconCadastrar, localizarAluno.getTelaPrincipal());
 		camadaArquivo.addTab("Pesquisar", iconCaixa, caixaArquivo);
 		camadaArquivo.addTab("Pedido", iconMovimentacao, pedidoArquivo);
 		
 		//DEFININDO OS PAINEIS DA CAMADA ALUNO
-		camadaAluno.addTab("Cadastrar", iconCadastrar, cadastrarAluno);
+		camadaAluno.addTab("Cadastrar", iconCadastrar, cadastrarAluno.getTelaPrincipal());
 		camadaAluno.addTab("Pesquisar", iconAlterar, alterarAluno);
 		camadaAluno.addTab("Excluir", iconExcluir, excluirAluno);
 		

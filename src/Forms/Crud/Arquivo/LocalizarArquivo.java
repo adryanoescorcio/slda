@@ -58,7 +58,7 @@ public class LocalizarArquivo extends TelaPadrao {
 	private JButton btnLimpar = new JButton("Limpar");
 	private JButton btnExcluir = new JButton("Excluir");
 	private JButton btnAlterar = new JButton("Alterar");
-	private JButton btnPesquisar = new JButton(icone);
+	private JButton btnPesquisar = new JButton("Pesquisar", icone);
 
 	private ArrayList<Caixa> lista = new ArrayList<Caixa>();
 	private CaixaTableModel modelo = new CaixaTableModel(lista);
@@ -79,13 +79,12 @@ public class LocalizarArquivo extends TelaPadrao {
 		
 		alterarFontes();
 		painelInternoNorte();
-		telaPrincipal();
+		getTelaPrincipal();
 	}
 
 	private void painelInternoNorte() {
 		JPanel controleSuperior = new JPanel(new BorderLayout(2,2));
 		
-		controleSuperior.setPreferredSize(new Dimension(0,120));
 		controleSuperior.add("West",painelEsquerdo);
 		controleSuperior.add("Center",painelDireito);
 		controleSuperior.add("East",painelNull(400, 0));
@@ -94,7 +93,7 @@ public class LocalizarArquivo extends TelaPadrao {
 		painelInternoNorte.add("South",painelInternoSul());
 	}
 
-	public JPanel telaPrincipal() {
+	public JPanel getTelaPrincipal() {
 		
 		painelLocalizarArquivo.add("North",painelInternoNorte);
 		
@@ -158,22 +157,22 @@ public class LocalizarArquivo extends TelaPadrao {
 	}
 
 	private void alterarFontes() {
-		lbCodigo.setFont(font_PLA_15);
-		lbCodigo2.setFont(font_PLA_15);
-		lbLetra.setFont(font_PLA_15);
-		lbTurno.setFont(font_PLA_15);
-		lbStatus.setFont(font_PLA_15);
+		lbCodigo.setFont(font_PLA_14);
+		lbCodigo2.setFont(font_PLA_14);
+		lbLetra.setFont(font_PLA_14);
+		lbTurno.setFont(font_PLA_14);
+		lbStatus.setFont(font_PLA_14);
 		
 		tfCodigo.setFont(font_NEG_15);
 		tfLocalizar.setFont(font_NEG_15);
 		
-		btnSalvar.setFont(font_PLA_15);
-		btnPesquisar.setFont(font_PLA_15);
-		btnLimpar.setFont(font_PLA_15);
-		btnAlterar.setFont(font_PLA_15);
-		btnExcluir.setFont(font_PLA_15);
+		btnSalvar.setFont(font_PLA_14);
+		btnPesquisar.setFont(font_PLA_14);
+		btnLimpar.setFont(font_PLA_14);
+		btnAlterar.setFont(font_PLA_14);
+		btnExcluir.setFont(font_PLA_14);
 		
-		btnPesquisar.setPreferredSize(new Dimension(25,25));
+		btnPesquisar.setPreferredSize(new Dimension(140,26));
 		btnPesquisar.setRolloverEnabled(false);
 	}
 

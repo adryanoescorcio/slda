@@ -79,7 +79,7 @@ public class AlterarAluno extends TelaPadrao{
 		tf9 = new JTextField();
 		
 		combo1 = getComboBoxEstadosBR();
-		combo2 = getComboxCorRaca();
+		combo2 = getComboBoxCorRaca();
 		combo3 = getComboBoxEstadosBR();
 		combo4 = getComboBoxEstadosBR();
 		

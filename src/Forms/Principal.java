@@ -54,6 +54,7 @@ public class Principal {
 	private JTabbedPane camadaArquivo = new JTabbedPane(LADO);
 	private JTabbedPane camadaAta = new JTabbedPane(LADO);
 	
+	@SuppressWarnings("unused")
 	private Icon iconLocalizar;
 	private Icon iconAluno;
 	private Icon iconCaixa;

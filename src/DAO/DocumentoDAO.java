@@ -13,8 +13,6 @@ import PrimaryKey.InterfaceKey;
  * @version 1.5
  * */
 public class DocumentoDAO extends DAO {
-
-	private DocumentoPK pk;
 	
 	/**
 	 * <b>Construtor</b><p>

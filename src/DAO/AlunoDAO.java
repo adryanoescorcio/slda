@@ -82,6 +82,20 @@ public class AlunoDAO extends DAO {
 		
 		return matriz;
 	}
+
+	public boolean isExist(String codigo) {
+		AlunoPK pk = new AlunoPK();
+		pk.setCodigo(codigo);
+		
+		Aluno alunoDaConsulta = (Aluno) this.consultar(pk);
+		
+		try{
+			alunoDaConsulta.toString();
+			return true;
+		} catch (NullPointerException e) {
+			return false;
+		}
+	}
 	
 
 }

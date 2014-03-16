@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.text.MaskFormatter;
 
 @SuppressWarnings("serial")
-public abstract class TelaPadrao extends JPanel {
+public class TelaPadrao extends JPanel {
 
 	// Constantes
 	protected static final String DIR_ICONES = "src/Icones/";

@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import Forms.TelaPadrao;
 import Forms.TablesModel.CaixaTableModel;
@@ -32,21 +33,25 @@ public class LocalizarArquivo extends TelaPadrao {
 
 	private static final int DIST = 5;
 
+	private static final String BORDER_INFO_CAIXA = "Dados Caixa";
+
 	private JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
 	private JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
 	private JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));
 	private JPanel painelInternoSul = new JPanel(new BorderLayout(2,2));
-	private JPanel painelEsquerdo = new JPanel(new GridLayout(4,1,DIST,DIST));
-	private JPanel painelDireito = new JPanel(new GridLayout(4,1,DIST,DIST));
+	private JPanel painelEsquerdo = new JPanel(new GridLayout(5,1,DIST,DIST));
+	private JPanel painelDireito = new JPanel(new GridLayout(5,1,DIST,DIST));
 	private JPanel painelTabela= new JPanel(new BorderLayout(2,2));	
+	private JPanel painelContentEIA = new JPanel(new BorderLayout(2,2));
 	
 	private JScrollPane scroll = new JScrollPane();
 	
-	private JLabel lbCodigo = new JLabel("Codigo Caixa: ");
-	private JLabel lbCodigo2 = new JLabel("Codigo Caixa: ");
-	private JLabel lbTurno = new JLabel("Turno: ");
-	private JLabel lbLetra = new JLabel("Letra: ");
-	private JLabel lbStatus = new JLabel("Status: ");
+	private JLabel lbCodigo = new JLabel("Codigo Caixa: ",SwingConstants.RIGHT);
+	private JLabel lbCodigo2 = new JLabel("Codigo Caixa: ",SwingConstants.RIGHT);
+	private JLabel lbTurno = new JLabel("Turno: ",SwingConstants.RIGHT);
+	private JLabel lbLetra = new JLabel("Letra: ",SwingConstants.RIGHT);
+	private JLabel lbStatus = new JLabel("Status: ",SwingConstants.RIGHT);
+	private JLabel lbDadosCaixa = new JLabel("DADOS DA CAIXA",SwingConstants.CENTER);
 	
 	private JTextField tfCodigo = new JTextField();
 	private JTextField tfLocalizar = new JTextField();
@@ -62,19 +67,27 @@ public class LocalizarArquivo extends TelaPadrao {
 	private ArrayList<Caixa> lista = new ArrayList<Caixa>();
 	private CaixaTableModel modelo = new CaixaTableModel(lista);
 	private JTable tabela = new JTable(modelo);
-	
+
+
 	public LocalizarArquivo() {
-		
-		painelEsquerdo.setPreferredSize(new Dimension(100,0));
+
+		painelEsquerdo.add(painelNull(0, 0));
 		painelEsquerdo.add(lbCodigo);
 		painelEsquerdo.add(lbTurno);
 		painelEsquerdo.add(lbLetra);
 		painelEsquerdo.add(lbStatus);
 		
+		painelDireito.add(painelNull(0, 0));
 		painelDireito.add(tfCodigo);
 		painelDireito.add(painelContentComponent("West", getComboBoxTurno()));
 		painelDireito.add(painelContentComponent("West", getComboBoxLetra()));
 		painelDireito.add(painelContentComponent("West", getComboBoxStatus()));
+		
+		// Este painel guarda o lado direito e esquedo descrito acima. Define também a borda especifica.
+		painelContentEIA.add("North", lbDadosCaixa );
+		painelContentEIA.add("West", painelEsquerdo);
+		painelContentEIA.add("Center", painelDireito);
+		painelContentEIA.add("East",painelNull(200, 0));
 		
 		alterarFontes();
 		painelInternoNorte();
@@ -84,9 +97,9 @@ public class LocalizarArquivo extends TelaPadrao {
 	private void painelInternoNorte() {
 		JPanel controleSuperior = new JPanel(new BorderLayout(2,2));
 		
-		controleSuperior.add("West",painelEsquerdo);
-		controleSuperior.add("Center",painelDireito);
-		controleSuperior.add("East",painelNull(400, 0));
+		controleSuperior.add("North",painelContentEIA);
+		controleSuperior.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createSoftBevelBorder(2), BORDER_INFO_CAIXA));
 		
 		painelInternoNorte.add("Center",controleSuperior);
 		painelInternoNorte.add("South",painelInternoSul());
@@ -161,6 +174,7 @@ public class LocalizarArquivo extends TelaPadrao {
 		lbLetra.setFont(font_PLA_14);
 		lbTurno.setFont(font_PLA_14);
 		lbStatus.setFont(font_PLA_14);
+		lbDadosCaixa.setFont(font_NEG_15);
 		
 		tfCodigo.setFont(font_NEG_15);
 		tfLocalizar.setFont(font_NEG_15);

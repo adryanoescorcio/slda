@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import Forms.TelaPadrao;
@@ -30,7 +29,7 @@ import Model.Aluno;
  * @extends TelaPadrao
  **/
 @SuppressWarnings("serial")
-public class CadastrarAluno extends TelaPadrao{
+public class CadastrarAluno extends TelaPadrao {
 
 	private static final int DIST = 5;
 
@@ -44,29 +43,30 @@ public class CadastrarAluno extends TelaPadrao{
 	private JPanel painelEsquerdoInfoAluno = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
 	private JPanel painelDireito = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
 	private JPanel painelTabela= new JPanel(new BorderLayout(2,2));	
+	private JPanel painelContentEIA = new JPanel(new BorderLayout(2,2));
 	
 	private JScrollPane scroll = new JScrollPane();
 	private JScrollPane scrollMain = new JScrollPane();
 	
 	private JLabel lbDadosAluno = new JLabel("DADOS DO DISCENTE",SwingConstants.CENTER);
-	private JLabel lbNome = new JLabel("Nome: ");
-	private JLabel lbCodigo2 = new JLabel("Codigo Aluno: ");
-	private JLabel lbCodigo = new JLabel("Codigo: ");
-	private JLabel lbCPF = new JLabel("CPF: ");
-	private JLabel lbCor = new JLabel("Cor: ");
-	private JLabel lbNis = new JLabel("NIS: ");
-	private JLabel lbDataNasc = new JLabel("Data Nasc.: ");
-	private JLabel lbSexo = new JLabel("Sexo: ");
-	private JLabel lbNomeMae = new JLabel("Mãe: ");
-	private JLabel lbEstadoMae = new JLabel("Estado Nasc. Mae: ");
-	private JLabel lbNomePai = new JLabel("Pai: ");
-	private JLabel lbEnd = new JLabel("Endereço: ");
-	private JLabel lbCidade = new JLabel("Cidade Nasc.: ");
-	private JLabel lbEstado = new JLabel("Estado Nasc.: ");
-	private JLabel lbFone = new JLabel("Telefone: ");
-	private JLabel lbDataMatricula = new JLabel("Data Matricula: ");
-	private JLabel lbTransferencia = new JLabel("Admitido por Transferencia? "); // Tem que ativar um campo de data
-	private JLabel lbSituacao = new JLabel("Situação Atual: ");
+	private JLabel lbNome = new JLabel("Nome: ",SwingConstants.RIGHT);
+	private JLabel lbCodigo2 = new JLabel("Codigo Aluno: ",SwingConstants.RIGHT);
+	private JLabel lbCodigo = new JLabel("Codigo: ",SwingConstants.RIGHT);
+	private JLabel lbCPF = new JLabel("CPF: ",SwingConstants.RIGHT);
+	private JLabel lbCor = new JLabel("Cor: ",SwingConstants.RIGHT);
+	private JLabel lbNis = new JLabel("NIS: ",SwingConstants.RIGHT);
+	private JLabel lbDataNasc = new JLabel("Data Nasc.: ",SwingConstants.RIGHT);
+	private JLabel lbSexo = new JLabel("Sexo: ",SwingConstants.RIGHT);
+	private JLabel lbNomeMae = new JLabel("Mãe: ",SwingConstants.RIGHT);
+	private JLabel lbEstadoMae = new JLabel("Estado Nasc. Mae: ",SwingConstants.RIGHT);
+	private JLabel lbNomePai = new JLabel("Pai: ",SwingConstants.RIGHT);
+	private JLabel lbEnd = new JLabel("Endereço: ",SwingConstants.RIGHT);
+	private JLabel lbCidade = new JLabel("Cidade Nasc.: ",SwingConstants.RIGHT);
+	private JLabel lbEstado = new JLabel("Estado Nasc.: ",SwingConstants.RIGHT);
+	private JLabel lbFone = new JLabel("Telefone: ",SwingConstants.RIGHT);
+	private JLabel lbDataMatricula = new JLabel("Data Matricula: ",SwingConstants.RIGHT);
+	private JLabel lbTransferencia = new JLabel("Admitido por Transferencia? ",SwingConstants.RIGHT); // Tem que ativar um campo de data
+	private JLabel lbSituacao = new JLabel("Situação Atual: ",SwingConstants.RIGHT);
 	
 	private JTextField tfNome = new JTextField();
 	private JTextField tfLocalizar = new JTextField();
@@ -91,10 +91,7 @@ public class CadastrarAluno extends TelaPadrao{
 	private AlunoTableModel modelo = new AlunoTableModel(lista);
 	private JTable tabela = new JTable(modelo);
 	
-	JPanel painelContentEIA;
-	
 	public CadastrarAluno() {
-		painelContentEIA = new JPanel(new BorderLayout(2,2));
 		
 		painelEsquerdoInfoAluno.add(painelNull(0, 0));
 		painelEsquerdoInfoAluno.add(lbNome);
@@ -312,6 +309,7 @@ public class CadastrarAluno extends TelaPadrao{
 		lbEstado.setFont(font_PLA_14);
 		lbFone.setFont(font_PLA_14);
 		lbDataMatricula.setFont(font_PLA_14);
+		lbSituacao.setFont(font_PLA_14);		
 		lbDadosAluno.setFont(font_NEG_15);
 		
 		// JTextField

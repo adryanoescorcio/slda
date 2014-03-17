@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import Eventos.EventosCaixa;
 import Forms.TelaPadrao;
 import Forms.TablesModel.CaixaTableModel;
 import Model.Caixa;
@@ -28,41 +29,7 @@ import Model.Caixa;
  **/
 
 @SuppressWarnings("serial")
-public class LocalizarArquivo extends TelaPadrao {
-
-	private static final int DIST = 5;
-
-	private JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
-	private JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
-	private JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));
-	private JPanel painelInternoSul = new JPanel(new BorderLayout(2,2));
-	private JPanel painelEsquerdo = new JPanel(new GridLayout(4,1,DIST,DIST));
-	private JPanel painelDireito = new JPanel(new GridLayout(4,1,DIST,DIST));
-	private JPanel painelTabela= new JPanel(new BorderLayout(2,2));	
-	
-	private JScrollPane scroll = new JScrollPane();
-	
-	private JLabel lbCodigo = new JLabel("Codigo Caixa: ");
-	private JLabel lbCodigo2 = new JLabel("Codigo Caixa: ");
-	private JLabel lbTurno = new JLabel("Turno: ");
-	private JLabel lbLetra = new JLabel("Letra: ");
-	private JLabel lbStatus = new JLabel("Status: ");
-	
-	private JTextField tfCodigo = new JTextField();
-	private JTextField tfLocalizar = new JTextField();
-	
-	private ImageIcon icone = new ImageIcon(DIR_ICONES+"search.png");
-
-	private JButton btnSalvar = new JButton("Salvar");
-	private JButton btnLimpar = new JButton("Limpar");
-	private JButton btnExcluir = new JButton("Excluir");
-	private JButton btnAlterar = new JButton("Alterar");
-	private JButton btnPesquisar = new JButton(icone);
-
-	private ArrayList<Caixa> lista = new ArrayList<Caixa>();
-	private CaixaTableModel modelo = new CaixaTableModel(lista);
-	private JTable tabela = new JTable(modelo);
-	
+public class LocalizarArquivo extends EventosCaixa {
 	public LocalizarArquivo() {
 		
 		painelEsquerdo.setPreferredSize(new Dimension(100,0));
@@ -72,9 +39,9 @@ public class LocalizarArquivo extends TelaPadrao {
 		painelEsquerdo.add(lbStatus);
 		
 		painelDireito.add(tfCodigo);
-		painelDireito.add(painelContentComponent("West", getComboBoxTurno()));
-		painelDireito.add(painelContentComponent("West", getComboBoxLetra()));
-		painelDireito.add(painelContentComponent("West", getComboBoxStatus()));
+		painelDireito.add(padrao.painelContentComponent("West", padrao.getComboBoxTurno()));
+		painelDireito.add(padrao.painelContentComponent("West", padrao.getComboBoxLetra()));
+		painelDireito.add(padrao.painelContentComponent("West", padrao.getComboBoxStatus()));
 		
 		alterarFontes();
 		painelInternoNorte();
@@ -87,7 +54,7 @@ public class LocalizarArquivo extends TelaPadrao {
 		controleSuperior.setPreferredSize(new Dimension(0,120));
 		controleSuperior.add("West",painelEsquerdo);
 		controleSuperior.add("Center",painelDireito);
-		controleSuperior.add("East",painelNull(400, 0));
+		controleSuperior.add("East",padrao.painelNull(400, 0));
 		
 		painelInternoNorte.add("Center",controleSuperior);
 		painelInternoNorte.add("South",painelInternoSul());
@@ -100,17 +67,17 @@ public class LocalizarArquivo extends TelaPadrao {
 		mainJPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		
 		mainJPanel.add("Center",painelLocalizarArquivo);
-		mainJPanel.add("West",painelNull(20, 0));
-		mainJPanel.add("East",painelNull(20, 0));
-		mainJPanel.add("North",painelNull(0, 15));
+		mainJPanel.add("West",padrao.painelNull(20, 0));
+		mainJPanel.add("East",padrao.painelNull(20, 0));
+		mainJPanel.add("North",padrao.painelNull(0, 15));
 		
 		return mainJPanel;
 	}
 
 	private JPanel painelInternoSul() {
-		painelInternoSul.add("Center",painelContentComponent("West", painelBotoes()));
-		painelInternoSul.add("North",painelNull(0, 5));
-		painelInternoSul.add("West",painelNull(220, 0));
+		painelInternoSul.add("Center",padrao.painelContentComponent("West", painelBotoes()));
+		painelInternoSul.add("North",padrao.painelNull(0, 5));
+		painelInternoSul.add("West",padrao.painelNull(220, 0));
 		painelInternoSul.add("South",painelTable());
 		
 		return painelInternoSul;
@@ -120,7 +87,7 @@ public class LocalizarArquivo extends TelaPadrao {
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setViewportView(tabela); // insere a tabela no painel Scroll
 		
-		painelTabela.add("North", painelNull(0, 10));
+		painelTabela.add("North", padrao.painelNull(0, 10));
 		painelTabela.add("Center",scroll);
 		painelTabela.add("South",painelLocaliza());
 		
@@ -131,13 +98,13 @@ public class LocalizarArquivo extends TelaPadrao {
 		JPanel painelLocalizar = new JPanel(new BorderLayout(2,2));
 		JPanel painelContentLocalizar = new JPanel(new BorderLayout(2,2));
 		
-		painelLocalizar.add("East", painelContentComponent("East", btnPesquisar));
+		painelLocalizar.add("East", padrao.painelContentComponent("East", btnPesquisar));
 		painelLocalizar.add("Center", tfLocalizar);
-		painelLocalizar.add("West", painelContentComponent("West", lbCodigo2));
-		painelLocalizar.add("North", painelNull(0, 5));
+		painelLocalizar.add("West", padrao.painelContentComponent("West", lbCodigo2));
+		painelLocalizar.add("North", padrao.painelNull(0, 5));
 		
 		painelContentLocalizar.add("Center", painelLocalizar);
-		painelContentLocalizar.add("East", painelNull(400, 0));
+		painelContentLocalizar.add("East", padrao.painelNull(400, 0));
 		
 		return painelContentLocalizar;
 	}
@@ -157,20 +124,20 @@ public class LocalizarArquivo extends TelaPadrao {
 	}
 
 	private void alterarFontes() {
-		lbCodigo.setFont(font_PLA_15);
-		lbCodigo2.setFont(font_PLA_15);
-		lbLetra.setFont(font_PLA_15);
-		lbTurno.setFont(font_PLA_15);
-		lbStatus.setFont(font_PLA_15);
+		lbCodigo.setFont(padrao.font_PLA_15);
+		lbCodigo2.setFont(padrao.font_PLA_15);
+		lbLetra.setFont(padrao.font_PLA_15);
+		lbTurno.setFont(padrao.font_PLA_15);
+		lbStatus.setFont(padrao.font_PLA_15);
 		
-		tfCodigo.setFont(font_NEG_15);
-		tfLocalizar.setFont(font_NEG_15);
+		tfCodigo.setFont(padrao.font_NEG_15);
+		tfLocalizar.setFont(padrao.font_NEG_15);
 		
-		btnSalvar.setFont(font_PLA_15);
-		btnPesquisar.setFont(font_PLA_15);
-		btnLimpar.setFont(font_PLA_15);
-		btnAlterar.setFont(font_PLA_15);
-		btnExcluir.setFont(font_PLA_15);
+		btnSalvar.setFont(padrao.font_PLA_15);
+		btnPesquisar.setFont(padrao.font_PLA_15);
+		btnLimpar.setFont(padrao.font_PLA_15);
+		btnAlterar.setFont(padrao.font_PLA_15);
+		btnExcluir.setFont(padrao.font_PLA_15);
 		
 		btnPesquisar.setPreferredSize(new Dimension(25,25));
 		btnPesquisar.setRolloverEnabled(false);

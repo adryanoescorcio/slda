@@ -15,29 +15,24 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.text.MaskFormatter;
 
-@SuppressWarnings("serial")
-public abstract class TelaPadrao extends JPanel {
+public class TelaPadrao{
 
 	// Constantes
-	protected static final String DIR_ICONES = "src/Icones/";
+	public static final String DIR_ICONES = "src/Icones/";
 	protected static final Color COR_DE_FUNDO = Color.WHITE;
 	
 	// Tipos de Fonte
-	protected Font font_PLA_15 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
-	protected Font font_NEG_15 = new Font(Font.SANS_SERIF,Font.BOLD,15);
+	public Font font_PLA_15 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
+	public Font font_NEG_15 = new Font(Font.SANS_SERIF,Font.BOLD,15);
 	
 	protected Icon iconSalvar = new ImageIcon(DIR_ICONES+"save3.png");
 	
-	protected GridLayout layout = new GridLayout(20, 4, 5, 5);
-	
+	protected GridLayout layout2 = new GridLayout(20, 4, 5, 5);
+	protected BorderLayout LAYOUT = new BorderLayout(1,1);
 	
 	protected MaskFormatter data, tel, cpf;
 	
 	private JPanel painelSalvarLimpar;
-	
-	public TelaPadrao() {
-		setLayout(new BorderLayout(1,1));
-	}
 	
 	public Label getTitulo(String titulo){
 		Label nome = new Label(titulo);
@@ -82,7 +77,7 @@ public abstract class TelaPadrao extends JPanel {
 		return painelContent;
 	}
 	
-	protected JComboBox<String> getComboBoxTurno() {
+	public JComboBox<String> getComboBoxTurno() {
 		
 		JComboBox<String> comboTurno = new JComboBox<String>();
 		
@@ -96,7 +91,7 @@ public abstract class TelaPadrao extends JPanel {
 		return comboTurno;
 	}
 	
-	protected JComboBox<String> getComboBoxLetra() {
+	public JComboBox<String> getComboBoxLetra() {
 		JComboBox<String> comboLetra = new JComboBox<String>();
 		
 		comboLetra.addItem(null);
@@ -131,7 +126,7 @@ public abstract class TelaPadrao extends JPanel {
 		return comboLetra;
 	}
 	
-	protected JComboBox<String> getComboBoxStatus() {
+	public JComboBox<String> getComboBoxStatus() {
 		JComboBox<String> comboStatus = new JComboBox<String>();
 		
 		comboStatus.addItem("Corrente");

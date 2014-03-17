@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import Eventos.EventosAluno;
 import Forms.TelaPadrao;
 
 /**
@@ -22,51 +23,21 @@ import Forms.TelaPadrao;
  **/
 
 @SuppressWarnings("serial")
-public class AlterarAluno extends TelaPadrao{
-
-	//DECLARAÇÃO DE VARIÁVEIS
-	JButton botaoSalvar;
-	JButton botaoBuscar;
+public class AlterarAluno extends EventosAluno{
 	
-	JFormattedTextField tff1;
-	JFormattedTextField tff2;
-	JFormattedTextField tff3;
-	JFormattedTextField tff4;
-	JFormattedTextField tff5;
-	JFormattedTextField tff6;
-	
-	JTextField tf1;
-	JTextField tf2;
-	JTextField tf3;
-	JTextField tf4;
-	JTextField tf5;
-	JTextField tf6;
-	JTextField tf7;
-	JTextField tf8;
-	JTextField tf9;
-	
-	JComboBox<String> combo1;
-	JComboBox<String> combo2;
-	JComboBox<String> combo3;
-	JComboBox<String> combo4;
-	
-	ButtonGroup grupo;
-	JRadioButton radioM;
-	JRadioButton radioF;
-		
 	//MÉTODO CONSTRUTOR DA CLASSE
 	public AlterarAluno() {
 		
 		//LAYOUT DA TELA
-		setLayout(layout);
+		setLayout(padrao.layout2);
 	
 		//INICIALIZAÇÃO DE VARIÁVEIS
-		tff1 = new JFormattedTextField();
-		tff2 = new JFormattedTextField();
-		tff3 = new JFormattedTextField(getMascaraCPF());
-		tff4 = new JFormattedTextField();
-		tff5 = new JFormattedTextField(getMascaraData());
-		tff6 = new JFormattedTextField(getMascaraTelefone());
+		tffMatricula = new JFormattedTextField();
+		tffInep = new JFormattedTextField();
+		tffCpf = new JFormattedTextField(padrao.getMascaraCPF());
+		tffRg = new JFormattedTextField();
+		tffData = new JFormattedTextField(padrao.getMascaraData());
+		tffTelefone = new JFormattedTextField(padrao.getMascaraTelefone());
 		
 		tf1 = new JTextField();
 		tf2 = new JTextField();
@@ -100,15 +71,15 @@ public class AlterarAluno extends TelaPadrao{
 		//CRIANDO E ADICIONANDO PAINEIS DE DIVISÃO DE CÉLULA
 		JPanel linha1L = criarDividirEConfigurarCelula(new JLabel("  Matricula:"), tff1);
 		JPanel linha1R = criarDividirEConfigurarCelula(botaoBuscar, new Label(""));
-		JPanel linha2 = criarDividirEConfigurarCelula(new JLabel("  INEP:"), tff2);
-		JPanel linha3L = criarDividirEConfigurarCelula(new JLabel("  CPF:"), tff3);
-		JPanel linha3R = criarDividirEConfigurarCelula(new JLabel("  Rg:"), tff4);
+		JPanel linha2 = criarDividirEConfigurarCelula(new JLabel("  INEP:"), tffInep);
+		JPanel linha3L = criarDividirEConfigurarCelula(new JLabel("  CPF:"), tffCpf);
+		JPanel linha3R = criarDividirEConfigurarCelula(new JLabel("  Rg:"), tffRg);
 		JPanel linha4L = criarDividirEConfigurarCelula(new JLabel("  UF de Nascimento"), combo1);
 		JPanel linha4R = criarDividirEConfigurarCelula(new JLabel("  Cidade de Nascimento"), tf2);
-		JPanel linha5L = criarDividirEConfigurarCelula(new JLabel("  Data de Nascimento"), tff5);
+		JPanel linha5L = criarDividirEConfigurarCelula(new JLabel("  Data de Nascimento"), tffData);
 		JPanel linha5R = criarDividirEConfigurarCelula(new JLabel("  Sexo:"), new Label(""), radioM, radioF);
 		JPanel linha6L =criarDividirEConfigurarCelula(new JLabel("  Cor:"), combo2);
-		JPanel linha6R = criarDividirEConfigurarCelula(new JLabel("  Telefone"), tff6);
+		JPanel linha6R = criarDividirEConfigurarCelula(new JLabel("  Telefone"), tffTelefone);
 		JPanel linha8 = criarDividirEConfigurarCelula(combo3, new Label(""));
 		JPanel linha9 =criarDividirEConfigurarCelula(combo4, new Label(""));
 		JPanel linha10 =criarDividirEConfigurarCelula(tf6, new Label(""));

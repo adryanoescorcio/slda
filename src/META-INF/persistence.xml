@@ -13,7 +13,7 @@
       <class>Model.AtaResultado</class>
       <properties>
         <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:C:/user/Walysson Oliveira/Dropbox/SLDA-WORK/Banco de dados/sldav1.db" />
+        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:C:/users/Walysson Oliveira/Dropbox/SLDA-WORK/Banco de dados/sldav1.db" />
         <property name="eclipselink.ddl-generation" value="create-tables" />
       </properties>
     </persistence-unit>

@@ -24,10 +24,12 @@ public class TelaPadrao{
 	// Tipos de Fonte
 	public Font font_PLA_15 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
 	public Font font_NEG_15 = new Font(Font.SANS_SERIF,Font.BOLD,15);
-	
+	public Font font_PLA_14 = new Font(Font.SANS_SERIF, Font.PLAIN, 14);
+	protected Font font_PLA_12 = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+		
 	protected Icon iconSalvar = new ImageIcon(DIR_ICONES+"save3.png");
 	
-	protected GridLayout layout2 = new GridLayout(20, 4, 5, 5);
+	public GridLayout layout2 = new GridLayout(20, 4, 5, 5);
 	protected BorderLayout LAYOUT = new BorderLayout(1,1);
 	
 	protected MaskFormatter data, tel, cpf;
@@ -86,7 +88,7 @@ public class TelaPadrao{
 		comboTurno.addItem("2 - Vespertino");
 		comboTurno.addItem("3 - Noturno");
 		comboTurno.setBackground(Color.white);
-		comboTurno.setFont(font_PLA_15);
+		comboTurno.setFont(font_PLA_14);
 		
 		return comboTurno;
 	}
@@ -121,7 +123,7 @@ public class TelaPadrao{
 		comboLetra.addItem("Y");
 		comboLetra.addItem("Z");
 		comboLetra.setBackground(Color.white);
-		comboLetra.setFont(font_PLA_15);
+		comboLetra.setFont(font_PLA_14);
 		
 		return comboLetra;
 	}
@@ -133,7 +135,7 @@ public class TelaPadrao{
 		comboStatus.addItem("Intermediário");
 		comboStatus.addItem("Permanente");
 		comboStatus.setBackground(Color.white);
-		comboStatus.setFont(font_PLA_15);
+		comboStatus.setFont(font_PLA_14);
 		
 		return comboStatus;
 	}
@@ -181,20 +183,67 @@ public class TelaPadrao{
 	/**
 	 * Metodo que cria comboBox com a variedade de Cor/Raça da população
 	 **/
-	public JComboBox<String> getComboxCorRaca(){
+	public JComboBox<String> getComboBoxCorRaca(){
 		
 		JComboBox<String> combo = new JComboBox<String>();
 		
 		combo.setBackground(Color.WHITE);
 		combo.addItem("");
-		combo.addItem("BRANCA");
-		combo.addItem("PRETA");
-		combo.addItem("PARDA");
-		combo.addItem("AMARELA");
-		combo.addItem("INDÍGENA");
+		combo.addItem("1 - BRANCO");
+		combo.addItem("2 - PRETO");
+		combo.addItem("3 - PARDO");
+		combo.addItem("4 - AMARELO");
+		combo.addItem("5 - INDÍGENA");
+		
+		combo.setLightWeightPopupEnabled(false);
+		
 		
 		return combo;
 	}
+	
+	/**
+	 * ComboBox com tipos de sexo selecionaveis
+	 **/
+	public JComboBox<String> getComboBoxSexo(){
+		
+		JComboBox<String> comboSexo = new JComboBox<String>();
+		
+		comboSexo.setBackground(Color.WHITE);
+		comboSexo.addItem("");
+		comboSexo.addItem("1 - MASCULINO");
+		comboSexo.addItem("2 - FEMININO");
+		
+		return comboSexo;
+	}
+	
+	public JComboBox<String> getComboBoxTransferencia(){
+		
+		JComboBox<String> combo = new JComboBox<String>();
+		
+		combo.setBackground(Color.WHITE);
+		combo.addItem("1 - NÃO");
+		combo.addItem("2 - SIM");
+		
+		combo.setLightWeightPopupEnabled(false);
+		
+		return combo;
+	}
+
+	public JComboBox<String> getComboBoxSituacaoAluno(){
+		
+		JComboBox<String> combo = new JComboBox<String>();
+		
+		combo.setBackground(Color.WHITE);
+		combo.addItem("1 - CURSANDO");
+		combo.addItem("2 - CONCLUIDO");
+		combo.addItem("3 - TRASNFERIDO");
+		combo.addItem("4 - EVADIDO");
+		
+		combo.setLightWeightPopupEnabled(false);
+		
+		return combo;
+	}
+
 
 	/**
 	 * Metodo que cria comboBox com as Modalidades de Ensino

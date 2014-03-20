@@ -10,15 +10,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import Forms.Crud.Aluno.AlterarAluno;
 import Forms.Crud.Aluno.CadastrarAluno;
-import Forms.Crud.Aluno.ExcluirAluno;
-import Forms.Crud.Arquivo.CaixaArquivo;
 import Forms.Crud.Arquivo.LocalizarArquivo;
-import Forms.Crud.Arquivo.PedidoArquivo;
-import Forms.Crud.Ata.AlterarAta;
-import Forms.Crud.Ata.CadastrarAta;
-import Forms.Crud.Ata.ExcluirAta;
 import Forms.Menus.MenuAvancado;
 import Forms.Menus.MenuExportar;
 import Forms.Menus.MenuImportar;
@@ -32,6 +25,7 @@ import Forms.Menus.MenuVisualizar;
  * @version 1.5
  * @extends JFrame
  **/
+
 public class Principal {
 	
 	// WINDOWS 
@@ -40,7 +34,6 @@ public class Principal {
 	// constantes
 	private static final String TITULO_WINDOW = "SLDA - Sistema de Localização de Documentos do Aluno";
 	private static final String DIR_MAIN_ICONES = "../Icones/";
-	private static final int LADO = JTabbedPane.RIGHT;
 	private static final int TOP = JTabbedPane.TOP;
 
 	/**
@@ -48,23 +41,11 @@ public class Principal {
 	 * EM QUE CADA CAMADA TEM OUTROS PAINEIS EM CAMADAS(JTABBEDPANE) LATERAIS
 	 **/
 	private JTabbedPane camadaExterna = new JTabbedPane(TOP);
-	
-	//PAINEIS EM CAMADAS(JTABBEDPANE) TOP QUE INSEREM ABAS LATERAIS
-	private JTabbedPane camadaAluno = new JTabbedPane(LADO);
-	private JTabbedPane camadaArquivo = new JTabbedPane(LADO);
-	private JTabbedPane camadaAta = new JTabbedPane(LADO);
-	
-	@SuppressWarnings("unused")
-	private Icon iconLocalizar;
+
 	private Icon iconAluno;
-	private Icon iconCaixa;
 	private Icon iconAta;
 	private Icon iconArquivo;
-	private Icon iconCadastrar;
-	private Icon iconExcluir;
-	private Icon iconMovimentacao;
-	private Icon iconAlterar;
-	
+
 	// Menu Principal
 	private JMenuBar menuBar = new JMenuBar();
 	// Itens do Menu Principal
@@ -83,15 +64,6 @@ public class Principal {
 	// ALUNO
 	private LocalizarArquivo localizarAluno = new LocalizarArquivo();
 	private CadastrarAluno cadastrarAluno = new CadastrarAluno();
-	private ExcluirAluno excluirAluno = new ExcluirAluno();
-	private AlterarAluno alterarAluno = new AlterarAluno();
-	// ATA
-	private CadastrarAta cadastrarAta = new CadastrarAta();
-	private AlterarAta alterarAta = new AlterarAta();
-	private ExcluirAta excluirAta = new ExcluirAta();
-	// ARQUIVO
-	private CaixaArquivo caixaArquivo = new CaixaArquivo();
-	private PedidoArquivo pedidoArquivo = new PedidoArquivo();
 	
 	private Font font = new Font(Font.SANS_SERIF, 0, 18);
 	
@@ -106,25 +78,10 @@ public class Principal {
 		//SETANDO AS CAMADAS COM O FUNDO BRANCO
 		camadaExterna.setOpaque(true);
 
-		//DEFININDO OS PAINEIS DA CAMADA ARQUIVO
-		camadaArquivo.addTab("Cadastrar", iconCadastrar, localizarAluno.telaPrincipal());
-		camadaArquivo.addTab("Pesquisar", iconCaixa, caixaArquivo);
-		camadaArquivo.addTab("Pedido", iconMovimentacao, pedidoArquivo);
-		
-		//DEFININDO OS PAINEIS DA CAMADA ALUNO
-		camadaAluno.addTab("Cadastrar", iconCadastrar, cadastrarAluno);
-		camadaAluno.addTab("Pesquisar", iconAlterar, alterarAluno);
-		camadaAluno.addTab("Excluir", iconExcluir, excluirAluno);
-		
-		//DEFININDO OS PAINEIS DA CAMADA ATA
-		camadaAta.addTab("Cadastrar", iconCadastrar, cadastrarAta);
-		camadaAta.addTab("Pesquisar", iconAlterar, alterarAta);
-		camadaAta.addTab("Excluir", iconExcluir, excluirAta);
-		
 		//DEFININDO OS PAINEIS DA CAMADA EXTERNA 
-		camadaExterna.addTab("Caixa", iconArquivo, camadaArquivo);
-		camadaExterna.addTab("Aluno", iconAluno, camadaAluno);
-		camadaExterna.addTab("Ata", iconAta, camadaAta);
+		camadaExterna.addTab("Caixa",  iconArquivo, localizarAluno.getTelaPrincipal());
+		camadaExterna.addTab("Discente", iconAluno, cadastrarAluno.getTelaPrincipal());
+		camadaExterna.addTab("Ata", iconAta, null);
 	}
 	
 	private void alterandoFontes() {
@@ -154,7 +111,7 @@ public class Principal {
 	 * Classe responsavel pela criação dos itens do Menu da Janela
 	 **/
 	private void menusWindows() {
-		//---------> CRIANDO A BARRA DE MENUS E ADICIONANDO MENUS A ELA<-----------
+		//---------> CRIANDO A BARRA DE MENUS E ADICIONANDO MENUS A ELA <-----------
 		menuBar.add(menuUsuario.getMenuUsuario());
 		menuBar.add(menuExportar.getMenuExportar());
 		menuBar.add(menuImportar.getMenuImportar());
@@ -167,19 +124,14 @@ public class Principal {
 	 **/
 	private void criandoIcones() {
 		//---------> CRIANDO OS ÍCONES<-----------
-		 iconLocalizar = new ImageIcon(DIR_MAIN_ICONES+"localizar.png");
 		 iconAluno = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"aluno.png"));
-		 iconCaixa = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"caixa.png"));
 		 iconAta = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"ata.png"));
 		 iconArquivo = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"arquivo.png"));
-		 iconCadastrar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"cadastrar.png"));
-		 iconExcluir = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"excluir.png"));
-		 iconMovimentacao = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"documento.png"));
-		 iconAlterar = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"alterar.png"));
 	}
 
 	public static void main(String[] args) {
-		new Principal();
-	}
 
+		new Principal();
+
+	}
 }

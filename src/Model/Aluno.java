@@ -232,4 +232,19 @@ public class Aluno implements InterfacePadraoEntidade {
 	public void setCodigoKEY(InterfaceKey codigo) {
 		this.alunoPK = (AlunoPK) codigo;
 	}
+
+	public String getAdmiTrasnf() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getDataMatricula() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getSituacao() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

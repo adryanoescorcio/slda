@@ -58,11 +58,6 @@ public class EventosAluno extends EventosPadrão{
 		}
 	};
 	
-	
-	public Aluno eventoBuscar(AlunoPK alunopk){
-		
-		return aluno;
-	}
 	//OBJETO ActionListener QUE BUSCA O ALUNO NO BANCO
 	protected ActionListener onClickBuscarAluno = new ActionListener() {
 		

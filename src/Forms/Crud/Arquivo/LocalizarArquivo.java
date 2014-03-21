@@ -25,6 +25,9 @@ public class LocalizarArquivo extends EventosCaixa {
 		//ADD EVENTOS
 		btnLimpar.addActionListener(onClickLimparCampos);
 		btnSalvar.addActionListener(onClickSalvarCaixa);
+		btnAlterar.addActionListener(onClickSalvarCaixa);
+		btnPesquisar.addActionListener(onClickBuscarCaixa);
+		btnExcluir.addActionListener(onClickExcluirCaixa);
 		
 		painelEsquerdo.add(padrao.painelNull(0, 0));
 		painelEsquerdo.add(lbCodigo);

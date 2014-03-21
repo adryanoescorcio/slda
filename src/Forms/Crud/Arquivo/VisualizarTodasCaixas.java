@@ -20,7 +20,7 @@ public class VisualizarTodasCaixas extends JFrame{
 	public VisualizarTodasCaixas() {
 				
 		super("Todas Caixas Cadastradas");
-		String[] colunas = {"Código da Caixa", "Turno", "Status"};
+		String[] colunas = {"Código da Caixa", "Turno", "Letra", "Status"};
 
 		JPAUtil conexaoBD = new JPAUtil();
 		CaixaDAO dao = new CaixaDAO(conexaoBD);
@@ -40,7 +40,7 @@ public class VisualizarTodasCaixas extends JFrame{
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
-		setSize(380, 500);
+		setSize(380, 550);
 
 	}
 	
@@ -51,10 +51,10 @@ public class VisualizarTodasCaixas extends JFrame{
 	public void definirTamanhoDasColunas(){
 		
 		TableColumnModel modeloDaColuna = tabela.getColumnModel();
-		modeloDaColuna.getColumn(0).setPreferredWidth(120);//CÓDIGO DA CAIXA
+		modeloDaColuna.getColumn(0).setPreferredWidth(130);//CÓDIGO DA CAIXA
 		modeloDaColuna.getColumn(1).setPreferredWidth(120);//TURNO
-		modeloDaColuna.getColumn(2).setPreferredWidth(120);//STATUS
-		
+		modeloDaColuna.getColumn(2).setPreferredWidth(80);//LETRA
+		modeloDaColuna.getColumn(3).setPreferredWidth(150);//STATUS
 	}
 
 

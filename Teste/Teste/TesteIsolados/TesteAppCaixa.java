@@ -42,6 +42,7 @@ public class TesteAppCaixa {
 		em.getTransaction().begin();
 		Caixa caixa = new Caixa();
 		caixa.setCodigo(numAleatorio());
+		caixa.setLetra("X");
 		caixa.setStatus("Cheio");
 		caixa.setTurno("Noturno");
 		em.persist(caixa); 
@@ -56,6 +57,7 @@ public class TesteAppCaixa {
 		
 		// Setando os valores
 		caixa.setCodigo(numAleatorio());
+		caixa.setLetra("X");
 		caixa.setStatus("Morto");
 		caixa.setTurno("Matutino");
 		
@@ -77,6 +79,7 @@ public class TesteAppCaixa {
 		Caixa caixaremove = new Caixa();
 		
 		caixaremove.setCodigo("000000020000002000000002000002");
+		caixaremove.setLetra("X");
 		caixaremove.setStatus("teste");
 		caixaremove.setTurno("teste");
 		

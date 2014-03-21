@@ -17,11 +17,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import DAO.AlunoDAO;
 import DAO.CaixaDAO;
 import Forms.TablesModel.CaixaTableModel;
-import Model.Aluno;
 import Model.Caixa;
+import PrimaryKey.CaixaPK;
 
 @SuppressWarnings("serial")
 public class EventosCaixa extends EventosPadrão{
@@ -56,7 +55,8 @@ public class EventosCaixa extends EventosPadrão{
 	protected JTextField tfCodigo = new JTextField();
 	protected JTextField tfLocalizar = new JTextField();
 	
-	protected ImageIcon icone = new ImageIcon(DIR_ICONES+"search.png");
+	protected ImageIcon
+	icone = new ImageIcon(DIR_ICONES+"search.png");
 
 	protected JButton btnSalvar = new JButton("Salvar");
 	protected JButton btnLimpar = new JButton("Limpar");
@@ -87,6 +87,7 @@ public class EventosCaixa extends EventosPadrão{
 	public Object getValoresDosCampos() {
 		
 		caixa = new Caixa();
+		
 		caixa.setCodigo(tfCodigo.getText());
 		caixa.setTurno((String) comboTurno.getSelectedItem());
 		caixa.setLetra((String) comboLetra.getSelectedItem());
@@ -96,13 +97,13 @@ public class EventosCaixa extends EventosPadrão{
 	}
 
 	@Override
-	public void setValoresDosCampos(Object caixa) {
-		caixa = new Caixa();
+	public void setValoresDosCampos(Object object) {
+		Caixa caixa = (Caixa) object;
 		
-		tfCodigo.setText(((Caixa) caixa).getCodigo());
-		comboTurno.setSelectedItem(((Caixa) caixa).getTurno());
-		comboLetra.setSelectedItem(((Caixa) caixa).getLetra());
-		comboStatus.setSelectedItem(((Caixa) caixa).getStatus());
+		tfCodigo.setText(caixa.getCodigo());
+		comboTurno.setSelectedItem(caixa.getTurno());
+		comboLetra.setSelectedItem(caixa.getLetra());
+		comboStatus.setSelectedItem(caixa.getStatus());
 		
 	}
 	
@@ -123,11 +124,45 @@ public class EventosCaixa extends EventosPadrão{
 		dao = new CaixaDAO(conexaoBD);
 		dao.save(caixa);
 		JOptionPane.showMessageDialog(null, "Salvo com sucesso.");
+		lista.add(caixa);
 		limparCampos();
 		
 		//LIMPA A CAIXA
 		caixa = null;
 		}
 	};
+	
+
+	//OBJETO ActionListener QUE BUSCA O ALUNO NO BANCO
+	protected ActionListener onClickBuscarCaixa = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			CaixaPK pk = new CaixaPK();
+			pk.setCodigo(tfLocalizar.getText());
+			dao = new CaixaDAO(conexaoBD);
+			caixa = dao.buscar(pk);
+
+			try{
+				setValoresDosCampos(caixa);
+			}catch(NullPointerException exc){
+				JOptionPane.showMessageDialog(null, "Caixa não encontrado.");
+				limparCampos();
+			}
+		}
+	};
+
+	//OBJETO ActionListener QUE EXCLUE O ALUNO NO BANCO
+	protected ActionListener onClickExcluirCaixa = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {			
+			dao.remover(caixa);
+			JOptionPane.showMessageDialog(null, "Caixa excluído com sucesso.");
+			limparCampos();
+		}
+	};
+
 
 }

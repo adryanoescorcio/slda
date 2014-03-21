@@ -53,14 +53,16 @@ public class CaixaDAO extends DAO {
 		@SuppressWarnings("unchecked")
 		List<Caixa> caixas = query.getResultList();
 		
-		matriz = new String[caixas.size()][3];
+		matriz = new String[caixas.size()][4];
 		
 		for (int i = 0; i < caixas.size(); i++) {
 			Caixa caixa = caixas.get(i); 
 			
 			matriz[i][0] = caixa.getCodigo();
 			matriz[i][1] = caixa.getTurno();
-			matriz[i][2] = caixa.getStatus();
+			matriz[i][2] = caixa.getLetra();
+			matriz[i][3] = caixa.getStatus();
+			
 				
 		}
 		

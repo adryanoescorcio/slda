@@ -33,7 +33,7 @@ public class JPAUtil {
 	private static final String DIR_AD = "D:/Dropbox/SLDA-WORK/Banco de dados/"; // Diretorio do Computador ADRYANO
 	
 	// ALTERAR EM CASO DE ERRO - WALYSSON
-	private static final String DIR_WA = "C:/user/Walysson Oliveira/Dropbox/SLDA-WORK/Banco de dados/"; // Diretorio do Computador
+	private static final String DIR_WA = "C:/users/Walysson Oliveira/Dropbox/SLDA-WORK/Banco de dados/"; // Diretorio do Computador
 	
 	private static final String FILE_PERSISTENCE_XML_AD = "managerAD";
 	private static final String FILE_PERSISTENCE_XML_WA = "managerWA";

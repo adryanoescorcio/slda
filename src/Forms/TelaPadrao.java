@@ -13,6 +13,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 @SuppressWarnings("serial")
@@ -47,6 +48,22 @@ public class TelaPadrao extends JPanel {
 		return nome;
 	}
 	
+	/**
+	 * Este metodo cria um espaço em branco a direita do JtextFild, definindo a largura do JtextFild 
+	 **/
+	public JPanel painelContentFieldTamanhoLargura(JTextField textField, int tamanho) {
+		JPanel painelPrincipalContent = new JPanel(new BorderLayout(2,2));
+		JPanel painelSeparador = new JPanel(new BorderLayout(2,2));
+		
+		// SEPARADOR
+		painelSeparador.add("West", painelNull(tamanho, 0));
+		// principal
+		painelPrincipalContent.add("Center", painelContentComponent("Center", textField));
+		painelPrincipalContent.add("East", painelSeparador);
+		
+		return painelPrincipalContent;
+	}
+	
 	//METODO QUE CRIA, DIVIDE UMA CÉLULA DO GRIDLAYOUT E A CONFIGURA
 	public JPanel criarDividirEConfigurarCelula(Component comp1, Component comp2){
 		JPanel jpanel = new JPanel();
@@ -69,6 +86,9 @@ public class TelaPadrao extends JPanel {
 		return jpanel;
 	}
 
+	/**
+	 * Criar um painel vazio.
+	 **/
 	public JPanel painelNull(int i, int j) {
 		JPanel painelNull = new JPanel();
 		painelNull.setPreferredSize(new Dimension(i,j));
@@ -76,6 +96,9 @@ public class TelaPadrao extends JPanel {
 		return painelNull;
 	}
 	
+	/**
+	 * Cria um painel Content para limitar horizontalmente o tamanho dos componentes ao maximo.
+	 **/
 	public JPanel painelContentComponent(String lado, Component componente) {
 		JPanel painelContent = new JPanel(new BorderLayout());
 		painelContent.add(lado,componente);
@@ -83,6 +106,9 @@ public class TelaPadrao extends JPanel {
 		return painelContent;
 	}
 	
+	/**
+	 * ComboBox para selecionar os Turnos.
+	 **/
 	protected JComboBox<String> getComboBoxTurno() {
 		
 		JComboBox<String> comboTurno = new JComboBox<String>();

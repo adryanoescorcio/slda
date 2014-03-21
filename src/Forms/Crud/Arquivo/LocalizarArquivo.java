@@ -33,21 +33,22 @@ public class LocalizarArquivo extends TelaPadrao {
 
 	private static final int DIST = 5;
 
-	private static final String BORDER_INFO_CAIXA = "Dados Caixa";
+	private static final String BORDER_INFO_CAIXA = "DADOS DA CAIXA";
+	private static final int QUANT_LINHAS_GRID = 5;
 
 	private JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
 	private JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
 	private JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));
 	private JPanel painelInternoSul = new JPanel(new BorderLayout(2,2));
-	private JPanel painelEsquerdo = new JPanel(new GridLayout(5,1,DIST,DIST));
-	private JPanel painelDireito = new JPanel(new GridLayout(5,1,DIST,DIST));
+	private JPanel painelEsquerdo = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
+	private JPanel painelDireito = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
 	private JPanel painelTabela= new JPanel(new BorderLayout(2,2));	
 	private JPanel painelContentEIA = new JPanel(new BorderLayout(2,2));
 	
 	private JScrollPane scroll = new JScrollPane();
 	
-	private JLabel lbCodigo = new JLabel("Codigo Caixa: ",SwingConstants.RIGHT);
-	private JLabel lbCodigo2 = new JLabel("Codigo Caixa: ",SwingConstants.RIGHT);
+	private JLabel lbCodigo = new JLabel("Cód. Caixa: ",SwingConstants.RIGHT);
+	private JLabel lbCodigo2 = new JLabel("Cód. Caixa: ",SwingConstants.RIGHT);
 	private JLabel lbTurno = new JLabel("Turno: ",SwingConstants.RIGHT);
 	private JLabel lbLetra = new JLabel("Letra: ",SwingConstants.RIGHT);
 	private JLabel lbStatus = new JLabel("Status: ",SwingConstants.RIGHT);
@@ -68,6 +69,8 @@ public class LocalizarArquivo extends TelaPadrao {
 	private CaixaTableModel modelo = new CaixaTableModel(lista);
 	private JTable tabela = new JTable(modelo);
 
+	private JScrollPane scrollMain = new JScrollPane();
+
 
 	public LocalizarArquivo() {
 
@@ -78,7 +81,7 @@ public class LocalizarArquivo extends TelaPadrao {
 		painelEsquerdo.add(lbStatus);
 		
 		painelDireito.add(painelNull(0, 0));
-		painelDireito.add(tfCodigo);
+		painelDireito.add(painelContentFieldTamanhoLargura(tfCodigo, 400));
 		painelDireito.add(painelContentComponent("West", getComboBoxTurno()));
 		painelDireito.add(painelContentComponent("West", getComboBoxLetra()));
 		painelDireito.add(painelContentComponent("West", getComboBoxStatus()));
@@ -107,6 +110,12 @@ public class LocalizarArquivo extends TelaPadrao {
 
 	public JPanel getTelaPrincipal() {
 		
+JPanel painelScrollMain = new JPanel(new BorderLayout(1,1));
+		
+		scrollMain.setPreferredSize(mainJPanel.getPreferredSize());
+		scrollMain .setViewportView(mainJPanel);
+		
+		painelScrollMain.add(scrollMain);
 		painelLocalizarArquivo.add("North",painelInternoNorte);
 		
 		mainJPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
@@ -114,9 +123,10 @@ public class LocalizarArquivo extends TelaPadrao {
 		mainJPanel.add("Center",painelLocalizarArquivo);
 		mainJPanel.add("West",painelNull(20, 0));
 		mainJPanel.add("East",painelNull(20, 0));
-		mainJPanel.add("North",painelNull(0, 15));
+		mainJPanel.add("North",painelNull(0, 10));
 		
-		return mainJPanel;
+		// Vai para Janela Principal
+		return painelScrollMain;
 	}
 
 	private JPanel painelInternoSul() {
@@ -185,8 +195,10 @@ public class LocalizarArquivo extends TelaPadrao {
 		btnAlterar.setFont(font_PLA_14);
 		btnExcluir.setFont(font_PLA_14);
 		
+		// COR
+		lbCodigo.setForeground(Color.red);
+		
 		btnPesquisar.setPreferredSize(new Dimension(140,26));
 		btnPesquisar.setRolloverEnabled(false);
 	}
-
 }

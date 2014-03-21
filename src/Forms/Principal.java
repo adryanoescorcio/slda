@@ -12,6 +12,7 @@ import javax.swing.JTabbedPane;
 
 import Forms.Crud.Aluno.CadastrarAluno;
 import Forms.Crud.Arquivo.LocalizarArquivo;
+import Forms.Crud.Ata.CadastrarAta;
 import Forms.Menus.MenuAvancado;
 import Forms.Menus.MenuExportar;
 import Forms.Menus.MenuImportar;
@@ -63,6 +64,7 @@ public class Principal {
 	// ALUNO
 	private LocalizarArquivo localizarAluno = new LocalizarArquivo();
 	private CadastrarAluno cadastrarAluno = new CadastrarAluno();
+	private CadastrarAta cadastrarAta = new CadastrarAta();
 	
 	private Font font = new Font(Font.SANS_SERIF, 0, 18);
 	
@@ -80,7 +82,7 @@ public class Principal {
 		//DEFININDO OS PAINEIS DA CAMADA EXTERNA 
 		camadaExterna.addTab("Caixa",  iconArquivo, localizarAluno.getTelaPrincipal());
 		camadaExterna.addTab("Discente", iconAluno, cadastrarAluno.getTelaPrincipal());
-		camadaExterna.addTab("Ata", iconAta, null);
+		camadaExterna.addTab("Ata", iconAta, cadastrarAta.getTelaPrincipal());
 	}
 	
 	private void alterandoFontes() {

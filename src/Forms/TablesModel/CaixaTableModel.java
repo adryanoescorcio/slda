@@ -17,7 +17,7 @@ public class CaixaTableModel extends AbstractTableModel {
 	private static final int COL_LETRA = 3;
 
 	private List<Caixa> linhas;
-	private String[] colunas = new String[]{"CODIGO", "TURNO", "TURMA", "STATUS", "LETRA"};
+	private String[] colunas = new String[]{"CODIGO", "TURNO", "STATUS", "LETRA"};
 
 	public CaixaTableModel(List<Caixa> caixa) {
 		this.linhas = new ArrayList<>(caixa);
@@ -57,6 +57,7 @@ public class CaixaTableModel extends AbstractTableModel {
 		} else if (column == COL_STATUS) {
 			return m.getStatus();
 		}
+		
 		return "";
 	}
 
@@ -81,18 +82,15 @@ public class CaixaTableModel extends AbstractTableModel {
 		linhas.add(contato);
 		int ultimoIndice = getRowCount() - 1;
 		fireTableRowsInserted(ultimoIndice, ultimoIndice);
-
 	}
 
 	public void updateContato(int indiceLinha, Caixa marca) {
 		linhas.set(indiceLinha, marca);
 		fireTableRowsUpdated(indiceLinha, indiceLinha);
-
 	}
 
 	public void removeContato(int indiceLinha) {
 		linhas.remove(indiceLinha);
 		fireTableRowsDeleted(indiceLinha, indiceLinha);
-
 	}
 }

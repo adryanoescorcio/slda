@@ -6,14 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -32,41 +30,38 @@ public class EventosCaixa extends EventosPadrão{
 	
 	protected static final int DIST = 5;
 
-	protected static final String BORDER_INFO_CAIXA = "Dados Caixa";
+	protected static final String BORDER_INFO_CAIXA = "DADOS DA CAIXA";
+	protected static final int QUANT_LINHAS_GRID = 5;
 
 	protected JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
 	protected JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
 	protected JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));
 	protected JPanel painelInternoSul = new JPanel(new BorderLayout(2,2));
-	protected JPanel painelEsquerdo = new JPanel(new GridLayout(5,1,DIST,DIST));
-	protected JPanel painelDireito = new JPanel(new GridLayout(5,1,DIST,DIST));
+	protected JPanel painelEsquerdo = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
+	protected JPanel painelDireito = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
 	protected JPanel painelTabela= new JPanel(new BorderLayout(2,2));	
 	protected JPanel painelContentEIA = new JPanel(new BorderLayout(2,2));
 	
 	protected JScrollPane scroll = new JScrollPane();
 	
-	protected JLabel lbCodigo = new JLabel("Codigo Caixa: ",SwingConstants.RIGHT);
-	protected JLabel lbCodigo2 = new JLabel("Codigo Caixa: ",SwingConstants.RIGHT);
+	protected JLabel lbCodigo = new JLabel("Cód. Caixa: ",SwingConstants.RIGHT);
+	protected JLabel lbCodigo2 = new JLabel("Cód. Caixa: ",SwingConstants.RIGHT);
 	protected JLabel lbTurno = new JLabel("Turno: ",SwingConstants.RIGHT);
 	protected JLabel lbLetra = new JLabel("Letra: ",SwingConstants.RIGHT);
 	protected JLabel lbStatus = new JLabel("Status: ",SwingConstants.RIGHT);
 	protected JLabel lbDadosCaixa = new JLabel("DADOS DA CAIXA",SwingConstants.CENTER);
 	
 	protected JTextField tfCodigo = new JTextField();
-	protected JTextField tfLocalizar = new JTextField();
 	
-	protected ImageIcon
-	icone = new ImageIcon(DIR_ICONES+"search.png");
-
 	protected JButton btnSalvar = new JButton("Salvar");
 	protected JButton btnLimpar = new JButton("Limpar");
 	protected JButton btnExcluir = new JButton("Excluir");
 	protected JButton btnAlterar = new JButton("Alterar");
-	protected JButton btnPesquisar = new JButton("Pesquisar", icone);
 
 	protected ArrayList<Caixa> lista = new ArrayList<Caixa>();
 	protected CaixaTableModel modelo = new CaixaTableModel(lista);
-	protected JTable tabela = new JTable(modelo);
+
+	protected JScrollPane scrollMain = new JScrollPane();
 	
 	protected JComboBox<String> comboTurno = padrao.getComboBoxTurno();
 	protected JComboBox<String> comboLetra = padrao.getComboBoxLetra();
@@ -76,7 +71,6 @@ public class EventosCaixa extends EventosPadrão{
 	public void limparCampos() {
 		// TODO Auto-generated method stub
 		tfCodigo.setText("");
-		tfLocalizar.setText("");
 		comboTurno.setSelectedIndex(0);
 		comboLetra.setSelectedIndex(0);
 		comboStatus.setSelectedIndex(0);
@@ -140,7 +134,7 @@ public class EventosCaixa extends EventosPadrão{
 		public void actionPerformed(ActionEvent e) {
 			
 			CaixaPK pk = new CaixaPK();
-			pk.setCodigo(tfLocalizar.getText());
+			pk.setCodigo(padrao.getTfLocalizar().getText());
 			dao = new CaixaDAO(conexaoBD);
 			caixa = dao.buscar(pk);
 

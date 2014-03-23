@@ -1,17 +1,23 @@
 package Forms.Crud.Ata;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Label;
+import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import Forms.TelaPadrao;
+import Forms.TablesModel.AtaTableModel;
+import Model.Ata;
 
 /**
  * Classe que representa a tela Ata - Cadastrar
@@ -21,79 +27,189 @@ import Forms.TelaPadrao;
  * @extends TelaPadrao
  **/
 
-@SuppressWarnings("serial")
-public class CadastrarAta extends TelaPadrao{
+public class CadastrarAta extends TelaPadrao {
 
-	//DECLARAÇÃO DE VARIÁVEIS
-	JButton botaoInserir;
-	JButton botaoSalvar;
+	private static final int DIST = 5;
+
+	private static final String BORDER_INFO_ATA = "DADOS DA ATA";
+	private static final int QUANT_LINHAS_GRID = 6;
+
+	private JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
+	private JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
+	private JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));
+	private JPanel painelInternoSul = new JPanel(new BorderLayout(2,2));
+	private JPanel painelEsquerdoInfoAluno = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
+	private JPanel painelDireito = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
+	private JPanel painelTabela= new JPanel(new BorderLayout(2,2));	
+	private JPanel painelContentEIA = new JPanel(new BorderLayout(2,2));
 	
-	JTextField tf1;
-	JTextField tf2;
-	JFormattedTextField tff1;
-	JComboBox<String> comboTurno;
-	JComboBox<String> comboModalidade;
-	JComboBox<String> comboEnsino;
-		
+	private JScrollPane scroll = new JScrollPane();
+	private JScrollPane scrollMain = new JScrollPane();
+	
+	private JLabel lbDadosAta = new JLabel("DADOS DA ATA",SwingConstants.CENTER);
+	private JLabel lbTurma = new JLabel("Turma: ",SwingConstants.RIGHT);
+	private JLabel lbCodigo2 = new JLabel("Código Ata: ",SwingConstants.RIGHT);
+	private JLabel lbTurno = new JLabel("Turno: ",SwingConstants.RIGHT);
+	private JLabel lbAno = new JLabel("Ano: ",SwingConstants.RIGHT);
+	private JLabel lbModalidade = new JLabel("Modalidade: ",SwingConstants.RIGHT);
+	private JLabel lbEnsino = new JLabel("Ensino: ",SwingConstants.RIGHT);
+	
+	private JTextField tfTurma = new JTextField();
+	private JTextField tfTurno2 = new JTextField();
+	
+	private JFormattedTextField ftAno = new JFormattedTextField(getMascaraAno());
+	
+	private JButton btnSalvar = new JButton("Salvar");
+	private JButton btnLimpar = new JButton("Limpar");
+	private JButton btnExcluir = new JButton("Excluir");
+	private JButton btnAlterar = new JButton("Alterar");
+
+	private ArrayList<Ata> lista = new ArrayList<Ata>();
+	private AtaTableModel modelo = new AtaTableModel(lista);
+	
+	
 	public CadastrarAta() {
 		
-		//LAYOUT DA TELA 
-		// ------> OPTEI EM USAR O BORDERLAYOUT PQ PRETENDO INSERIR UM JTABLE NO LADO DIREITO PARA INSERIR OU EXCLUIR UM ALUNO DA ATA
-		setLayout(new BorderLayout());
+		painelEsquerdoInfoAluno.add(painelNull(0, 0));
+		painelEsquerdoInfoAluno.add(lbTurma);
+		painelEsquerdoInfoAluno.add(lbTurno);
+		painelEsquerdoInfoAluno.add(lbAno);
+		painelEsquerdoInfoAluno.add(lbModalidade);
+		painelEsquerdoInfoAluno.add(lbEnsino);
 		
-		//INICIALIZAÇÃO DE VARIÁVEIS
-		botaoSalvar = new JButton("  Salvar", null);
-		botaoInserir = new JButton("Inserir Aluno");
+		painelDireito.add(painelNull(0, 0));
+		painelDireito.add(painelContentComponent("West", tfTurma));
+		painelDireito.add(painelContentComponent("West", getComboBoxTurno()));
+		painelDireito.add(painelContentComponent("West", ftAno));
+		painelDireito.add(painelContentComponent("West", getComboBoxModalidade()));
+		painelDireito.add(painelContentComponent("West", getComboBoxEnsino()));
 		
-		tf1 = new JTextField();
-		tf2 = new JTextField();
-		tff1 = new JFormattedTextField();
+		painelContentEIA.add("North", lbDadosAta);
+		painelContentEIA.add("West", painelEsquerdoInfoAluno);
+		painelContentEIA.add("Center", painelDireito);
+		painelContentEIA.add("East",painelNull(200, 0));
 		
-		comboTurno = getComboBoxTurno();
-		comboModalidade = getComboBoxModalidade();
-		comboEnsino = getComboBoxEnsino();		
-		
-		//PAINEIS DE DIVISÃO DE CÉLULA
-		JPanel centro = new JPanel();
-		centro.setLayout(new GridLayout(20, 4, 5, 5));
-		centro.setBackground(COR_DE_FUNDO);
-		
-		//CRIANDO E ADICIONANDO PAINEIS DE DIVISÃO DE CÉLULA
-		JPanel linha1 = criarDividirEConfigurarCelula(new JLabel("Turma:"), tf1);
-		JPanel linha2 = criarDividirEConfigurarCelula(new JLabel("Turno:"), comboTurno);
-		JPanel linha3 = criarDividirEConfigurarCelula(new JLabel("Ano:"), tff1);
-		JPanel linha4 = criarDividirEConfigurarCelula(new JLabel("Modalidade de Ensino:"), comboModalidade);
-		JPanel linha5 = criarDividirEConfigurarCelula(new JLabel("Grau de Ensino:"), comboEnsino);
-		JPanel linha6 = criarDividirEConfigurarCelula(new JLabel("Matrícula do(s) Aluno(s):"), tf2);
-		JPanel linha7 = criarDividirEConfigurarCelula(botaoInserir, new Label(""));
-		JPanel linha8 = criarDividirEConfigurarCelula(botaoSalvar, new Label(""));
-		
-		Label titulo = getTitulo("Ata");
-			
-		//ADICIONANDO COMPONENTES AO COMPONETE CENTRAL
-		centro.add(new Label(""));			centro.add(new Label(""));					centro.add(new Label(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(titulo);							centro.add(new Label(""));		centro.add(new Label(""));			
-		centro.add(new Label(""));			centro.add(new Label(""));					centro.add(new Label(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(linha1);							centro.add(new JLabel(""));		centro.add(new Label(""));	
-		centro.add(new Label(""));			centro.add(linha2);							centro.add(new JLabel(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(linha3);							centro.add(new JLabel(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(linha4);							centro.add(new Label(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(linha5);							centro.add(new JLabel(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(linha6);							centro.add(linha7);				centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(linha8);				centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
-		centro.add(new Label(""));			centro.add(new JLabel(""));					centro.add(new JLabel(""));		centro.add(new Label(""));
-	
-		//ADICIONANDO COMPONENTES À TELA
-		add(centro, BorderLayout.CENTER);
-		
-		//DIFININDO O FUNDO DE TELA COMO BRANCO
-		setBackground(COR_DE_FUNDO);
+		alterarFontes();
+		painelInternoNorte();
+		getTelaPrincipal();
+	}
 
+	private void painelInternoNorte() {
+		JPanel controleSuperior = new JPanel(new BorderLayout(2,2));
+		
+		controleSuperior.add("North",painelContentEIA);
+		controleSuperior.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createSoftBevelBorder(2), BORDER_INFO_ATA));
+		
+		painelInternoNorte.add("Center",controleSuperior);
+		painelInternoNorte.add("South",painelInternoSul());
+	}
+
+	public JPanel getTelaPrincipal() {
+		JPanel painelScrollMain = new JPanel(new BorderLayout(1,1));
+		
+		scrollMain.setPreferredSize(mainJPanel.getPreferredSize());
+		scrollMain.setViewportView(mainJPanel);
+		
+		painelScrollMain.add(scrollMain);
+		painelLocalizarArquivo.add("North",painelInternoNorte);
+		
+		mainJPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		
+		mainJPanel.add("Center",painelLocalizarArquivo);
+		mainJPanel.add("West",painelNull(20, 0));
+		mainJPanel.add("East",painelNull(20, 0));
+		mainJPanel.add("North",painelNull(0, 15));
+		
+		return painelScrollMain;
+	}
+
+	private JPanel painelInternoSul() {
+		painelInternoSul.add("Center",painelContentComponent("West", painelBotoes()));
+		painelInternoSul.add("North",painelNull(0, 5));
+		painelInternoSul.add("West",painelNull(220, 0));
+		painelInternoSul.add("South",painelTable());
+		
+		return painelInternoSul;
+	}
+	
+	private JPanel painelTable() {
+		// carregando modelo da tabela.
+		getTabela().setModel(modelo);
+		
+		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
+		// Teste para a tabela
+		
+		Ata at = new Ata();
+		at.setCodigo("Matutino", "201", "2012");
+		at.setEnsinoAta("Regular");
+		at.setModalidadeAta("EAD");
+		
+		Ata at3 = new Ata();
+		at3.setCodigo("Matutino", "201", "2012");
+		at3.setEnsinoAta("Regular");
+		at3.setModalidadeAta("EAD");
+		
+		modelo.addContato(at3);
+		modelo.addContato(at);
+		
+		scroll.setViewportView(getTabela()); // insere a tabela no painel Scroll
+		scroll.setWheelScrollingEnabled(true);
+		
+		painelTabela.add("North", painelNull(0, 10));
+		painelTabela.add("Center",scroll);
+		painelTabela.add("South",painelLocaliza(lbCodigo2));
+		
+		return painelTabela;
+	}
+
+	private JPanel painelBotoes() {
+		JPanel painelBotoes = new JPanel(new BorderLayout(2,2));
+		JPanel painelContentBotoes = new JPanel(new GridLayout(1,6,5,5));
+		
+		painelContentBotoes.add(btnSalvar);
+		painelContentBotoes.add(btnAlterar);
+		painelContentBotoes.add(btnExcluir);
+		painelContentBotoes.add(btnLimpar);
+	
+		painelBotoes.add("Center", painelContentBotoes);
+		
+		return painelBotoes;
+	}
+
+	private void alterarFontes() {
+		// FONTE
+		lbTurma.setFont(font_PLA_14);
+		lbCodigo2.setFont(font_PLA_14);
+		lbTurno.setFont(font_PLA_14);
+		lbAno.setFont(font_PLA_14);
+		lbModalidade.setFont(font_PLA_14);
+		lbEnsino.setFont(font_PLA_14);
+		lbDadosAta.setFont(font_NEG_15);
+		
+		// JTextField
+		tfTurma.setFont(font_NEG_15);
+		tfTurno2.setFont(font_NEG_15);
+		tfTurma.setPreferredSize(new Dimension(70,0)); // Setado tamanho fixo do Text
+		
+		// Button
+		btnSalvar.setFont(font_PLA_14);
+		btnLimpar.setFont(font_PLA_14);
+		btnAlterar.setFont(font_PLA_14);
+		btnExcluir.setFont(font_PLA_14);
+		
+		tfTurma.setSize(20, 10);
+		
+		// Cor
+		lbTurno.setForeground(Color.RED);
+		ftAno.setBackground(Color.WHITE);
+		
+		// Outros
+		ftAno.setBorder(null); // tirando a borda do component
+	
 	}
 
 }

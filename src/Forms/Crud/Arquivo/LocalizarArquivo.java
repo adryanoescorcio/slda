@@ -4,9 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+
 import Eventos.EventosCaixa;
+import Model.Caixa;
 
 /**
  * Classe que representa a tela Arquivo - Localizar
@@ -26,7 +30,7 @@ public class LocalizarArquivo extends EventosCaixa {
 		btnLimpar.addActionListener(onClickLimparCampos);
 		btnSalvar.addActionListener(onClickSalvarCaixa);
 		btnAlterar.addActionListener(onClickSalvarCaixa);
-		btnPesquisar.addActionListener(onClickBuscarCaixa);
+		padrao.getBtnPesquisar().addActionListener(onClickBuscarCaixa);
 		btnExcluir.addActionListener(onClickExcluirCaixa);
 		
 		painelEsquerdo.add(padrao.painelNull(0, 0));
@@ -36,10 +40,14 @@ public class LocalizarArquivo extends EventosCaixa {
 		painelEsquerdo.add(lbStatus);
 		
 		painelDireito.add(padrao.painelNull(0, 0));
-		painelDireito.add(tfCodigo);
-		painelDireito.add(padrao.painelContentComponent("West", comboTurno));
-		painelDireito.add(padrao.painelContentComponent("West", comboLetra));
-		painelDireito.add(padrao.painelContentComponent("West", comboStatus));
+		painelDireito.add(padrao.painelContentFieldTamanhoLargura(tfCodigo, 400));
+		
+		painelDireito.add(padrao.painelContentComponent("West", 
+				padrao.getComboBoxTurno()));
+		painelDireito.add(padrao.painelContentComponent("West", 
+				padrao.getComboBoxLetra()));
+		painelDireito.add(padrao.painelContentComponent("West", 
+				padrao.getComboBoxStatus()));
 		
 		// Este painel guarda o lado direito e esquedo descrito acima. Define também a borda especifica.
 		painelContentEIA.add("North", lbDadosCaixa );
@@ -67,6 +75,12 @@ public class LocalizarArquivo extends EventosCaixa {
 
 	public JPanel getTelaPrincipal() {
 		
+		JPanel painelScrollMain = new JPanel(new BorderLayout(1,1));
+		
+		scrollMain.setPreferredSize(mainJPanel.getPreferredSize());
+		scrollMain .setViewportView(mainJPanel);
+		
+		painelScrollMain.add(scrollMain);
 		painelLocalizarArquivo.add("North",painelInternoNorte);
 		
 		mainJPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
@@ -74,9 +88,10 @@ public class LocalizarArquivo extends EventosCaixa {
 		mainJPanel.add("Center",painelLocalizarArquivo);
 		mainJPanel.add("West",padrao.painelNull(20, 0));
 		mainJPanel.add("East",padrao.painelNull(20, 0));
-		mainJPanel.add("North",padrao.painelNull(0, 15));
+		mainJPanel.add("North",padrao.painelNull(0, 10));
 		
-		return mainJPanel;
+		// Vai para Janela Principal
+		return painelScrollMain;
 	}
 
 	private JPanel painelInternoSul() {
@@ -89,34 +104,32 @@ public class LocalizarArquivo extends EventosCaixa {
 	}
 	
 	private JPanel painelTable() {
+		// carregando modelo da tabela.
+		JTable tabela = padrao.getTabela();
+		tabela.setModel(modelo);
+		
+		// Teste para a tabela
+		Caixa cx = new Caixa();
+		cx.setCodigo("9292");
+		cx.setLetra("L");
+		cx.setStatus("Ativo");
+		cx.setTurno("Matutino");
+		
+		modelo.addContato(cx);
+		
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setViewportView(tabela); // insere a tabela no painel Scroll
 		
 		painelTabela.add("North", padrao.painelNull(0, 10));
 		painelTabela.add("Center",scroll);
-		painelTabela.add("South",painelLocaliza());
+		painelTabela.add("South",padrao.painelLocaliza(lbCodigo2));
 		
 		return painelTabela;
 	}
 
-	private JPanel painelLocaliza() {
-		JPanel painelLocalizar = new JPanel(new BorderLayout(2,2));
-		JPanel painelContentLocalizar = new JPanel(new BorderLayout(2,2));
-		
-		painelLocalizar.add("East", padrao.painelContentComponent("East", btnPesquisar));
-		painelLocalizar.add("Center", tfLocalizar);
-		painelLocalizar.add("West", padrao.painelContentComponent("West", lbCodigo2));
-		painelLocalizar.add("North", padrao.painelNull(0, 5));
-		
-		painelContentLocalizar.add("Center", painelLocalizar);
-		painelContentLocalizar.add("East", padrao.painelNull(400, 0));
-		
-		return painelContentLocalizar;
-	}
-
 	private JPanel painelBotoes() {
 		JPanel painelBotoes = new JPanel(new BorderLayout(2,2));
-		JPanel painelContentBotoes = new JPanel(new GridLayout(1,2,5,5));
+		JPanel painelContentBotoes = new JPanel(new GridLayout(1,4,5,5));
 		
 		painelContentBotoes.add(btnSalvar);
 		painelContentBotoes.add(btnAlterar);
@@ -129,25 +142,21 @@ public class LocalizarArquivo extends EventosCaixa {
 	}
 
 	private void alterarFontes() {
-
 		lbCodigo.setFont(padrao.font_PLA_14);
 		lbCodigo2.setFont(padrao.font_PLA_14);
 		lbLetra.setFont(padrao.font_PLA_14);
 		lbTurno.setFont(padrao.font_PLA_14);
 		lbStatus.setFont(padrao.font_PLA_14);
-		lbDadosCaixa.setFont(padrao.font_NEG_15);		
+		lbDadosCaixa.setFont(padrao.font_NEG_15);
+		
 		tfCodigo.setFont(padrao.font_NEG_15);
-		tfLocalizar.setFont(padrao.font_NEG_15);
 		
 		btnSalvar.setFont(padrao.font_PLA_14);
-		btnPesquisar.setFont(padrao.font_PLA_14);
 		btnLimpar.setFont(padrao.font_PLA_14);
 		btnAlterar.setFont(padrao.font_PLA_14);
 		btnExcluir.setFont(padrao.font_PLA_14);
 
-		
-		btnPesquisar.setPreferredSize(new Dimension(140,26));
-		btnPesquisar.setRolloverEnabled(false);
+		// COR
+		lbCodigo.setForeground(Color.red);
 	}
-
 }

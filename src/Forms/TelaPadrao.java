@@ -8,11 +8,15 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.text.ParseException;
+import java.util.Random;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
@@ -20,8 +24,13 @@ import javax.swing.text.MaskFormatter;
 public class TelaPadrao extends JPanel {
 
 	// Constantes
+	// Intervalo para o Random
+	private static final int INTERVALO = 999999999;
 	protected static final String DIR_ICONES = "src/Icones/";
 	protected static final Color COR_DE_FUNDO = Color.WHITE;
+	protected static final int TAM_ROW_TABLE = 22;
+	
+	private ImageIcon icone = new ImageIcon(DIR_ICONES+"search.png");
 	
 	// Tipos de Fonte
 	protected Font font_PLA_14 = new Font(Font.SANS_SERIF, Font.PLAIN, 14);
@@ -32,13 +41,23 @@ public class TelaPadrao extends JPanel {
 	
 	protected GridLayout layout = new GridLayout(20, 4, 5, 5);
 	
+	protected JTable tabela = new JTable(); // Table para todas as Jframes
 	
-	protected MaskFormatter data, tel, cpf;
+	private JTextField tfLocalizar = new JTextField();
+	
+	private JButton btnPesquisar = new JButton("Pesquisar", icone);
+	
+	protected MaskFormatter data;
+	protected MaskFormatter tel;
+	protected MaskFormatter cpf;
+	protected MaskFormatter ano;
 	
 	private JPanel painelSalvarLimpar;
 	
 	public TelaPadrao() {
 		setLayout(new BorderLayout(1,1));
+		loadConfigTable();
+		alterarFontes();
 	}
 	
 	public Label getTitulo(String titulo){
@@ -114,9 +133,9 @@ public class TelaPadrao extends JPanel {
 		JComboBox<String> comboTurno = new JComboBox<String>();
 		
 		comboTurno.addItem(null);
-		comboTurno.addItem("1 - Matutino");
-		comboTurno.addItem("2 - Vespertino");
-		comboTurno.addItem("3 - Noturno");
+		comboTurno.addItem("1 - MATUTINO");
+		comboTurno.addItem("2 - VESPERTINO");
+		comboTurno.addItem("3 - NOTURNO");
 		comboTurno.setBackground(Color.white);
 		comboTurno.setFont(font_PLA_14);
 		
@@ -161,9 +180,9 @@ public class TelaPadrao extends JPanel {
 	protected JComboBox<String> getComboBoxStatus() {
 		JComboBox<String> comboStatus = new JComboBox<String>();
 		
-		comboStatus.addItem("Corrente");
-		comboStatus.addItem("Intermediário");
-		comboStatus.addItem("Permanente");
+		comboStatus.addItem("CORRENTE");
+		comboStatus.addItem("INTERMEDIÁRIO");
+		comboStatus.addItem("PERMANENTE");
 		comboStatus.setBackground(Color.white);
 		comboStatus.setFont(font_PLA_14);
 		
@@ -206,6 +225,8 @@ public class TelaPadrao extends JPanel {
 		combo.addItem("SP");
 		combo.addItem("SE");
 		combo.addItem("TO");
+		
+		combo.setFont(font_PLA_14);
 
 		return combo;
 	}
@@ -224,7 +245,7 @@ public class TelaPadrao extends JPanel {
 		combo.addItem("3 - PARDO");
 		combo.addItem("4 - AMARELO");
 		combo.addItem("5 - INDÍGENA");
-		
+		combo.setFont(font_PLA_14);
 		combo.setLightWeightPopupEnabled(false);
 		
 		
@@ -242,7 +263,7 @@ public class TelaPadrao extends JPanel {
 		comboSexo.addItem("");
 		comboSexo.addItem("1 - MASCULINO");
 		comboSexo.addItem("2 - FEMININO");
-		
+		comboSexo.setFont(font_PLA_14);
 		return comboSexo;
 	}
 	
@@ -253,7 +274,7 @@ public class TelaPadrao extends JPanel {
 		combo.setBackground(Color.WHITE);
 		combo.addItem("1 - NÃO");
 		combo.addItem("2 - SIM");
-		
+		combo.setFont(font_PLA_14);
 		combo.setLightWeightPopupEnabled(false);
 		
 		return combo;
@@ -268,7 +289,7 @@ public class TelaPadrao extends JPanel {
 		combo.addItem("2 - CONCLUIDO");
 		combo.addItem("3 - TRASNFERIDO");
 		combo.addItem("4 - EVADIDO");
-		
+		combo.setFont(font_PLA_14);
 		combo.setLightWeightPopupEnabled(false);
 		
 		return combo;
@@ -286,7 +307,7 @@ public class TelaPadrao extends JPanel {
 		combo.addItem("");
 		combo.addItem("NORMAL");
 		combo.addItem("EJA");
-		
+		combo.setFont(font_PLA_14);
 		return combo;
 	}
 	
@@ -295,10 +316,9 @@ public class TelaPadrao extends JPanel {
 		JComboBox<String> combo = new JComboBox<String>();
 		
 		combo.setBackground(Color.WHITE);
-		combo.addItem("");
-		combo.addItem("FUNDAMENTAL");
 		combo.addItem("MEDIO");
-		
+		combo.addItem("FUNDAMENTAL");
+		combo.setFont(font_PLA_14);
 		return combo;
 	}
 	
@@ -331,10 +351,62 @@ public class TelaPadrao extends JPanel {
 		}
 		return cpf;
 	}
+
+	public MaskFormatter getMascaraAno(){
+		try {
+			ano = new MaskFormatter("####.1");
+			ano.setPlaceholderCharacter('_');
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return ano;
+	}
 	
 	public JPanel SalvarLimparBotoes() {
 		painelSalvarLimpar = new JPanel(new BorderLayout(2,2));
 		painelSalvarLimpar.add("Weast",painelNull(20,20));
 		return painelSalvarLimpar;
 	}
+	
+	private void loadConfigTable() {
+		// TABELA
+		tabela.setRowHeight(TAM_ROW_TABLE); // Define o tamanho da linha da tabela
+		tabela.setFocusable(false);
+		tabela.setShowVerticalLines(false);
+		tabela.setShowHorizontalLines(true);
+		tabela.setRowMargin(5);
+	}
+	
+	/**
+	 * Painel especifico para a criação de botões de pesquisa parte inferior
+	 **/
+	protected JPanel painelLocaliza(JLabel titulo) {
+		JPanel painelLocalizar = new JPanel(new GridLayout(1,3,2,2));
+		JPanel painelContentLocalizar = new JPanel(new BorderLayout(2,2));
+		
+		painelLocalizar.add(painelContentComponent("East", titulo));
+		painelLocalizar.add(painelContentComponent("West", tfLocalizar));
+		painelLocalizar.add(painelContentComponent("West", btnPesquisar));
+		
+		painelContentLocalizar.add("North", painelNull(0, 5));
+		painelContentLocalizar.add("Center", painelLocalizar);
+		painelContentLocalizar.add("East", painelNull(300, 0));
+		
+		return painelContentLocalizar;
+	}
+	
+	public String numAleatorio() {
+		Random rand = new Random();
+		return String.valueOf(rand.nextInt(INTERVALO));
+	}
+
+	private void alterarFontes() {
+		btnPesquisar.setFont(font_PLA_14);
+		tfLocalizar.setFont(font_NEG_15);
+		
+		tfLocalizar.setPreferredSize(new Dimension(200,0));
+		btnPesquisar.setPreferredSize(new Dimension(140,26));
+		btnPesquisar.setRolloverEnabled(false);
+	}
+	
 }

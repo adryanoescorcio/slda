@@ -13,13 +13,12 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import Forms.TelaPadrao;
-import Forms.TablesModel.AlunoTableModel;
-import Model.Aluno;
+import Forms.TablesModel.AtaTableModel;
+import Model.Ata;
 
 /**
  * Classe que representa a tela Ata - Cadastrar
@@ -51,51 +50,41 @@ public class CadastrarAta extends TelaPadrao{
 	
 	private JLabel lbDadosAta = new JLabel("DADOS DA ATA",SwingConstants.CENTER);
 	private JLabel lbTurma = new JLabel("Turma: ",SwingConstants.RIGHT);
-	private JLabel lbCodigo2 = new JLabel("Código Discente: ",SwingConstants.RIGHT);
+	private JLabel lbCodigo2 = new JLabel("Código Ata: ",SwingConstants.RIGHT);
 	private JLabel lbTurno = new JLabel("Turno: ",SwingConstants.RIGHT);
 	private JLabel lbAno = new JLabel("Ano: ",SwingConstants.RIGHT);
 	private JLabel lbModalidade = new JLabel("Modalidade: ",SwingConstants.RIGHT);
 	private JLabel lbEnsino = new JLabel("Ensino: ",SwingConstants.RIGHT);
 	
 	private JTextField tfTurma = new JTextField();
-	private JTextField tfAno = new JTextField();
 	private JTextField tfTurno2 = new JTextField();
-	private JTextField tfTurno = new JTextField();
-	private JTextField tfModalidade = new JTextField();
-	private JTextField tfEnsino = new JTextField();
 	
-	private JFormattedTextField ftCpf = new JFormattedTextField(getMascaraCPF());
-	private JFormattedTextField ftDataNasc = new JFormattedTextField(getMascaraData());
-	private JFormattedTextField ftDataMatricula = new JFormattedTextField(getMascaraData());
-	private JFormattedTextField ftFone = new JFormattedTextField(getMascaraTelefone());
+	private JFormattedTextField ftAno = new JFormattedTextField(getMascaraAno());
 	
-	private ImageIcon icone = new ImageIcon(DIR_ICONES+"search.png");
-
 	private JButton btnSalvar = new JButton("Salvar");
 	private JButton btnLimpar = new JButton("Limpar");
 	private JButton btnExcluir = new JButton("Excluir");
 	private JButton btnAlterar = new JButton("Alterar");
-	private JButton btnPesquisar = new JButton("Pesquisar", icone);
 
-	private ArrayList<Aluno> lista = new ArrayList<Aluno>();
-	private AlunoTableModel modelo = new AlunoTableModel(lista);
-	private JTable tabela = new JTable(modelo);
+	private ArrayList<Ata> lista = new ArrayList<Ata>();
+	private AtaTableModel modelo = new AtaTableModel(lista);
+	
 	
 	public CadastrarAta() {
 		
 		painelEsquerdoInfoAluno.add(painelNull(0, 0));
 		painelEsquerdoInfoAluno.add(lbTurma);
-		painelEsquerdoInfoAluno.add(tfTurno);
+		painelEsquerdoInfoAluno.add(lbTurno);
 		painelEsquerdoInfoAluno.add(lbAno);
 		painelEsquerdoInfoAluno.add(lbModalidade);
 		painelEsquerdoInfoAluno.add(lbEnsino);
 		
 		painelDireito.add(painelNull(0, 0));
-		painelDireito.add(tfTurma);
-		painelDireito.add(tfTurno);
-		painelDireito.add(tfAno);
-		painelDireito.add(tfModalidade);
-		painelDireito.add(tfEnsino);
+		painelDireito.add(painelContentComponent("West", tfTurma));
+		painelDireito.add(painelContentComponent("West", getComboBoxTurno()));
+		painelDireito.add(painelContentComponent("West", ftAno));
+		painelDireito.add(painelContentComponent("West", getComboBoxModalidade()));
+		painelDireito.add(painelContentComponent("West", getComboBoxEnsino()));
 		
 		painelContentEIA.add("North", lbDadosAta);
 		painelContentEIA.add("West", painelEsquerdoInfoAluno);
@@ -147,46 +136,47 @@ public class CadastrarAta extends TelaPadrao{
 	}
 	
 	private JPanel painelTable() {
+		// carregando modelo da tabela.
+		tabela.setModel(modelo);
+		
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
-		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		// Teste para a tabela
+		
+		Ata at = new Ata();
+		at.setCodigo("Matutino", "201", "2012");
+		at.setEnsinoAta("Regular");
+		at.setModalidadeAta("EAD");
+		
+		Ata at3 = new Ata();
+		at3.setCodigo("Matutino", "201", "2012");
+		at3.setEnsinoAta("Regular");
+		at3.setModalidadeAta("EAD");
+		
+		modelo.addContato(at3);
+		modelo.addContato(at);
 		
 		scroll.setViewportView(tabela); // insere a tabela no painel Scroll
 		scroll.setWheelScrollingEnabled(true);
 		
 		painelTabela.add("North", painelNull(0, 10));
 		painelTabela.add("Center",scroll);
-		painelTabela.add("South",painelLocaliza());
+		painelTabela.add("South",painelLocaliza(lbCodigo2));
 		
 		return painelTabela;
 	}
 
-	private JPanel painelLocaliza() {
-		JPanel painelLocalizar = new JPanel(new BorderLayout(2,2));
-		JPanel painelContentLocalizar = new JPanel(new BorderLayout(2,2));
-		
-		painelLocalizar.add("East", painelContentComponent("East", btnPesquisar));
-		painelLocalizar.add("Center", tfTurno2);
-		painelLocalizar.add("West", painelContentComponent("West", lbCodigo2));
-		painelLocalizar.add("North", painelNull(0, 5));
-		
-		painelContentLocalizar.add("Center", painelLocalizar);
-		painelContentLocalizar.add("East", painelNull(400, 0));
-		
-		return painelContentLocalizar;
-	}
-
 	private JPanel painelBotoes() {
 		JPanel painelBotoes = new JPanel(new BorderLayout(2,2));
-		JPanel painelContentBotoes = new JPanel(new GridLayout(1,2,5,5));
+		JPanel painelContentBotoes = new JPanel(new GridLayout(1,6,5,5));
 		
 		painelContentBotoes.add(btnSalvar);
 		painelContentBotoes.add(btnAlterar);
 		painelContentBotoes.add(btnExcluir);
 		painelContentBotoes.add(btnLimpar);
-		
+	
 		painelBotoes.add("Center", painelContentBotoes);
 		
 		return painelBotoes;
@@ -205,24 +195,23 @@ public class CadastrarAta extends TelaPadrao{
 		// JTextField
 		tfTurma.setFont(font_NEG_15);
 		tfTurno2.setFont(font_NEG_15);
+		tfTurma.setPreferredSize(new Dimension(70,0)); // Setado tamanho fixo do Text
 		
 		// Button
 		btnSalvar.setFont(font_PLA_14);
-		btnPesquisar.setFont(font_PLA_14);
 		btnLimpar.setFont(font_PLA_14);
 		btnAlterar.setFont(font_PLA_14);
 		btnExcluir.setFont(font_PLA_14);
 		
+		tfTurma.setSize(20, 10);
+		
 		// Cor
 		lbTurno.setForeground(Color.RED);
+		ftAno.setBackground(Color.WHITE);
 		
 		// Outros
-		btnPesquisar.setPreferredSize(new Dimension(140,26));
-		btnPesquisar.setRolloverEnabled(false);
-		ftFone.setBorder(null);
-		ftCpf.setBorder(null);
-		ftDataNasc.setBorder(null);
-		ftDataMatricula.setBorder(null);
+		ftAno.setBorder(null); // tirando a borda do component
+	
 	}
 
 }

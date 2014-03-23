@@ -7,12 +7,10 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -55,22 +53,16 @@ public class LocalizarArquivo extends TelaPadrao {
 	private JLabel lbDadosCaixa = new JLabel("DADOS DA CAIXA",SwingConstants.CENTER);
 	
 	private JTextField tfCodigo = new JTextField();
-	private JTextField tfLocalizar = new JTextField();
 	
-	private ImageIcon icone = new ImageIcon(DIR_ICONES+"search.png");
-
 	private JButton btnSalvar = new JButton("Salvar");
 	private JButton btnLimpar = new JButton("Limpar");
 	private JButton btnExcluir = new JButton("Excluir");
 	private JButton btnAlterar = new JButton("Alterar");
-	private JButton btnPesquisar = new JButton("Pesquisar", icone);
 
 	private ArrayList<Caixa> lista = new ArrayList<Caixa>();
 	private CaixaTableModel modelo = new CaixaTableModel(lista);
-	private JTable tabela = new JTable(modelo);
 
 	private JScrollPane scrollMain = new JScrollPane();
-
 
 	public LocalizarArquivo() {
 
@@ -110,7 +102,7 @@ public class LocalizarArquivo extends TelaPadrao {
 
 	public JPanel getTelaPrincipal() {
 		
-JPanel painelScrollMain = new JPanel(new BorderLayout(1,1));
+		JPanel painelScrollMain = new JPanel(new BorderLayout(1,1));
 		
 		scrollMain.setPreferredSize(mainJPanel.getPreferredSize());
 		scrollMain .setViewportView(mainJPanel);
@@ -139,34 +131,31 @@ JPanel painelScrollMain = new JPanel(new BorderLayout(1,1));
 	}
 	
 	private JPanel painelTable() {
+		// carregando modelo da tabela.
+		tabela.setModel(modelo);
+		
+		// Teste para a tabela
+		Caixa cx = new Caixa();
+		cx.setCodigo("9292");
+		cx.setLetra("L");
+		cx.setStatus("Ativo");
+		cx.setTurno("Matutino");
+		
+		modelo.addContato(cx);
+		
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setViewportView(tabela); // insere a tabela no painel Scroll
 		
 		painelTabela.add("North", painelNull(0, 10));
 		painelTabela.add("Center",scroll);
-		painelTabela.add("South",painelLocaliza());
+		painelTabela.add("South",painelLocaliza(lbCodigo2));
 		
 		return painelTabela;
 	}
 
-	private JPanel painelLocaliza() {
-		JPanel painelLocalizar = new JPanel(new BorderLayout(2,2));
-		JPanel painelContentLocalizar = new JPanel(new BorderLayout(2,2));
-		
-		painelLocalizar.add("East", painelContentComponent("East", btnPesquisar));
-		painelLocalizar.add("Center", tfLocalizar);
-		painelLocalizar.add("West", painelContentComponent("West", lbCodigo2));
-		painelLocalizar.add("North", painelNull(0, 5));
-		
-		painelContentLocalizar.add("Center", painelLocalizar);
-		painelContentLocalizar.add("East", painelNull(400, 0));
-		
-		return painelContentLocalizar;
-	}
-
 	private JPanel painelBotoes() {
 		JPanel painelBotoes = new JPanel(new BorderLayout(2,2));
-		JPanel painelContentBotoes = new JPanel(new GridLayout(1,2,5,5));
+		JPanel painelContentBotoes = new JPanel(new GridLayout(1,4,5,5));
 		
 		painelContentBotoes.add(btnSalvar);
 		painelContentBotoes.add(btnAlterar);
@@ -187,18 +176,13 @@ JPanel painelScrollMain = new JPanel(new BorderLayout(1,1));
 		lbDadosCaixa.setFont(font_NEG_15);
 		
 		tfCodigo.setFont(font_NEG_15);
-		tfLocalizar.setFont(font_NEG_15);
 		
 		btnSalvar.setFont(font_PLA_14);
-		btnPesquisar.setFont(font_PLA_14);
 		btnLimpar.setFont(font_PLA_14);
 		btnAlterar.setFont(font_PLA_14);
 		btnExcluir.setFont(font_PLA_14);
 		
 		// COR
 		lbCodigo.setForeground(Color.red);
-		
-		btnPesquisar.setPreferredSize(new Dimension(140,26));
-		btnPesquisar.setRolloverEnabled(false);
 	}
 }

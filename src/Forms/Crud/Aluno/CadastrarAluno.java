@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -50,7 +49,7 @@ public class CadastrarAluno extends TelaPadrao {
 	
 	private JLabel lbDadosAluno = new JLabel("DADOS DO DISCENTE",SwingConstants.CENTER);
 	private JLabel lbNome = new JLabel("Nome:* ",SwingConstants.RIGHT);
-	private JLabel lbCodigo2 = new JLabel("Cód. Discente: ",SwingConstants.RIGHT);
+	private JLabel lbCodigo2 = new JLabel("Discente: ",SwingConstants.RIGHT);
 	private JLabel lbCodigo = new JLabel("Código:* ",SwingConstants.RIGHT);
 	private JLabel lbCPF = new JLabel("CPF: ",SwingConstants.RIGHT);
 	private JLabel lbCor = new JLabel("Cor: ",SwingConstants.RIGHT);
@@ -69,7 +68,6 @@ public class CadastrarAluno extends TelaPadrao {
 	private JLabel lbSituacao = new JLabel("Situação Atual: ",SwingConstants.RIGHT);
 	
 	private JTextField tfNome = new JTextField();
-	private JTextField tfLocalizar = new JTextField();
 	private JTextField tfCodigo = new JTextField();
 	private JTextField tfCidade = new JTextField();
 	private JTextField tfEnd = new JTextField();
@@ -80,17 +78,15 @@ public class CadastrarAluno extends TelaPadrao {
 	private JFormattedTextField ftDataMatricula = new JFormattedTextField(getMascaraData());
 	private JFormattedTextField ftFone = new JFormattedTextField(getMascaraTelefone());
 	
-	private ImageIcon icone = new ImageIcon(DIR_ICONES+"search.png");
-
 	private JButton btnSalvar = new JButton("Salvar");
 	private JButton btnLimpar = new JButton("Limpar");
 	private JButton btnExcluir = new JButton("Excluir");
 	private JButton btnAlterar = new JButton("Alterar");
-	private JButton btnPesquisar = new JButton("Pesquisar", icone);
+	private JButton btnDocumento = new JButton("Documento");
+	private JButton btnAta = new JButton("Ata");
 
 	private ArrayList<Aluno> lista = new ArrayList<Aluno>();
 	private AlunoTableModel modelo = new AlunoTableModel(lista);
-	private JTable tabela = new JTable(modelo);
 	
 	public CadastrarAluno() {
 		
@@ -106,7 +102,7 @@ public class CadastrarAluno extends TelaPadrao {
 		painelEsquerdoInfoAluno.add(lbSituacao);
 		
 		painelDireito.add(painelNull(0, 0)); // Vazio
-		painelDireito.add(tfNome); // Nome
+		painelDireito.add(painelContentComponent("West", tfNome)); // Nome
 		painelDireito.add(painelContentFieldTamanhoLargura(tfCodigo ,400)); //Codigo
 		painelDireito.add(painelContentComponent("West", painelCPFEstado())); // CPF - Estado
 		painelDireito.add(painelContentFieldTamanhoLargura(tfNomeMae, 200));
@@ -248,7 +244,7 @@ public class CadastrarAluno extends TelaPadrao {
 		mainJPanel.add("West",painelNull(20, 0));
 		mainJPanel.add("East",painelNull(20, 0));
 		mainJPanel.add("North",painelNull(0, 10));
-		mainJPanel.add("South",painelNull(0, 80));
+		mainJPanel.add("South",painelNull(0, 50));
 		
 		// Vai para Janela Principal
 		return painelScrollMain;
@@ -257,13 +253,39 @@ public class CadastrarAluno extends TelaPadrao {
 	private JPanel painelInternoSul() {
 		painelInternoSul.add("Center",painelContentComponent("West", painelBotoes()));
 		painelInternoSul.add("North",painelNull(0, 5));
-		painelInternoSul.add("West",painelNull(220, 0));
+		painelInternoSul.add("West",painelNull(100, 0));
 		painelInternoSul.add("South",painelTable());
 		
 		return painelInternoSul;
 	}
 	
 	private JPanel painelTable() {
+		
+		// carregando modelo da tabela.
+		tabela.setModel(modelo);
+		
+		Aluno aluno1 = new Aluno();
+		aluno1.setCodigo("20120");
+		aluno1.setCPF_Aluno(numAleatorio());
+		aluno1.setNomeAluno("Alan Kardec Souza");
+		aluno1.setINEP(numAleatorio());
+		aluno1.setRG_Aluno(numAleatorio());
+		aluno1.setSexoAluno("Masculino");
+		aluno1.setCorAluno("Branca");
+		aluno1.setDataNascimento("07/02/1994");
+		aluno1.setCidadeNascAluno("Paratins");
+		aluno1.setEstadoNascAluno("Mato Grosso");
+		aluno1.setNomePai("Leal");
+		aluno1.setCidadePaiNasc("Itapirapoca");
+		aluno1.setEstadoPaiNasc("São Paulo");
+		aluno1.setNomeMae("Jessica");
+		aluno1.setCidadeMaeNasc("Sao José dos Patos");
+		aluno1.setEstadoMaeNasc("Rio Branco");
+		aluno1.setEnderecoAluno("Rua 25 Quadra 24");
+		aluno1.setTelefoneAluno(numAleatorio());
+		
+		modelo.addContato(aluno1);
+		
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); // Adiciona o scroll vertical
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS); // adiciona o scroll horizontal
@@ -290,40 +312,28 @@ public class CadastrarAluno extends TelaPadrao {
 		
 		painelTabela.add("North", painelNull(0, 10));
 		painelTabela.add("Center",scroll);
-		painelTabela.add("South",painelLocaliza());
+		painelTabela.add("South",painelLocaliza(lbCodigo2)); // cria o painel de localizar
 		
 		return painelTabela;
 	}
 
-	private JPanel painelLocaliza() {
-		JPanel painelLocalizar = new JPanel(new BorderLayout(2,2));
-		JPanel painelContentLocalizar = new JPanel(new BorderLayout(2,2));
-		
-		painelLocalizar.add("East", painelContentComponent("East", btnPesquisar));
-		painelLocalizar.add("Center", tfLocalizar);
-		painelLocalizar.add("West", painelContentComponent("West", lbCodigo2));
-		painelLocalizar.add("North", painelNull(0, 5));
-		
-		painelContentLocalizar.add("Center", painelLocalizar);
-		painelContentLocalizar.add("East", painelNull(400, 0));
-		
-		return painelContentLocalizar;
-	}
-
 	private JPanel painelBotoes() {
 		JPanel painelBotoes = new JPanel(new BorderLayout(2,2));
-		JPanel painelContentBotoes = new JPanel(new GridLayout(1,2,5,5));
+		JPanel painelContentBotoes = new JPanel(new GridLayout(1,7,5,5));
 		
 		painelContentBotoes.add(btnSalvar);
 		painelContentBotoes.add(btnAlterar);
 		painelContentBotoes.add(btnExcluir);
 		painelContentBotoes.add(btnLimpar);
+		painelContentBotoes.add(painelNull(5, 0));
+		painelContentBotoes.add(btnDocumento);
+		painelContentBotoes.add(btnAta);
 		
 		painelBotoes.add("Center", painelContentBotoes);
 		
 		return painelBotoes;
 	}
-
+	
 	private void alterarFontes() {
 		// FONTE
 		lbNome.setFont(font_PLA_14);
@@ -350,21 +360,23 @@ public class CadastrarAluno extends TelaPadrao {
 		tfCidade.setFont(font_NEG_15);
 		tfEnd.setFont(font_NEG_15);
 		tfCodigo.setFont(font_NEG_15);
-		tfLocalizar.setFont(font_NEG_15);
+		
+		
+		tfNome.setPreferredSize(new Dimension(450,0));
 		
 		// Button
 		btnSalvar.setFont(font_PLA_14);
-		btnPesquisar.setFont(font_PLA_14);
+		
 		btnLimpar.setFont(font_PLA_14);
 		btnAlterar.setFont(font_PLA_14);
 		btnExcluir.setFont(font_PLA_14);
+		btnDocumento.setFont(font_PLA_14);
+		btnAta.setFont(font_PLA_14);
 		
 		// Cor
 		lbCodigo.setForeground(Color.RED);
 		
 		// Outros
-		btnPesquisar.setPreferredSize(new Dimension(140,26));
-		btnPesquisar.setRolloverEnabled(false);
 		ftFone.setBorder(null);
 		ftCpf.setBorder(null);
 		ftDataNasc.setBorder(null);

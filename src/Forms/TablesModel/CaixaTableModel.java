@@ -17,7 +17,7 @@ public class CaixaTableModel extends AbstractTableModel {
 	private static final int COL_LETRA = 3;
 
 	private List<Caixa> linhas;
-	private String[] colunas = new String[]{"CODIGO", "TURNO", "TURMA", "STATUS", "LETRA"};
+	private String[] colunas = new String[]{"CODIGO", "TURNO", "STATUS", "LETRA"};
 
 	public CaixaTableModel(List<Caixa> caixa) {
 		this.linhas = new ArrayList<>(caixa);

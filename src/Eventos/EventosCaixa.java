@@ -80,7 +80,6 @@ public class EventosCaixa extends EventosPadrão{
 		comboTurno.setSelectedIndex(0);
 		comboLetra.setSelectedIndex(0);
 		comboStatus.setSelectedIndex(0);
-		
 	}
 
 	@Override
@@ -124,7 +123,7 @@ public class EventosCaixa extends EventosPadrão{
 		dao = new CaixaDAO(conexaoBD);
 		dao.save(caixa);
 		JOptionPane.showMessageDialog(null, "Salvo com sucesso.");
-		lista.add(caixa);
+		modelo.addContato(caixa);
 		limparCampos();
 		
 		//LIMPA A CAIXA
@@ -132,7 +131,6 @@ public class EventosCaixa extends EventosPadrão{
 		}
 	};
 	
-
 	//OBJETO ActionListener QUE BUSCA O ALUNO NO BANCO
 	protected ActionListener onClickBuscarCaixa = new ActionListener() {
 		
@@ -147,7 +145,7 @@ public class EventosCaixa extends EventosPadrão{
 			try{
 				setValoresDosCampos(caixa);
 			}catch(NullPointerException exc){
-				JOptionPane.showMessageDialog(null, "Caixa não encontrado.");
+				JOptionPane.showMessageDialog(null, "Caixa não encontrada.");
 				limparCampos();
 			}
 		}
@@ -159,10 +157,9 @@ public class EventosCaixa extends EventosPadrão{
 		@Override
 		public void actionPerformed(ActionEvent e) {			
 			dao.remover(caixa);
-			JOptionPane.showMessageDialog(null, "Caixa excluído com sucesso.");
+			JOptionPane.showMessageDialog(null, "Caixa excluída com sucesso.");
 			limparCampos();
 		}
 	};
-
 
 }

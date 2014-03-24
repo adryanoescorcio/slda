@@ -29,7 +29,7 @@ public class LocalizarArquivo extends EventosCaixa {
 		//ADD EVENTOS
 		btnLimpar.addActionListener(onClickLimparCampos);
 		btnSalvar.addActionListener(onClickSalvarCaixa);
-		btnAlterar.addActionListener(onClickSalvarCaixa);
+		btnAlterar.addActionListener(onClickAterarCaixa);
 		padrao.getBtnPesquisar().addActionListener(onClickBuscarCaixa);
 		btnExcluir.addActionListener(onClickExcluirCaixa);
 		
@@ -43,11 +43,11 @@ public class LocalizarArquivo extends EventosCaixa {
 		painelDireito.add(padrao.painelContentFieldTamanhoLargura(tfCodigo, 400));
 		
 		painelDireito.add(padrao.painelContentComponent("West", 
-				padrao.getComboBoxTurno()));
+				comboTurno));
 		painelDireito.add(padrao.painelContentComponent("West", 
-				padrao.getComboBoxLetra()));
+				comboLetra));
 		painelDireito.add(padrao.painelContentComponent("West", 
-				padrao.getComboBoxStatus()));
+				comboStatus));
 		
 		// Este painel guarda o lado direito e esquedo descrito acima. Define também a borda especifica.
 		painelContentEIA.add("North", lbDadosCaixa );

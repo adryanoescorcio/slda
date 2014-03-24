@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import Eventos.EventosAta;
 import Forms.TelaPadrao;
 import Forms.TablesModel.AtaTableModel;
 import Model.Ata;
@@ -27,12 +28,15 @@ import Model.Ata;
  * @extends TelaPadrao
  **/
 
-public class CadastrarAta extends TelaPadrao {
+@SuppressWarnings("serial")
+public class CadastrarAta extends EventosAta {
 
 	private static final int DIST = 5;
 
 	private static final String BORDER_INFO_ATA = "DADOS DA ATA";
 	private static final int QUANT_LINHAS_GRID = 6;
+	
+	private TelaPadrao padrao = new TelaPadrao();
 
 	private JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
 	private JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
@@ -57,7 +61,7 @@ public class CadastrarAta extends TelaPadrao {
 	private JTextField tfTurma = new JTextField();
 	private JTextField tfTurno2 = new JTextField();
 	
-	private JFormattedTextField ftAno = new JFormattedTextField(getMascaraAno());
+	private JFormattedTextField ftAno = new JFormattedTextField(padrao.getMascaraAno());
 	
 	private JButton btnSalvar = new JButton("Salvar");
 	private JButton btnLimpar = new JButton("Limpar");
@@ -70,24 +74,24 @@ public class CadastrarAta extends TelaPadrao {
 	
 	public CadastrarAta() {
 		
-		painelEsquerdoInfoAluno.add(painelNull(0, 0));
+		painelEsquerdoInfoAluno.add(padrao.painelNull(0, 0));
 		painelEsquerdoInfoAluno.add(lbTurma);
 		painelEsquerdoInfoAluno.add(lbTurno);
 		painelEsquerdoInfoAluno.add(lbAno);
 		painelEsquerdoInfoAluno.add(lbModalidade);
 		painelEsquerdoInfoAluno.add(lbEnsino);
 		
-		painelDireito.add(painelNull(0, 0));
-		painelDireito.add(painelContentComponent("West", tfTurma));
-		painelDireito.add(painelContentComponent("West", getComboBoxTurno()));
-		painelDireito.add(painelContentComponent("West", ftAno));
-		painelDireito.add(painelContentComponent("West", getComboBoxModalidade()));
-		painelDireito.add(painelContentComponent("West", getComboBoxEnsino()));
+		painelDireito.add(padrao.painelNull(0, 0));
+		painelDireito.add(padrao.painelContentComponent("West", tfTurma));
+//		painelDireito.add(padrao.painelContentComponent("West", comboGroup.getComboBoxTurno()));
+		painelDireito.add(padrao.painelContentComponent("West", ftAno));
+		painelDireito.add(padrao.painelContentComponent("West", comboGroup.getComboBoxModalidade()));
+		painelDireito.add(padrao.painelContentComponent("West", comboGroup.getComboBoxEnsino()));
 		
 		painelContentEIA.add("North", lbDadosAta);
 		painelContentEIA.add("West", painelEsquerdoInfoAluno);
 		painelContentEIA.add("Center", painelDireito);
-		painelContentEIA.add("East",painelNull(200, 0));
+		painelContentEIA.add("East",padrao.painelNull(200, 0));
 		
 		alterarFontes();
 		painelInternoNorte();
@@ -117,17 +121,17 @@ public class CadastrarAta extends TelaPadrao {
 		mainJPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		
 		mainJPanel.add("Center",painelLocalizarArquivo);
-		mainJPanel.add("West",painelNull(20, 0));
-		mainJPanel.add("East",painelNull(20, 0));
-		mainJPanel.add("North",painelNull(0, 15));
+		mainJPanel.add("West",padrao.painelNull(20, 0));
+		mainJPanel.add("East",padrao.painelNull(20, 0));
+		mainJPanel.add("North",padrao.painelNull(0, 15));
 		
 		return painelScrollMain;
 	}
 
 	private JPanel painelInternoSul() {
-		painelInternoSul.add("Center",painelContentComponent("West", painelBotoes()));
-		painelInternoSul.add("North",painelNull(0, 5));
-		painelInternoSul.add("West",painelNull(220, 0));
+		painelInternoSul.add("Center",padrao.painelContentComponent("West", painelBotoes()));
+		painelInternoSul.add("North",padrao.painelNull(0, 5));
+		painelInternoSul.add("West",padrao.painelNull(220, 0));
 		painelInternoSul.add("South",painelTable());
 		
 		return painelInternoSul;
@@ -135,7 +139,7 @@ public class CadastrarAta extends TelaPadrao {
 	
 	private JPanel painelTable() {
 		// carregando modelo da tabela.
-		getTabela().setModel(modelo);
+		padrao.getTabela().setModel(modelo);
 		
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -156,12 +160,12 @@ public class CadastrarAta extends TelaPadrao {
 		modelo.addContato(at3);
 		modelo.addContato(at);
 		
-		scroll.setViewportView(getTabela()); // insere a tabela no painel Scroll
+		scroll.setViewportView(padrao.getTabela()); // insere a tabela no painel Scroll
 		scroll.setWheelScrollingEnabled(true);
 		
-		painelTabela.add("North", painelNull(0, 10));
+		painelTabela.add("North", padrao.painelNull(0, 10));
 		painelTabela.add("Center",scroll);
-		painelTabela.add("South",painelLocaliza(lbCodigo2));
+		painelTabela.add("South",padrao.painelLocaliza(lbCodigo2));
 		
 		return painelTabela;
 	}
@@ -182,24 +186,24 @@ public class CadastrarAta extends TelaPadrao {
 
 	private void alterarFontes() {
 		// FONTE
-		lbTurma.setFont(font_PLA_14);
-		lbCodigo2.setFont(font_PLA_14);
-		lbTurno.setFont(font_PLA_14);
-		lbAno.setFont(font_PLA_14);
-		lbModalidade.setFont(font_PLA_14);
-		lbEnsino.setFont(font_PLA_14);
-		lbDadosAta.setFont(font_NEG_15);
+		lbTurma.setFont(padrao.font_PLA_14);
+		lbCodigo2.setFont(padrao.font_PLA_14);
+		lbTurno.setFont(padrao.font_PLA_14);
+		lbAno.setFont(padrao.font_PLA_14);
+		lbModalidade.setFont(padrao.font_PLA_14);
+		lbEnsino.setFont(padrao.font_PLA_14);
+		lbDadosAta.setFont(padrao.font_NEG_15);
 		
 		// JTextField
-		tfTurma.setFont(font_NEG_15);
-		tfTurno2.setFont(font_NEG_15);
+		tfTurma.setFont(padrao.font_NEG_15);
+		tfTurno2.setFont(padrao.font_NEG_15);
 		tfTurma.setPreferredSize(new Dimension(70,0)); // Setado tamanho fixo do Text
 		
 		// Button
-		btnSalvar.setFont(font_PLA_14);
-		btnLimpar.setFont(font_PLA_14);
-		btnAlterar.setFont(font_PLA_14);
-		btnExcluir.setFont(font_PLA_14);
+		btnSalvar.setFont(padrao.font_PLA_14);
+		btnLimpar.setFont(padrao.font_PLA_14);
+		btnAlterar.setFont(padrao.font_PLA_14);
+		btnExcluir.setFont(padrao.font_PLA_14);
 		
 		tfTurma.setSize(20, 10);
 		
@@ -209,7 +213,5 @@ public class CadastrarAta extends TelaPadrao {
 		
 		// Outros
 		ftAno.setBorder(null); // tirando a borda do component
-	
 	}
-
 }

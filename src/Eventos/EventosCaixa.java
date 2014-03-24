@@ -25,8 +25,9 @@ public class EventosCaixa extends EventosPadrão{
 
 	//Objeto que será usado nos eventos
 	private Caixa caixa;
+	
 	//Objeto que será usado nos eventos
-	private CaixaDAO dao;
+	private CaixaDAO dao = new CaixaDAO(conexaoBD);
 	
 	protected static final int DIST = 5;
 
@@ -44,7 +45,7 @@ public class EventosCaixa extends EventosPadrão{
 	
 	protected JScrollPane scroll = new JScrollPane();
 	
-	protected JLabel lbCodigo = new JLabel("Cód. Caixa: ",SwingConstants.RIGHT);
+	protected JLabel lbCodigo = new JLabel("Cód. Caixa:* ",SwingConstants.RIGHT);
 	protected JLabel lbCodigo2 = new JLabel("Cód. Caixa: ",SwingConstants.RIGHT);
 	protected JLabel lbTurno = new JLabel("Turno: ",SwingConstants.RIGHT);
 	protected JLabel lbLetra = new JLabel("Letra: ",SwingConstants.RIGHT);
@@ -63,45 +64,46 @@ public class EventosCaixa extends EventosPadrão{
 
 	protected JScrollPane scrollMain = new JScrollPane();
 	
-	protected JComboBox<String> comboTurno = padrao.getComboBoxTurno();
-	protected JComboBox<String> comboLetra = padrao.getComboBoxLetra();
-	protected JComboBox<String> comboStatus = padrao.getComboBoxStatus();
-
-	@Override
-	public void limparCampos() {
-		// TODO Auto-generated method stub
-		tfCodigo.setText("");
-		comboTurno.setSelectedIndex(0);
-		comboLetra.setSelectedIndex(0);
-		comboStatus.setSelectedIndex(0);
-		
+	protected JComboBox<String> comboTurno = getComboBoxTurno();
+	protected JComboBox<String> comboLetra = getComboBoxLetra();
+	protected JComboBox<String> comboStatus = getComboBoxStatus();
+	
+	public EventosCaixa() {
+		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
+		btnExcluir.setEnabled(false); // necessario a pesquisa para ativar botão
 	}
-
+	
 	@Override
 	public Object getValoresDosCampos() {
 		
-		caixa = new Caixa();
-		
-		caixa.setCodigo(tfCodigo.getText());
-		caixa.setTurno((String) comboTurno.getSelectedItem());
-		caixa.setLetra((String) comboLetra.getSelectedItem());
-		caixa.setStatus((String) comboStatus.getSelectedItem());
-		
-		return caixa;
+		if(!tfCodigo.getText().trim().equals("")){
+			
+			caixa = new Caixa();
+			caixa.setCodigo(tfCodigo.getText().trim());
+			caixa.setTurno((String) comboTurno.getSelectedItem());
+			caixa.setStatus((String) comboStatus.getSelectedItem());
+			caixa.setLetra((String) comboLetra.getSelectedItem());
+			
+			return caixa;
+			
+		} else {
+			throw new erroNullRequisito("(ER02) Preencha todos os requisitos com dados válidos.", "ERRO ER02",null);
+		}
 	}
 
 	@Override
-	public void setValoresDosCampos(Object object) {
+	public void setValoresDosCampos(Object object) throws NullPointerException {
 		Caixa caixa = (Caixa) object;
 		
 		tfCodigo.setText(caixa.getCodigo());
 		comboTurno.setSelectedItem(caixa.getTurno());
 		comboLetra.setSelectedItem(caixa.getLetra());
 		comboStatus.setSelectedItem(caixa.getStatus());
-		
 	}
 	
-	//OBJETO ActionListener QUE LIMPA OS CAMPOS DA TELA
+	/**
+	 * Metodos que realiza a função de limpar os campos.
+	 **/
 	protected ActionListener onClickLimparCampos = new ActionListener() {	
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -109,45 +111,91 @@ public class EventosCaixa extends EventosPadrão{
 		}
 	};
 	
-	//OBJETO ActionListener QUE SALVA O CAIXA
-	protected ActionListener onClickSalvarCaixa = new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-		caixa = (Caixa) getValoresDosCampos();
-		dao = new CaixaDAO(conexaoBD);
-		dao.save(caixa);
-		JOptionPane.showMessageDialog(null, "Salvo com sucesso.");
-		lista.add(caixa);
-		limparCampos();
-		
-		//LIMPA A CAIXA
-		caixa = null;
-		}
-	};
-	
-
-	//OBJETO ActionListener QUE BUSCA O ALUNO NO BANCO
-	protected ActionListener onClickBuscarCaixa = new ActionListener() {
+	/**
+	 * Necessário verificar se houve alteração para poder atualiza a caixa modificada.
+	 **/
+	protected ActionListener onClickAterarCaixa = new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
-			CaixaPK pk = new CaixaPK();
-			pk.setCodigo(padrao.getTfLocalizar().getText());
-			dao = new CaixaDAO(conexaoBD);
-			caixa = dao.buscar(pk);
+			Caixa caixaNova = (Caixa) getValoresDosCampos();
+			
+			System.out.println(caixaNova.toString());
+			System.out.println(caixa.toString());
+			
+			if(!caixaNova.toString().equals(caixa.toString())) {
+				metodoSalvar();
+			} else {
+				JOptionPane.showMessageDialog(null, "(AT01) Não houve modificação.","ATENÇÃO AT01", JOptionPane.WARNING_MESSAGE);
+			}
+			
+		}
 
-			try{
-				setValoresDosCampos(caixa);
-			}catch(NullPointerException exc){
-				JOptionPane.showMessageDialog(null, "Caixa não encontrado.");
-				limparCampos();
+	};
+	
+	private void metodoSalvar() {
+		// Tentar pegar os valores
+		caixa = (Caixa) getValoresDosCampos();
+		
+		// Caso seja salvo com sucesso
+		if(dao.save(caixa)) {
+			JOptionPane.showMessageDialog(null, SUCESSO);
+			modelo.addContato(caixa); // Insere a caixa na tabela.
+			limparCampos();
+			
+			//LIMPA A CAIXA
+			caixa = null;
+		}		
+	}
+	/**
+	 * Metodo com a função de salvar e alterar uma caixa.
+	 **/
+	protected ActionListener onClickSalvarCaixa = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			metodoSalvar();
+		}
+	};
+
+	/***
+	 * Metodo com  a função de buscar um caixa
+	 */
+	protected ActionListener onClickBuscarCaixa = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String codigoLocalizar = padrao.getTfLocalizar().getText().trim(); // pega o codigo digitado pelo cliente.
+
+			// verifica se existe algo digitado na caixa
+			if(!codigoLocalizar.equals("")) {
+				
+				CaixaPK pk = new CaixaPK(); // chave primaria da caixa.
+				pk.setCodigo(codigoLocalizar); // seta a chave
+	
+				try{
+					caixa = dao.buscar(pk); // realiza a busca no banco de dados
+					setValoresDosCampos(caixa); // atribui os valores recuperados para os campos.
+					
+					btnAlterar.setEnabled(true); // necessario a pesquisa para ativar botão
+					btnExcluir.setEnabled(true); // necessario a pesquisa para ativar botão
+					
+					btnSalvar.setEnabled(false); // nao sera possivel salvar, somente alterar
+					tfCodigo.setEditable(false); // nao sera possivel alterar o codigo de objeto consultado.
+				}catch(NullPointerException exc){
+					limparCampos();
+				}
+				
+			} else {
+				throw new erroNullRequisito("(ER03) Nenhuma Caixa \"" +codigoLocalizar+ "\" foi encontrada.", "ERRO ER03",null);
 			}
 		}
 	};
 
-	//OBJETO ActionListener QUE EXCLUE O ALUNO NO BANCO
+	/**
+	 * Metodo com a função de excluir uma caixa
+	 **/
 	protected ActionListener onClickExcluirCaixa = new ActionListener() {
 		
 		@Override
@@ -157,6 +205,19 @@ public class EventosCaixa extends EventosPadrão{
 			limparCampos();
 		}
 	};
-
-
+	
+	@Override
+	public void limparCampos() {
+		tfCodigo.setText(null);
+		comboTurno.setSelectedIndex(0);
+		comboLetra.setSelectedIndex(0);
+		comboStatus.setSelectedIndex(0);
+		
+		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
+		btnExcluir.setEnabled(false);
+		
+		btnSalvar.setEnabled(true);
+		tfCodigo.setEditable(true);
+	}
+	
 }

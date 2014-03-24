@@ -56,6 +56,14 @@ public class Caixa implements InterfacePadraoEntidade{
 		this.caixapk.setCodigo(codigo);
 	}
 	
+	public String getLetra() {
+		return this.letra;
+	}
+
+	public void setLetra(String string) {
+		this.letra = string;
+	}
+	
 	@Override
 	public String getNomeTabelaBD() {
 		return NOMETABLE;
@@ -86,11 +94,4 @@ public class Caixa implements InterfacePadraoEntidade{
 		this.caixapk = (CaixaPK) chaveEntidade;
 	}
 
-	public String getLetra() {
-		return this.letra;
-	}
-
-	public void setLetra(String string) {
-		this.letra = string;
-	}
 }

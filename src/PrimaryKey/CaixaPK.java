@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class CaixaPK implements InterfaceKey {
 
-	private String codigo = null;
+	private String codigo;
 
 	public String getCodigo() {
 		return codigo;

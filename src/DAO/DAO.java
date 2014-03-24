@@ -1,8 +1,10 @@
 package DAO;
 
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
 
 import Model.InterfacePadraoEntidade;
 import PrimaryKey.InterfaceKey;
@@ -49,16 +51,11 @@ public abstract class DAO {
 	 * Inserir um objeto PadraoEntidade no BD
 	 * <p><b>Observação:</b><br> Entidade não inicia a transação com BD
 	 **/
-	protected boolean saveEntidade(InterfacePadraoEntidade entidade){
-		
-		try {
-			System.out.println("Salvando: " + entidade.getCodigoKEY());
-			em.persist(entidade);
-			return true;
-		} catch(Exception e) {
-			System.out.println("Erro ao persistir");
-			return false;
-		}
+	protected boolean saveEntidade(InterfacePadraoEntidade entidade) throws SQLException{
+			
+		System.out.println("Salvando: " + entidade.getCodigoKEY());
+		em.persist(entidade);
+		return true;
 	}
 	
 	/**
@@ -115,7 +112,7 @@ public abstract class DAO {
 	/**
 	 * Metodo para inserir/atualiza o Entidade no Banco de Dados.
 	 **/	
-	protected boolean save(InterfacePadraoEntidade objeto){
+	protected boolean save(InterfacePadraoEntidade objeto) {
 		this.beginTransaction();
 		
 		try {
@@ -136,9 +133,11 @@ public abstract class DAO {
 				}
 			}
 			
-		} catch (NullPointerException e) {
-			System.out.println("Não foi setado EM da classe:" + e.getMessage());
+		} catch (NullPointerException | SQLException e) {
+			JOptionPane.showMessageDialog(null, "(ER01) Não foi salvar e nem atualizar, " +
+					"verifique os dados digitados e o banco de dados.", "ERRO ER01", JOptionPane.ERROR_MESSAGE);
 			return false;
+	
 		} finally {
 			this.doCommit();
 		}

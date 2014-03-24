@@ -28,7 +28,6 @@ import Model.Aluno;
  * @version 1.5
  * @extends JFrame
  **/
-
 @SuppressWarnings("serial")
 public class CadastrarAluno extends EventosAluno {
 
@@ -116,7 +115,7 @@ public class CadastrarAluno extends EventosAluno {
 		painelDireito.add(painelDataMatriculaTransf()); // Data Matri - Transfe
 		
 		painelDireito.add(padrao.painelContentComponent("West",
-				padrao.getComboBoxSituacaoAluno())); //Situação
+				comboGroup.getComboBoxSituacaoAluno())); //Situação
 		
 		painelContentEIA.add("North", lbDadosAluno);
 		painelContentEIA.add("West", painelEsquerdoInfoAluno);
@@ -140,7 +139,7 @@ public class CadastrarAluno extends EventosAluno {
 		
 		// Telefone
 		painelTrasferencia.add("West", lbTransferencia);
-		painelTrasferencia.add("Center", padrao.painelContentComponent("West", padrao.getComboBoxTransferencia()));
+		painelTrasferencia.add("Center", padrao.painelContentComponent("West", comboGroup.getComboBoxTransferencia()));
 		// SEPARADOR
 		painelSeparador2.add("West", padrao.painelNull(50, 0));
 		painelSeparador2.add("Center", painelTrasferencia);
@@ -183,7 +182,7 @@ public class CadastrarAluno extends EventosAluno {
 		
 		// SEXO
 		painelEstado.add("West", lbEstado);
-		painelEstado.add("Center", padrao.painelContentComponent("West", padrao.getComboBoxEstadosBR()));
+		painelEstado.add("Center", padrao.painelContentComponent("West", comboGroup.getComboBoxEstadosBR()));
 		// SEPARADOR
 		painelSeparador2.add("West", padrao.painelNull(50, 0));
 		painelSeparador2.add("Center", painelEstado);
@@ -207,13 +206,13 @@ public class CadastrarAluno extends EventosAluno {
 		
 		// COR
 		painelCor.add("West", lbCor);
-		painelCor.add("Center", padrao.painelContentComponent("West", padrao.getComboBoxCorRaca()));
+		painelCor.add("Center", padrao.painelContentComponent("West", comboGroup.getComboBoxCorRaca()));
 		// SEPARADOR
 		painelSeparador.add("West", padrao.painelNull(50, 0));
 		painelSeparador.add("Center", painelCor);
 		// SEXO
 		painelSexo.add("West", lbSexo);
-		painelSexo.add("Center", padrao.painelContentComponent("West", padrao.getComboBoxSexo()));
+		painelSexo.add("Center", padrao.painelContentComponent("West", comboGroup.getComboBoxSexo()));
 		// SEPARADOR
 		painelSeparador2.add("West", padrao.painelNull(50, 0));
 		painelSeparador2.add("Center", painelSexo);

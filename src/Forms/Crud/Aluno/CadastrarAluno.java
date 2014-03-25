@@ -33,68 +33,6 @@ import Model.Aluno;
 
 @SuppressWarnings("serial")
 public class CadastrarAluno extends EventosAluno {
-
-	private static final int DIST = 5;
-
-	private static final String BORDER_INFO_ALUNO = "DOSSIÊ DO ALUNO";
-	private static final int QUANT_LINHAS_GRID = 9;
-	
-	TelaPadrao padrao = new TelaPadrao();
-
-	private JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
-	private JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
-	private JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));
-	private JPanel painelInternoSul = new JPanel(new BorderLayout(2,2));
-	private JPanel painelEsquerdoInfoAluno = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
-	private JPanel painelDireito = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
-	private JPanel painelTabela= new JPanel(new BorderLayout(2,2));	
-	private JPanel painelContentEIA = new JPanel(new BorderLayout(2,2));
-	
-	private JScrollPane scroll = new JScrollPane();
-	private JScrollPane scrollMain = new JScrollPane();
-	
-	private JLabel lbDadosAluno = new JLabel("DADOS DO DISCENTE",SwingConstants.CENTER);
-	private JLabel lbNome = new JLabel("Nome: ",SwingConstants.RIGHT);
-	private JLabel lbCodigo2 = new JLabel("Codigo Aluno: ",SwingConstants.RIGHT);
-	private JLabel lbCodigo = new JLabel("Codigo: ",SwingConstants.RIGHT);
-	private JLabel lbCPF = new JLabel("CPF: ",SwingConstants.RIGHT);
-	private JLabel lbCor = new JLabel("Cor: ",SwingConstants.RIGHT);
-	private JLabel lbNis = new JLabel("NIS: ",SwingConstants.RIGHT);
-	private JLabel lbDataNasc = new JLabel("Data Nasc.: ",SwingConstants.RIGHT);
-	private JLabel lbSexo = new JLabel("Sexo: ",SwingConstants.RIGHT);
-	private JLabel lbNomeMae = new JLabel("Mãe: ",SwingConstants.RIGHT);
-	private JLabel lbEstadoMae = new JLabel("Estado Nasc. Mae: ",SwingConstants.RIGHT);
-	private JLabel lbNomePai = new JLabel("Pai: ",SwingConstants.RIGHT);
-	private JLabel lbEnd = new JLabel("Endereço: ",SwingConstants.RIGHT);
-	private JLabel lbCidade = new JLabel("Cidade Nasc.: ",SwingConstants.RIGHT);
-	private JLabel lbEstado = new JLabel("Estado Nasc.: ",SwingConstants.RIGHT);
-	private JLabel lbFone = new JLabel("Telefone: ",SwingConstants.RIGHT);
-	private JLabel lbDataMatricula = new JLabel("Data Matricula: ",SwingConstants.RIGHT);
-	private JLabel lbTransferencia = new JLabel("Admitido por Transferencia? ",SwingConstants.RIGHT); // Tem que ativar um campo de data
-	private JLabel lbSituacao = new JLabel("Situação Atual: ",SwingConstants.RIGHT);
-	
-	private JTextField tfNome = new JTextField();
-	private JTextField tfLocalizar = new JTextField();
-	private JTextField tfCodigo = new JTextField();
-	private JTextField tfCidade = new JTextField();
-	private JTextField tfEnd = new JTextField();
-	
-	private JFormattedTextField ftCpf = new JFormattedTextField(padrao.getMascaraCPF());
-	private JFormattedTextField ftDataNasc = new JFormattedTextField(padrao.getMascaraData());
-	private JFormattedTextField ftDataMatricula = new JFormattedTextField(padrao.getMascaraData());
-	private JFormattedTextField ftFone = new JFormattedTextField(padrao.getMascaraTelefone());
-	
-	private ImageIcon icone = new ImageIcon("src/Icones/search.png");
-
-	private JButton btnSalvar = new JButton("Salvar");
-	private JButton btnLimpar = new JButton("Limpar");
-	private JButton btnExcluir = new JButton("Excluir");
-	private JButton btnAlterar = new JButton("Alterar");
-	private JButton btnPesquisar = new JButton("Pesquisar", icone);
-
-	private ArrayList<Aluno> lista = new ArrayList<Aluno>();
-	private AlunoTableModel modelo = new AlunoTableModel(lista);
-	private JTable tabela = new JTable(modelo);
 	
 	public CadastrarAluno() {
 		

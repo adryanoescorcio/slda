@@ -1,35 +1,101 @@
 package Eventos;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
 
 import DAO.AlunoDAO;
+import DAO.CaixaDAO;
+import Forms.TelaPadrao;
+import Forms.TablesModel.AlunoTableModel;
 import Model.Aluno;
+import Model.Caixa;
 import PrimaryKey.AlunoPK;
 
 @SuppressWarnings("serial")
 public class EventosAluno extends EventosPadrão{
 
+	//OBJETO QUE SERÁ USADO NOS EVENTOS
+	private Aluno aluno;
+	//OBJETO QUE SERÁ USADO NOS EVENTOS
+	private AlunoDAO dao;
+	
 	//DECLARAÇÃO DE VARIÁVEIS DE ALUNO
-	protected JFormattedTextField tffMatricula, tffInep, tffCpf, tffRg, tffData, tffTelefone;
-	protected JTextField tfNome, tfCidade, tfEndereco, tfNomeMae, tfNomePai, tfCidadeMae, tfCidadePai;
-	protected JComboBox<String> comboUFAluno, comboCor, comboUFMae, comboUFPai;
-	protected ButtonGroup grupo;
-	protected JRadioButton radioMasculino, radioFeminino;
-	protected String sexo;
-	protected AlunoDAO dao;
-	protected MaskFormatter data, tel, cpf;
-	protected JButton botaoSalvar, botaoLimpar, botaoExcluir, botaoBuscar;
-	protected Aluno aluno;
+	protected static final String BORDER_INFO_ALUNO = "DOSSIÊ DO ALUNO";
+	protected static final int QUANT_LINHAS_GRID = 9;
+	
+	protected JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
+	protected JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
+	protected JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));
+	protected JPanel painelInternoSul = new JPanel(new BorderLayout(2,2));
+	protected JPanel painelEsquerdoInfoAluno = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
+	protected JPanel painelDireito = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
+	protected JPanel painelTabela= new JPanel(new BorderLayout(2,2));	
+	protected JPanel painelContentEIA = new JPanel(new BorderLayout(2,2));
+	
+	protected JScrollPane scroll = new JScrollPane();
+	protected JScrollPane scrollMain = new JScrollPane();
+	
+	protected JLabel lbDadosAluno = new JLabel("DADOS DO DISCENTE",SwingConstants.CENTER);
+	protected JLabel lbNome = new JLabel("Nome: ",SwingConstants.RIGHT);
+	protected JLabel lbCodigo2 = new JLabel("Codigo Aluno: ",SwingConstants.RIGHT);
+	protected JLabel lbCodigo = new JLabel("Codigo: ",SwingConstants.RIGHT);
+	protected JLabel lbCPF = new JLabel("CPF: ",SwingConstants.RIGHT);
+	protected JLabel lbCor = new JLabel("Cor: ",SwingConstants.RIGHT);
+	protected JLabel lbNis = new JLabel("NIS: ",SwingConstants.RIGHT);
+	protected JLabel lbDataNasc = new JLabel("Data Nasc.: ",SwingConstants.RIGHT);
+	protected JLabel lbSexo = new JLabel("Sexo: ",SwingConstants.RIGHT);
+	protected JLabel lbNomeMae = new JLabel("Mãe: ",SwingConstants.RIGHT);
+	protected JLabel lbEstadoMae = new JLabel("Estado Nasc. Mae: ",SwingConstants.RIGHT);
+	protected JLabel lbNomePai = new JLabel("Pai: ",SwingConstants.RIGHT);
+	protected JLabel lbEnd = new JLabel("Endereço: ",SwingConstants.RIGHT);
+	protected JLabel lbCidade = new JLabel("Cidade Nasc.: ",SwingConstants.RIGHT);
+	protected JLabel lbEstado = new JLabel("Estado Nasc.: ",SwingConstants.RIGHT);
+	protected JLabel lbFone = new JLabel("Telefone: ",SwingConstants.RIGHT);
+	protected JLabel lbDataMatricula = new JLabel("Data Matricula: ",SwingConstants.RIGHT);
+	protected JLabel lbTransferencia = new JLabel("Admitido por Transferencia? ",SwingConstants.RIGHT); // Tem que ativar um campo de data
+	protected JLabel lbSituacao = new JLabel("Situação Atual: ",SwingConstants.RIGHT);
+	
+	protected JTextField tfNome = new JTextField();
+	protected JTextField tfLocalizar = new JTextField();
+	protected JTextField tfCodigo = new JTextField();
+	protected JTextField tfCidade = new JTextField();
+	protected JTextField tfEnd = new JTextField();
+	
+	protected JFormattedTextField ftCpf = new JFormattedTextField(padrao.getMascaraCPF());
+	protected JFormattedTextField ftDataNasc = new JFormattedTextField(padrao.getMascaraData());
+	protected JFormattedTextField ftDataMatricula = new JFormattedTextField(padrao.getMascaraData());
+	protected JFormattedTextField ftFone = new JFormattedTextField(padrao.getMascaraTelefone());
+	
+	protected ImageIcon icone = new ImageIcon("src/Icones/search.png");
+
+	protected JButton btnSalvar = new JButton("Salvar");
+	protected JButton btnLimpar = new JButton("Limpar");
+	protected JButton btnExcluir = new JButton("Excluir");
+	protected JButton btnAlterar = new JButton("Alterar");
+	protected JButton btnPesquisar = new JButton("Pesquisar", icone);
+
+	protected ArrayList<Aluno> lista = new ArrayList<Aluno>();
+	protected AlunoTableModel modelo = new AlunoTableModel(lista);
+	protected JTable tabela = new JTable(modelo);
+
 	
 	//OBJETO ActionListener QUE SALVA O ALUNO
 	protected ActionListener onClickSalvarAluno = new ActionListener() {
@@ -65,7 +131,7 @@ public class EventosAluno extends EventosPadrão{
 		public void actionPerformed(ActionEvent e) {
 			
 			AlunoPK alunopk = new AlunoPK();
-			alunopk.setCodigo(tffMatricula.getText());
+			alunopk.setCodigo(tfCodigo.getText());
 			dao = new AlunoDAO(conexaoBD);
 			aluno = dao.buscar(alunopk);
 
@@ -100,31 +166,17 @@ public class EventosAluno extends EventosPadrão{
 	@Override	
 	public void limparCampos(){
 		
-		tffMatricula.setText("");
-		tffInep.setText("");
-		tffCpf.setText("");
-		tffRg.setText("");
-		tffData.setText("");
-		tffTelefone.setText("");
+		tfCodigo.setText("");
 		tfNome.setText("");
 		tfCidade.setText("");
-		tfEndereco.setText("");
-		tfNomeMae.setText("");
-		tfNomePai.setText("");
-		tfCidadeMae.setText("");
-		tfCidadePai.setText("");
-		comboUFAluno.setSelectedIndex(0);
-		comboCor.setSelectedIndex(0);
-		comboUFMae.setSelectedIndex(0);
-		comboUFPai.setSelectedIndex(0);
-		grupo.clearSelection();
-		
+		tfEnd.setText("");
+	
 	}
 	
 	@Override
 	public Aluno getValoresDosCampos(){
 		Aluno aluno = new Aluno();
-		if(radioFeminino.isSelected()){
+		/*if(radioFeminino.isSelected()){
 			sexo = "FEMININO";
 		}if(radioMasculino.isSelected()){
 			sexo = "MASCULINO";
@@ -150,13 +202,14 @@ public class EventosAluno extends EventosPadrão{
 		aluno.setEstadoPaiNasc((String) comboUFPai.getSelectedItem());
 		aluno.setCidadeMaeNasc(tfCidadeMae.getText());
 		aluno.setCidadePaiNasc(tfCidadePai.getText());
-
+*/
 		return aluno;
+	
 	}
 	
 	@Override
 	public void setValoresDosCampos(Object aluno){
-
+/*
 		aluno = new Aluno();
 		
 		tfNome.setText(((Aluno) aluno).getNomeAluno());
@@ -181,7 +234,7 @@ public class EventosAluno extends EventosPadrão{
 		comboUFPai.setSelectedItem(((Aluno) aluno).getEstadoPaiNasc());
 		tfCidadeMae.setText(((Aluno) aluno).getCidadeMaeNasc());
 		tfCidadePai.setText(((Aluno) aluno).getCidadePaiNasc());
-
+*/
 	}
 
 }

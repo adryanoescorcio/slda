@@ -25,13 +25,11 @@ import PrimaryKey.CaixaPK;
 @SuppressWarnings("serial")
 public class EventosCaixa extends EventosPadrão{
 
-	//Objeto que será usado nos eventos
+	//OBJETO QUE SERÁ USADO NOS EVENTOS
 	private Caixa caixa;
-	//Objeto que será usado nos eventos
+	//OBJETO QUE SERÁ USADO NOS EVENTOS
 	private CaixaDAO dao;
 	
-	protected static final int DIST = 5;
-
 	protected static final String BORDER_INFO_CAIXA = "Dados Caixa";
 
 	protected JPanel mainJPanel = new JPanel(new BorderLayout(2,2));

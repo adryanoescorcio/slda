@@ -10,43 +10,33 @@ import java.awt.Label;
 import java.text.ParseException;
 import java.util.Random;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.text.MaskFormatter;
 
-public class TelaPadrao{
+public class TelaPadrao {
 
 	// Constantes
 	// Intervalo para o Random
 	private static final int INTERVALO = 999999999;
-	public static final String DIR_ICONES = "src/Icones/";
 	protected static final Color COR_DE_FUNDO = Color.WHITE;
 	protected static final int TAM_ROW_TABLE = 22;
 	
-	private ImageIcon icone = new ImageIcon(DIR_ICONES+"search.png");
-	
 	// Tipos de Fonte
+	public Font font_PLA_14 = new Font(Font.SANS_SERIF, Font.PLAIN, 14);
 	public Font font_PLA_15 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
 	public Font font_NEG_15 = new Font(Font.SANS_SERIF,Font.BOLD,15);
-	public Font font_PLA_14 = new Font(Font.SANS_SERIF, Font.PLAIN, 14);
-	protected Font font_PLA_12 = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+	public Font font_PLA_12 = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
 		
-	protected Icon iconSalvar = new ImageIcon(DIR_ICONES+"save3.png");
+	public JScrollPane scroll = new JScrollPane();
 	
-	
-	private JTable tabela = new JTable(); // Table para todas as Jframes
-	public GridLayout layout2 = new GridLayout(20, 4, 5, 5);
+	public JTable tabela = new JTable(); // Table para todas as Jframes
 	protected BorderLayout LAYOUT = new BorderLayout(1,1);
-	
-	private JTextField tfLocalizar = new JTextField();
-	
-	private JButton btnPesquisar = new JButton("Pesquisar", icone);
 	
 	protected MaskFormatter data;
 	protected MaskFormatter tel;
@@ -57,7 +47,6 @@ public class TelaPadrao{
 	
 	public TelaPadrao() {
 		loadConfigTable();
-		alterarFontes();
 	}
 	
 	public Label getTitulo(String titulo){
@@ -149,8 +138,10 @@ public class TelaPadrao{
 		return painelSalvarLimpar;
 	}
 	
+	/**
+	 * Carrega as configurações padrões de todas as tabelas.
+	 **/
 	private void loadConfigTable() {
-		// TABELA
 		getTabela().setRowHeight(TAM_ROW_TABLE); // Define o tamanho da linha da tabela
 		getTabela().setFocusable(false);
 		getTabela().setShowVerticalLines(false);
@@ -159,15 +150,44 @@ public class TelaPadrao{
 	}
 	
 	/**
+	 * Reestrutura a disposição das colunas na tabela insere o scroll
+	 * @param tabela 
+	 * @return tabela reorganizada
+	 **/
+	public JScrollPane organizandoColunasTables(AbstractTableModel modelo) {
+		// carregando modelo da tabela.
+		tabela.setModel(modelo);
+		
+		// TABELA
+		int x = tabela.getWidth()/tabela.getColumnCount(); // verifica qual o tamanho horizontal da tabela e divide pelo numero de colunas
+		System.out.println(x +"="+ tabela.getWidth()+ " " + tabela.getColumnCount());
+		for(int i=0;i<tabela.getColumnCount();i++) {
+			tabela.getColumnModel().getColumn(i).setPreferredWidth(x); // em cada coluna é inserido o tamanho preferencial e ativado o scroll para todos.
+		}
+		
+		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); // Adiciona o scroll vertical
+		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS); // adiciona o scroll horizontal
+		
+		// Definindo o scorll sem resize (torna o scroll horizontal automatico)
+//		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		scroll.setViewportView(tabela); // insere a tabela no painel Scroll
+		scroll.setWheelScrollingEnabled(true);
+			
+		return scroll;
+	}
+	
+	/**
 	 * Painel especifico para a criação de botões de pesquisa parte inferior
 	 **/
-	public JPanel painelLocaliza(JLabel titulo) {
+	public JPanel painelLocaliza(JLabel titulo,JTextField localizar, JButton search) {
 		JPanel painelLocalizar = new JPanel(new GridLayout(1,3,2,2));
 		JPanel painelContentLocalizar = new JPanel(new BorderLayout(2,2));
 		
 		painelLocalizar.add(painelContentComponent("East", titulo));
-		painelLocalizar.add(painelContentComponent("West", getTfLocalizar()));
-		painelLocalizar.add(painelContentComponent("West", getBtnPesquisar()));
+		painelLocalizar.add(painelContentComponent("West", localizar));
+		painelLocalizar.add(painelContentComponent("West", search));
 		
 		painelContentLocalizar.add("North", painelNull(0, 5));
 		painelContentLocalizar.add("Center", painelLocalizar);
@@ -181,15 +201,9 @@ public class TelaPadrao{
 		return String.valueOf(rand.nextInt(INTERVALO));
 	}
 
-	private void alterarFontes() {
-		getBtnPesquisar().setFont(font_PLA_14);
-		getTfLocalizar().setFont(font_NEG_15);
-		
-		getTfLocalizar().setPreferredSize(new Dimension(200,0));
-		getBtnPesquisar().setPreferredSize(new Dimension(140,26));
-		getBtnPesquisar().setRolloverEnabled(false);
-	}
-
+	/**
+	 * Metodo que generaliza a tabela padrão que deveser utilizada nas Frames
+	 **/
 	public JTable getTabela() {
 		return tabela;
 	}
@@ -197,21 +211,4 @@ public class TelaPadrao{
 	public void setTabela(JTable tabela) {
 		this.tabela = tabela;
 	}
-
-	public JTextField getTfLocalizar() {
-		return tfLocalizar;
-	}
-
-	public void setTfLocalizar(JTextField tfLocalizar) {
-		this.tfLocalizar = tfLocalizar;
-	}
-
-	public JButton getBtnPesquisar() {
-		return btnPesquisar;
-	}
-
-	public void setBtnPesquisar(JButton btnPesquisar) {
-		this.btnPesquisar = btnPesquisar;
-	}
-	
 }

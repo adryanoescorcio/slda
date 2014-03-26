@@ -1,4 +1,4 @@
-package Forms.Crud.Arquivo;
+package Forms.Crud.Caixa;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

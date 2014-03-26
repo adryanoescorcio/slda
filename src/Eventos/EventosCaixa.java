@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import DAO.CaixaDAO;
+import ExceptionSLDA.erroNullRequisitoException;
 import Forms.TablesModel.CaixaTableModel;
 import Model.Caixa;
 import PrimaryKey.CaixaPK;
@@ -25,6 +25,7 @@ public class EventosCaixa extends EventosPadrão{
 
 	//Objeto que será usado nos eventos
 	private Caixa caixa;
+	private Caixa caixa2;
 	
 	//Objeto que será usado nos eventos
 	private CaixaDAO dao = new CaixaDAO(conexaoBD);
@@ -54,11 +55,6 @@ public class EventosCaixa extends EventosPadrão{
 	
 	protected JTextField tfCodigo = new JTextField();
 	
-	protected JButton btnSalvar = new JButton("Salvar");
-	protected JButton btnLimpar = new JButton("Limpar");
-	protected JButton btnExcluir = new JButton("Excluir");
-	protected JButton btnAlterar = new JButton("Alterar");
-
 	protected ArrayList<Caixa> lista = new ArrayList<Caixa>();
 	protected CaixaTableModel modelo = new CaixaTableModel(lista);
 
@@ -87,7 +83,7 @@ public class EventosCaixa extends EventosPadrão{
 			return caixa;
 			
 		} else {
-			throw new erroNullRequisito("(ER02) Preencha todos os requisitos com dados válidos.", "ERRO ER02",null);
+			throw new erroNullRequisitoException("(ER02) Preencha todos os requisitos com dados válidos.", "ERRO ER02",null);
 		}
 	}
 
@@ -118,20 +114,17 @@ public class EventosCaixa extends EventosPadrão{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			caixa = (Caixa) getValoresDosCampos();
+			caixa2 = dao.buscar(caixa.getCodigoKEY());
 			
-			Caixa caixaNova = (Caixa) getValoresDosCampos();
-			
-			System.out.println(caixaNova.toString());
-			System.out.println(caixa.toString());
-			
-			if(!caixaNova.toString().equals(caixa.toString())) {
+			if(!caixa.toString().equals(caixa2.toString())) {
 				metodoSalvar();
+				
 			} else {
-				JOptionPane.showMessageDialog(null, "(AT01) Não houve modificação.","ATENÇÃO AT01", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "(AT01) Não houve modificação.","ATENÇÃO AT01", 
+						JOptionPane.WARNING_MESSAGE);
 			}
-			
 		}
-
 	};
 	
 	private void metodoSalvar() {
@@ -166,29 +159,24 @@ public class EventosCaixa extends EventosPadrão{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String codigoLocalizar = padrao.getTfLocalizar().getText().trim(); // pega o codigo digitado pelo cliente.
+			String codigoLocalizar = tfLocalizar.getText().trim(); // pega o codigo digitado pelo cliente.
 
-			// verifica se existe algo digitado na caixa
-			if(!codigoLocalizar.equals("")) {
+			CaixaPK pk = new CaixaPK(); // chave primaria da caixa.
+			pk.setCodigo(codigoLocalizar); // seta a chave
+
+			try{
+				Caixa cx = dao.buscar(pk); // realiza a busca no banco de dados
+				setValoresDosCampos(cx); // atribui os valores recuperados para os campos.
+				btnAlterar.setEnabled(true); // necessario a pesquisa para ativar botão
+				btnExcluir.setEnabled(true); // necessario a pesquisa para ativar botão
 				
-				CaixaPK pk = new CaixaPK(); // chave primaria da caixa.
-				pk.setCodigo(codigoLocalizar); // seta a chave
-	
-				try{
-					caixa = dao.buscar(pk); // realiza a busca no banco de dados
-					setValoresDosCampos(caixa); // atribui os valores recuperados para os campos.
-					
-					btnAlterar.setEnabled(true); // necessario a pesquisa para ativar botão
-					btnExcluir.setEnabled(true); // necessario a pesquisa para ativar botão
-					
-					btnSalvar.setEnabled(false); // nao sera possivel salvar, somente alterar
-					tfCodigo.setEditable(false); // nao sera possivel alterar o codigo de objeto consultado.
-				}catch(NullPointerException exc){
-					limparCampos();
-				}
+				btnSalvar.setEnabled(false); // nao sera possivel salvar, somente alterar
+				tfCodigo.setEditable(false); // nao sera possivel alterar o codigo de objeto consultado.
 				
-			} else {
-				throw new erroNullRequisito("(ER03) Nenhuma Caixa \"" +codigoLocalizar+ "\" foi encontrada.", "ERRO ER03",null);
+				caixa = cx;
+			
+			}catch(NullPointerException exc){
+				throw new erroNullRequisitoException("(ER03) Nenhuma Caixa \"" +codigoLocalizar+ "\" foi encontrada.", "ERRO ER03",null);
 			}
 		}
 	};

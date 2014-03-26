@@ -29,7 +29,7 @@ import Model.Ata;
  **/
 
 @SuppressWarnings("serial")
-public class CadastrarAta extends EventosAta {
+public class PainelMainAta extends EventosAta {
 
 	private static final int DIST = 5;
 
@@ -72,7 +72,7 @@ public class CadastrarAta extends EventosAta {
 	private AtaTableModel modelo = new AtaTableModel(lista);
 	
 	
-	public CadastrarAta() {
+	public PainelMainAta() {
 		
 		painelEsquerdoInfoAluno.add(padrao.painelNull(0, 0));
 		painelEsquerdoInfoAluno.add(lbTurma);
@@ -164,8 +164,8 @@ public class CadastrarAta extends EventosAta {
 		scroll.setWheelScrollingEnabled(true);
 		
 		painelTabela.add("North", padrao.painelNull(0, 10));
-		painelTabela.add("Center",scroll);
-		painelTabela.add("South",padrao.painelLocaliza(lbCodigo2));
+		painelTabela.add("Center", scroll);
+		painelTabela.add("South", painelLocaliza(lbCodigo2));
 		
 		return painelTabela;
 	}

@@ -1,4 +1,4 @@
-package Forms.Crud.Arquivo;
+package Forms.Crud.Caixa;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,17 +21,12 @@ import Model.Caixa;
  **/
 
 @SuppressWarnings("serial")
-public class LocalizarArquivo extends EventosCaixa {
+public class PainelMainCaixa extends EventosCaixa {
 
 	//TODOS OS ATRIBUTOS DEVEM FICAR NA CLASE EventosCaixa
-	public LocalizarArquivo() {
+	public PainelMainCaixa() {
 		
-		//ADD EVENTOS
-		btnLimpar.addActionListener(onClickLimparCampos);
-		btnSalvar.addActionListener(onClickSalvarCaixa);
-		btnAlterar.addActionListener(onClickAterarCaixa);
-		padrao.getBtnPesquisar().addActionListener(onClickBuscarCaixa);
-		btnExcluir.addActionListener(onClickExcluirCaixa);
+		eventosBotoes();
 		
 		painelEsquerdo.add(padrao.painelNull(0, 0));
 		painelEsquerdo.add(lbCodigo);
@@ -60,10 +55,18 @@ public class LocalizarArquivo extends EventosCaixa {
 		getTelaPrincipal();
 	}
 
+	private void eventosBotoes() {
+		//ADD EVENTOS
+		btnLimpar.addActionListener(onClickLimparCampos);
+		btnSalvar.addActionListener(onClickSalvarCaixa);
+		btnAlterar.addActionListener(onClickAterarCaixa);
+		btnPesquisar.addActionListener(onClickBuscarCaixa);
+		btnExcluir.addActionListener(onClickExcluirCaixa);
+	}
+
 	private void painelInternoNorte() {
 		JPanel controleSuperior = new JPanel(new BorderLayout(2,2));
 		
-
 		controleSuperior.add("North",painelContentEIA);
 		controleSuperior.setBorder(BorderFactory.createTitledBorder(
 		BorderFactory.createSoftBevelBorder(2), BORDER_INFO_CAIXA));
@@ -122,7 +125,7 @@ public class LocalizarArquivo extends EventosCaixa {
 		
 		painelTabela.add("North", padrao.painelNull(0, 10));
 		painelTabela.add("Center",scroll);
-		painelTabela.add("South",padrao.painelLocaliza(lbCodigo2));
+		painelTabela.add("South", painelLocaliza(lbCodigo2));
 		
 		return painelTabela;
 	}

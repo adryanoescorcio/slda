@@ -13,9 +13,13 @@ import javax.persistence.Embeddable;
 public class DocumentoPK implements InterfaceKey{
 	
 	private String protocoloPedidoDocumento = null;
-	
+
 	public void setCodigo(String codigo) {
 		this.protocoloPedidoDocumento = codigo;
+	}
+	
+	public String getCodigo() {
+		return protocoloPedidoDocumento;
 	}
 	
 	@Override

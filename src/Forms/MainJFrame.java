@@ -10,9 +10,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import Forms.Crud.Aluno.CadastrarAluno;
-import Forms.Crud.Arquivo.LocalizarArquivo;
-import Forms.Crud.Ata.CadastrarAta;
+import Forms.Crud.Aluno.PainelMainAluno;
+import Forms.Crud.Ata.PainelMainAta;
+import Forms.Crud.Caixa.PainelMainCaixa;
 import Forms.Menus.MenuAvancado;
 import Forms.Menus.MenuExportar;
 import Forms.Menus.MenuImportar;
@@ -27,7 +27,7 @@ import Forms.Menus.MenuVisualizar;
  * @extends JFrame
  **/
 
-public class Principal {
+public class MainJFrame {
 	
 	// WINDOWS 
 	private JFrame mainJFrame = new JFrame();
@@ -63,13 +63,13 @@ public class Principal {
 	
 	//INSTANCIANDO OS PAINEIS CRUD
 	// ALUNO
-	private LocalizarArquivo localizarAluno = new LocalizarArquivo();
-	private CadastrarAluno cadastrarAluno = new CadastrarAluno();
-	private CadastrarAta cadastrarAta = new CadastrarAta();
+	private PainelMainCaixa localizarAluno = new PainelMainCaixa();
+	private PainelMainAluno cadastrarAluno = new PainelMainAluno();
+	private PainelMainAta cadastrarAta = new PainelMainAta();
 	
 	private Font font = new Font(Font.SANS_SERIF, 0, 18);
 	
-	public Principal(){
+	public MainJFrame(){
 		
 		menusWindows();
 		criandoIcones();
@@ -133,7 +133,7 @@ public class Principal {
 
 	public static void main(String[] args) {
 
-		new Principal();
+		new MainJFrame();
 
 	}
 }

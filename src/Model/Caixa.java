@@ -85,7 +85,7 @@ public class Caixa implements InterfacePadraoEntidade{
 	}
 
 	@Override
-	public InterfaceKey getCodigoKEY() {
+	public CaixaPK getCodigoKEY() {
 		return this.caixapk;
 	}
 

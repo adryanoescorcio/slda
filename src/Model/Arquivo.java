@@ -41,7 +41,19 @@ public class Arquivo implements InterfacePadraoEntidade{
 		this.caixa = caixa;
 		this.arquivopk.setCodigo(caixa.getCodigo(), aluno.getCodigo());
 	}
-
+	
+	public void setCodigo(String aluno, String caixa) {
+		this.arquivopk.setCodigo(aluno, aluno);
+	}
+	
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+	
+	public void setCaixa(Caixa caixa) {
+		this.caixa = caixa;
+	}
+	
 	public Caixa getCaixa() {
 		return caixa;
 	}
@@ -82,6 +94,16 @@ public class Arquivo implements InterfacePadraoEntidade{
 			"";
 	}
 	
+	
+	
+	public String getCodigoCaixa() {
+		return (String) arquivopk.getCodigoCaixa();
+	}
+
+	public String getCodigoAluno() {
+		return arquivopk.getCodigoAluno();
+	}
+
 	public String getCodigo() {
 		return this.arquivopk.getCodigoAluno();
 	}

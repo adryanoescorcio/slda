@@ -21,6 +21,7 @@ public abstract class EventosPadrão extends JPanel{
 	protected TelaPadrao padrao = new TelaPadrao();
 	
 	public static final String DIR_ICONES = "src/Icones/";
+	
 	private ImageIcon iconePesquisar = new ImageIcon(DIR_ICONES+"search.png");
 	private ImageIcon iconeSalvar = new ImageIcon(DIR_ICONES+"save.png");
 	private ImageIcon iconeLimpar = new ImageIcon(DIR_ICONES+"limpar.png");
@@ -120,7 +121,5 @@ public abstract class EventosPadrão extends JPanel{
 	 * Atribui valores aos campos da Frame
 	 **/
 	public abstract void setValoresDosCampos(Object object);
-	
-	
 	
 }

@@ -21,11 +21,13 @@ import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
 
 import DAO.AlunoDAO;
+import DAO.ArquivoDAO;
 import Forms.TelaPadrao;
 import Forms.TablesModel.AlunoTableModel;
 import Forms.TablesModel.AtaTableModel;
 import Forms.TablesModel.DocumentoTableModel;
 import Model.Aluno;
+import Model.Arquivo;
 import Model.Ata;
 import Model.Documento;
 import PrimaryKey.AlunoPK;
@@ -83,12 +85,16 @@ public class EventosAluno extends EventosPadrão{
 	protected JLabel lbDataMatricula = new JLabel("Data Matrícula: ",SwingConstants.RIGHT);
 	protected JLabel lbTransferencia = new JLabel("Admitido por Transferência? ",SwingConstants.RIGHT); // Tem que ativar um campo de data
 	protected JLabel lbSituacao = new JLabel("Situação Atual: ",SwingConstants.RIGHT);
+	protected JLabel lbRefBox = new JLabel("Cod. Caixa");
+	protected JLabel lbLocaInter = new JLabel("Localização Interna");
 	
 	protected JTextField tfNome = new JTextField();
 	protected JTextField tfCodigo = new JTextField();
 	protected JTextField tfCidade = new JTextField();
 	protected JTextField tfEnd = new JTextField();
 	protected JTextField tfNomeMae = new JTextField();
+	protected JTextField tfRefBox = new JTextField();
+	protected JTextField tfLocaInter = new JTextField();
 	
 	protected JFormattedTextField ftCpf = new JFormattedTextField(padrao.getMascaraCPF());
 	protected JFormattedTextField ftDataNasc = new JFormattedTextField(padrao.getMascaraData());
@@ -104,6 +110,8 @@ public class EventosAluno extends EventosPadrão{
 	protected DocumentoTableModel modeloDoc = new DocumentoTableModel(listaDocumento);
 	
 	protected JTable tabela = padrao.getTabela();
+	
+	protected ArquivoDAO arquivoDao = new ArquivoDAO(conexaoBD);
 
 	private Aluno aluno;
 	
@@ -261,7 +269,6 @@ public class EventosAluno extends EventosPadrão{
 		comboUFPai.setSelectedItem(((Aluno) aluno).getEstadoPaiNasc());
 		tfCidadeMae.setText(((Aluno) aluno).getCidadeMaeNasc());
 		tfCidadePai.setText(((Aluno) aluno).getCidadePaiNasc());
-
 	}
 	
 	protected ActionListener onClickDocumento = new ActionListener() {
@@ -276,11 +283,9 @@ public class EventosAluno extends EventosPadrão{
 				tabela.getColumnModel().getColumn(i).setPreferredWidth(x);
 			}
 		}
-
 	};
 	
-protected ActionListener onClickAta = new ActionListener() {
-		
+	protected ActionListener onClickAta = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			tabela.setModel(modeloAta);
@@ -293,4 +298,26 @@ protected ActionListener onClickAta = new ActionListener() {
 		}
 
 	};
+	
+	protected ActionListener onClickPesquisar = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//TODO o set dos formularios para aluno
+			pesquisarCaixa(); // procura a referencia de caixas onde o aluno esta inserido
+		}
+	};
+
+	protected void pesquisarCaixa() {
+		String localizar = tfLocalizar.getText().trim();
+		 
+		 // colocar as informações para o cliente
+		 try {
+			 Arquivo arquivo = arquivoDao.buscar(localizar);
+			 tfRefBox.setText(arquivo.getCodigoCaixa()); // a caixa em que se encontram os documentos
+			 tfLocaInter.setText(arquivo.getCodDossie()); // a localização interna dos documentos
+		 }catch (NullPointerException e) {
+			 tfRefBox.setText("Sem caixa");
+			 tfLocaInter.setText("Sem caixa");
+		 }
+	}
 }

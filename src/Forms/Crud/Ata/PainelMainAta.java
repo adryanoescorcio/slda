@@ -83,7 +83,7 @@ public class PainelMainAta extends EventosAta {
 		
 		painelDireito.add(padrao.painelNull(0, 0));
 		painelDireito.add(padrao.painelContentComponent("West", tfTurma));
-//		painelDireito.add(padrao.painelContentComponent("West", comboGroup.getComboBoxTurno()));
+		painelDireito.add(padrao.painelContentComponent("West", comboGroup.getComboBoxTurno()));
 		painelDireito.add(padrao.painelContentComponent("West", ftAno));
 		painelDireito.add(padrao.painelContentComponent("West", comboGroup.getComboBoxModalidade()));
 		painelDireito.add(padrao.painelContentComponent("West", comboGroup.getComboBoxEnsino()));

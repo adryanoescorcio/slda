@@ -14,8 +14,8 @@ import javax.persistence.Embeddable;
 public class ArquivoPK implements InterfaceKey {
 	
 	@Column (unique = true)
-	private String codigoAluno = null;
-	private String codigoCaixa = null;
+	private String codigoAluno;
+	private String codigoCaixa;
 
 	public String getCodigoCaixa() {
 		return codigoCaixa;

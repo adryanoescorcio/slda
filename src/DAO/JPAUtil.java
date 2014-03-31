@@ -27,8 +27,8 @@ public class JPAUtil {
 	
 	private static final String CLASS_BD = "org.sqlite.JDBC";
 	private static final String CONEXAO_BD = "jdbc:sqlite:";
-	private static final String BANCO_AD = "slda1.bd";
-	private static final String BANCO_WA = "slda2.bd";
+	private static final String BANCO_AD = "sldav2.db";
+	private static final String BANCO_WA = "sldav1.db";
 	
 	private static final String DIR_AD = "D:/Dropbox/SLDA-WORK/Banco de dados/"; // Diretorio do Computador ADRYANO
 	
@@ -73,7 +73,7 @@ public class JPAUtil {
 			try {
 				Class.forName(CLASS_BD);
 				conn = DriverManager.getConnection(CONEXAO_BD + diretorioComp + nomeBD); // Tenta conectar no banco de dados
-				this.stm =conn.createStatement();
+				setStm(conn.createStatement());
 			} catch (ClassNotFoundException | SQLException e) {
 				System.out.println("Erro: conexao JDBC" + e);
 			}

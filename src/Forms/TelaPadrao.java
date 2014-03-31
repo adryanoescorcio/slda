@@ -23,6 +23,7 @@ public class TelaPadrao {
 
 	// Constantes
 	// Intervalo para o Random
+	private static final int TAM_WITH_TABLE_COLUMN = 1000;
 	private static final int INTERVALO = 999999999;
 	protected static final Color COR_DE_FUNDO = Color.WHITE;
 	protected static final int TAM_ROW_TABLE = 22;
@@ -31,6 +32,7 @@ public class TelaPadrao {
 	public Font font_PLA_14 = new Font(Font.SANS_SERIF, Font.PLAIN, 14);
 	public Font font_PLA_15 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
 	public Font font_NEG_15 = new Font(Font.SANS_SERIF,Font.BOLD,15);
+	public Font font_NEG_18 = new Font(Font.SANS_SERIF,Font.BOLD,18);
 	public Font font_PLA_12 = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
 		
 	public JScrollPane scroll = new JScrollPane();
@@ -92,6 +94,16 @@ public class TelaPadrao {
 		return painelContent;
 	}
 	
+	public MaskFormatter getMascaraCPF(){
+		try {
+			cpf = new MaskFormatter("###.###.###-##");
+			cpf.setPlaceholderCharacter('_');
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return cpf;
+	}
+	
 	public MaskFormatter getMascaraData(){
 		try {
 			data = new MaskFormatter(" ##/##/####");
@@ -112,16 +124,6 @@ public class TelaPadrao {
 		return tel;
 	}
 	
-	public MaskFormatter getMascaraCPF(){
-		try {
-			cpf = new MaskFormatter("###.###.###-##");
-			cpf.setPlaceholderCharacter('_');
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return cpf;
-	}
-
 	public MaskFormatter getMascaraAno(){
 		try {
 			ano = new MaskFormatter("####.1");
@@ -155,26 +157,25 @@ public class TelaPadrao {
 	 * @return tabela reorganizada
 	 **/
 	public JScrollPane organizandoColunasTables(AbstractTableModel modelo) {
-		// carregando modelo da tabela.
-		tabela.setModel(modelo);
+	// carregando modelo da tabela.
+		JTable tabela = this.tabela;
 		
-		// TABELA
-		int x = tabela.getWidth()/tabela.getColumnCount(); // verifica qual o tamanho horizontal da tabela e divide pelo numero de colunas
-		System.out.println(x +"="+ tabela.getWidth()+ " " + tabela.getColumnCount());
+		tabela.setModel(modelo);
+		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		int x = TAM_WITH_TABLE_COLUMN/tabela.getColumnCount();
+		
 		for(int i=0;i<tabela.getColumnCount();i++) {
-			tabela.getColumnModel().getColumn(i).setPreferredWidth(x); // em cada coluna é inserido o tamanho preferencial e ativado o scroll para todos.
+			tabela.getColumnModel().getColumn(i).setPreferredWidth(x);
 		}
 		
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); // Adiciona o scroll vertical
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS); // adiciona o scroll horizontal
 		
-		// Definindo o scorll sem resize (torna o scroll horizontal automatico)
-//		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		
 		scroll.setViewportView(tabela); // insere a tabela no painel Scroll
 		scroll.setWheelScrollingEnabled(true);
-			
+	
 		return scroll;
 	}
 	
@@ -182,16 +183,19 @@ public class TelaPadrao {
 	 * Painel especifico para a criação de botões de pesquisa parte inferior
 	 **/
 	public JPanel painelLocaliza(JLabel titulo,JTextField localizar, JButton search) {
-		JPanel painelLocalizar = new JPanel(new GridLayout(1,3,2,2));
+		JPanel painelLocalizar = new JPanel(new GridLayout(1,2,2,2));
 		JPanel painelContentLocalizar = new JPanel(new BorderLayout(2,2));
+		JPanel painelBtnSearch = new JPanel(new BorderLayout(2,2));
 		
 		painelLocalizar.add(painelContentComponent("East", titulo));
 		painelLocalizar.add(painelContentComponent("West", localizar));
-		painelLocalizar.add(painelContentComponent("West", search));
+		painelBtnSearch.add("West", painelLocalizar);
+		painelBtnSearch.add("Center", painelContentComponent("West", search));
 		
-		painelContentLocalizar.add("North", painelNull(0, 5));
-		painelContentLocalizar.add("Center", painelLocalizar);
-		painelContentLocalizar.add("East", painelNull(300, 0));
+		painelContentLocalizar.add("North", painelNull(0, 10));
+		painelContentLocalizar.add("South", painelNull(0, 10));
+		painelContentLocalizar.add("Center", painelBtnSearch);
+		painelContentLocalizar.add("East", painelNull(200, 0));
 		
 		return painelContentLocalizar;
 	}

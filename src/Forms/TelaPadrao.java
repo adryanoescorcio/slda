@@ -208,8 +208,11 @@ public class TelaPadrao {
 	/**
 	 * Metodo que generaliza a tabela padrão que deveser utilizada nas Frames
 	 **/
+	
 	public JTable getTabela() {
+	
 		return tabela;
+		
 	}
 
 	public void setTabela(JTable tabela) {

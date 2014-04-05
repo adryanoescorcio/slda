@@ -15,7 +15,9 @@ import PrimaryKey.InterfaceKey;
  * @version 1.5
  * @implements PadraoEntidade
  **/
+
 @NamedQuery(name="Aluno.findAll", query="SELECT a FROM Aluno a")
+
 @Entity
 public class Aluno implements InterfacePadraoEntidade {
 	
@@ -28,22 +30,18 @@ public class Aluno implements InterfacePadraoEntidade {
 	private AlunoPK alunoPK = new AlunoPK();
 	
 	private String nomeAluno = null;
-	private String INEP = null;
 	private String CPF_Aluno = null;
-	private String RG_Aluno = null;
 	private String sexoAluno = null;
 	private String corAluno = null;
 	private String dataNascimento = null;
 	private String cidadeNascAluno = null;
 	private String estadoNascAluno = null;
-	private String nomePai = null;
-	private String cidadePaiNasc = null;
-	private String estadoPaiNasc = null;
 	private String nomeMae = null;
-	private String cidadeMaeNasc = null;
-	private String estadoMaeNasc = null;
 	private String enderecoAluno = null;
 	private String telefoneAluno = null;
+	private String dataMatriculaAluno = null;
+	private String tranferenciaAluno = null;
+	private String situacaoAluno = null;
 	
 	public String getNomeAluno() {
 		return nomeAluno;
@@ -53,28 +51,12 @@ public class Aluno implements InterfacePadraoEntidade {
 		this.nomeAluno = nomeAluno;
 	}
 	
-	public String getINEP() {
-		return INEP;
-	}
-	
-	public void setINEP(String iNEP) {
-		INEP = iNEP;
-	}
-	
 	public String getCPF_Aluno() {
 		return CPF_Aluno;
 	}
 	
-	public void setCPF_Aluno(String cPF_Aluno) {
-		CPF_Aluno = cPF_Aluno;
-	}
-	
-	public String getRG_Aluno() {
-		return RG_Aluno;
-	}
-	
-	public void setRG_Aluno(String rG_Aluno) {
-		RG_Aluno = rG_Aluno;
+	public void setCPF_Aluno(String CPF_Aluno) {
+		this.CPF_Aluno = CPF_Aluno;
 	}
 	
 	public String getSexoAluno() {
@@ -117,52 +99,12 @@ public class Aluno implements InterfacePadraoEntidade {
 		this.estadoNascAluno = estadoNascAluno;
 	}
 	
-	public String getNomePai() {
-		return nomePai;
-	}
-	
-	public void setNomePai(String nomePai) {
-		this.nomePai = nomePai;
-	}
-	
-	public String getCidadePaiNasc() {
-		return cidadePaiNasc;
-	}
-	
-	public void setCidadePaiNasc(String cidadePaiNasc) {
-		this.cidadePaiNasc = cidadePaiNasc;
-	}
-	
-	public String getEstadoPaiNasc() {
-		return estadoPaiNasc;
-	}
-	
-	public void setEstadoPaiNasc(String estadoPaiNasc) {
-		this.estadoPaiNasc = estadoPaiNasc;
-	}
-	
 	public String getNomeMae() {
 		return nomeMae;
 	}
 	
 	public void setNomeMae(String nomeMae) {
 		this.nomeMae = nomeMae;
-	}
-	
-	public String getCidadeMaeNasc() {
-		return cidadeMaeNasc;
-	}
-	
-	public void setCidadeMaeNasc(String cidadeMaeNasc) {
-		this.cidadeMaeNasc = cidadeMaeNasc;
-	}
-	
-	public String getEstadoMaeNasc() {
-		return estadoMaeNasc;
-	}
-	
-	public void setEstadoMaeNasc(String estadoMaeNasc) {
-		this.estadoMaeNasc = estadoMaeNasc;
 	}
 	
 	public String getEnderecoAluno() {
@@ -180,28 +122,47 @@ public class Aluno implements InterfacePadraoEntidade {
 	public void setTelefoneAluno(String telefoneAluno) {
 		this.telefoneAluno = telefoneAluno;
 	}
-		
+	public String getDataMatriculaAluno() {
+		return dataMatriculaAluno;
+	}
+
+	public void setDataMatriculaAluno(String dataMatriculaAluno) {
+		this.dataMatriculaAluno = dataMatriculaAluno;
+	}
+
+	public String getTranferenciaAluno() {
+		return tranferenciaAluno;
+	}
+
+	public void setTranferenciaAluno(String tranferenciaAluno) {
+		this.tranferenciaAluno = tranferenciaAluno;
+	}
+
+	public String getSituacaoAluno() {
+		return situacaoAluno;
+	}
+
+	public void setSituacaoAluno(String situacaoAluno) {
+		this.situacaoAluno = situacaoAluno;
+	}		
+
 	@Override
 	public String toString() throws NullPointerException {
 		return "" +
 			"CodigoAluno: "+this.alunoPK.toString()+", " +
 			"Nome: "+this.nomeAluno+", " +
 			"CPF: "+this.CPF_Aluno+", " +
-			"RG: "+this.RG_Aluno+", " +
 			"Cor: "+this.corAluno+", " +
-			"INEP: "+this.INEP+", " +
 			"Sexo: "+this.sexoAluno+", " +
 			"Data Nasc: "+this.dataNascimento+", " +
 			"Cidade: "+this.cidadeNascAluno+", " +
 			"Estado: "+this.estadoNascAluno+", " +
-			"Pai: "+this.nomePai+", " +
-			"Cidade do Pai: "+this.cidadePaiNasc+", " +
-			"Estado do Pai: "+this.estadoPaiNasc+", " +
 			"Mae: "+this.nomeMae+", " +
-			"Cidade da Mae: "+this.cidadeMaeNasc+", " +
-			"Estado da Mae: "+this.estadoMaeNasc+", " +
 			"Endereco: "+this.enderecoAluno+", " +
 			"Telefone: "+this.telefoneAluno+", " +
+			"Data da Matrícula: "+this.dataMatriculaAluno+", "+
+			"Admitido por transferência: " +this.tranferenciaAluno+", "+
+			"Situação Atual: "+this.situacaoAluno+", "+
 			"";
 	}
 	
@@ -224,7 +185,7 @@ public class Aluno implements InterfacePadraoEntidade {
 	}
 
 	@Override
-	public InterfaceKey getCodigoKEY() {
+	public AlunoPK getCodigoKEY() {
 		return this.alunoPK;
 	}
 
@@ -233,18 +194,4 @@ public class Aluno implements InterfacePadraoEntidade {
 		this.alunoPK = (AlunoPK) codigo;
 	}
 
-	public String getAdmiTrasnf() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getDataMatricula() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Object getSituacao() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

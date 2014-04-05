@@ -46,26 +46,15 @@ public class CaixaDAO extends DAO {
 		return em.find(Caixa.class, codigo);
 	}
 	
-	//METODO QUE RETORNA UMA MATRIZ DE CAIXAS CONTENDO TODAS AS CAIXAS DO BANCO PARA PREENCHER UMA JTABLE
-	public String[][] visualizarTodasCaixas(){
-		String[][] matriz;
+	/**
+	 * RETORNA TODAS AS CAIXAS DO BANCO
+	 **/
+	public List<Caixa> getTodasCaixas(){
+		
 		Query query = em.createNamedQuery("Caixa.findAll");
 		@SuppressWarnings("unchecked")
 		List<Caixa> caixas = query.getResultList();
 		
-		matriz = new String[caixas.size()][4];
-		
-		for (int i = 0; i < caixas.size(); i++) {
-			Caixa caixa = caixas.get(i); 
-			
-			matriz[i][0] = caixa.getCodigo();
-			matriz[i][1] = caixa.getTurno();
-			matriz[i][2] = caixa.getLetra();
-			matriz[i][3] = caixa.getStatus();
-			
-				
-		}
-		
-		return matriz;
+		return caixas;
 	}
 }

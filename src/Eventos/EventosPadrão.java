@@ -4,21 +4,41 @@ import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import DAO.AlunoDAO;
+import DAO.ArquivoDAO;
+import DAO.AtaDAO;
+import DAO.CaixaDAO;
+import DAO.DocumentoDAO;
 import DAO.JPAUtil;
 import ExceptionSLDA.erroNullRequisitoException;
 import Forms.ComboBoxGroup;
 import Forms.TelaPadrao;
+import Model.Aluno;
+import Model.Ata;
+import Model.Caixa;
 
 @SuppressWarnings("serial")
 public abstract class EventosPadrão extends JPanel{
 	
+	//CONEXÃO - DAOS
 	protected JPAUtil conexaoBD = new JPAUtil();
+	protected AlunoDAO daoAluno = new AlunoDAO(conexaoBD);	
+	protected DocumentoDAO daoDoc = new DocumentoDAO(conexaoBD);
+	protected AtaDAO daoAta = new AtaDAO(conexaoBD);
+	protected ArquivoDAO daoArquivo = new ArquivoDAO(conexaoBD);
+	protected CaixaDAO daoCaixa = new CaixaDAO(conexaoBD);
+	
+	//ENTIDADES
+	protected Aluno aluno;
+	protected Caixa caixa;
+	protected Ata ata;
+	
 	protected TelaPadrao padrao = new TelaPadrao();
+	protected ComboBoxGroup comboGroup = new ComboBoxGroup();
 	
 	public static final String DIR_ICONES = "src/Icones/";
 	
@@ -44,8 +64,6 @@ public abstract class EventosPadrão extends JPanel{
 	
 	protected static final String SUCESSO = "Operação realizada com sucesso.";
 	
-	protected ComboBoxGroup comboGroup = new ComboBoxGroup();
-	
 	public EventosPadrão() {
 		configInit();
 		alterarFont();
@@ -64,46 +82,6 @@ public abstract class EventosPadrão extends JPanel{
 		btnPesquisar.setFont(padrao.font_PLA_14);
 		btnPesquisar.setPreferredSize(new Dimension(140,26));
 		btnPesquisar.setRolloverEnabled(false);
-	}
-
-	public JComboBox<String> getComboBoxTurno() {
-		return comboGroup.getComboBoxTurno();
-	}
-
-	public JComboBox<String> getComboBoxLetra() {
-		return comboGroup.getComboBoxLetra();
-	}
-
-	public JComboBox<String> getComboBoxStatus() {
-		return comboGroup.getComboBoxStatus();
-	}
-
-	public JComboBox<String> getComboBoxEstadosBR() {
-		return comboGroup.getComboBoxEstadosBR();
-	}
-
-	public JComboBox<String> getComboBoxCorRaca() {
-		return comboGroup.getComboBoxCorRaca();
-	}
-
-	public JComboBox<String> getComboBoxSexo() {
-		return comboGroup.getComboBoxSexo();
-	}
-
-	public JComboBox<String> getComboBoxTransferencia() {
-		return comboGroup.getComboBoxTransferencia();
-	}
-
-	public JComboBox<String> getComboBoxSituacaoAluno() {
-		return comboGroup.getComboBoxSituacaoAluno();
-	}
-
-	public JComboBox<String> getComboBoxModalidade() {
-		return comboGroup.getComboBoxModalidade();
-	}
-
-	public JComboBox<String> getComboBoxEnsino() {
-		return comboGroup.getComboBoxEnsino();
 	}
 	
 	/**

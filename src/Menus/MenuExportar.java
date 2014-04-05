@@ -1,4 +1,4 @@
-package Forms.Menus;
+package Menus;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;

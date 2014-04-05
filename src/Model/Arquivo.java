@@ -2,6 +2,7 @@ package Model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
 import PrimaryKey.ArquivoPK;
@@ -14,6 +15,8 @@ import PrimaryKey.InterfaceKey;
  * @version 1.8
  * @implements PadraoEntidade
  **/
+
+
 @Entity
 public class Arquivo implements InterfacePadraoEntidade{
 	

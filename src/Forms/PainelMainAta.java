@@ -1,24 +1,16 @@
-package Forms.Crud.Ata;
+package Forms;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.util.ArrayList;
-
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import Eventos.EventosAta;
-import Forms.TelaPadrao;
-import Forms.TablesModel.AtaTableModel;
-import Model.Ata;
 
 /**
  * Classe que representa a tela Ata - Cadastrar
@@ -36,8 +28,6 @@ public class PainelMainAta extends EventosAta {
 	private static final String BORDER_INFO_ATA = "DADOS DA ATA";
 	private static final int QUANT_LINHAS_GRID = 6;
 	
-	private TelaPadrao padrao = new TelaPadrao();
-
 	private JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
 	private JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
 	private JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));
@@ -49,7 +39,7 @@ public class PainelMainAta extends EventosAta {
 	
 	private JScrollPane scroll = new JScrollPane();
 	private JScrollPane scrollMain = new JScrollPane();
-	
+
 	private JLabel lbDadosAta = new JLabel("DADOS DA ATA",SwingConstants.CENTER);
 	private JLabel lbTurma = new JLabel("Turma: ",SwingConstants.RIGHT);
 	private JLabel lbCodigo2 = new JLabel("Código Ata: ",SwingConstants.RIGHT);
@@ -58,21 +48,9 @@ public class PainelMainAta extends EventosAta {
 	private JLabel lbModalidade = new JLabel("Modalidade: ",SwingConstants.RIGHT);
 	private JLabel lbEnsino = new JLabel("Ensino: ",SwingConstants.RIGHT);
 	
-	private JTextField tfTurma = new JTextField();
-	private JTextField tfTurno2 = new JTextField();
-	
-	private JFormattedTextField ftAno = new JFormattedTextField(padrao.getMascaraAno());
-	
-	private JButton btnSalvar = new JButton("Salvar");
-	private JButton btnLimpar = new JButton("Limpar");
-	private JButton btnExcluir = new JButton("Excluir");
-	private JButton btnAlterar = new JButton("Alterar");
-
-	private ArrayList<Ata> lista = new ArrayList<Ata>();
-	private AtaTableModel modelo = new AtaTableModel(lista);
-	
-	
 	public PainelMainAta() {
+		
+		eventosBotoes();
 		
 		painelEsquerdoInfoAluno.add(padrao.painelNull(0, 0));
 		painelEsquerdoInfoAluno.add(lbTurma);
@@ -83,10 +61,10 @@ public class PainelMainAta extends EventosAta {
 		
 		painelDireito.add(padrao.painelNull(0, 0));
 		painelDireito.add(padrao.painelContentComponent("West", tfTurma));
-		painelDireito.add(padrao.painelContentComponent("West", comboGroup.getComboBoxTurno()));
+		painelDireito.add(padrao.painelContentComponent("West", comboTurno));
 		painelDireito.add(padrao.painelContentComponent("West", ftAno));
-		painelDireito.add(padrao.painelContentComponent("West", comboGroup.getComboBoxModalidade()));
-		painelDireito.add(padrao.painelContentComponent("West", comboGroup.getComboBoxEnsino()));
+		painelDireito.add(padrao.painelContentComponent("West", comboModalidade));
+		painelDireito.add(padrao.painelContentComponent("West", comboEnsino));
 		
 		painelContentEIA.add("North", lbDadosAta);
 		painelContentEIA.add("West", painelEsquerdoInfoAluno);
@@ -96,6 +74,14 @@ public class PainelMainAta extends EventosAta {
 		alterarFontes();
 		painelInternoNorte();
 		getTelaPrincipal();
+	}
+	
+	private void eventosBotoes() {
+		//ADD EVENTOS
+		btnLimpar.addActionListener(onClickLimparCampos);
+		btnSalvar.addActionListener(onClickSalvarAta);
+		btnAlterar.addActionListener(onClickAterarAta);
+		btnExcluir.addActionListener(onClickExcluirAta);
 	}
 
 	private void painelInternoNorte() {
@@ -145,21 +131,6 @@ public class PainelMainAta extends EventosAta {
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
-		// Teste para a tabela
-		
-		Ata at = new Ata();
-		at.setCodigo("Matutino", "201", "2012");
-		at.setEnsinoAta("Regular");
-		at.setModalidadeAta("EAD");
-		
-		Ata at3 = new Ata();
-		at3.setCodigo("Matutino", "201", "2012");
-		at3.setEnsinoAta("Regular");
-		at3.setModalidadeAta("EAD");
-		
-		modelo.addContato(at3);
-		modelo.addContato(at);
-		
 		scroll.setViewportView(padrao.getTabela()); // insere a tabela no painel Scroll
 		scroll.setWheelScrollingEnabled(true);
 		
@@ -196,7 +167,6 @@ public class PainelMainAta extends EventosAta {
 		
 		// JTextField
 		tfTurma.setFont(padrao.font_NEG_15);
-		tfTurno2.setFont(padrao.font_NEG_15);
 		tfTurma.setPreferredSize(new Dimension(70,0)); // Setado tamanho fixo do Text
 		
 		// Button
@@ -214,4 +184,6 @@ public class PainelMainAta extends EventosAta {
 		// Outros
 		ftAno.setBorder(null); // tirando a borda do component
 	}
+	
+	
 }

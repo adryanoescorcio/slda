@@ -1,5 +1,9 @@
 package DAO;
 
+import java.util.List;
+
+import javax.persistence.Query;
+
 import Model.Documento;
 import Model.InterfacePadraoEntidade;
 import PrimaryKey.DocumentoPK;
@@ -48,4 +52,18 @@ public class DocumentoDAO extends DAO {
 	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
 		return em.find(Documento.class, codigo);
 	}
+	
+	/**
+	 * RETORNA TODAS OS DOCUMENTOS DO BANCO
+	 **/
+	public List<Documento> getTodosDocumentos(){
+		
+		Query query = em.createNamedQuery("Documento.findAll");
+		@SuppressWarnings("unchecked")
+		List<Documento> documentos = query.getResultList();
+		
+		return documentos;
+	}
+
+	
 }

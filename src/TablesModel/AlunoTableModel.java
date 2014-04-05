@@ -1,4 +1,4 @@
-package Forms.TablesModel;
+package TablesModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import Model.Aluno;
-import Model.Caixa;
 
 public class AlunoTableModel extends AbstractTableModel{
 
@@ -45,7 +44,8 @@ private static final long serialVersionUID = 1L;
 		return colunas[columnIndex];
 	}
 
-	public Class getColumnClass(int columnIndex) {
+	
+	public Class<String> getColumnClass(int columnIndex) {
 		return String.class;
 	}
 
@@ -68,15 +68,15 @@ private static final long serialVersionUID = 1L;
 		} else if (column == COL_COR) {
 			return m.getCorAluno();
 		} else if (column == COL_ADMIT_TRANSF) {
-			return m.getAdmiTrasnf();
+			return m.getTranferenciaAluno();
 		} else if (column == COL_DATA_MATRI) {
-			return m.getDataMatricula();
+			return m.getDataMatriculaAluno();
 		} else if (column == COL_ENDERECO) {
 			return m.getEnderecoAluno();
 		} else if (column == COL_ESTADO_NASC) {
 			return m.getEstadoNascAluno();
 		} else if (column == COL_SITUACAO) {
-			return m.getSituacao();
+			return m.getSituacaoAluno();
 		} else if (column == COL_SEXO) {
 			return m.getSexoAluno();
 		} else if (column == COL_TELEFONE) {

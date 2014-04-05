@@ -1,4 +1,4 @@
-package Forms.TablesModel;
+package TablesModel;
 
 import java.util.ArrayList;
 import java.util.List;

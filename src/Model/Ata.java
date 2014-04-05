@@ -92,7 +92,7 @@ public class Ata implements InterfacePadraoEntidade {
 	}
 	
 	@Override
-	public InterfaceKey getCodigoKEY() {
+	public AtaPK getCodigoKEY() {
 		return this.ata;
 	}
 

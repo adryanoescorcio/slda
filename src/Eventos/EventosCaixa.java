@@ -1,68 +1,29 @@
 package Eventos;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
-import DAO.CaixaDAO;
 import ExceptionSLDA.erroNullRequisitoException;
-import Forms.TablesModel.CaixaTableModel;
 import Model.Caixa;
 import PrimaryKey.CaixaPK;
+import TablesModel.CaixaTableModel;
 
 @SuppressWarnings("serial")
 public class EventosCaixa extends EventosPadrão{
-
-	//Objeto que será usado nos eventos
-	private Caixa caixa;
-	private Caixa caixa2;
-	
-	//Objeto que será usado nos eventos
-	private CaixaDAO dao = new CaixaDAO(conexaoBD);
-	
-	protected static final int DIST = 5;
-
-	protected static final String BORDER_INFO_CAIXA = "DADOS DA CAIXA";
-	protected static final int QUANT_LINHAS_GRID = 5;
-
-	protected JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
-	protected JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
-	protected JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));
-	protected JPanel painelInternoSul = new JPanel(new BorderLayout(2,2));
-	protected JPanel painelEsquerdo = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
-	protected JPanel painelDireito = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
-	protected JPanel painelTabela= new JPanel(new BorderLayout(2,2));	
-	protected JPanel painelContentEIA = new JPanel(new BorderLayout(2,2));
-	
-	protected JScrollPane scroll = new JScrollPane();
-	
-	protected JLabel lbCodigo = new JLabel("Cód. Caixa:* ",SwingConstants.RIGHT);
-	protected JLabel lbCodigo2 = new JLabel("Cód. Caixa: ",SwingConstants.RIGHT);
-	protected JLabel lbTurno = new JLabel("Turno: ",SwingConstants.RIGHT);
-	protected JLabel lbLetra = new JLabel("Letra: ",SwingConstants.RIGHT);
-	protected JLabel lbStatus = new JLabel("Status: ",SwingConstants.RIGHT);
-	protected JLabel lbDadosCaixa = new JLabel("DADOS DA CAIXA",SwingConstants.CENTER);
-	
-	protected JTextField tfCodigo = new JTextField();
-	
-	protected ArrayList<Caixa> lista = new ArrayList<Caixa>();
+		
+	//TABELA
+	protected List<Caixa> lista = daoCaixa.getTodasCaixas();
 	protected CaixaTableModel modelo = new CaixaTableModel(lista);
-
-	protected JScrollPane scrollMain = new JScrollPane();
 	
-	protected JComboBox<String> comboTurno = getComboBoxTurno();
-	protected JComboBox<String> comboLetra = getComboBoxLetra();
-	protected JComboBox<String> comboStatus = getComboBoxStatus();
+	//COMPONENTES NECESSÁRIOS
+	protected JTextField tfCodigo = new JTextField();
+	protected JComboBox<String> comboTurno = comboGroup.getComboBoxTurno();
+	protected JComboBox<String> comboLetra = comboGroup.getComboBoxLetra();
+	protected JComboBox<String> comboStatus = comboGroup.getComboBoxStatus();
 	
 	public EventosCaixa() {
 		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
@@ -115,7 +76,7 @@ public class EventosCaixa extends EventosPadrão{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			caixa = (Caixa) getValoresDosCampos();
-			caixa2 = dao.buscar(caixa.getCodigoKEY());
+			Caixa caixa2 = daoCaixa.buscar(caixa.getCodigoKEY());
 			
 			if(!caixa.toString().equals(caixa2.toString())) {
 				metodoSalvar();
@@ -132,7 +93,7 @@ public class EventosCaixa extends EventosPadrão{
 		caixa = (Caixa) getValoresDosCampos();
 		
 		// Caso seja salvo com sucesso
-		if(dao.save(caixa)) {
+		if(daoCaixa.save(caixa)) {
 			JOptionPane.showMessageDialog(null, SUCESSO);
 			modelo.addContato(caixa); // Insere a caixa na tabela.
 			limparCampos();
@@ -165,7 +126,7 @@ public class EventosCaixa extends EventosPadrão{
 			pk.setCodigo(codigoLocalizar); // seta a chave
 
 			try{
-				Caixa cx = dao.buscar(pk); // realiza a busca no banco de dados
+				Caixa cx = daoCaixa.buscar(pk); // realiza a busca no banco de dados
 				setValoresDosCampos(cx); // atribui os valores recuperados para os campos.
 				btnAlterar.setEnabled(true); // necessario a pesquisa para ativar botão
 				btnExcluir.setEnabled(true); // necessario a pesquisa para ativar botão
@@ -188,7 +149,7 @@ public class EventosCaixa extends EventosPadrão{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {			
-			dao.remover(caixa);
+			daoCaixa.remover(caixa);
 			JOptionPane.showMessageDialog(null, "Caixa excluído com sucesso.");
 			limparCampos();
 		}

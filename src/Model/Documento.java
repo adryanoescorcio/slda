@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
 import PrimaryKey.DocumentoPK;
@@ -16,6 +17,9 @@ import PrimaryKey.InterfaceKey;
  * @version 1.5
  * @implements PadraoEntidade
  **/
+
+@NamedQuery(name="Documento.findAll", query="SELECT d FROM Documento d")
+
 @Entity
 public class Documento implements InterfacePadraoEntidade {
 

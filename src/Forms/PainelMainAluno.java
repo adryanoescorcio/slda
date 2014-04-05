@@ -1,4 +1,4 @@
-package Forms.Crud.Aluno;
+package Forms;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,6 +9,8 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 import Eventos.EventosAluno;
 
@@ -22,6 +24,47 @@ import Eventos.EventosAluno;
 @SuppressWarnings("serial")
 public class PainelMainAluno extends EventosAluno {
 
+	protected static final int DIST = 5;
+
+	protected static final String BORDER_INFO_ALUNO = "DOSSIÊ DO DISCENTE";
+	protected static final int QUANT_LINHAS_GRID = 10;
+
+	protected JScrollPane scroll = new JScrollPane();
+	protected JScrollPane scrollMain = new JScrollPane();
+	
+	protected JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
+	protected JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
+	protected JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));
+	protected JPanel painelInternoSul = new JPanel(new BorderLayout(2,2));
+	protected JPanel painelEsquerdoInfoAluno = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
+	protected JPanel painelDireito = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
+	protected JPanel painelTabela= new JPanel(new BorderLayout(2,2));	
+	protected JPanel painelContentEIA = new JPanel(new BorderLayout(2,2));
+	protected JPanel painelBotoes = new JPanel(new BorderLayout(2,2));
+
+	protected JLabel lbDadosAluno = new JLabel("DADOS DO DISCENTE",SwingConstants.CENTER);
+	protected JLabel lbNome = new JLabel("Nome:* ",SwingConstants.RIGHT);
+	protected JLabel lbCodigo2 = new JLabel("Discente: ",SwingConstants.RIGHT);
+	protected JLabel lbCodigo = new JLabel("Código:* ",SwingConstants.RIGHT);
+	protected JLabel lbCPF = new JLabel("CPF: ",SwingConstants.RIGHT);
+	protected JLabel lbCor = new JLabel("Cor: ",SwingConstants.RIGHT);
+	protected JLabel lbNis = new JLabel("NIS: ",SwingConstants.RIGHT);
+	protected JLabel lbDataNasc = new JLabel("Data Nasc.:* ",SwingConstants.RIGHT);
+	protected JLabel lbSexo = new JLabel("Sexo: ",SwingConstants.RIGHT);
+	protected JLabel lbNomeMae = new JLabel("Mãe: ",SwingConstants.RIGHT);
+	protected JLabel lbEstadoMae = new JLabel("Estado Nasc. Mae: ",SwingConstants.RIGHT);
+	protected JLabel lbNomePai = new JLabel("Pai: ",SwingConstants.RIGHT);
+	protected JLabel lbEnd = new JLabel("Endereço: ",SwingConstants.RIGHT);
+	protected JLabel lbCidade = new JLabel("Cidade Nasc.: ",SwingConstants.RIGHT);
+	protected JLabel lbEstado = new JLabel("Estado Nasc.: ",SwingConstants.RIGHT);
+	protected JLabel lbFone = new JLabel("Telefone: ",SwingConstants.RIGHT);
+	protected JLabel lbDataMatricula = new JLabel("Data Matrícula: ",SwingConstants.RIGHT);
+	protected JLabel lbTransferencia = new JLabel("Admitido por Transferência? ",SwingConstants.RIGHT); // Tem que ativar um campo de data
+	protected JLabel lbSituacao = new JLabel("Situação Atual: ",SwingConstants.RIGHT);
+	protected JLabel lbRefBox = new JLabel("Cod. Caixa");
+	protected JLabel lbLocaInter = new JLabel("Localização Interna");
+	
+	
 	public PainelMainAluno() {
 		
 		eventosBotoes();
@@ -46,10 +89,7 @@ public class PainelMainAluno extends EventosAluno {
 		painelDireito.add(padrao.painelContentComponent("West", tfCidade)); // Cidade
 		painelDireito.add(painelTelefoneEnd()); // Telefone - Endereço
 		painelDireito.add(painelDataMatriculaTransf()); // Data Matri - Transfe
-		
-		painelDireito.add(padrao.painelContentComponent("West",
-				comboGroup.getComboBoxSituacaoAluno())); //Situação
-		
+		painelDireito.add(padrao.painelContentComponent("West", comboSituacao)); //Situação
 		
 		JPanel painete = new JPanel(new BorderLayout(2,2));
 		painete.setBackground(Color.black);
@@ -64,9 +104,13 @@ public class PainelMainAluno extends EventosAluno {
 	}
 
 	private void eventosBotoes() {
+		btnExcluir.addActionListener(onClickExcluirAluno);
+		btnLimpar.addActionListener(onClickLimparCampos);
+		btnSalvar.addActionListener(onClickSalvarAluno);
+		btnAlterar.addActionListener(onClickAlterarAluno);
 		btnDocumento.addActionListener(onClickDocumento);
 		btnAta.addActionListener(onClickAta);
-		btnPesquisar.addActionListener(onClickPesquisar);
+		btnPesquisar.addActionListener(onClickBuscarAluno);
 	}
 
 	/**
@@ -80,7 +124,7 @@ public class PainelMainAluno extends EventosAluno {
 		
 		// Telefone
 		painelTrasferencia.add("West", lbTransferencia);
-		painelTrasferencia.add("Center", padrao.painelContentComponent("West", comboGroup.getComboBoxTransferencia()));
+		painelTrasferencia.add("Center", padrao.painelContentComponent("West", comboTranferencia));
 		// SEPARADOR
 		painelSeparador2.add("West", padrao.painelNull(50, 0));
 		painelSeparador2.add("Center", painelTrasferencia);
@@ -123,7 +167,7 @@ public class PainelMainAluno extends EventosAluno {
 		
 		// SEXO
 		painelEstado.add("West", lbEstado);
-		painelEstado.add("Center", padrao.painelContentComponent("West", comboGroup.getComboBoxEstadosBR()));
+		painelEstado.add("Center", padrao.painelContentComponent("West", comboUFAluno));
 		// SEPARADOR
 		painelSeparador2.add("West", padrao.painelNull(50, 0));
 		painelSeparador2.add("Center", painelEstado);
@@ -147,13 +191,13 @@ public class PainelMainAluno extends EventosAluno {
 		
 		// COR
 		painelCor.add("West", lbCor); // COR
-		painelCor.add("Center", padrao.painelContentComponent("West", comboGroup.getComboBoxCorRaca()));
+		painelCor.add("Center", padrao.painelContentComponent("West", comboCor));
 		// SEPARADOR
 		painelSeparador.add("West", padrao.painelNull(50, 0));
 		painelSeparador.add("Center", painelCor);
 		// SEXO
 		painelSexo.add("West", lbSexo); // SEXO
-		painelSexo.add("Center", padrao.painelContentComponent("West", comboGroup.getComboBoxSexo()));
+		painelSexo.add("Center", padrao.painelContentComponent("West", comboSexo));
 		// SEPARADOR
 		painelSeparador2.add("West", padrao.painelNull(50, 0));
 		painelSeparador2.add("Center", painelSexo);

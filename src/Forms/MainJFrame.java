@@ -10,14 +10,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import Forms.Crud.Aluno.PainelMainAluno;
-import Forms.Crud.Ata.PainelMainAta;
-import Forms.Crud.Caixa.PainelMainCaixa;
-import Forms.Menus.MenuAvancado;
-import Forms.Menus.MenuExportar;
-import Forms.Menus.MenuImportar;
-import Forms.Menus.MenuUsuario;
-import Forms.Menus.MenuVisualizar;
+import Menus.MenuAvancado;
+import Menus.MenuExportar;
+import Menus.MenuImportar;
+import Menus.MenuUsuario;
+import Menus.MenuVisualizar;
 
 /**
  * Classe que representa a tela Principal - Aquela que chama todas as outras

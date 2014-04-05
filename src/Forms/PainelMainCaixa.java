@@ -1,4 +1,4 @@
-package Forms.Crud.Caixa;
+package Forms;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -6,11 +6,13 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 
 import Eventos.EventosCaixa;
-import Model.Caixa;
 
 /**
  * Classe que representa a tela Arquivo - Localizar
@@ -23,7 +25,30 @@ import Model.Caixa;
 @SuppressWarnings("serial")
 public class PainelMainCaixa extends EventosCaixa {
 
-	//TODOS OS ATRIBUTOS DEVEM FICAR NA CLASE EventosCaixa
+	protected static final int DIST = 5;
+
+	protected static final String BORDER_INFO_CAIXA = "DADOS DA CAIXA";
+	protected static final int QUANT_LINHAS_GRID = 5;
+
+	protected JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
+	protected JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
+	protected JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));
+	protected JPanel painelInternoSul = new JPanel(new BorderLayout(2,2));
+	protected JPanel painelEsquerdo = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
+	protected JPanel painelDireito = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
+	protected JPanel painelTabela= new JPanel(new BorderLayout(2,2));	
+	protected JPanel painelContentEIA = new JPanel(new BorderLayout(2,2));
+	
+	protected JScrollPane scroll = new JScrollPane();
+	protected JScrollPane scrollMain = new JScrollPane();
+	
+	protected JLabel lbCodigo = new JLabel("Cód. Caixa:* ",SwingConstants.RIGHT);
+	protected JLabel lbCodigo2 = new JLabel("Cód. Caixa: ",SwingConstants.RIGHT);
+	protected JLabel lbTurno = new JLabel("Turno: ",SwingConstants.RIGHT);
+	protected JLabel lbLetra = new JLabel("Letra: ",SwingConstants.RIGHT);
+	protected JLabel lbStatus = new JLabel("Status: ",SwingConstants.RIGHT);
+	protected JLabel lbDadosCaixa = new JLabel("DADOS DA CAIXA",SwingConstants.CENTER);
+
 	public PainelMainCaixa() {
 		
 		eventosBotoes();
@@ -110,15 +135,6 @@ public class PainelMainCaixa extends EventosCaixa {
 		// carregando modelo da tabela.
 		JTable tabela = padrao.getTabela();
 		tabela.setModel(modelo);
-		
-		// Teste para a tabela
-		Caixa cx = new Caixa();
-		cx.setCodigo("9292");
-		cx.setLetra("L");
-		cx.setStatus("Ativo");
-		cx.setTurno("Matutino");
-		
-		modelo.addContato(cx);
 		
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setViewportView(tabela); // insere a tabela no painel Scroll

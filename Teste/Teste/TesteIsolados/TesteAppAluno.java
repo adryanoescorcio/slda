@@ -68,19 +68,12 @@ public class TesteAppAluno {
 
 		alunoTeste.setCPF_Aluno(numAleatorio());
 		alunoTeste.setNomeAluno("Alan Kardec Souza");
-		alunoTeste.setINEP(numAleatorio());
-		alunoTeste.setRG_Aluno(numAleatorio());
 		alunoTeste.setSexoAluno("Masculino");
 		alunoTeste.setCorAluno("Branca");
 		alunoTeste.setDataNascimento("07/02/1994");
 		alunoTeste.setCidadeNascAluno("Paratins");
 		alunoTeste.setEstadoNascAluno("Mato Grosso");
-		alunoTeste.setNomePai("Leal");
-		alunoTeste.setCidadePaiNasc("Itapirapoca");
-		alunoTeste.setEstadoPaiNasc("São Paulo");
 		alunoTeste.setNomeMae("Jessica");
-		alunoTeste.setCidadeMaeNasc("Sao José dos Patos");
-		alunoTeste.setEstadoMaeNasc("Rio Branco");
 		alunoTeste.setEnderecoAluno("Rua 25 Quadra 24");
 		alunoTeste.setTelefoneAluno(numAleatorio());
 		
@@ -97,7 +90,6 @@ public class TesteAppAluno {
 		
 		alunoTeste2.setCPF_Aluno("20120124500");
 		alunoTeste2.setNomeAluno("Souza");
-		alunoTeste2.setINEP("20120124500");
 		dao.save(alunoTeste2);
 		
 		// verificando o retorno
@@ -120,8 +112,6 @@ public class TesteAppAluno {
 		alunoTesteRemover.setCodigo("00000000020000000202");
 		alunoTesteRemover.setCPF_Aluno("00000000020000000202");
 		alunoTesteRemover.setNomeAluno("Tron");
-		alunoTesteRemover.setINEP("232232323232332");
-		alunoTesteRemover.setRG_Aluno("324234234243234242432");
 		
 		System.out.println("\n#### Iniciando Teste 2 ####");
 		// aluno é inserido

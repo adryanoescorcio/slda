@@ -2,7 +2,6 @@ package Model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
 import PrimaryKey.ArquivoPK;
@@ -20,10 +19,6 @@ import PrimaryKey.InterfaceKey;
 @Entity
 public class Arquivo implements InterfacePadraoEntidade{
 	
-	@Transient
-	private static final String NOMETABLE = "arquivo";
-	@Transient
-	private static final String NOMECOLUNAPK = "aluno_codigoaluno";
 	@Transient
 	private Aluno aluno = null;
 	@Transient
@@ -77,16 +72,6 @@ public class Arquivo implements InterfacePadraoEntidade{
 		this.datadeEntradaArquivo = datadeEntradaArquivo;
 	}
 
-	@Override
-	public String getNomeTabelaBD() {
-		return NOMETABLE;
-	}
-
-	@Override
-	public String getNomeColunaPKBD() {
-		return NOMECOLUNAPK;
-	}
-	
 	@Override
 	public String toString() {
 		return "" +

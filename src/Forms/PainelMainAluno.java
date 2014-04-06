@@ -2,7 +2,6 @@ package Forms;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -22,10 +21,10 @@ import Eventos.EventosAluno;
  * @extends JFrame
  **/
 @SuppressWarnings("serial")
-public class PainelMainAluno extends EventosAluno {
+public class PainelMainAluno extends EventosAluno{
 
 	protected static final int DIST = 5;
-
+	
 	protected static final String BORDER_INFO_ALUNO = "DOSSIÊ DO DISCENTE";
 	protected static final int QUANT_LINHAS_GRID = 10;
 
@@ -63,7 +62,6 @@ public class PainelMainAluno extends EventosAluno {
 	protected JLabel lbSituacao = new JLabel("Situação Atual: ",SwingConstants.RIGHT);
 	protected JLabel lbRefBox = new JLabel("Cod. Caixa");
 	protected JLabel lbLocaInter = new JLabel("Localização Interna");
-	
 	
 	public PainelMainAluno() {
 		
@@ -104,13 +102,33 @@ public class PainelMainAluno extends EventosAluno {
 	}
 
 	private void eventosBotoes() {
-		btnExcluir.addActionListener(onClickExcluirAluno);
-		btnLimpar.addActionListener(onClickLimparCampos);
-		btnSalvar.addActionListener(onClickSalvarAluno);
-		btnAlterar.addActionListener(onClickAlterarAluno);
-		btnDocumento.addActionListener(onClickDocumento);
-		btnAta.addActionListener(onClickAta);
-		btnPesquisar.addActionListener(onClickBuscarAluno);
+		// Evento botão excluir
+		btnExcluir.addActionListener(
+				onClickExcluirAluno);
+		
+		// Evento do botão Limpar
+		btnLimpar.addActionListener(
+				onClickLimparCampos);
+		
+		// Evento do botão Salvar
+		btnSalvar.addActionListener(
+				onClickSalvarAluno);
+		
+		//Evento do botão Alterar
+		btnAlterar.addActionListener(
+				onClickAlterarAluno);
+		
+		// Evento do Botão Documento
+		btnDocumento.addActionListener(
+				onClickDocumento);
+		
+		// Evento do botão Ata
+		btnAtaResul.addActionListener(
+				onClickAtaResul);
+		
+		//Evento do botão Buscar
+		btnPesquisar.addActionListener(
+				onClickBuscarAluno);
 	}
 
 	/**
@@ -151,7 +169,7 @@ public class PainelMainAluno extends EventosAluno {
 		painelSeparador2.add("West", padrao.painelNull(50, 0));
 		painelSeparador2.add("Center", painelTelefone);
 		// Endereço
-		painelEndTelefone.add("West", padrao.painelContentComponent("West",tfEnd));
+		painelEndTelefone.add("West", padrao.painelContentComponent("West", tfEnd));
 		painelEndTelefone.add("Center", painelSeparador2);
 		
 		return painelEndTelefone;
@@ -218,7 +236,16 @@ public class PainelMainAluno extends EventosAluno {
 		
 		painelInternoNorte.add("Center",controleSuperior);
 		painelInternoNorte.add("South",painelInternoSul());
+		painelInternoNorte.add("North", contentPainelLocalizar());
 		painelInternoNorte.add("East", painelReferenciaDireito());
+	}
+
+	private JPanel contentPainelLocalizar() {
+		JPanel painel = new JPanel(new BorderLayout(2,2));
+		painel.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createSoftBevelBorder(2), "CONSULTAR"));
+		painel.add("North", painelLocaliza(lbCodigo2));
+		return painel;
 	}
 
 	private JPanel painelReferenciaDireito() {
@@ -279,8 +306,8 @@ public class PainelMainAluno extends EventosAluno {
 	private JPanel painelTable() {
 
 		painelTabela.add("North", padrao.painelNull(0, 10));
-		painelTabela.add("Center", padrao.organizandoColunasTables(modeloAta));
-		painelTabela.add("South", painelLocaliza(lbCodigo2)); // cria o painel de localizar
+		painelTabela.add("Center", padrao.organizandoColunasTables(modeloAtaResultado));
+//		painelTabela.add("South", painelLocaliza(lbCodigo2)); // cria o painel de localizar
 
 		return painelTabela;
 	}
@@ -294,7 +321,7 @@ public class PainelMainAluno extends EventosAluno {
 		painelContentBotoes.add(btnLimpar);
 		painelContentBotoes.add(padrao.painelNull(5, 0));
 		painelContentBotoes.add(btnDocumento);
-		painelContentBotoes.add(btnAta);
+		painelContentBotoes.add(btnAtaResul);
 		painelContentBotoes.add(btnCaixa);
 		
 		painelBotoes.add("Center", painelContentBotoes);
@@ -327,47 +354,8 @@ public class PainelMainAluno extends EventosAluno {
 		// TITULO
 		lbDadosAluno.setFont(padrao.font_NEG_15);
 
-		// JTextField
-		tfNome.setFont(padrao.font_NEG_15);
-		tfCidade.setFont(padrao.font_NEG_15);
-		tfEnd.setFont(padrao.font_NEG_15);
-		tfCodigo.setFont(padrao.font_NEG_15);
-		tfRefBox.setFont(padrao.font_NEG_18);
-		tfLocaInter.setFont(padrao.font_NEG_18);
-		
-		tfNome.setPreferredSize(new Dimension(450,0));
-		tfCodigo.setPreferredSize(new Dimension(100,0));
-		tfNomeMae.setPreferredSize(new Dimension(450,0));
-		tfEnd.setPreferredSize(new Dimension(312,0));
-		tfCidade.setPreferredSize(new Dimension(312,0));
-		tfRefBox.setPreferredSize(new Dimension(130,0));
-		tfLocaInter.setPreferredSize(new Dimension(130,0));
-		
-		// Button
-		btnSalvar.setFont(padrao.font_PLA_14);
-		
-		btnLimpar.setFont(padrao.font_PLA_14);
-		btnAlterar.setFont(padrao.font_PLA_14);
-		btnExcluir.setFont(padrao.font_PLA_14);
-		btnDocumento.setFont(padrao.font_PLA_14);
-		btnAta.setFont(padrao.font_PLA_14);
-		btnCaixa.setFont(padrao.font_PLA_14);
-		btnDocumento.setToolTipText("Documento");
-		
 		// Cor
 		lbCodigo.setForeground(Color.RED);
-		tfRefBox.setForeground(Color.RED);
-		tfLocaInter.setForeground(Color.RED);
-		
-		// Outros
-		ftFone.setBorder(null);
-		ftCpf.setBorder(null);
-		ftDataNasc.setBorder(null);
-		ftDataMatricula.setBorder(null);
-		
-		//Desativando
-		tfRefBox.setEditable(false);
-		tfLocaInter.setEditable(false);
 	}
 	
 }

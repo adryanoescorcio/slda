@@ -23,11 +23,10 @@ import Menus.MenuVisualizar;
  * @version 1.5
  * @extends JFrame
  **/
-
 public class MainJFrame {
 	
-	// WINDOWS 
-	private JFrame mainJFrame = new JFrame();
+	// JFRAME MAINJFRAME ESTA EM TELAPADRAO
+	public JFrame mainJFrame = new JFrame();
 	
 	// constantes
 	private static final String TITULO_WINDOW = "SLDA - Sistema de Localização de Documentos do Aluno";
@@ -129,7 +128,6 @@ public class MainJFrame {
 	}
 
 	public static void main(String[] args) {
-
 		new MainJFrame();
 
 	}

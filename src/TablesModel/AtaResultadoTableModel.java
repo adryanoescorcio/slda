@@ -5,25 +5,30 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import Model.Ata;
+import Model.AtaResultado;
 
-public class AtaTableModel extends AbstractTableModel{
+public class AtaResultadoTableModel extends AbstractTableModel{
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final int COL_TURMA = 0;
-	private static final int COL_TURNO = 1;
-	private static final int COL_ANO = 2;
-	private static final int COL_MODALIDADE = 3;
-	private static final int COL_ENSINO = 4;
+	private static final int COL_CODIGO = 0;
+	private static final int COL_NOME = 1;
+	private static final int COL_TURMA = 2;
+	private static final int COL_TURNO = 3;
+	private static final int COL_ANO = 4;
 	
-	private List<Ata> linhas;
-	private String[] colunas = new String[]{"TURMA", "TURNO", "ANO", "MODALIDADE", "ENSINO"};
+	private List<AtaResultado> linhas;
+	private String[] colunas = new String[]{"CODIGO","ALUNO","TURMA", "TURNO", "ANO",};
 
-	public AtaTableModel(List<Ata> ata) {
+	public AtaResultadoTableModel(List<AtaResultado> ata) {
 		this.linhas = new ArrayList<>(ata);
 	}
 
+	public void setList(List<AtaResultado> ata) {
+		this.linhas = ata;
+		fireTableDataChanged();
+	}
+	
 	public int getRowCount() {
 		return linhas.size();
 	}
@@ -45,7 +50,7 @@ public class AtaTableModel extends AbstractTableModel{
 	}
 
 	public Object getValueAt(int row, int column) {
-		Ata m = linhas.get(row);
+		AtaResultado m = linhas.get(row);
 
 		if (column == COL_TURMA) {
 			return m.getTurmaAta();
@@ -53,10 +58,10 @@ public class AtaTableModel extends AbstractTableModel{
 			return m.getTurnoAta();
 		} else if (column == COL_ANO) {
 			return m.getAnoAta();
-		} else if (column == COL_ENSINO) {
-			return m.getEnsinoAta();
-		} else if (column == COL_MODALIDADE) {
-			return m.getModalidadeAta();
+		} else if (column == COL_NOME) {
+			return m.getNomeAluno();
+		} else if (column == COL_CODIGO) {
+			return m.getAluno();
 		}
 		
 		return "";
@@ -66,18 +71,18 @@ public class AtaTableModel extends AbstractTableModel{
 		// TODO
 	}
 
-	public Ata getContato(int indiceLinha) {
+	public AtaResultado getContato(int indiceLinha) {
 		return linhas.get(indiceLinha);
 	}
 
-	public void addContato(Ata contato) {
+	public void addContato(AtaResultado contato) {
 		linhas.add(contato);
 		int ultimoIndice = getRowCount() - 1;
 		fireTableRowsInserted(ultimoIndice, ultimoIndice);
 
 	}
 
-	public void updateContato(int indiceLinha, Ata marca) {
+	public void updateContato(int indiceLinha, AtaResultado marca) {
 		linhas.set(indiceLinha, marca);
 		fireTableRowsUpdated(indiceLinha, indiceLinha);
 
@@ -89,7 +94,7 @@ public class AtaTableModel extends AbstractTableModel{
 
 	}
 	
-	public void changedAll(List<Ata> list){
+	public void changedAll(List<AtaResultado> list){
 		this.linhas.removeAll(this.linhas);
 		fireTableRowsDeleted(0, this.linhas.size()-1);
 		this.linhas.addAll(list);

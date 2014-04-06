@@ -195,7 +195,6 @@ public class TelaPadrao {
 		painelContentLocalizar.add("North", painelNull(0, 10));
 		painelContentLocalizar.add("South", painelNull(0, 10));
 		painelContentLocalizar.add("Center", painelBtnSearch);
-		painelContentLocalizar.add("East", painelNull(200, 0));
 		
 		return painelContentLocalizar;
 	}
@@ -210,9 +209,7 @@ public class TelaPadrao {
 	 **/
 	
 	public JTable getTabela() {
-	
 		return tabela;
-		
 	}
 
 	public void setTabela(JTable tabela) {

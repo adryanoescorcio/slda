@@ -5,7 +5,6 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.Transient;
 
 import PrimaryKey.DocumentoPK;
 import PrimaryKey.InterfaceKey;
@@ -23,11 +22,6 @@ import PrimaryKey.InterfaceKey;
 @Entity
 public class Documento implements InterfacePadraoEntidade {
 
-	@Transient
-	private static final String NOMETABLE = "documento";
-	@Transient
-	private static final String NOMECOLUNAPK = "protocolopedidodocumento";
-	
 	@EmbeddedId
 	private DocumentoPK documentopk = new DocumentoPK(); 
 	private String nomeDocumento = null;
@@ -88,14 +82,6 @@ public class Documento implements InterfacePadraoEntidade {
 		this.aluno = aluno;
 	}
 
-	public static String getNometable() {
-		return NOMETABLE;
-	}
-
-	public static String getNomecolunapk() {
-		return NOMECOLUNAPK;
-	}
-
 	@Override
 	public String toString() {
 		return "" +
@@ -107,16 +93,6 @@ public class Documento implements InterfacePadraoEntidade {
 			"Data de Pedido: "+this.dataPedido+ ", " +
 			"Status: "+this.status+ ", " +
 			"";
-	}
-
-	@Override
-	public String getNomeTabelaBD() {
-		return NOMETABLE;
-	}
-
-	@Override
-	public String getNomeColunaPKBD() {
-		return NOMECOLUNAPK;
 	}
 
 	@Override

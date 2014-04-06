@@ -20,17 +20,6 @@ public interface InterfacePadraoEntidade {
 	public void setCodigoKEY(InterfaceKey chaveEntidade);
 	
 	/**
-	 * Retorna o nome da tabela que é referente a classe no BD
-	 **/
-	
-	public String getNomeTabelaBD();
-	
-	/**
-	 * Pegar o nome da coluna referente a PK da entidade no BD
-	 **/
-	public String getNomeColunaPKBD();
-	
-	/**
 	 * Descreve todos os atributos do objeto
 	 **/
 	@Override

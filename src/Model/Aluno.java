@@ -3,7 +3,6 @@ package Model;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
-import javax.persistence.Transient;
 
 import PrimaryKey.AlunoPK;
 import PrimaryKey.InterfaceKey;
@@ -20,11 +19,6 @@ import PrimaryKey.InterfaceKey;
 
 @Entity
 public class Aluno implements InterfacePadraoEntidade {
-	
-	@Transient
-	private static final String NOMETABLE = "aluno";
-	@Transient
-	private static final String NOMECOLUNAPK = "codigoaluno";
 	
 	@EmbeddedId
 	private AlunoPK alunoPK = new AlunoPK();
@@ -174,16 +168,6 @@ public class Aluno implements InterfacePadraoEntidade {
 		return this.alunoPK.toString();
 	}
 	
-	@Override
-	public String getNomeTabelaBD() {
-		return NOMETABLE;
-	}
-	
-	@Override
-	public String getNomeColunaPKBD() {
-		return NOMECOLUNAPK;
-	}
-
 	@Override
 	public AlunoPK getCodigoKEY() {
 		return this.alunoPK;

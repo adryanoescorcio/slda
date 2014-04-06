@@ -51,14 +51,15 @@ public abstract class EventosPadrão extends JPanel{
 	private ImageIcon iconeAta = new ImageIcon(DIR_ICONES+"ata2.png");
 	private ImageIcon iconeCaixa = new ImageIcon(DIR_ICONES+"caixa.png");
 	
-	protected JButton btnPesquisar = new JButton("Pesquisar",iconePesquisar);
-	protected JButton btnSalvar = new JButton("Salvar",iconeSalvar);
-	protected JButton btnLimpar = new JButton("Limpar",iconeLimpar);
-	protected JButton btnExcluir = new JButton("Excluir",iconeExcluir);
-	protected JButton btnAlterar = new JButton("Alterar",iconeAlterar);
-	protected JButton btnDocumento = new JButton("Doc", iconeDoc);
-	protected JButton btnAta = new JButton("Ata",iconeAta);
-	protected JButton btnCaixa = new JButton("Caixa", iconeCaixa);
+	public JButton btnPesquisar = new JButton("Pesquisar",iconePesquisar);
+	public JButton btnSalvar = new JButton("Salvar",iconeSalvar);
+	public JButton btnLimpar = new JButton("Limpar",iconeLimpar);
+	public JButton btnExcluir = new JButton("Excluir",iconeExcluir);
+	public JButton btnAlterar = new JButton("Alterar",iconeAlterar);
+	public JButton btnDocumento = new JButton("Doc", iconeDoc);
+	public JButton btnAta = new JButton("Ata",iconeAta);
+	public JButton btnAtaResul = new JButton("Ata",iconeAta);
+	public JButton btnCaixa = new JButton("Caixa", iconeCaixa);
 	
 	protected JTextField tfLocalizar = new JTextField();
 	

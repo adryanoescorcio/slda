@@ -40,6 +40,22 @@ public class AtaResultadoPK implements InterfaceKey {
 		return anoAta;
 	}
 	
+	public void setAluno(String aluno) {
+		this.aluno = aluno;
+	}
+
+	public void setTurmaAta(String turmaAta) {
+		this.turmaAta = turmaAta;
+	}
+
+	public void setTurnoAta(String turnoAta) {
+		this.turnoAta = turnoAta;
+	}
+
+	public void setAnoAta(String anoAta) {
+		this.anoAta = anoAta;
+	}
+
 	public String toString() {
 		return this.anoAta+this.turmaAta+this.turnoAta+this.aluno;
 	}

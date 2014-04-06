@@ -3,7 +3,6 @@ package Model;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
-import javax.persistence.Transient;
 
 import PrimaryKey.CaixaPK;
 import PrimaryKey.InterfaceKey;
@@ -19,11 +18,6 @@ import PrimaryKey.InterfaceKey;
 @NamedQuery(name="Caixa.findAll", query="SELECT c FROM Caixa c")
 @Entity
 public class Caixa implements InterfacePadraoEntidade{
-
-	@Transient
-	private static final String NOMETABLE = "caixa";
-	@Transient
-	private static final String NOMECOLUNAPK = "codCaixa";
 
 	@EmbeddedId
 	private CaixaPK caixapk = new CaixaPK();
@@ -62,16 +56,6 @@ public class Caixa implements InterfacePadraoEntidade{
 
 	public void setLetra(String string) {
 		this.letra = string;
-	}
-	
-	@Override
-	public String getNomeTabelaBD() {
-		return NOMETABLE;
-	}
-	
-	@Override
-	public String getNomeColunaPKBD() {
-		return NOMECOLUNAPK;
 	}
 	
 	@Override

@@ -24,6 +24,7 @@ import Menus.MenuVisualizar;
  * @extends JFrame
  **/
 
+
 public class MainJFrame {
 	
 	// WINDOWS 

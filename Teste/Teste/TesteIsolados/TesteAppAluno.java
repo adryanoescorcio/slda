@@ -23,7 +23,6 @@ import PrimaryKey.AlunoPK;
 public class TesteAppAluno {
 
 	private static final int INTERVALO = 999999999;
-	private EntityManager em;
 	private JPAUtil conexaoBD;
 	
 	private Random rand;

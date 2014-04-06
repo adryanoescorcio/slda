@@ -113,4 +113,20 @@ private static final long serialVersionUID = 1L;
 
 	}
 	
+	//REMOVE A PATIR DO OBJETO
+	public void removeContato(Object object) {
+		int indiceLinha = linhas.indexOf(object);
+		linhas.remove(object);
+		fireTableRowsDeleted(indiceLinha, indiceLinha);
+
+	}
+	
+	//ATUALIZAR NOVO A PARTIR DO VELHO
+	public void updateContato(Object velho, Aluno novo) {
+		int indiceLinha = linhas.indexOf(velho);
+		linhas.set(indiceLinha, novo);
+		fireTableRowsUpdated(indiceLinha, indiceLinha);
+	}
+
+	
 }

@@ -416,37 +416,23 @@ public class MainTeste extends TestSuite{
 
 		aluno1.setCPF_Aluno(numAleatorio());
 		aluno1.setNomeAluno("Alan Kardec Souza");
-		aluno1.setINEP(numAleatorio());
-		aluno1.setRG_Aluno(numAleatorio());
 		aluno1.setSexoAluno("Masculino");
 		aluno1.setCorAluno("Branca");
 		aluno1.setDataNascimento("07/02/1994");
 		aluno1.setCidadeNascAluno("Paratins");
 		aluno1.setEstadoNascAluno("Mato Grosso");
-		aluno1.setNomePai("Leal");
-		aluno1.setCidadePaiNasc("Itapirapoca");
-		aluno1.setEstadoPaiNasc("São Paulo");
 		aluno1.setNomeMae("Jessica");
-		aluno1.setCidadeMaeNasc("Sao José dos Patos");
-		aluno1.setEstadoMaeNasc("Rio Branco");
 		aluno1.setEnderecoAluno("Rua 25 Quadra 24");
 		aluno1.setTelefoneAluno(numAleatorio());
 		
 		aluno3.setCPF_Aluno(numAleatorio());
 		aluno3.setNomeAluno("Pedro Kardec Laden");
-		aluno3.setINEP(numAleatorio());
-		aluno3.setRG_Aluno(numAleatorio());
 		aluno3.setSexoAluno("Masculino");
 		aluno3.setCorAluno("Indio");
 		aluno3.setDataNascimento("11/02/1982");
 		aluno3.setCidadeNascAluno("Nova Iorque");
 		aluno3.setEstadoNascAluno("India");
-		aluno3.setNomePai("Bon Jovi");
-		aluno3.setCidadePaiNasc("São Luís");
-		aluno3.setEstadoPaiNasc("Acre");
 		aluno3.setNomeMae("Ruby");
-		aluno3.setCidadeMaeNasc("Codó");
-		aluno3.setEstadoMaeNasc("Rondonia");
 		aluno3.setEnderecoAluno("Rua da Estrela");
 		aluno3.setTelefoneAluno(numAleatorio());
 	}

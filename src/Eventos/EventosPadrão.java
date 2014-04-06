@@ -1,6 +1,7 @@
 package Eventos;
 
 import java.awt.Dimension;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,6 +21,7 @@ import Forms.TelaPadrao;
 import Model.Aluno;
 import Model.Ata;
 import Model.Caixa;
+import TablesModel.AtaTableModel;
 
 @SuppressWarnings("serial")
 public abstract class EventosPadrão extends JPanel{
@@ -36,7 +38,7 @@ public abstract class EventosPadrão extends JPanel{
 	protected Aluno aluno;
 	protected Caixa caixa;
 	protected Ata ata;
-	
+		
 	protected TelaPadrao padrao = new TelaPadrao();
 	protected ComboBoxGroup comboGroup = new ComboBoxGroup();
 	

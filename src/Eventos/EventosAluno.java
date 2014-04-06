@@ -27,10 +27,10 @@ public class EventosAluno extends EventosPadrão{
 	//TABELAS
 	protected ArrayList<Aluno> listaAluno = new ArrayList<Aluno>();
 	protected List<Documento> listaDocumento = daoDoc.getTodosDocumentos();
-	protected List<Ata> listaAta = daoAta.getTodasAtas();
 	protected AlunoTableModel modeloAluno = new AlunoTableModel(listaAluno);
-	protected AtaTableModel modeloAta = new AtaTableModel(listaAta);
 	protected DocumentoTableModel modeloDoc = new DocumentoTableModel(listaDocumento);
+	protected List<Ata> lista = daoAta.getTodasAtas();
+	protected AtaTableModel modeloAta = new AtaTableModel(lista);
 	protected JTable tabela = padrao.getTabela();
 	
 	//COMPONENTES NECESSÁRIOS

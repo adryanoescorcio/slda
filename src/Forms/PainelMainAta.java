@@ -125,7 +125,7 @@ public class PainelMainAta extends EventosAta {
 	
 	private JPanel painelTable() {
 		// carregando modelo da tabela.
-		padrao.getTabela().setModel(modelo);
+		padrao.getTabela().setModel(modeloAta);
 		
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);

@@ -2,7 +2,6 @@ package Model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
 import PrimaryKey.ArquivoPK;

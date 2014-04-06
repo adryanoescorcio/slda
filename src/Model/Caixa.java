@@ -80,7 +80,7 @@ public class Caixa implements InterfacePadraoEntidade{
 			"Codigo: "+this.caixapk.toString()+ ", " +
 			"Status: "+this.status+ ", " +
 			"Turno: "+this.turno+ ", " +
-			"Letra: "+this.letra+ ", " +
+			"Letra: "+this.letra +
 			"";
 	}
 

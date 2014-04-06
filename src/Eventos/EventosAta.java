@@ -17,7 +17,7 @@ public class EventosAta extends EventosPadrão{
 
 	//TABELA
 	protected List<Ata> lista = daoAta.getTodasAtas();
-	protected AtaTableModel modelo = new AtaTableModel(lista);
+	protected AtaTableModel modeloAta = new AtaTableModel(lista);
 	
 	//COMPONENTES NECESSÁRIOS
 	protected JTextField tfTurma = new JTextField();
@@ -102,7 +102,7 @@ public class EventosAta extends EventosPadrão{
 		// Caso seja salvo com sucesso
 		if(daoAta.save(ata)) {
 			JOptionPane.showMessageDialog(null, SUCESSO);
-			modelo.addContato(ata); // Insere a caixa na tabela.
+			modeloAta.addContato(ata); // Insere a ata na tabela da tela ATA.
 			limparCampos();
 			
 			//LIMPA A ATA

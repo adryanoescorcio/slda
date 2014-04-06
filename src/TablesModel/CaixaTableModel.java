@@ -41,9 +41,10 @@ public class CaixaTableModel extends AbstractTableModel {
 	}
 
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		
 		return false;
 	}
-
+	
 	public Object getValueAt(int row, int column) {
 
 		Caixa m = linhas.get(row);
@@ -82,6 +83,7 @@ public class CaixaTableModel extends AbstractTableModel {
 		linhas.add(contato);
 		int ultimoIndice = getRowCount() - 1;
 		fireTableRowsInserted(ultimoIndice, ultimoIndice);
+		System.out.println("A lista: " + linhas);
 	}
 
 	public void updateContato(int indiceLinha, Caixa marca) {
@@ -93,4 +95,26 @@ public class CaixaTableModel extends AbstractTableModel {
 		linhas.remove(indiceLinha);
 		fireTableRowsDeleted(indiceLinha, indiceLinha);
 	}
+	
+	//REMOVE A PATIR DO OBJETO
+	public void removeContato(Caixa object) {
+		System.out.println("A caixa setada é: " + object);
+		
+		int indiceLinha = linhas.indexOf(object);
+		System.out.println("Antes: Lista é: " + linhas);
+		System.out.println("O indice a ser deletado é: " + indiceLinha);
+		linhas.remove(object);
+		System.out.println("Depois: Lista é: " + linhas);
+		fireTableRowsDeleted(indiceLinha, indiceLinha);
+
+	}
+	
+	//ATUALIZAR NOVO A PARTIR DO VELHO
+	public void updateContato(Caixa velho, Caixa novo) {
+		int indiceLinha = linhas.indexOf(velho);
+		System.out.println("O indice a ser atualizado é: " + indiceLinha);
+		linhas.set(indiceLinha, novo);
+		fireTableRowsUpdated(indiceLinha, indiceLinha);
+	}
+
 }

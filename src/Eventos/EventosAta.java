@@ -9,24 +9,33 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import ComponentGroupPlus.MaskFormatterGroup;
 import Model.Ata;
 import TablesModel.AtaTableModel;
 
-@SuppressWarnings("serial")
-public class EventosAta extends EventosPadrão{
+/**
+ * Classe responsavel pelos eventos do painelAta
+ * 
+ * @author Walysson Oliveira
+ * @author Adryano Escorcio
+ * @version 2.0
+ * @extends EventoPadrão
+ **/
+public class EventosAta extends EventosPadrão {
 
 	//TABELA
 	protected List<Ata> lista = daoAta.getTodasAtas();
 	protected AtaTableModel modelo = new AtaTableModel(lista);
 	
+	// Objeto Mask
+	MaskFormatterGroup mask = new MaskFormatterGroup();
+	
 	//COMPONENTES NECESSÁRIOS
 	protected JTextField tfTurma = new JTextField();
-	protected JFormattedTextField ftAno = new JFormattedTextField(padrao.getMascaraAno());
+	protected JFormattedTextField ftAno = new JFormattedTextField(mask.getMascaraAno());
 	protected JComboBox<String> comboTurno = comboGroup.getComboBoxTurno(); 
 	protected JComboBox<String> comboModalidade = comboGroup.getComboBoxModalidade();
 	protected JComboBox<String> comboEnsino  = comboGroup.getComboBoxEnsino();
-	
-
 	
 	public EventosAta() {
 		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão

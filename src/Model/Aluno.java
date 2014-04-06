@@ -14,9 +14,7 @@ import PrimaryKey.InterfaceKey;
  * @version 1.5
  * @implements PadraoEntidade
  **/
-
 @NamedQuery(name="Aluno.findAll", query="SELECT a FROM Aluno a")
-
 @Entity
 public class Aluno implements InterfacePadraoEntidade {
 	

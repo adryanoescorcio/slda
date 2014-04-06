@@ -12,8 +12,15 @@ import Model.Caixa;
 import PrimaryKey.CaixaPK;
 import TablesModel.CaixaTableModel;
 
-@SuppressWarnings("serial")
-public class EventosCaixa extends EventosPadrão{
+/**
+ * Classe responsavel pelos eventos do painelCaixa
+ * 
+ * @author Walysson Oliveira
+ * @author Adryano Escorcio
+ * @version 2.0
+ * @extends EventoPadrão
+ **/
+public class EventosCaixa extends EventosPadrão {
 		
 	//TABELA
 	protected List<Caixa> lista = daoCaixa.getTodasCaixas();

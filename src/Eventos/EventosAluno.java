@@ -13,9 +13,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import ComponentGroupPlus.FontGroup;
+import ComponentGroupPlus.MaskFormatterGroup;
+import ComponentGroupPlus.PainelTabela;
 import ExceptionSLDA.erroNullRequisitoException;
-import Forms.AddDiscAta;
-import Forms.MainJFrame;
 import Forms.TelaDeLogin;
 import Model.Aluno;
 import Model.Arquivo;
@@ -26,17 +27,32 @@ import TablesModel.AlunoTableModel;
 import TablesModel.AtaResultadoTableModel;
 import TablesModel.DocumentoTableModel;
 
-@SuppressWarnings("serial")
+/**
+ * Classe responsavel pelos eventos do painelAluno
+ * 
+ * @author Walysson Oliveira
+ * @author Adryano Escorcio
+ * @version 2.0
+ * @extends EventoPadrão
+ **/
 public class EventosAluno extends EventosPadrão{
 	
-	//TABELAS
+	//Listas
 	protected ArrayList<Aluno> listaAluno = new ArrayList<Aluno>();
 	protected List<Documento> listaDocumento = new ArrayList<Documento>();
-	protected List<AtaResultado> listaAtaResul = new ArrayList<AtaResultado>();;
+	protected List<AtaResultado> listaAtaResul = new ArrayList<AtaResultado>();
+	
+	// Table Model
 	protected AlunoTableModel modeloAluno = new AlunoTableModel(listaAluno);
 	protected AtaResultadoTableModel modeloAtaResultado = new AtaResultadoTableModel(listaAtaResul);
 	protected DocumentoTableModel modeloDoc = new DocumentoTableModel(listaDocumento);
-	protected JTable tabela = padrao.getTabela();
+	
+	// Tabela
+	private PainelTabela table = new PainelTabela(); // instancia da tabela padrao
+	private JTable tabela = table.getTabela(); // setando a tabela padrao
+	
+	// Objeto Mask
+	private MaskFormatterGroup mask = new MaskFormatterGroup();	
 	
 	//COMPONENTES NECESSÁRIOS
 	protected JTextField tfNome = new JTextField();
@@ -46,10 +62,10 @@ public class EventosAluno extends EventosPadrão{
 	protected JTextField tfNomeMae = new JTextField();
 	protected JTextField tfRefBox = new JTextField();
 	protected JTextField tfLocaInter = new JTextField();
-	protected JFormattedTextField ftCpf = new JFormattedTextField(padrao.getMascaraCPF());
-	protected JFormattedTextField ftDataNasc = new JFormattedTextField(padrao.getMascaraData());
-	protected JFormattedTextField ftDataMatricula = new JFormattedTextField(padrao.getMascaraData());
-	protected JFormattedTextField ftFone = new JFormattedTextField(padrao.getMascaraTelefone());
+	protected JFormattedTextField ftCpf = new JFormattedTextField(mask.getMascaraCPF());
+	protected JFormattedTextField ftDataNasc = new JFormattedTextField(mask.getMascaraData());
+	protected JFormattedTextField ftDataMatricula = new JFormattedTextField(mask.getMascaraData());
+	protected JFormattedTextField ftFone = new JFormattedTextField(mask.getMascaraTelefone());
 	protected JComboBox<String> comboUFAluno = comboGroup.getComboBoxEstadosBR();
 	protected JComboBox<String> comboCor = comboGroup.getComboBoxCorRaca();
 	protected JComboBox<String> comboSexo = comboGroup.getComboBoxSexo();
@@ -283,13 +299,15 @@ public class EventosAluno extends EventosPadrão{
 	}
 	
 	private void alterarFontes() {
+		FontGroup font = new FontGroup();
+		
 		// JTextField
-			tfNome.setFont(padrao.font_NEG_15);
-			tfCidade.setFont(padrao.font_NEG_15);
-			tfEnd.setFont(padrao.font_NEG_15);
-			tfCodigo.setFont(padrao.font_NEG_15);
-			tfRefBox.setFont(padrao.font_NEG_18);
-			tfLocaInter.setFont(padrao.font_NEG_18);
+			tfNome.setFont(font.font_NEG_15);
+			tfCidade.setFont(font.font_NEG_15);
+			tfEnd.setFont(font.font_NEG_15);
+			tfCodigo.setFont(font.font_NEG_15);
+			tfRefBox.setFont(font.font_NEG_18);
+			tfLocaInter.setFont(font.font_NEG_18);
 			
 			tfNome.setPreferredSize(new Dimension(450,0));
 			tfCodigo.setPreferredSize(new Dimension(100,0));
@@ -300,14 +318,14 @@ public class EventosAluno extends EventosPadrão{
 			tfLocaInter.setPreferredSize(new Dimension(130,0));
 			
 			// Button
-			btnSalvar.setFont(padrao.font_PLA_14);
+			btnSalvar.setFont(font.font_PLA_14);
 			
-			btnLimpar.setFont(padrao.font_PLA_14);
-			btnAlterar.setFont(padrao.font_PLA_14);
-			btnExcluir.setFont(padrao.font_PLA_14);
-			btnDocumento.setFont(padrao.font_PLA_14);
-			btnAtaResul.setFont(padrao.font_PLA_14);
-			btnCaixa.setFont(padrao.font_PLA_14);
+			btnLimpar.setFont(font.font_PLA_14);
+			btnAlterar.setFont(font.font_PLA_14);
+			btnExcluir.setFont(font.font_PLA_14);
+			btnDocumento.setFont(font.font_PLA_14);
+			btnAtaResul.setFont(font.font_PLA_14);
+			btnCaixa.setFont(font.font_PLA_14);
 			btnDocumento.setToolTipText("Documento");
 			
 			tfRefBox.setForeground(Color.RED);

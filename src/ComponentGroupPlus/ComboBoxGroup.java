@@ -1,10 +1,14 @@
-package Forms;
+package ComponentGroupPlus;
 
 import java.awt.Color;
+
 import javax.swing.JComboBox;
 
-public class ComboBoxGroup extends TelaPadrao{
+public class ComboBoxGroup {
 
+	// FONTE
+	FontGroup fonte = new FontGroup();
+	
 	/**
 	 * ComboBox para selecionar os Turnos.
 	 **/
@@ -18,7 +22,7 @@ public class ComboBoxGroup extends TelaPadrao{
 		combo.addItem("NOTURNO");
 		
 		combo.setBackground(Color.white);
-		combo.setFont(font_PLA_14);
+		combo.setFont(fonte.font_PLA_14);
 		
 		return combo;
 	}
@@ -57,7 +61,7 @@ public class ComboBoxGroup extends TelaPadrao{
 		combo.addItem("Z");
 		
 		combo.setBackground(Color.white);
-		combo.setFont(font_PLA_14);
+		combo.setFont(fonte.font_PLA_14);
 		
 		return combo;
 	}
@@ -73,7 +77,7 @@ public class ComboBoxGroup extends TelaPadrao{
 		combo.addItem("PERMANENTE");
 		
 		combo.setBackground(Color.white);
-		combo.setFont(font_PLA_14);
+		combo.setFont(fonte.font_PLA_14);
 		
 		return combo;
 	}
@@ -115,7 +119,7 @@ public class ComboBoxGroup extends TelaPadrao{
 		combo.addItem("SE");
 		combo.addItem("TO");
 		
-		combo.setFont(font_PLA_14);
+		combo.setFont(fonte.font_PLA_14);
 
 		return combo;
 	}
@@ -134,7 +138,7 @@ public class ComboBoxGroup extends TelaPadrao{
 		combo.addItem("3 - PARDO");
 		combo.addItem("4 - AMARELO");
 		combo.addItem("5 - INDÍGENA");
-		combo.setFont(font_PLA_14);
+		combo.setFont(fonte.font_PLA_14);
 		combo.setLightWeightPopupEnabled(false);
 		
 		
@@ -152,7 +156,7 @@ public class ComboBoxGroup extends TelaPadrao{
 		combo.addItem("");
 		combo.addItem("1 - MASCULINO");
 		combo.addItem("2 - FEMININO");
-		combo.setFont(font_PLA_14);
+		combo.setFont(fonte.font_PLA_14);
 		
 		return combo;
 	}
@@ -164,7 +168,7 @@ public class ComboBoxGroup extends TelaPadrao{
 		combo.setBackground(Color.WHITE);
 		combo.addItem("1 - NÃO");
 		combo.addItem("2 - SIM");
-		combo.setFont(font_PLA_14);
+		combo.setFont(fonte.font_PLA_14);
 		combo.setLightWeightPopupEnabled(false);
 		
 		return combo;
@@ -182,7 +186,7 @@ public class ComboBoxGroup extends TelaPadrao{
 		combo.addItem("TRASNFERIDO");
 		combo.addItem("EVADIDO");
 		
-		combo.setFont(font_PLA_14);
+		combo.setFont(fonte.font_PLA_14);
 		combo.setBackground(Color.WHITE);
 		combo.setLightWeightPopupEnabled(false);
 		
@@ -202,7 +206,7 @@ public class ComboBoxGroup extends TelaPadrao{
 		combo.addItem("EJA");
 
 		combo.setBackground(Color.WHITE);
-		combo.setFont(font_PLA_14);
+		combo.setFont(fonte.font_PLA_14);
 		
 		return combo;
 	}
@@ -215,7 +219,7 @@ public class ComboBoxGroup extends TelaPadrao{
 		combo.addItem("FUNDAMENTAL");
 		
 		combo.setBackground(Color.WHITE);
-		combo.setFont(font_PLA_14);
+		combo.setFont(fonte.font_PLA_14);
 		
 		return combo;
 	}

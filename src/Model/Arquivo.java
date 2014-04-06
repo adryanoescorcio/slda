@@ -14,8 +14,6 @@ import PrimaryKey.InterfaceKey;
  * @version 1.8
  * @implements PadraoEntidade
  **/
-
-
 @Entity
 public class Arquivo implements InterfacePadraoEntidade{
 	

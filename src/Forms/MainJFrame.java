@@ -3,13 +3,12 @@ package Forms;
 import java.awt.BorderLayout;
 import java.awt.Font;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import ComponentGroupPlus.IconesGroup;
 import Menus.MenuAvancado;
 import Menus.MenuExportar;
 import Menus.MenuImportar;
@@ -20,8 +19,8 @@ import Menus.MenuVisualizar;
  * Classe que representa a tela Principal - Aquela que chama todas as outras
  * 
  * @author Walysson Oliveira
- * @version 1.5
- * @extends JFrame
+ * @author Adryano Escorcio
+ * @version 3.0
  **/
 public class MainJFrame {
 	
@@ -30,7 +29,6 @@ public class MainJFrame {
 	
 	// constantes
 	private static final String TITULO_WINDOW = "SLDA - Sistema de Localização de Documentos do Aluno";
-	private static final String DIR_MAIN_ICONES = "../Icones/";
 	private static final int TOP = JTabbedPane.TOP;
 
 	/**
@@ -39,10 +37,9 @@ public class MainJFrame {
 	 **/
 	private JTabbedPane camadaExterna = new JTabbedPane(TOP);
 
-	private Icon iconAluno;
-	private Icon iconAta;
-	private Icon iconArquivo;
-
+	// ICONES
+	private IconesGroup icone = new IconesGroup();
+	
 	// Menu Principal
 	private JMenuBar menuBar = new JMenuBar();
 	// Itens do Menu Principal
@@ -68,7 +65,6 @@ public class MainJFrame {
 	public MainJFrame(){
 		
 		menusWindows();
-		criandoIcones();
 		alterandoFontes();
 		addComponentesMainJPanel();
 		configuracaoMainJFrame();
@@ -77,9 +73,9 @@ public class MainJFrame {
 		camadaExterna.setOpaque(true);
 
 		//DEFININDO OS PAINEIS DA CAMADA EXTERNA 
-		camadaExterna.addTab("Caixa",  iconArquivo, localizarAluno.getTelaPrincipal());
-		camadaExterna.addTab("Discente", iconAluno, cadastrarAluno.getTelaPrincipal());
-		camadaExterna.addTab("Ata", iconAta, cadastrarAta.getTelaPrincipal());
+		camadaExterna.addTab("Caixa",  icone.getIconeArquivo(), localizarAluno.getTelaPrincipal());
+		camadaExterna.addTab("Discente", icone.getIconeAluno(), cadastrarAluno.getTelaPrincipal());
+		camadaExterna.addTab("Ata", icone.getIconeAta(), cadastrarAta.getTelaPrincipal());
 	}
 	
 	private void alterandoFontes() {
@@ -115,16 +111,6 @@ public class MainJFrame {
 		menuBar.add(menuImportar.getMenuImportar());
 		menuBar.add(menuVisualizar.getMenuVisualizar());
 		menuBar.add(menuAvancado.getMenuAvancado());
-	}
-
-	/**
-	 * Classe responsável pela criação de icones
-	 **/
-	private void criandoIcones() {
-		//---------> CRIANDO OS ÍCONES<-----------
-		 iconAluno = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"aluno.png"));
-		 iconAta = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"ata.png"));
-		 iconArquivo = new ImageIcon(getClass().getResource(DIR_MAIN_ICONES+"arquivo.png"));
 	}
 
 	public static void main(String[] args) {

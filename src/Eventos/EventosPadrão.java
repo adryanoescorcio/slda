@@ -2,12 +2,15 @@ package Eventos;
 
 import java.awt.Dimension;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import ComponentGroupPlus.ComboBoxGroup;
+import ComponentGroupPlus.EditPanelGroup;
+import ComponentGroupPlus.FontGroup;
+import ComponentGroupPlus.IconesGroup;
 import DAO.AlunoDAO;
 import DAO.ArquivoDAO;
 import DAO.AtaDAO;
@@ -15,14 +18,18 @@ import DAO.CaixaDAO;
 import DAO.DocumentoDAO;
 import DAO.JPAUtil;
 import ExceptionSLDA.erroNullRequisitoException;
-import Forms.ComboBoxGroup;
-import Forms.TelaPadrao;
 import Model.Aluno;
 import Model.Ata;
 import Model.Caixa;
 
-@SuppressWarnings("serial")
-public abstract class EventosPadrão extends JPanel{
+/**
+ * Classe responsavel pelos eventos comuns a todos os paineis
+ * 
+ * @author Walysson Oliveira
+ * @author Adryano Escorcio
+ * @version 2.0
+ **/
+public abstract class EventosPadrão {
 	
 	//CONEXÃO - DAOS
 	protected JPAUtil conexaoBD = new JPAUtil();
@@ -37,29 +44,24 @@ public abstract class EventosPadrão extends JPanel{
 	protected Caixa caixa;
 	protected Ata ata;
 	
-	protected TelaPadrao padrao = new TelaPadrao();
+	// FONTE
+	private FontGroup font = new FontGroup();
+	
+	// ICONES
+	private IconesGroup icone = new IconesGroup();
+	
+	protected EditPanelGroup padrao = new EditPanelGroup();
 	protected ComboBoxGroup comboGroup = new ComboBoxGroup();
 	
-	public static final String DIR_ICONES = "src/Icones/";
-	
-	private ImageIcon iconePesquisar = new ImageIcon(DIR_ICONES+"search.png");
-	private ImageIcon iconeSalvar = new ImageIcon(DIR_ICONES+"save.png");
-	private ImageIcon iconeLimpar = new ImageIcon(DIR_ICONES+"limpar.png");
-	private ImageIcon iconeExcluir = new ImageIcon(DIR_ICONES+"delete.png");
-	private ImageIcon iconeAlterar = new ImageIcon(DIR_ICONES+"atualizar.png");
-	private ImageIcon iconeDoc = new ImageIcon(DIR_ICONES+"doc.png");
-	private ImageIcon iconeAta = new ImageIcon(DIR_ICONES+"ata2.png");
-	private ImageIcon iconeCaixa = new ImageIcon(DIR_ICONES+"caixa.png");
-	
-	public JButton btnPesquisar = new JButton("Pesquisar",iconePesquisar);
-	public JButton btnSalvar = new JButton("Salvar",iconeSalvar);
-	public JButton btnLimpar = new JButton("Limpar",iconeLimpar);
-	public JButton btnExcluir = new JButton("Excluir",iconeExcluir);
-	public JButton btnAlterar = new JButton("Alterar",iconeAlterar);
-	public JButton btnDocumento = new JButton("Doc", iconeDoc);
-	public JButton btnAta = new JButton("Ata",iconeAta);
-	public JButton btnAtaResul = new JButton("Ata",iconeAta);
-	public JButton btnCaixa = new JButton("Caixa", iconeCaixa);
+	public JButton btnPesquisar = new JButton("Pesquisar",icone.getIconePesquisar());
+	public JButton btnSalvar = new JButton("Salvar",icone.getIconeSalvar());
+	public JButton btnLimpar = new JButton("Limpar",icone.getIconeLimpar());
+	public JButton btnExcluir = new JButton("Excluir",icone.getIconeExcluir());
+	public JButton btnAlterar = new JButton("Alterar",icone.getIconeAlterar());
+	public JButton btnDocumento = new JButton("Doc", icone.getIconeDoc());
+	public JButton btnAta = new JButton("Ata",icone.getIconeAta());
+	public JButton btnAtaResul = new JButton("Ata",icone.getIconeAta());
+	public JButton btnCaixa = new JButton("Caixa", icone.getIconeCaixa());
 	
 	protected JTextField tfLocalizar = new JTextField();
 	
@@ -75,12 +77,12 @@ public abstract class EventosPadrão extends JPanel{
 	}
 
 	private void alterarFont() {
-		tfLocalizar.setFont(padrao.font_NEG_15);
+		tfLocalizar.setFont(font.font_NEG_15);
 		tfLocalizar.setPreferredSize(new Dimension(200,0));
 	}
 
 	private void configInit() {
-		btnPesquisar.setFont(padrao.font_PLA_14);
+		btnPesquisar.setFont(font.font_PLA_14);
 		btnPesquisar.setPreferredSize(new Dimension(140,26));
 		btnPesquisar.setRolloverEnabled(false);
 	}

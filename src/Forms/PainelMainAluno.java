@@ -5,25 +5,29 @@ import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
+import ComponentGroupPlus.FontGroup;
+import ComponentGroupPlus.IconesGroup;
+import ComponentGroupPlus.PainelTabela;
 import Eventos.EventosAluno;
 
 /**
  * Classe que representa a tela Aluno - Cadastrar
  * 
  * @author Walysson Oliveira
- * @version 1.5
- * @extends JFrame
+ * @author Adryano Escorcio
+ * @version 3.0
+ * @extends EventosAluno
  **/
-@SuppressWarnings("serial")
-public class PainelMainAluno extends EventosAluno{
+public class PainelMainAluno extends EventosAluno {
 
 	protected static final int DIST = 5;
+	
+	private FontGroup font = new FontGroup();
 	
 	protected static final String BORDER_INFO_ALUNO = "DOSSIÊ DO DISCENTE";
 	protected static final int QUANT_LINHAS_GRID = 10;
@@ -249,14 +253,16 @@ public class PainelMainAluno extends EventosAluno{
 	}
 
 	private JPanel painelReferenciaDireito() {
+		// Icone
+		IconesGroup icone = new IconesGroup();
+		
 		JPanel painel = new JPanel(new BorderLayout(2,2));
 		JPanel painelGrid = new JPanel(new GridLayout(4,1,0,0));
 		JPanel painelContent = new JPanel(new BorderLayout(2,2)); 
 		
-		ImageIcon imagem = new ImageIcon(DIR_ICONES+"box.jpg");
 		JLabel lbImagem = new JLabel("",0);
 		lbImagem.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		lbImagem.setIcon(imagem);
+		lbImagem.setIcon(icone.getIconeBox());
 		
 		painelGrid.add(padrao.painelContentComponent("West", lbRefBox));
 		painelGrid.add(padrao.painelContentComponent("West", tfRefBox));
@@ -304,10 +310,10 @@ public class PainelMainAluno extends EventosAluno{
 	}
 	
 	private JPanel painelTable() {
-
+		PainelTabela table = new PainelTabela();
+		
 		painelTabela.add("North", padrao.painelNull(0, 10));
-		painelTabela.add("Center", padrao.organizandoColunasTables(modeloAtaResultado));
-//		painelTabela.add("South", painelLocaliza(lbCodigo2)); // cria o painel de localizar
+		painelTabela.add("Center", table.organizandoColunasTables(modeloAtaResultado));
 
 		return painelTabela;
 	}
@@ -331,28 +337,28 @@ public class PainelMainAluno extends EventosAluno{
 	
 	private void ConfInit() {
 		// FONTE
-		lbNome.setFont(padrao.font_PLA_14);
-		lbCodigo2.setFont(padrao.font_PLA_14);
-		lbCodigo.setFont(padrao.font_PLA_14);
-		lbCPF.setFont(padrao.font_PLA_14);
-		lbCor.setFont(padrao.font_PLA_14);
-		lbNis.setFont(padrao.font_PLA_14);
-		lbDataNasc.setFont(padrao.font_PLA_14);
-		lbSexo.setFont(padrao.font_PLA_14);
-		lbNomeMae.setFont(padrao.font_PLA_14);
-		lbEstadoMae.setFont(padrao.font_PLA_14);
-		lbNomePai.setFont(padrao.font_PLA_14);
-		lbEnd.setFont(padrao.font_PLA_14);
-		lbCidade.setFont(padrao.font_PLA_14);
-		lbEstado.setFont(padrao.font_PLA_14);
-		lbFone.setFont(padrao.font_PLA_14);
-		lbDataMatricula.setFont(padrao.font_PLA_14);
-		lbSituacao.setFont(padrao.font_PLA_14);		
-		lbRefBox.setFont(padrao.font_PLA_14);
-		lbLocaInter.setFont(padrao.font_PLA_14);
+		lbNome.setFont(font.font_PLA_14);
+		lbCodigo2.setFont(font.font_PLA_14);
+		lbCodigo.setFont(font.font_PLA_14);
+		lbCPF.setFont(font.font_PLA_14);
+		lbCor.setFont(font.font_PLA_14);
+		lbNis.setFont(font.font_PLA_14);
+		lbDataNasc.setFont(font.font_PLA_14);
+		lbSexo.setFont(font.font_PLA_14);
+		lbNomeMae.setFont(font.font_PLA_14);
+		lbEstadoMae.setFont(font.font_PLA_14);
+		lbNomePai.setFont(font.font_PLA_14);
+		lbEnd.setFont(font.font_PLA_14);
+		lbCidade.setFont(font.font_PLA_14);
+		lbEstado.setFont(font.font_PLA_14);
+		lbFone.setFont(font.font_PLA_14);
+		lbDataMatricula.setFont(font.font_PLA_14);
+		lbSituacao.setFont(font.font_PLA_14);		
+		lbRefBox.setFont(font.font_PLA_14);
+		lbLocaInter.setFont(font.font_PLA_14);
 		
 		// TITULO
-		lbDadosAluno.setFont(padrao.font_NEG_15);
+		lbDadosAluno.setFont(font.font_NEG_15);
 
 		// Cor
 		lbCodigo.setForeground(Color.RED);

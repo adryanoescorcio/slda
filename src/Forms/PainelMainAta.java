@@ -4,27 +4,32 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
+import ComponentGroupPlus.FontGroup;
+import ComponentGroupPlus.PainelTabela;
 import Eventos.EventosAta;
 
 /**
  * Classe que representa a tela Ata - Cadastrar
  * 
  * @author Walysson Oliveira
- * @version 1.5
- * @extends TelaPadrao
+ * @author Adryano Escorcio
+ * @version 3.0
+ * @extends EventosAta
  **/
-
-@SuppressWarnings("serial")
 public class PainelMainAta extends EventosAta {
 
 	private static final int DIST = 5;
 
+	// Fonte
+	private FontGroup font = new FontGroup();
+	
 	private static final String BORDER_INFO_ATA = "DADOS DA ATA";
 	private static final int QUANT_LINHAS_GRID = 6;
 	
@@ -124,14 +129,15 @@ public class PainelMainAta extends EventosAta {
 	}
 	
 	private JPanel painelTable() {
+		PainelTabela table = new PainelTabela();
 		// carregando modelo da tabela.
-		padrao.getTabela().setModel(modelo);
+		table.getTabela().setModel(modelo);
 		
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
-		scroll.setViewportView(padrao.getTabela()); // insere a tabela no painel Scroll
+		scroll.setViewportView(table.getTabela()); // insere a tabela no painel Scroll
 		scroll.setWheelScrollingEnabled(true);
 		
 		painelTabela.add("North", padrao.painelNull(0, 10));
@@ -157,23 +163,23 @@ public class PainelMainAta extends EventosAta {
 
 	private void alterarFontes() {
 		// FONTE
-		lbTurma.setFont(padrao.font_PLA_14);
-		lbCodigo2.setFont(padrao.font_PLA_14);
-		lbTurno.setFont(padrao.font_PLA_14);
-		lbAno.setFont(padrao.font_PLA_14);
-		lbModalidade.setFont(padrao.font_PLA_14);
-		lbEnsino.setFont(padrao.font_PLA_14);
-		lbDadosAta.setFont(padrao.font_NEG_15);
+		lbTurma.setFont(font.font_PLA_14);
+		lbCodigo2.setFont(font.font_PLA_14);
+		lbTurno.setFont(font.font_PLA_14);
+		lbAno.setFont(font.font_PLA_14);
+		lbModalidade.setFont(font.font_PLA_14);
+		lbEnsino.setFont(font.font_PLA_14);
+		lbDadosAta.setFont(font.font_NEG_15);
 		
 		// JTextField
-		tfTurma.setFont(padrao.font_NEG_15);
+		tfTurma.setFont(font.font_NEG_15);
 		tfTurma.setPreferredSize(new Dimension(70,0)); // Setado tamanho fixo do Text
 		
 		// Button
-		btnSalvar.setFont(padrao.font_PLA_14);
-		btnLimpar.setFont(padrao.font_PLA_14);
-		btnAlterar.setFont(padrao.font_PLA_14);
-		btnExcluir.setFont(padrao.font_PLA_14);
+		btnSalvar.setFont(font.font_PLA_14);
+		btnLimpar.setFont(font.font_PLA_14);
+		btnAlterar.setFont(font.font_PLA_14);
+		btnExcluir.setFont(font.font_PLA_14);
 		
 		tfTurma.setSize(20, 10);
 		

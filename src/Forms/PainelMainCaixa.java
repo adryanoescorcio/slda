@@ -12,20 +12,24 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
+import ComponentGroupPlus.FontGroup;
+import ComponentGroupPlus.PainelTabela;
 import Eventos.EventosCaixa;
 
 /**
  * Classe que representa a tela Arquivo - Localizar
  * 
  * @author Walysson Oliveira
- * @version 1.5
- * @extends TelaPadrao
+ * @author Adryano Escorcio
+ * @version 3.0
+ * @extends EventoCaixa
  **/
-
-@SuppressWarnings("serial")
 public class PainelMainCaixa extends EventosCaixa {
 
 	protected static final int DIST = 5;
+	
+	// Fonte
+	private FontGroup font = new FontGroup();
 
 	protected static final String BORDER_INFO_CAIXA = "DADOS DA CAIXA";
 	protected static final int QUANT_LINHAS_GRID = 5;
@@ -60,7 +64,7 @@ public class PainelMainCaixa extends EventosCaixa {
 		painelEsquerdo.add(lbStatus);
 		
 		painelDireito.add(padrao.painelNull(0, 0));
-		painelDireito.add(padrao.painelContentFieldTamanhoLargura(tfCodigo, 400));
+	painelDireito.add(padrao.painelContentComponent("West",tfCodigo));
 		
 		painelDireito.add(padrao.painelContentComponent("West", 
 				comboTurno));
@@ -132,8 +136,9 @@ public class PainelMainCaixa extends EventosCaixa {
 	}
 	
 	private JPanel painelTable() {
+		PainelTabela table = new PainelTabela();
 		// carregando modelo da tabela.
-		JTable tabela = padrao.getTabela();
+		JTable tabela = table.getTabela();
 		tabela.setModel(modelo);
 		
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
@@ -161,19 +166,20 @@ public class PainelMainCaixa extends EventosCaixa {
 	}
 
 	private void alterarFontes() {
-		lbCodigo.setFont(padrao.font_PLA_14);
-		lbCodigo2.setFont(padrao.font_PLA_14);
-		lbLetra.setFont(padrao.font_PLA_14);
-		lbTurno.setFont(padrao.font_PLA_14);
-		lbStatus.setFont(padrao.font_PLA_14);
-		lbDadosCaixa.setFont(padrao.font_NEG_15);
+		lbCodigo.setFont(font.font_PLA_14);
+		lbCodigo2.setFont(font.font_PLA_14);
+		lbLetra.setFont(font.font_PLA_14);
+		lbTurno.setFont(font.font_PLA_14);
+		lbStatus.setFont(font.font_PLA_14);
+		lbDadosCaixa.setFont(font.font_NEG_15);
 		
-		tfCodigo.setFont(padrao.font_NEG_15);
+		tfCodigo.setFont(font.font_NEG_15);
+		tfCodigo.setPreferredSize(new Dimension(400,0));
 		
-		btnSalvar.setFont(padrao.font_PLA_14);
-		btnLimpar.setFont(padrao.font_PLA_14);
-		btnAlterar.setFont(padrao.font_PLA_14);
-		btnExcluir.setFont(padrao.font_PLA_14);
+		btnSalvar.setFont(font.font_PLA_14);
+		btnLimpar.setFont(font.font_PLA_14);
+		btnAlterar.setFont(font.font_PLA_14);
+		btnExcluir.setFont(font.font_PLA_14);
 
 		// COR
 		lbCodigo.setForeground(Color.red);

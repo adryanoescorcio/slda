@@ -98,23 +98,27 @@ public class CaixaTableModel extends AbstractTableModel {
 	
 	//REMOVE A PATIR DO OBJETO
 	public void removeContato(Caixa object) {
-		System.out.println("A caixa setada é: " + object);
-		
-		int indiceLinha = linhas.indexOf(object);
-		System.out.println("Antes: Lista é: " + linhas);
-		System.out.println("O indice a ser deletado é: " + indiceLinha);
-		linhas.remove(object);
-		System.out.println("Depois: Lista é: " + linhas);
-		fireTableRowsDeleted(indiceLinha, indiceLinha);
+		int indice = 0;
+		for(int i = 0; i < linhas.size(); i++){
+			if(linhas.get(i).toString().equals(object.toString())){
+				indice = i;
+			}
+		}
+		linhas.remove(indice);
+		fireTableRowsDeleted(indice, indice);
 
 	}
 	
 	//ATUALIZAR NOVO A PARTIR DO VELHO
 	public void updateContato(Caixa velho, Caixa novo) {
-		int indiceLinha = linhas.indexOf(velho);
-		System.out.println("O indice a ser atualizado é: " + indiceLinha);
-		linhas.set(indiceLinha, novo);
-		fireTableRowsUpdated(indiceLinha, indiceLinha);
+		int indice = 0;
+		for(int i = 0; i < linhas.size(); i++){
+			if(linhas.get(i).toString().equals(velho.toString())){
+				indice = i;
+			}
+		}
+		linhas.set(indice, novo);
+		fireTableRowsUpdated(indice, indice);
 	}
 
 }

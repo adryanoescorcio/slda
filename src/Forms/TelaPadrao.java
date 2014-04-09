@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.util.Random;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -217,5 +218,13 @@ public class TelaPadrao {
 
 	public void setTabela(JTable tabela) {
 		this.tabela = tabela;
+	}
+	
+	public String verificarMascara(JFormattedTextField campo){		
+		if(campo.getText().contains("_")){
+			return "";
+		}else{
+			return campo.getText();
+		}
 	}
 }

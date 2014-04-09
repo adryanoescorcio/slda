@@ -90,18 +90,28 @@ public class AtaTableModel extends AbstractTableModel{
 	}
 	
 	//REMOVE A PATIR DO OBJETO
-	public void removeContato(Object object) {
-		int indiceLinha = linhas.indexOf(object);
-		linhas.remove(object);
-		fireTableRowsDeleted(indiceLinha, indiceLinha);
+	public void removeContato(Ata object) {
+		int indice = 0;
+		for(int i = 0; i < linhas.size(); i++){
+			if(linhas.get(i).toString().equals(object.toString())){
+				indice = i;
+			}
+		}
+		linhas.remove(indice);
+		fireTableRowsDeleted(indice, indice);
 
 	}
 	
 	//ATUALIZAR NOVO A PARTIR DO VELHO
-	public void updateContato(Object velho, Ata novo) {
-		int indiceLinha = linhas.indexOf(velho);
-		linhas.set(indiceLinha, novo);
-		fireTableRowsUpdated(indiceLinha, indiceLinha);
+	public void updateContato(Ata velho, Ata novo) {
+		int indice = 0;
+		for(int i = 0; i < linhas.size(); i++){
+			if(linhas.get(i).toString().equals(velho.toString())){
+				indice = i;
+			}
+		}
+		linhas.set(indice, novo);
+		fireTableRowsUpdated(indice, indice);
 	}
 
 }

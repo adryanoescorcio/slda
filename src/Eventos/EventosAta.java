@@ -46,7 +46,7 @@ public class EventosAta extends EventosPadrão{
 	@Override
 	public Object getValoresDosCampos() {
 		Ata ata = new Ata();
-		ata.setCodigo((String)comboTurno.getSelectedItem(), tfTurma.getText(), ftAno.getText());
+		ata.setCodigo((String)comboTurno.getSelectedItem(), tfTurma.getText(), padrao.verificarMascara(ftAno));
 		ata.setModalidadeAta((String)comboModalidade.getSelectedItem());
 		ata.setEnsinoAta((String)comboEnsino.getSelectedItem());
 		

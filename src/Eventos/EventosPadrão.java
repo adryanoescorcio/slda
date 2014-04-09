@@ -1,8 +1,6 @@
 package Eventos;
 
 import java.awt.Dimension;
-import java.util.List;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,6 +10,7 @@ import javax.swing.JTextField;
 import DAO.AlunoDAO;
 import DAO.ArquivoDAO;
 import DAO.AtaDAO;
+import DAO.AtaResultadoDAO;
 import DAO.CaixaDAO;
 import DAO.DocumentoDAO;
 import DAO.JPAUtil;
@@ -21,7 +20,6 @@ import Forms.TelaPadrao;
 import Model.Aluno;
 import Model.Ata;
 import Model.Caixa;
-import TablesModel.AtaTableModel;
 
 @SuppressWarnings("serial")
 public abstract class EventosPadrão extends JPanel{
@@ -33,6 +31,7 @@ public abstract class EventosPadrão extends JPanel{
 	protected AtaDAO daoAta = new AtaDAO(conexaoBD);
 	protected ArquivoDAO daoArquivo = new ArquivoDAO(conexaoBD);
 	protected CaixaDAO daoCaixa = new CaixaDAO(conexaoBD);
+	protected AtaResultadoDAO daoAtaResultado = new AtaResultadoDAO(conexaoBD);
 	
 	//ENTIDADES
 	protected Aluno aluno;

@@ -2,6 +2,7 @@ package Model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 import PrimaryKey.AtaResultadoPK;
 import PrimaryKey.InterfaceKey;
@@ -13,6 +14,8 @@ import PrimaryKey.InterfaceKey;
  * @version 1.8
  * @implements PadraoEntidade
  **/
+@NamedQuery(name="AtaResultado.findByAluno", query="SELECT a FROM AtaResultado a where a.atapk.aluno = :aluno")
+
 @Entity
 public class AtaResultado implements InterfacePadraoEntidade{
 

@@ -10,7 +10,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-
 import ExceptionSLDA.erroNullRequisitoException;
 import Model.Aluno;
 import Model.Arquivo;
@@ -26,11 +25,11 @@ public class EventosAluno extends EventosPadrão{
 	
 	//TABELAS
 	protected ArrayList<Aluno> listaAluno = new ArrayList<Aluno>();
-	protected List<Documento> listaDocumento = daoDoc.getTodosDocumentos();
+	protected List<Documento> listaDocumento = new ArrayList<Documento>();;
 	protected AlunoTableModel modeloAluno = new AlunoTableModel(listaAluno);
 	protected DocumentoTableModel modeloDoc = new DocumentoTableModel(listaDocumento);
-	protected List<Ata> lista = daoAta.getTodasAtas();
-	protected AtaTableModel modeloAta = new AtaTableModel(lista);
+	protected List<Ata> listaAta = new ArrayList<Ata>();;
+	protected AtaTableModel modeloAta = new AtaTableModel(listaAta);
 	protected JTable tabela = padrao.getTabela();
 	
 	//COMPONENTES NECESSÁRIOS
@@ -74,7 +73,6 @@ public class EventosAluno extends EventosPadrão{
 		comboSexo.setSelectedIndex(0);	
 		comboTranferencia.setSelectedIndex(0);	
 		comboSituacao.setSelectedIndex(0);	
-		
 		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
 		btnExcluir.setEnabled(false);
 		
@@ -93,10 +91,10 @@ public class EventosAluno extends EventosPadrão{
 			aluno.setCidadeNascAluno(tfCidade.getText());
 			aluno.setEnderecoAluno(tfEnd.getText());
 			aluno.setNomeMae(tfNomeMae.getText());
-			aluno.setCPF_Aluno(ftCpf.getText());
-			aluno.setDataNascimento(ftDataNasc.getText());
-			aluno.setDataMatriculaAluno(ftDataMatricula.getText());
-			aluno.setTelefoneAluno(ftFone.getText());
+			aluno.setCPF_Aluno(padrao.verificarMascara(ftCpf));
+			aluno.setDataNascimento(padrao.verificarMascara(ftDataNasc));
+			aluno.setDataMatriculaAluno(padrao.verificarMascara(ftDataMatricula));
+			aluno.setTelefoneAluno(padrao.verificarMascara(ftFone));
 			aluno.setEstadoNascAluno((String) comboUFAluno.getSelectedItem());
 			aluno.setCorAluno((String) comboCor.getSelectedItem());
 			aluno.setSexoAluno((String) comboSexo.getSelectedItem());
@@ -171,6 +169,10 @@ public class EventosAluno extends EventosPadrão{
 				Aluno aln = daoAluno.buscar(pk); // realiza a busca no banco de dados
 				setValoresDosCampos(aln); // atribui os valores recuperados para os campos.
 				pesquisarCaixa();
+				modeloDoc = new DocumentoTableModel(daoDoc.buscarDocumentoporAluno(aln));
+				tabelaDocumento();
+				modeloAta = new AtaTableModel(daoAtaResultado.buscarAtaporAluno(aln));
+				tabelaAta();
 				btnAlterar.setEnabled(true); // necessario a pesquisa para ativar botão
 				btnExcluir.setEnabled(true); // necessario a pesquisa para ativar botão
 				
@@ -209,29 +211,38 @@ public class EventosAluno extends EventosPadrão{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			tabela.setModel(modeloDoc);
-			tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			int x = tabela.getWidth()/tabela.getColumnCount();
-			
-			for(int i=0;i<tabela.getColumnCount();i++) {
-				tabela.getColumnModel().getColumn(i).setPreferredWidth(x);
-			}
+			tabelaDocumento();
 		}
 	};
 	
 	protected ActionListener onClickAta = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			tabela.setModel(modeloAta);
-			tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			int x = tabela.getWidth()/tabela.getColumnCount();
-			
-			for(int i=0;i<tabela.getColumnCount();i++) {
-				tabela.getColumnModel().getColumn(i).setPreferredWidth(x);
-			}
+			tabelaAta();
 		}
 
 	};
+	
+	private void tabelaAta(){
+		tabela.setModel(modeloAta);
+		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		int x = tabela.getWidth()/tabela.getColumnCount();
+		
+		for(int i=0;i<tabela.getColumnCount();i++) {
+			tabela.getColumnModel().getColumn(i).setPreferredWidth(x);
+		}
+	}
+	
+	private void tabelaDocumento(){
+		tabela.setModel(modeloDoc);
+		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		int x = tabela.getWidth()/tabela.getColumnCount();
+		
+		for(int i=0;i<tabela.getColumnCount();i++) {
+			tabela.getColumnModel().getColumn(i).setPreferredWidth(x);
+		}
+	}
+
 	
 	protected void pesquisarCaixa() {
 		String localizar = tfLocalizar.getText().trim();
@@ -259,5 +270,5 @@ public class EventosAluno extends EventosPadrão{
 			//LIMPA A CAIXA
 			aluno = null;
 		}		
-	}
+	}	
 }

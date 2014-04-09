@@ -174,6 +174,7 @@ public abstract class DAO {
 	 * @param <li><b>String</b> codigoEntidade</li> <b>or</b>
 	 * <li><b>PadraoEntidade</b> entidade </li>
 	 **/
+	
 	public boolean remover(Object params) {
 		this.beginTransaction();
 		
@@ -190,6 +191,7 @@ public abstract class DAO {
 	 * ou seja quando um objeto é setado do BD e seus atributos alterado. Para efetivar a alteração execute o metodo.
 	 * @return True, caso a execução tenha terminado com sucesso. <br> False, caso a execução tenha terminado com erro.
 	 **/
+	
 	public boolean transactionBeginAndCommit() {
 		try {
 			this.beginTransaction();

@@ -110,7 +110,6 @@ public class EventosCaixa extends EventosPadrão{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			metodoSalvar();
-			lista.add(caixa);
 			modelo.addContato(caixa); // Insere a caixa na tabela.
 			
 			//LIMPA A CAIXA
@@ -157,7 +156,8 @@ public class EventosCaixa extends EventosPadrão{
 		public void actionPerformed(ActionEvent e) {			
 			daoCaixa.remover(caixa);
 			JOptionPane.showMessageDialog(null, "Caixa excluído com sucesso.");
-			modelo.removeContato(lista.indexOf(caixa));
+			modelo.removeContato(caixa);
+			lista.remove(caixa);
 			limparCampos();
 			
 			//LIMPA A CAIXA

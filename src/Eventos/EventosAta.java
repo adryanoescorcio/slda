@@ -15,7 +15,7 @@ import TablesModel.AtaTableModel;
 
 /**
  * Classe responsavel pelos eventos do painelAta
- * 
+ * $$
  * @author Walysson Oliveira
  * @author Adryano Escorcio
  * @version 2.0

@@ -1,7 +1,5 @@
 package Eventos;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -13,18 +11,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import ComponentGroupPlus.FontGroup;
 import ComponentGroupPlus.MaskFormatterGroup;
 import ComponentGroupPlus.PainelTabela;
 import ExceptionSLDA.erroNullRequisitoException;
-import Forms.TelaDeLogin;
+import Forms.AddDiscAta;
 import Model.Aluno;
 import Model.Arquivo;
+import Model.Ata;
 import Model.AtaResultado;
 import Model.Documento;
 import PrimaryKey.AlunoPK;
 import TablesModel.AlunoTableModel;
 import TablesModel.AtaResultadoTableModel;
+import TablesModel.AtaTableModel;
 import TablesModel.DocumentoTableModel;
 
 /**
@@ -53,6 +52,8 @@ public class EventosAluno extends EventosPadrão{
 	
 	// Objeto Mask
 	private MaskFormatterGroup mask = new MaskFormatterGroup();	
+	protected List<Ata> listaAta = new ArrayList<Ata>();;
+	protected AtaTableModel modeloAta = new AtaTableModel(listaAta);
 	
 	//COMPONENTES NECESSÁRIOS
 	protected JTextField tfNome = new JTextField();
@@ -75,7 +76,6 @@ public class EventosAluno extends EventosPadrão{
 	public EventosAluno() {
 		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
 		btnExcluir.setEnabled(false); // necessario a pesquisa para ativar botão
-		alterarFontes();
 	}
 	
 	@Override	
@@ -96,7 +96,6 @@ public class EventosAluno extends EventosPadrão{
 		comboSexo.setSelectedIndex(0);	
 		comboTranferencia.setSelectedIndex(0);	
 		comboSituacao.setSelectedIndex(0);	
-		
 		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
 		btnExcluir.setEnabled(false);
 		
@@ -115,10 +114,10 @@ public class EventosAluno extends EventosPadrão{
 			aluno.setCidadeNascAluno(tfCidade.getText());
 			aluno.setEnderecoAluno(tfEnd.getText());
 			aluno.setNomeMae(tfNomeMae.getText());
-			aluno.setCPF_Aluno(ftCpf.getText());
-			aluno.setDataNascimento(ftDataNasc.getText());
-			aluno.setDataMatriculaAluno(ftDataMatricula.getText());
-			aluno.setTelefoneAluno(ftFone.getText());
+			aluno.setCPF_Aluno(mask.verificarMascara(ftCpf));
+			aluno.setDataNascimento(mask.verificarMascara(ftDataNasc));
+			aluno.setDataMatriculaAluno(mask.verificarMascara(ftDataMatricula));
+			aluno.setTelefoneAluno(mask.verificarMascara(ftFone));
 			aluno.setEstadoNascAluno((String) comboUFAluno.getSelectedItem());
 			aluno.setCorAluno((String) comboCor.getSelectedItem());
 			aluno.setSexoAluno((String) comboSexo.getSelectedItem());
@@ -195,6 +194,12 @@ public class EventosAluno extends EventosPadrão{
 				pesquisarCaixa(); // pesquisa se o aluno se encontra em alguma caixa
 				pesquisarDoc();
 				pesquisarAta(aln);
+
+				modeloDoc = new DocumentoTableModel(daoDoc.buscarDocumentoporAluno(aln));
+				tabelaDocumento();
+				modeloAta = new AtaTableModel(daoAtaResultado.buscarAtaporAluno(aln));
+				tabelaAta();
+
 				btnAlterar.setEnabled(true); // necessario a pesquisa para ativar botão
 				btnExcluir.setEnabled(true); // necessario a pesquisa para ativar botão
 				
@@ -233,22 +238,41 @@ public class EventosAluno extends EventosPadrão{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			tabela.setModel(modeloDoc);
-			reconstruirTable();
+			tabelaDocumento();
 		}
 	};
 	
 	protected ActionListener onClickAtaResul = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			tabela.setModel(modeloAtaResultado);
-			reconstruirTable();
+			tabelaAta();
 			if(JOptionPane.showConfirmDialog(null, "Deseja inserir o aluno em uma ata?") == 0) {
-				new TelaDeLogin();
+				new AddDiscAta();
 			}
 		}
 
 	};
+	
+	private void tabelaAta(){
+		tabela.setModel(modeloAta);
+		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		int x = tabela.getWidth()/tabela.getColumnCount();
+		
+		for(int i=0;i<tabela.getColumnCount();i++) {
+			tabela.getColumnModel().getColumn(i).setPreferredWidth(x);
+		}
+	}
+	
+	private void tabelaDocumento(){
+		tabela.setModel(modeloDoc);
+		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		int x = tabela.getWidth()/tabela.getColumnCount();
+		
+		for(int i=0;i<tabela.getColumnCount();i++) {
+			tabela.getColumnModel().getColumn(i).setPreferredWidth(x);
+		}
+	}
+
 	
 	protected void pesquisarCaixa() {
 		String localizar = tfLocalizar.getText().trim();
@@ -296,49 +320,5 @@ public class EventosAluno extends EventosPadrão{
 			//LIMPA A CAIXA
 			aluno = null;
 		}		
-	}
-	
-	private void alterarFontes() {
-		FontGroup font = new FontGroup();
-		
-		// JTextField
-			tfNome.setFont(font.font_NEG_15);
-			tfCidade.setFont(font.font_NEG_15);
-			tfEnd.setFont(font.font_NEG_15);
-			tfCodigo.setFont(font.font_NEG_15);
-			tfRefBox.setFont(font.font_NEG_18);
-			tfLocaInter.setFont(font.font_NEG_18);
-			
-			tfNome.setPreferredSize(new Dimension(450,0));
-			tfCodigo.setPreferredSize(new Dimension(100,0));
-			tfNomeMae.setPreferredSize(new Dimension(450,0));
-			tfEnd.setPreferredSize(new Dimension(312,0));
-			tfCidade.setPreferredSize(new Dimension(312,0));
-			tfRefBox.setPreferredSize(new Dimension(130,0));
-			tfLocaInter.setPreferredSize(new Dimension(130,0));
-			
-			// Button
-			btnSalvar.setFont(font.font_PLA_14);
-			
-			btnLimpar.setFont(font.font_PLA_14);
-			btnAlterar.setFont(font.font_PLA_14);
-			btnExcluir.setFont(font.font_PLA_14);
-			btnDocumento.setFont(font.font_PLA_14);
-			btnAtaResul.setFont(font.font_PLA_14);
-			btnCaixa.setFont(font.font_PLA_14);
-			btnDocumento.setToolTipText("Documento");
-			
-			tfRefBox.setForeground(Color.RED);
-			tfLocaInter.setForeground(Color.RED);
-			
-			// Outros
-			ftFone.setBorder(null);
-			ftCpf.setBorder(null);
-			ftDataNasc.setBorder(null);
-			ftDataMatricula.setBorder(null);
-			
-			//Desativando
-			tfRefBox.setEditable(false);
-			tfLocaInter.setEditable(false);
-	}
+	}	
 }

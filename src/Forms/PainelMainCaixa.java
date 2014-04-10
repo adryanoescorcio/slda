@@ -57,27 +57,27 @@ public class PainelMainCaixa extends EventosCaixa {
 		
 		eventosBotoes();
 		
-		painelEsquerdo.add(padrao.painelNull(0, 0));
+		painelEsquerdo.add(editPanel.painelNull(0, 0));
 		painelEsquerdo.add(lbCodigo);
 		painelEsquerdo.add(lbTurno);
 		painelEsquerdo.add(lbLetra);
 		painelEsquerdo.add(lbStatus);
 		
-		painelDireito.add(padrao.painelNull(0, 0));
-	painelDireito.add(padrao.painelContentComponent("West",tfCodigo));
+		painelDireito.add(editPanel.painelNull(0, 0));
+	painelDireito.add(editPanel.painelContentComponent("West",tfCodigo));
 		
-		painelDireito.add(padrao.painelContentComponent("West", 
+		painelDireito.add(editPanel.painelContentComponent("West", 
 				comboTurno));
-		painelDireito.add(padrao.painelContentComponent("West", 
+		painelDireito.add(editPanel.painelContentComponent("West", 
 				comboLetra));
-		painelDireito.add(padrao.painelContentComponent("West", 
+		painelDireito.add(editPanel.painelContentComponent("West", 
 				comboStatus));
 		
 		// Este painel guarda o lado direito e esquedo descrito acima. Define também a borda especifica.
 		painelContentEIA.add("North", lbDadosCaixa );
 		painelContentEIA.add("West", painelEsquerdo);
 		painelContentEIA.add("Center", painelDireito);
-		painelContentEIA.add("East",padrao.painelNull(200, 0));
+		painelContentEIA.add("East",editPanel.painelNull(200, 0));
 		
 		alterarFontes();
 		painelInternoNorte();
@@ -118,18 +118,18 @@ public class PainelMainCaixa extends EventosCaixa {
 		mainJPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		
 		mainJPanel.add("Center",painelLocalizarArquivo);
-		mainJPanel.add("West",padrao.painelNull(20, 0));
-		mainJPanel.add("East",padrao.painelNull(20, 0));
-		mainJPanel.add("North",padrao.painelNull(0, 10));
+		mainJPanel.add("West",editPanel.painelNull(20, 0));
+		mainJPanel.add("East",editPanel.painelNull(20, 0));
+		mainJPanel.add("North",editPanel.painelNull(0, 10));
 		
 		// Vai para Janela Principal
 		return painelScrollMain;
 	}
 
 	private JPanel painelInternoSul() {
-		painelInternoSul.add("Center",padrao.painelContentComponent("West", painelBotoes()));
-		painelInternoSul.add("North",padrao.painelNull(0, 5));
-		painelInternoSul.add("West",padrao.painelNull(220, 0));
+		painelInternoSul.add("Center",editPanel.painelContentComponent("West", painelBotoes()));
+		painelInternoSul.add("North",editPanel.painelNull(0, 5));
+		painelInternoSul.add("West",editPanel.painelNull(220, 0));
 		painelInternoSul.add("South",painelTable());
 		
 		return painelInternoSul;
@@ -144,7 +144,7 @@ public class PainelMainCaixa extends EventosCaixa {
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setViewportView(tabela); // insere a tabela no painel Scroll
 		
-		painelTabela.add("North", padrao.painelNull(0, 10));
+		painelTabela.add("North", editPanel.painelNull(0, 10));
 		painelTabela.add("Center",scroll);
 		painelTabela.add("South", painelLocaliza(lbCodigo2));
 		

@@ -2,6 +2,7 @@ package Forms;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -71,7 +72,7 @@ public class PainelMainAluno extends EventosAluno {
 		
 		eventosBotoes();
 		
-		painelEsquerdoInfoAluno.add(padrao.painelNull(0, 0));
+		painelEsquerdoInfoAluno.add(editPanel.painelNull(0, 0));
 		painelEsquerdoInfoAluno.add(lbNome);
 		painelEsquerdoInfoAluno.add(lbCodigo);
 		painelEsquerdoInfoAluno.add(lbCPF);
@@ -82,16 +83,16 @@ public class PainelMainAluno extends EventosAluno {
 		painelEsquerdoInfoAluno.add(lbDataMatricula);
 		painelEsquerdoInfoAluno.add(lbSituacao);
 		
-		painelDireito.add(padrao.painelNull(0, 0)); // Vazio
-		painelDireito.add(padrao.painelContentComponent("West", tfNome)); // Nome
-		painelDireito.add(padrao.painelContentComponent("West", tfCodigo)); //Codigo
-		painelDireito.add(padrao.painelContentComponent("West", painelCPFEstado())); // CPF - Estado
-		painelDireito.add(padrao.painelContentComponent("West", tfNomeMae)); // Mae
-		painelDireito.add(padrao.painelContentComponent("West", painelDataSexoCor())); // Data Nac. - Sexo - Cor
-		painelDireito.add(padrao.painelContentComponent("West", tfCidade)); // Cidade
+		painelDireito.add(editPanel.painelNull(0, 0)); // Vazio
+		painelDireito.add(editPanel.painelContentComponent("West", tfNome)); // Nome
+		painelDireito.add(editPanel.painelContentComponent("West", tfCodigo)); //Codigo
+		painelDireito.add(editPanel.painelContentComponent("West", painelCPFEstado())); // CPF - Estado
+		painelDireito.add(editPanel.painelContentComponent("West", tfNomeMae)); // Mae
+		painelDireito.add(editPanel.painelContentComponent("West", painelDataSexoCor())); // Data Nac. - Sexo - Cor
+		painelDireito.add(editPanel.painelContentComponent("West", tfCidade)); // Cidade
 		painelDireito.add(painelTelefoneEnd()); // Telefone - Endereço
 		painelDireito.add(painelDataMatriculaTransf()); // Data Matri - Transfe
-		painelDireito.add(padrao.painelContentComponent("West", comboSituacao)); //Situação
+		painelDireito.add(editPanel.painelContentComponent("West", comboSituacao)); //Situação
 		
 		JPanel painete = new JPanel(new BorderLayout(2,2));
 		painete.setBackground(Color.black);
@@ -101,6 +102,7 @@ public class PainelMainAluno extends EventosAluno {
 		painelContentEIA.add("Center", painelDireito);
 		
 		ConfInit();
+		alterarFontes();
 		painelInternoNorte();
 		getTelaPrincipal();
 	}
@@ -146,12 +148,12 @@ public class PainelMainAluno extends EventosAluno {
 		
 		// Telefone
 		painelTrasferencia.add("West", lbTransferencia);
-		painelTrasferencia.add("Center", padrao.painelContentComponent("West", comboTranferencia));
+		painelTrasferencia.add("Center", editPanel.painelContentComponent("West", comboTranferencia));
 		// SEPARADOR
-		painelSeparador2.add("West", padrao.painelNull(50, 0));
+		painelSeparador2.add("West", editPanel.painelNull(50, 0));
 		painelSeparador2.add("Center", painelTrasferencia);
 		// Endereço
-		painelDataMatriculaTransf.add("West", padrao.painelContentComponent("West", ftDataMatricula));
+		painelDataMatriculaTransf.add("West", editPanel.painelContentComponent("West", ftDataMatricula));
 		painelDataMatriculaTransf.add("Center", painelSeparador2);
 		
 		return painelDataMatriculaTransf;
@@ -168,12 +170,12 @@ public class PainelMainAluno extends EventosAluno {
 		
 		// Telefone
 		painelTelefone.add("West", lbFone);
-		painelTelefone.add("Center", padrao.painelContentComponent("West", ftFone));
+		painelTelefone.add("Center", editPanel.painelContentComponent("West", ftFone));
 		// SEPARADOR
-		painelSeparador2.add("West", padrao.painelNull(50, 0));
+		painelSeparador2.add("West", editPanel.painelNull(50, 0));
 		painelSeparador2.add("Center", painelTelefone);
 		// Endereço
-		painelEndTelefone.add("West", padrao.painelContentComponent("West", tfEnd));
+		painelEndTelefone.add("West", editPanel.painelContentComponent("West", tfEnd));
 		painelEndTelefone.add("Center", painelSeparador2);
 		
 		return painelEndTelefone;
@@ -189,9 +191,9 @@ public class PainelMainAluno extends EventosAluno {
 		
 		// SEXO
 		painelEstado.add("West", lbEstado);
-		painelEstado.add("Center", padrao.painelContentComponent("West", comboUFAluno));
+		painelEstado.add("Center", editPanel.painelContentComponent("West", comboUFAluno));
 		// SEPARADOR
-		painelSeparador2.add("West", padrao.painelNull(50, 0));
+		painelSeparador2.add("West", editPanel.painelNull(50, 0));
 		painelSeparador2.add("Center", painelEstado);
 		// DATA
 		painelCpfEstado.add("West", ftCpf);
@@ -213,15 +215,15 @@ public class PainelMainAluno extends EventosAluno {
 		
 		// COR
 		painelCor.add("West", lbCor); // COR
-		painelCor.add("Center", padrao.painelContentComponent("West", comboCor));
+		painelCor.add("Center", editPanel.painelContentComponent("West", comboCor));
 		// SEPARADOR
-		painelSeparador.add("West", padrao.painelNull(50, 0));
+		painelSeparador.add("West", editPanel.painelNull(50, 0));
 		painelSeparador.add("Center", painelCor);
 		// SEXO
 		painelSexo.add("West", lbSexo); // SEXO
-		painelSexo.add("Center", padrao.painelContentComponent("West", comboSexo));
+		painelSexo.add("Center", editPanel.painelContentComponent("West", comboSexo));
 		// SEPARADOR
-		painelSeparador2.add("West", padrao.painelNull(50, 0));
+		painelSeparador2.add("West", editPanel.painelNull(50, 0));
 		painelSeparador2.add("Center", painelSexo);
 		// DATA
 		painelDataSexoCor.add("West", ftDataNasc); // DATA
@@ -264,16 +266,16 @@ public class PainelMainAluno extends EventosAluno {
 		lbImagem.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		lbImagem.setIcon(icone.getIconeBox());
 		
-		painelGrid.add(padrao.painelContentComponent("West", lbRefBox));
-		painelGrid.add(padrao.painelContentComponent("West", tfRefBox));
-		painelGrid.add(padrao.painelContentComponent("West", lbLocaInter));
-		painelGrid.add(padrao.painelContentComponent("West", tfLocaInter));
+		painelGrid.add(editPanel.painelContentComponent("West", lbRefBox));
+		painelGrid.add(editPanel.painelContentComponent("West", tfRefBox));
+		painelGrid.add(editPanel.painelContentComponent("West", lbLocaInter));
+		painelGrid.add(editPanel.painelContentComponent("West", tfLocaInter));
 		
 		painel.add("North", lbImagem);
 		painel.add("Center",painelGrid);
-		painel.add("South",padrao.painelNull(0, 50));
+		painel.add("South",editPanel.painelNull(0, 50));
 		
-		painelContent.add("North", padrao.painelNull(0, 4));
+		painelContent.add("North", editPanel.painelNull(0, 4));
 		painelContent.add("Center", painel);
 		
 		return painelContent;
@@ -291,19 +293,19 @@ public class PainelMainAluno extends EventosAluno {
 		mainJPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		
 		mainJPanel.add("Center",painelLocalizarArquivo);
-		mainJPanel.add("West",padrao.painelNull(20, 0));
-		mainJPanel.add("East",padrao.painelNull(20, 0));
-		mainJPanel.add("North",padrao.painelNull(0, 10));
-		mainJPanel.add("South",padrao.painelNull(0, 50));
+		mainJPanel.add("West",editPanel.painelNull(20, 0));
+		mainJPanel.add("East",editPanel.painelNull(20, 0));
+		mainJPanel.add("North",editPanel.painelNull(0, 10));
+		mainJPanel.add("South",editPanel.painelNull(0, 50));
 		
 		// Vai para Janela Principal
 		return painelScrollMain;
 	}
 
 	private JPanel painelInternoSul() {
-		painelInternoSul.add("Center",padrao.painelContentComponent("West", painelBotoes()));
-		painelInternoSul.add("North",padrao.painelNull(0, 5));
-		painelInternoSul.add("West",padrao.painelNull(120, 0));
+		painelInternoSul.add("Center",editPanel.painelContentComponent("West", painelBotoes()));
+		painelInternoSul.add("North",editPanel.painelNull(0, 5));
+		painelInternoSul.add("West",editPanel.painelNull(120, 0));
 		painelInternoSul.add("South",painelTable()); // TABELA
 		
 		return painelInternoSul;
@@ -312,7 +314,7 @@ public class PainelMainAluno extends EventosAluno {
 	private JPanel painelTable() {
 		PainelTabela table = new PainelTabela();
 		
-		painelTabela.add("North", padrao.painelNull(0, 10));
+		painelTabela.add("North", editPanel.painelNull(0, 10));
 		painelTabela.add("Center", table.organizandoColunasTables(modeloAtaResultado));
 
 		return painelTabela;
@@ -325,7 +327,7 @@ public class PainelMainAluno extends EventosAluno {
 		painelContentBotoes.add(btnAlterar);
 		painelContentBotoes.add(btnExcluir);
 		painelContentBotoes.add(btnLimpar);
-		painelContentBotoes.add(padrao.painelNull(5, 0));
+		painelContentBotoes.add(editPanel.painelNull(5, 0));
 		painelContentBotoes.add(btnDocumento);
 		painelContentBotoes.add(btnAtaResul);
 		painelContentBotoes.add(btnCaixa);
@@ -364,4 +366,36 @@ public class PainelMainAluno extends EventosAluno {
 		lbCodigo.setForeground(Color.RED);
 	}
 	
+	private void alterarFontes() {
+		FontGroup font = new FontGroup();
+		
+		// JTextField
+			tfNome.setFont(font.font_NEG_15);
+			tfCidade.setFont(font.font_NEG_15);
+			tfEnd.setFont(font.font_NEG_15);
+			tfCodigo.setFont(font.font_NEG_15);
+			tfRefBox.setFont(font.font_NEG_18);
+			tfLocaInter.setFont(font.font_NEG_18);
+			
+			tfNome.setPreferredSize(new Dimension(450,0));
+			tfCodigo.setPreferredSize(new Dimension(100,0));
+			tfNomeMae.setPreferredSize(new Dimension(450,0));
+			tfEnd.setPreferredSize(new Dimension(312,0));
+			tfCidade.setPreferredSize(new Dimension(312,0));
+			tfRefBox.setPreferredSize(new Dimension(130,0));
+			tfLocaInter.setPreferredSize(new Dimension(130,0));
+			
+			tfRefBox.setForeground(Color.RED);
+			tfLocaInter.setForeground(Color.RED);
+			
+			// Outros
+			ftFone.setBorder(null);
+			ftCpf.setBorder(null);
+			ftDataNasc.setBorder(null);
+			ftDataMatricula.setBorder(null);
+			
+			//Desativando
+			tfRefBox.setEditable(false);
+			tfLocaInter.setEditable(false);
+	}	
 }

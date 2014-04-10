@@ -57,24 +57,24 @@ public class PainelMainAta extends EventosAta {
 		
 		eventosBotoes();
 		
-		painelEsquerdoInfoAluno.add(padrao.painelNull(0, 0));
+		painelEsquerdoInfoAluno.add(editPanel.painelNull(0, 0));
 		painelEsquerdoInfoAluno.add(lbTurma);
 		painelEsquerdoInfoAluno.add(lbTurno);
 		painelEsquerdoInfoAluno.add(lbAno);
 		painelEsquerdoInfoAluno.add(lbModalidade);
 		painelEsquerdoInfoAluno.add(lbEnsino);
 		
-		painelDireito.add(padrao.painelNull(0, 0));
-		painelDireito.add(padrao.painelContentComponent("West", tfTurma));
-		painelDireito.add(padrao.painelContentComponent("West", comboTurno));
-		painelDireito.add(padrao.painelContentComponent("West", ftAno));
-		painelDireito.add(padrao.painelContentComponent("West", comboModalidade));
-		painelDireito.add(padrao.painelContentComponent("West", comboEnsino));
+		painelDireito.add(editPanel.painelNull(0, 0));
+		painelDireito.add(editPanel.painelContentComponent("West", tfTurma));
+		painelDireito.add(editPanel.painelContentComponent("West", comboTurno));
+		painelDireito.add(editPanel.painelContentComponent("West", ftAno));
+		painelDireito.add(editPanel.painelContentComponent("West", comboModalidade));
+		painelDireito.add(editPanel.painelContentComponent("West", comboEnsino));
 		
 		painelContentEIA.add("North", lbDadosAta);
 		painelContentEIA.add("West", painelEsquerdoInfoAluno);
 		painelContentEIA.add("Center", painelDireito);
-		painelContentEIA.add("East",padrao.painelNull(200, 0));
+		painelContentEIA.add("East",editPanel.painelNull(200, 0));
 		
 		alterarFontes();
 		painelInternoNorte();
@@ -112,17 +112,17 @@ public class PainelMainAta extends EventosAta {
 		mainJPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		
 		mainJPanel.add("Center",painelLocalizarArquivo);
-		mainJPanel.add("West",padrao.painelNull(20, 0));
-		mainJPanel.add("East",padrao.painelNull(20, 0));
-		mainJPanel.add("North",padrao.painelNull(0, 15));
+		mainJPanel.add("West",editPanel.painelNull(20, 0));
+		mainJPanel.add("East",editPanel.painelNull(20, 0));
+		mainJPanel.add("North",editPanel.painelNull(0, 15));
 		
 		return painelScrollMain;
 	}
 
 	private JPanel painelInternoSul() {
-		painelInternoSul.add("Center",padrao.painelContentComponent("West", painelBotoes()));
-		painelInternoSul.add("North",padrao.painelNull(0, 5));
-		painelInternoSul.add("West",padrao.painelNull(220, 0));
+		painelInternoSul.add("Center",editPanel.painelContentComponent("West", painelBotoes()));
+		painelInternoSul.add("North",editPanel.painelNull(0, 5));
+		painelInternoSul.add("West",editPanel.painelNull(220, 0));
 		painelInternoSul.add("South",painelTable());
 		
 		return painelInternoSul;
@@ -131,7 +131,7 @@ public class PainelMainAta extends EventosAta {
 	private JPanel painelTable() {
 		PainelTabela table = new PainelTabela();
 		// carregando modelo da tabela.
-		table.getTabela().setModel(modelo);
+		table.getTabela().setModel(modeloAta);
 		
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -140,7 +140,7 @@ public class PainelMainAta extends EventosAta {
 		scroll.setViewportView(table.getTabela()); // insere a tabela no painel Scroll
 		scroll.setWheelScrollingEnabled(true);
 		
-		painelTabela.add("North", padrao.painelNull(0, 10));
+		painelTabela.add("North", editPanel.painelNull(0, 10));
 		painelTabela.add("Center", scroll);
 		painelTabela.add("South", painelLocaliza(lbCodigo2));
 		

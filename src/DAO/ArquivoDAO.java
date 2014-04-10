@@ -1,7 +1,6 @@
 package DAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javax.swing.JOptionPane;
 
 import Model.Arquivo;

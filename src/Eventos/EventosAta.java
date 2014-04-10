@@ -25,7 +25,7 @@ public class EventosAta extends EventosPadrão {
 
 	//TABELA
 	protected List<Ata> lista = daoAta.getTodasAtas();
-	protected AtaTableModel modelo = new AtaTableModel(lista);
+	protected AtaTableModel modeloAta = new AtaTableModel(lista);
 	
 	// Objeto Mask
 	MaskFormatterGroup mask = new MaskFormatterGroup();
@@ -55,7 +55,7 @@ public class EventosAta extends EventosPadrão {
 	@Override
 	public Object getValoresDosCampos() {
 		Ata ata = new Ata();
-		ata.setCodigo((String)comboTurno.getSelectedItem(), tfTurma.getText(), ftAno.getText());
+		ata.setCodigo((String)comboTurno.getSelectedItem(), tfTurma.getText(), mask.verificarMascara(ftAno));
 		ata.setModalidadeAta((String)comboModalidade.getSelectedItem());
 		ata.setEnsinoAta((String)comboEnsino.getSelectedItem());
 		
@@ -111,7 +111,7 @@ public class EventosAta extends EventosPadrão {
 		// Caso seja salvo com sucesso
 		if(daoAta.save(ata)) {
 			JOptionPane.showMessageDialog(null, SUCESSO);
-			modelo.addContato(ata); // Insere a caixa na tabela.
+			modeloAta.addContato(ata); // Insere a ata na tabela da tela ATA.
 			limparCampos();
 			
 			//LIMPA A ATA

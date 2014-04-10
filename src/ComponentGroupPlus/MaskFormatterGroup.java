@@ -2,6 +2,7 @@ package ComponentGroupPlus;
 
 import java.text.ParseException;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
 
 public class MaskFormatterGroup {
@@ -50,5 +51,13 @@ public class MaskFormatterGroup {
 		}
 		return ano;
 	}
+	
+	public String verificarMascara(JFormattedTextField campo){              
+        if(campo.getText().contains("_")){
+                return "";
+        }else{
+                return campo.getText();
+        }
+}
 	
 }

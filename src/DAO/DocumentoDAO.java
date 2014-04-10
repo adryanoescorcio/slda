@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import Model.Aluno;
 import Model.Documento;
 import Model.InterfacePadraoEntidade;
 import PrimaryKey.DocumentoPK;
@@ -64,6 +65,15 @@ public class DocumentoDAO extends DAO {
 		
 		return documentos;
 	}
-
 	
+	public List<Documento> buscarDocumentoporAluno(Aluno aluno){
+		
+		Query query = em.createNamedQuery("Documento.findByAluno");
+		query.setParameter("aluno", aluno);
+		@SuppressWarnings("unchecked")
+		List<Documento> listaDocumento = query.getResultList();
+	
+		return listaDocumento;
+	}
+
 }

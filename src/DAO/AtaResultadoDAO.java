@@ -1,7 +1,15 @@
 package DAO;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Query;
+
+import Model.Aluno;
+import Model.Ata;
 import Model.AtaResultado;
 import Model.InterfacePadraoEntidade;
+import PrimaryKey.AtaPK;
 import PrimaryKey.AtaResultadoPK;
 import PrimaryKey.InterfaceKey;
 
@@ -41,4 +49,25 @@ public class AtaResultadoDAO extends DAO {
 		return em.find(AtaResultado.class, codigo);
 	}
 
+	public List<Ata> buscarAtaporAluno(Aluno aluno){
+		
+		String codAluno = aluno.getCodigo();
+		AtaPK atapk = new AtaPK();
+		Ata ata = new Ata();
+		List<Ata> listaAta = new ArrayList<Ata>();
+		
+		Query query = em.createNamedQuery("AtaResultado.findByAluno");
+		query.setParameter("aluno", codAluno);
+		@SuppressWarnings("unchecked")
+		List<AtaResultado> ataResultado = query.getResultList();
+		
+		for(int i = 0;i < ataResultado.size(); i++){
+			atapk.setCodigo(ataResultado.get(i).getTurmaAta(), ataResultado.get(i).getTurnoAta(), ataResultado.get(i).getAnoAta());
+			ata = em.find(Ata.class, atapk);
+			listaAta.add(ata);
+		}
+		
+		return listaAta;
+		
+	}
 }

@@ -14,6 +14,7 @@ import ComponentGroupPlus.IconesGroup;
 import DAO.AlunoDAO;
 import DAO.ArquivoDAO;
 import DAO.AtaDAO;
+import DAO.AtaResultadoDAO;
 import DAO.CaixaDAO;
 import DAO.DocumentoDAO;
 import DAO.JPAUtil;
@@ -38,6 +39,7 @@ public abstract class EventosPadrão {
 	protected AtaDAO daoAta = new AtaDAO(conexaoBD);
 	protected ArquivoDAO daoArquivo = new ArquivoDAO(conexaoBD);
 	protected CaixaDAO daoCaixa = new CaixaDAO(conexaoBD);
+	protected AtaResultadoDAO daoAtaResultado = new AtaResultadoDAO(conexaoBD);
 	
 	//ENTIDADES
 	protected Aluno aluno;
@@ -50,7 +52,8 @@ public abstract class EventosPadrão {
 	// ICONES
 	private IconesGroup icone = new IconesGroup();
 	
-	protected EditPanelGroup padrao = new EditPanelGroup();
+	protected EditPanelGroup editPanel = new EditPanelGroup();
+
 	protected ComboBoxGroup comboGroup = new ComboBoxGroup();
 	
 	public JButton btnPesquisar = new JButton("Pesquisar",icone.getIconePesquisar());
@@ -73,7 +76,7 @@ public abstract class EventosPadrão {
 	}
 	
 	public JPanel painelLocaliza(JLabel titulo) {
-		return padrao.painelLocaliza(titulo, tfLocalizar, btnPesquisar);
+		return editPanel.painelLocaliza(titulo, tfLocalizar, btnPesquisar);
 	}
 
 	private void alterarFont() {

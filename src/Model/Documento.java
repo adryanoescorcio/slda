@@ -17,7 +17,7 @@ import PrimaryKey.InterfaceKey;
  * @implements PadraoEntidade
  **/
 
-@NamedQuery(name="Documento.findAll", query="SELECT d FROM Documento d")
+@NamedQuery(name="Documento.findByAluno", query="SELECT d FROM Documento d where d.aluno = :aluno")
 
 @Entity
 public class Documento implements InterfacePadraoEntidade {

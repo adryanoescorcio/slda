@@ -36,7 +36,7 @@ public class AtaTableModel extends AbstractTableModel{
 		return colunas[columnIndex];
 	}
 
-	public Class getColumnClass(int columnIndex) {
+	public Class<String> getColumnClass(int columnIndex) {
 		return String.class;
 	}
 
@@ -95,5 +95,28 @@ public class AtaTableModel extends AbstractTableModel{
 		this.linhas.addAll(list);
 	}
 	
+	//REMOVE A PATIR DO OBJETO
+	public void removeContato(Ata object) {
+		int indice = 0;
+		for(int i = 0; i < linhas.size(); i++){
+			if(linhas.get(i).toString().equals(object.toString())){
+				indice = i;
+			}
+		}
+		linhas.remove(indice);
+		fireTableRowsDeleted(indice, indice);
 
+	}
+	
+	//ATUALIZAR NOVO A PARTIR DO VELHO
+	public void updateContato(Ata velho, Ata novo) {
+		int indice = 0;
+		for(int i = 0; i < linhas.size(); i++){
+			if(linhas.get(i).toString().equals(velho.toString())){
+				indice = i;
+			}
+		}
+		linhas.set(indice, novo);
+		fireTableRowsUpdated(indice, indice);
+	}
 }

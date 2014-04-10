@@ -86,7 +86,11 @@ public class EventosCaixa extends EventosPadrão {
 			Caixa caixa2 = daoCaixa.buscar(caixa.getCodigoKEY());
 			
 			if(!caixa.toString().equals(caixa2.toString())) {
-				metodoSalvar();
+				
+				modelo.updateContato(caixa2, caixa);
+				
+				//LIMPA A CAIXA
+				caixa = null;
 				
 			} else {
 				JOptionPane.showMessageDialog(null, "(AT01) Não houve modificação.","ATENÇÃO AT01", 
@@ -102,11 +106,7 @@ public class EventosCaixa extends EventosPadrão {
 		// Caso seja salvo com sucesso
 		if(daoCaixa.save(caixa)) {
 			JOptionPane.showMessageDialog(null, SUCESSO);
-			modelo.addContato(caixa); // Insere a caixa na tabela.
 			limparCampos();
-			
-			//LIMPA A CAIXA
-			caixa = null;
 		}		
 	}
 	/**
@@ -117,6 +117,10 @@ public class EventosCaixa extends EventosPadrão {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			metodoSalvar();
+			modelo.addContato(caixa); // Insere a caixa na tabela.
+			
+			//LIMPA A CAIXA
+			caixa = null;
 		}
 	};
 
@@ -127,6 +131,7 @@ public class EventosCaixa extends EventosPadrão {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
+		
 			String codigoLocalizar = tfLocalizar.getText().trim(); // pega o codigo digitado pelo cliente.
 
 			CaixaPK pk = new CaixaPK(); // chave primaria da caixa.
@@ -158,7 +163,12 @@ public class EventosCaixa extends EventosPadrão {
 		public void actionPerformed(ActionEvent e) {			
 			daoCaixa.remover(caixa);
 			JOptionPane.showMessageDialog(null, "Caixa excluído com sucesso.");
+			modelo.removeContato(caixa);
+			lista.remove(caixa);
 			limparCampos();
+			
+			//LIMPA A CAIXA
+			caixa = null;
 		}
 	};
 	

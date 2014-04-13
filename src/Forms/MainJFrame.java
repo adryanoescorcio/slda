@@ -25,11 +25,16 @@ import Menus.MenuVisualizar;
 public class MainJFrame {
 	
 	// JFRAME MAINJFRAME ESTA EM TELAPADRAO
-	public JFrame mainJFrame = new JFrame();
+	private JFrame mainJFrame = new JFrame();
 	
 	// constantes
 	private static final String TITULO_WINDOW = "SLDA - Sistema de Localização de Documentos do Aluno";
 	private static final int TOP = JTabbedPane.TOP;
+
+	private static final int PAINEL_CAIXA = 0;
+	private static final int PAINEL_ALUNO = 1;
+	private static final int PAINEL_ATA = 2;
+	private static final int PAINEL_EXTRA = 3;
 
 	/**
 	 * CRIADO UM PAINEL EM CAMADAS(JTABBEDPANE) PRINCIPAL - TOP
@@ -56,8 +61,8 @@ public class MainJFrame {
 	
 	//INSTANCIANDO OS PAINEIS CRUD
 	// ALUNO
-	private PainelMainCaixa localizarAluno = new PainelMainCaixa();
-	private PainelMainAluno cadastrarAluno = new PainelMainAluno();
+	private PainelMainCaixa cadastrarCaixa = new PainelMainCaixa();
+	private PainelMainAluno cadastrarAluno = new PainelMainAluno(this);
 	private PainelMainAta cadastrarAta = new PainelMainAta();
 	
 	private Font font = new Font(Font.SANS_SERIF, 0, 18);
@@ -73,15 +78,35 @@ public class MainJFrame {
 		camadaExterna.setOpaque(true);
 
 		//DEFININDO OS PAINEIS DA CAMADA EXTERNA 
-		camadaExterna.addTab("Caixa",  icone.getIconeArquivo(), localizarAluno.getTelaPrincipal());
-		camadaExterna.addTab("Discente", icone.getIconeAluno(), cadastrarAluno.getTelaPrincipal());
-		camadaExterna.addTab("Ata", icone.getIconeAta(), cadastrarAta.getTelaPrincipal());
+		camadaExterna.addTab("Caixa",  icone.getIconeArquivo(), cadastrarCaixa.getTelaPrincipal(),"Gerenciar Caixas");
+		camadaExterna.addTab("Discente", icone.getIconeAluno(), cadastrarAluno.getTelaPrincipal(), "Gerenciar Alunos");
+		camadaExterna.addTab("Ata", icone.getIconeAta32x(), cadastrarAta.getTelaPrincipal(), "Gerenciar Atas");
 	}
 	
 	private void alterandoFontes() {
 		camadaExterna.setFont(font);
 	}
 
+	public JTabbedPane getCamadaExterna() {
+		return camadaExterna;
+	}
+
+	public void setCamadaExterna(JTabbedPane camadaExterna) {
+		this.camadaExterna = camadaExterna;
+	}
+
+	/**
+	 * Insere uma aba na camada JTabbed e desativa as outras abas.
+	 **/
+	public void addCamada(JPanel painel) {
+		camadaExterna.addTab("Inserir Ata-Aluno", painel); // insere um aba
+		// Desativar a outras abas
+		camadaExterna.setEnabledAt(PAINEL_CAIXA, false);
+		camadaExterna.setEnabledAt(PAINEL_ALUNO, false);
+		camadaExterna.setEnabledAt(PAINEL_ATA, false);
+		camadaExterna.setSelectedIndex(PAINEL_EXTRA); // seta o ultimo painel
+	}
+	
 	private void addComponentesMainJPanel() {
 		//ADICIONANDO A CAMADA EXTERNA À JANELA(JFrame)
 		mainJPanel.add(camadaExterna);
@@ -115,6 +140,14 @@ public class MainJFrame {
 
 	public static void main(String[] args) {
 		new MainJFrame();
+	}
 
+	public void normalizarCamadas() {
+		camadaExterna.removeTabAt(PAINEL_EXTRA); // remove o painel extra
+		// volta a camadas ao normal
+		camadaExterna.setEnabledAt(PAINEL_CAIXA, true);
+		camadaExterna.setEnabledAt(PAINEL_ALUNO, true);
+		camadaExterna.setSelectedIndex(PAINEL_ALUNO); // volta a tela para o painel do aluno
+		camadaExterna.setEnabledAt(PAINEL_ATA, true);
 	}
 }

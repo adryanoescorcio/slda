@@ -1,15 +1,10 @@
 package DAO;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
 
-import Model.Aluno;
 import Model.Ata;
-import Model.AtaResultado;
 import Model.InterfacePadraoEntidade;
 import PrimaryKey.AtaPK;
 import PrimaryKey.InterfaceKey;
@@ -63,28 +58,7 @@ public class AtaDAO extends DAO {
     		return atas;
     	}
 
-		@SuppressWarnings("unchecked")
-		public List buscaAta(Aluno aln) {
-			@SuppressWarnings("rawtypes")
-			List list = new ArrayList();
-			try {
-				ResultSet rs = stm.executeQuery("Select * from ataresultado where aluno = '"+aln.getCodigo()+"'");
-				while(rs.next()){
-					AtaResultado ataResul = new AtaResultado();
-					ataResul.setAluno(rs.getString("aluno")); // setando o codigo do aluno
-					ataResul.setTurmaAta(rs.getString("turmaata")); // setando a turma da ata
-					ataResul.setAnoAta(rs.getString("anoata")); // setando o ano
-					ataResul.setTurnoAta(rs.getString("turnoata")); // setando o turno
-					ataResul.setNomeAluno(aln.getNomeAluno()); // setando o codigo do aluno
-					
-					list.add(ataResul); // inserindo na lista
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			return list;
-			
+		public boolean isContem(Ata ataTest) {
+			return em.contains(ataTest);
 		}
 }

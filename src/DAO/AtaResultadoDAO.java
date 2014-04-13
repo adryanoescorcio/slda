@@ -1,15 +1,12 @@
 package DAO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
 
 import Model.Aluno;
-import Model.Ata;
 import Model.AtaResultado;
 import Model.InterfacePadraoEntidade;
-import PrimaryKey.AtaPK;
 import PrimaryKey.AtaResultadoPK;
 import PrimaryKey.InterfaceKey;
 
@@ -49,25 +46,39 @@ public class AtaResultadoDAO extends DAO {
 		return em.find(AtaResultado.class, codigo);
 	}
 
-	public List<Ata> buscarAtaporAluno(Aluno aluno){
+	public List<AtaResultado> buscarAtaporAluno(Aluno aluno){
 		
 		String codAluno = aluno.getCodigo();
-		AtaPK atapk = new AtaPK();
-		Ata ata = new Ata();
-		List<Ata> listaAta = new ArrayList<Ata>();
 		
 		Query query = em.createNamedQuery("AtaResultado.findByAluno");
 		query.setParameter("aluno", codAluno);
+		
 		@SuppressWarnings("unchecked")
 		List<AtaResultado> ataResultado = query.getResultList();
-		
-		for(int i = 0;i < ataResultado.size(); i++){
-			atapk.setCodigo(ataResultado.get(i).getTurmaAta(), ataResultado.get(i).getTurnoAta(), ataResultado.get(i).getAnoAta());
-			ata = em.find(Ata.class, atapk);
-			listaAta.add(ata);
-		}
-		
-		return listaAta;
-		
+			
+		return ataResultado;
 	}
+	
+	 /**
+     * Busta a AtaResultado com o codigo do aluno
+     **/
+//	public List<AtaResultado> buscaAta(Aluno aln) {
+//		List<AtaResultado> list = new ArrayList<AtaResultado>();
+//		try {
+//			ResultSet rs = stm.executeQuery("Select * from ataresultado where aluno = '"+aln.getCodigo()+"'");
+//			while(rs.next()){
+//				AtaResultado ataResul = new AtaResultado();
+//				ataResul.setAluno(rs.getString("aluno")); // setando o codigo do aluno
+//				ataResul.setTurmaAta(rs.getString("turmaata")); // setando a turma da ata
+//				ataResul.setAnoAta(rs.getString("anoata")); // setando o ano
+//				ataResul.setTurnoAta(rs.getString("turnoata")); // setando o turno
+//				ataResul.setNomeAluno(aln.getNomeAluno()); // setando o codigo do aluno
+//				
+//				list.add(ataResul); // inserindo na lista
+//			}
+//		} catch (SQLException e) {
+//			System.out.println("ERS01");
+//		}
+//		return list;
+//	}
 }

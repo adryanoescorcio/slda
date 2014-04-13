@@ -166,9 +166,11 @@ public class EventosAta extends EventosPadrão {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {			
-			daoAta.remover(ata);
-			JOptionPane.showMessageDialog(null, "Ata excluída com sucesso.");
-			limparCampos();
+			if(JOptionPane.showConfirmDialog(null, "Deseja excluir a ata?") == 0) {
+				daoAta.remover(ata);
+				JOptionPane.showMessageDialog(null, "Ata excluída com sucesso.");
+				limparCampos();
+			}
 		}
 	};
 

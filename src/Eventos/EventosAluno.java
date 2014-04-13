@@ -14,7 +14,8 @@ import javax.swing.JTextField;
 import ComponentGroupPlus.MaskFormatterGroup;
 import ComponentGroupPlus.PainelTabela;
 import ExceptionSLDA.erroNullRequisitoException;
-import Forms.AddDiscAta;
+import Forms.PainelDiscenteAta;
+import Forms.MainJFrame;
 import Model.Aluno;
 import Model.Arquivo;
 import Model.Ata;
@@ -72,12 +73,22 @@ public class EventosAluno extends EventosPadrão{
 	protected JComboBox<String> comboSexo = comboGroup.getComboBoxSexo();
 	protected JComboBox<String> comboTranferencia = comboGroup.getComboBoxTransferencia();
 	protected JComboBox<String> comboSituacao = comboGroup.getComboBoxSituacaoAluno();
-
-	public EventosAluno() {
-		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
-		btnExcluir.setEnabled(false); // necessario a pesquisa para ativar botão
-	}
 	
+	private MainJFrame main;
+	
+	public EventosAluno(MainJFrame mainJFrame) {
+		this.main = mainJFrame;
+	}
+
+	public MainJFrame getMain() {
+		return main;
+	}
+
+	public void setMain(MainJFrame main) {
+		this.main = main;
+	}
+
+
 	@Override	
 	public void limparCampos(){
 		tfNome.setText("");
@@ -98,7 +109,8 @@ public class EventosAluno extends EventosPadrão{
 		comboSituacao.setSelectedIndex(0);	
 		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
 		btnExcluir.setEnabled(false);
-		
+		btnAtaResul.setEnabled(false);
+		btnDocumento.setEnabled(false);
 		btnSalvar.setEnabled(true);
 		tfCodigo.setEditable(true);
 	}
@@ -193,15 +205,15 @@ public class EventosAluno extends EventosPadrão{
 				setValoresDosCampos(aln); // atribui os valores recuperados para os campos.
 				pesquisarCaixa(); // pesquisa se o aluno se encontra em alguma caixa
 				pesquisarDoc();
-				pesquisarAta(aln);
 
 				modeloDoc = new DocumentoTableModel(daoDoc.buscarDocumentoporAluno(aln));
 				tabelaDocumento();
-				modeloAta = new AtaTableModel(daoAtaResultado.buscarAtaporAluno(aln));
-				tabelaAta();
+				tabelaAta(aln);
 
 				btnAlterar.setEnabled(true); // necessario a pesquisa para ativar botão
 				btnExcluir.setEnabled(true); // necessario a pesquisa para ativar botão
+				btnAtaResul.setEnabled(true);
+				btnDocumento.setEnabled(true);
 				
 				btnSalvar.setEnabled(false); // nao sera possivel salvar, somente alterar
 				tfCodigo.setEditable(false); // nao sera possivel alterar o codigo de objeto consultado.
@@ -211,7 +223,6 @@ public class EventosAluno extends EventosPadrão{
 			} catch(NullPointerException exc){
 				throw new erroNullRequisitoException("(ER03) Nenhum Aluno \"" +codigoLocalizar+ "\" foi encontrada.", "ERRO ER03",null);
 			}
-			
 		}
 	};
 
@@ -220,9 +231,11 @@ public class EventosAluno extends EventosPadrão{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {			
-			daoAluno.remover(aluno);
-			JOptionPane.showMessageDialog(null, "Discente excluído com sucesso.");
-			limparCampos();
+			if(JOptionPane.showConfirmDialog(null, "Deseja excluir o Discente?") == 0) {
+				daoAluno.remover(aluno);
+				JOptionPane.showMessageDialog(null, "Discente excluído com sucesso.");
+				limparCampos();
+			}
 		}
 	};
 	
@@ -243,36 +256,30 @@ public class EventosAluno extends EventosPadrão{
 	};
 	
 	protected ActionListener onClickAtaResul = new ActionListener() {
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			tabelaAta();
 			if(JOptionPane.showConfirmDialog(null, "Deseja inserir o aluno em uma ata?") == 0) {
-				new AddDiscAta();
+				PainelDiscenteAta dialogMain = new PainelDiscenteAta(EventosAluno.this);
+				main.addCamada(dialogMain.getMainDialog());
 			}
 		}
-
 	};
 	
-	private void tabelaAta(){
-		tabela.setModel(modeloAta);
-		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		int x = tabela.getWidth()/tabela.getColumnCount();
-		
-		for(int i=0;i<tabela.getColumnCount();i++) {
-			tabela.getColumnModel().getColumn(i).setPreferredWidth(x);
-		}
+	private void tabelaAta(Aluno aln){
+		List<AtaResultado> lista = daoAtaResultado.buscarAtaporAluno(aln);
+		modeloAtaResultado.setList(lista);
 	}
 	
 	private void tabelaDocumento(){
 		tabela.setModel(modeloDoc);
-		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		int x = tabela.getWidth()/tabela.getColumnCount();
-		
-		for(int i=0;i<tabela.getColumnCount();i++) {
-			tabela.getColumnModel().getColumn(i).setPreferredWidth(x);
-		}
 	}
 
+	public void normalizarCamadas() {
+		main.normalizarCamadas();
+		tabelaAta(aluno);
+	}
+ 
 	
 	protected void pesquisarCaixa() {
 		String localizar = tfLocalizar.getText().trim();
@@ -288,24 +295,8 @@ public class EventosAluno extends EventosPadrão{
 		 }
 	}
 	
-	protected void reconstruirTable() {
-		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		int x = tabela.getWidth()/tabela.getColumnCount();
-		
-		for(int i=0;i<tabela.getColumnCount();i++) {
-			tabela.getColumnModel().getColumn(i).setPreferredWidth(x);
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	protected void pesquisarAta(Aluno aln) {
-		List lis = daoAta.buscaAta(aln);
-		modeloAtaResultado.setList(lis);		
-	}
-
 	protected void pesquisarDoc() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	private void metodoSalvar() {

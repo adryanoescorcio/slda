@@ -12,13 +12,12 @@ public class AtaResultadoTableModel extends AbstractTableModel{
 	private static final long serialVersionUID = 1L;
 	
 	private static final int COL_CODIGO = 0;
-	private static final int COL_NOME = 1;
-	private static final int COL_TURMA = 2;
-	private static final int COL_TURNO = 3;
-	private static final int COL_ANO = 4;
+	private static final int COL_TURMA = 1;
+	private static final int COL_TURNO = 2;
+	private static final int COL_ANO = 3;
 	
 	private List<AtaResultado> linhas;
-	private String[] colunas = new String[]{"CODIGO","ALUNO","TURMA", "TURNO", "ANO",};
+	private String[] colunas = new String[]{"CODIGO","TURMA", "TURNO", "ANO",};
 
 	public AtaResultadoTableModel(List<AtaResultado> ata) {
 		this.linhas = new ArrayList<>(ata);
@@ -58,8 +57,6 @@ public class AtaResultadoTableModel extends AbstractTableModel{
 			return m.getTurnoAta();
 		} else if (column == COL_ANO) {
 			return m.getAnoAta();
-		} else if (column == COL_NOME) {
-			return m.getNomeAluno();
 		} else if (column == COL_CODIGO) {
 			return m.getAluno();
 		}
@@ -79,19 +76,16 @@ public class AtaResultadoTableModel extends AbstractTableModel{
 		linhas.add(contato);
 		int ultimoIndice = getRowCount() - 1;
 		fireTableRowsInserted(ultimoIndice, ultimoIndice);
-
 	}
 
 	public void updateContato(int indiceLinha, AtaResultado marca) {
 		linhas.set(indiceLinha, marca);
 		fireTableRowsUpdated(indiceLinha, indiceLinha);
-
 	}
 
 	public void removeContato(int indiceLinha) {
 		linhas.remove(indiceLinha);
 		fireTableRowsDeleted(indiceLinha, indiceLinha);
-
 	}
 	
 	public void changedAll(List<AtaResultado> list){
@@ -99,6 +93,4 @@ public class AtaResultadoTableModel extends AbstractTableModel{
 		fireTableRowsDeleted(0, this.linhas.size()-1);
 		this.linhas.addAll(list);
 	}
-	
-
 }

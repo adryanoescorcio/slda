@@ -47,10 +47,10 @@ public abstract class EventosPadrão {
 	protected Ata ata;
 	
 	// FONTE
-	private FontGroup font = new FontGroup();
+	protected FontGroup font = new FontGroup();
 	
 	// ICONES
-	private IconesGroup icone = new IconesGroup();
+	public IconesGroup icone = new IconesGroup();
 	
 	protected EditPanelGroup editPanel = new EditPanelGroup();
 
@@ -65,16 +65,28 @@ public abstract class EventosPadrão {
 	public JButton btnAta = new JButton("Ata",icone.getIconeAta());
 	public JButton btnAtaResul = new JButton("Ata",icone.getIconeAta());
 	public JButton btnCaixa = new JButton("Caixa", icone.getIconeCaixa());
+	public JButton btnCancelar = new JButton("Cancelar", icone.getIconeCancelar());
 	
 	protected JTextField tfLocalizar = new JTextField();
 	
 	protected static final String SUCESSO = "Operação realizada com sucesso.";
 	
 	public EventosPadrão() {
+		
 		configInit();
 		alterarFont();
 	}
 	
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+
+
+
 	public JPanel painelLocaliza(JLabel titulo) {
 		return editPanel.painelLocaliza(titulo, tfLocalizar, btnPesquisar);
 	}
@@ -88,6 +100,10 @@ public abstract class EventosPadrão {
 		btnPesquisar.setFont(font.font_PLA_14);
 		btnPesquisar.setPreferredSize(new Dimension(140,26));
 		btnPesquisar.setRolloverEnabled(false);
+		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
+		btnExcluir.setEnabled(false); // necessario a pesquisa para ativar botão
+		btnAtaResul.setEnabled(false);
+		btnDocumento.setEnabled(false);
 	}
 	
 	/**

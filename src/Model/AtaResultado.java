@@ -96,4 +96,10 @@ public class AtaResultado implements InterfacePadraoEntidade{
 		public void setAnoAta(String anoAta) {
 			atapk.setAnoAta(anoAta);
 		}
+
+		public void setAta(Ata ata) {
+			this.setTurmaAta(ata.getTurmaAta());
+			this.setTurnoAta(ata.getTurnoAta());
+			this.setAnoAta(ata.getAnoAta());
+		}
 }

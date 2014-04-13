@@ -1,5 +1,6 @@
 package ComponentGroupPlus;
 
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JScrollPane;
@@ -52,11 +53,12 @@ public class PainelTabela {
 	 * Carrega as configurações padrões de todas as tabelas.
 	 **/
 	private void loadConfigTable() {
-		getTabela().setRowHeight(TAM_ROW_TABLE); // Define o tamanho da linha da tabela
-		getTabela().setFocusable(false);
-		getTabela().setShowVerticalLines(false);
-		getTabela().setShowHorizontalLines(true);
-		getTabela().setRowMargin(5);
+		tabela.setRowHeight(TAM_ROW_TABLE); // Define o tamanho da linha da tabela
+		tabela.setFocusable(false);
+		tabela.setShowVerticalLines(false);
+		tabela.setShowHorizontalLines(true);
+		tabela.setRowMargin(5);
+		tabela.setGridColor(Color.BLUE);
 	}
 	
 	/**

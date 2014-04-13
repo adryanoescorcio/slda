@@ -160,15 +160,18 @@ public class EventosCaixa extends EventosPadrão {
 	protected ActionListener onClickExcluirCaixa = new ActionListener() {
 		
 		@Override
-		public void actionPerformed(ActionEvent e) {			
-			daoCaixa.remover(caixa);
-			JOptionPane.showMessageDialog(null, "Caixa excluído com sucesso.");
-			modelo.removeContato(caixa);
-			lista.remove(caixa);
-			limparCampos();
+		public void actionPerformed(ActionEvent e) {
 			
-			//LIMPA A CAIXA
-			caixa = null;
+			if (JOptionPane.showConfirmDialog(null, "Deseja excluir a ata?") == 0) {
+				daoCaixa.remover(caixa);
+				JOptionPane.showMessageDialog(null, "Caixa excluído com sucesso.");
+				modelo.removeContato(caixa);
+				lista.remove(caixa);
+				limparCampos();
+				
+				//LIMPA A CAIXA
+				caixa = null;
+			}
 		}
 	};
 	

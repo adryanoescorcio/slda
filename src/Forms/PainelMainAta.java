@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import ComponentGroupPlus.FontGroup;
 import ComponentGroupPlus.PainelTabela;
 import Eventos.EventosAta;
 
@@ -26,13 +25,9 @@ import Eventos.EventosAta;
 public class PainelMainAta extends EventosAta {
 
 	private static final int DIST = 5;
-
-	// Fonte
-	private FontGroup font = new FontGroup();
-	
 	private static final String BORDER_INFO_ATA = "DADOS DA ATA";
 	private static final int QUANT_LINHAS_GRID = 6;
-	
+
 	private JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
 	private JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
 	private JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));

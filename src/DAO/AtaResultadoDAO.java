@@ -59,26 +59,4 @@ public class AtaResultadoDAO extends DAO {
 		return ataResultado;
 	}
 	
-	 /**
-     * Busta a AtaResultado com o codigo do aluno
-     **/
-//	public List<AtaResultado> buscaAta(Aluno aln) {
-//		List<AtaResultado> list = new ArrayList<AtaResultado>();
-//		try {
-//			ResultSet rs = stm.executeQuery("Select * from ataresultado where aluno = '"+aln.getCodigo()+"'");
-//			while(rs.next()){
-//				AtaResultado ataResul = new AtaResultado();
-//				ataResul.setAluno(rs.getString("aluno")); // setando o codigo do aluno
-//				ataResul.setTurmaAta(rs.getString("turmaata")); // setando a turma da ata
-//				ataResul.setAnoAta(rs.getString("anoata")); // setando o ano
-//				ataResul.setTurnoAta(rs.getString("turnoata")); // setando o turno
-//				ataResul.setNomeAluno(aln.getNomeAluno()); // setando o codigo do aluno
-//				
-//				list.add(ataResul); // inserindo na lista
-//			}
-//		} catch (SQLException e) {
-//			System.out.println("ERS01");
-//		}
-//		return list;
-//	}
 }

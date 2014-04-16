@@ -26,13 +26,24 @@ public class AtaPK implements InterfaceKey {
 		return turmaAta;
 	}
 
-
 	public String getTurnoAta() {
 		return turnoAta;
 	}
 
 	public String getAnoAta() {
 		return anoAta;
+	}
+	
+	public void setTurmaAta(String turmaAta) {
+		this.turmaAta = turmaAta;
+	}
+
+	public void setTurnoAta(String turnoAta) {
+		this.turnoAta = turnoAta;
+	}
+
+	public void setAnoAta(String anoAta) {
+		this.anoAta = anoAta;
 	}
 
 	@Override

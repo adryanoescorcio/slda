@@ -88,7 +88,6 @@ public class EventosAluno extends EventosPadrão{
 		this.main = main;
 	}
 
-
 	@Override	
 	public void limparCampos(){
 		tfNome.setText("");
@@ -185,7 +184,7 @@ public class EventosAluno extends EventosPadrão{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		metodoSalvar();
+			metodoSalvar();
 		}
 	};
 	
@@ -259,16 +258,19 @@ public class EventosAluno extends EventosPadrão{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(JOptionPane.showConfirmDialog(null, "Deseja inserir o aluno em uma ata?") == 0) {
-				PainelDiscenteAta dialogMain = new PainelDiscenteAta(EventosAluno.this);
+			if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o aluno de uma ata?") == 0) {
+				PainelDiscenteAta dialogMain = 
+						new PainelDiscenteAta(EventosAluno.this);
+				
 				main.addCamada(dialogMain.getMainDialog());
 			}
 		}
 	};
 	
-	private void tabelaAta(Aluno aln){
-		List<AtaResultado> lista = daoAtaResultado.buscarAtaporAluno(aln);
-		modeloAtaResultado.setList(lista);
+	public void tabelaAta(Aluno aln){
+		List<AtaResultado> lista = daoAtaResultado.buscarAtaporAluno(aln); // realizando a busca
+		listaAtaResul = lista; // passando para a variavel global
+		modeloAtaResultado.setList(lista); // Inserindo a nova lista no modelo
 	}
 	
 	private void tabelaDocumento(){
@@ -280,7 +282,6 @@ public class EventosAluno extends EventosPadrão{
 		tabelaAta(aluno);
 	}
  
-	
 	protected void pesquisarCaixa() {
 		String localizar = tfLocalizar.getText().trim();
 		 
@@ -311,5 +312,13 @@ public class EventosAluno extends EventosPadrão{
 			//LIMPA A CAIXA
 			aluno = null;
 		}		
+	}
+
+	public List<AtaResultado> getListaAtaResul() {
+		return listaAtaResul;
+	}
+
+	public void setListaAtaResul(List<AtaResultado> listaAtaResul) {
+		this.listaAtaResul = listaAtaResul;
 	}	
 }

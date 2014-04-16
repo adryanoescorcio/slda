@@ -17,7 +17,7 @@ import PrimaryKey.InterfaceKey;
 
 @NamedQuery(name="Ata.findAll", query="SELECT a FROM Ata a")
 @Entity
-public class Ata implements InterfacePadraoEntidade {
+public class Ata implements InterfacePadraoEntidade, InterfacePadraoAta {
 
 	@EmbeddedId
 	private AtaPK ata = new AtaPK();
@@ -83,5 +83,20 @@ public class Ata implements InterfacePadraoEntidade {
 	@Override
 	public void setCodigoKEY(InterfaceKey chaveEntidade) {
 		this.ata = (AtaPK) chaveEntidade;
+	}
+
+	@Override
+	public void setTurmaAta(String turmaAta) {
+		ata.setTurmaAta(turmaAta);
+	}
+
+	@Override
+	public void setTurnoAta(String turnoAta) {
+		ata.setTurnoAta(turnoAta);
+	}
+
+	@Override
+	public void setAnoAta(String anoAta) {
+		ata.setAnoAta(anoAta);
 	}
 }

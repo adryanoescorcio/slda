@@ -1,10 +1,11 @@
 package Eventos;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -15,6 +16,7 @@ import ComponentGroupPlus.MaskFormatterGroup;
 import ExceptionSLDA.erroNullRequisitoException;
 import Model.Ata;
 import Model.AtaResultado;
+import Model.InterfacePadraoAta;
 
 public class EventoDiscenteAta extends EventosPadrão {
 	
@@ -26,13 +28,17 @@ public class EventoDiscenteAta extends EventosPadrão {
 	protected JComboBox<String> comboTurno;
 	protected JComboBox<String> comboModalidade;
 	protected JComboBox<String> comboEnsino;
-	protected JButton btnUltimaAta = new JButton(icone.getIconeAta());
+	protected JComboBox<Integer> comboOrdem = new JComboBox<Integer>();
+	
+//	protected JButton btnUltimaAta = new JButton(icone.getIconeAta());
 
 	private JPanel mainJDialog;
 	protected List<Ata> listaAta;
 	protected Ata ultimaAtaList;
+	
+	protected AtaResultado ataResultadoGlobal;
 
-	private EventosAluno evento;
+	protected EventosAluno evento;
 	
 	public EventoDiscenteAta(JPanel mainDialog, EventosAluno evAluno) {
 		this.evento = evAluno;
@@ -40,6 +46,7 @@ public class EventoDiscenteAta extends EventosPadrão {
 		this.setMainJDialog(mainDialog);
 		this.aluno = evAluno.getAluno();
 		
+		// pega a ultima ata inserida
 		setListaAta(daoAta.getTodasAtas()); // pega todas do banco de dados
 		ultimaAtaList = listaAta.get(listaAta.size()-1); // pega a ultima ata da lista
 		setValoresDosCampos(ultimaAtaList);
@@ -71,6 +78,7 @@ public class EventoDiscenteAta extends EventosPadrão {
 		comboTurno.setSelectedIndex(0);
 		comboModalidade.setSelectedIndex(0);
 		comboEnsino.setSelectedIndex(0);
+		btnExcluir.setEnabled(false);
 	}
 
 	@Override
@@ -88,15 +96,27 @@ public class EventoDiscenteAta extends EventosPadrão {
 
 	@Override
 	public void setValoresDosCampos(Object object) {
-		Ata ataLocal = (Ata) object;
-		
-		tfTurma.setText(ataLocal.getTurmaAta());
-		comboTurno.setSelectedItem(ataLocal.getTurnoAta());
-		ftAno.setText(ataLocal.getAnoAta());
-		comboModalidade.setSelectedItem(ataLocal.getModalidadeAta());
-		comboEnsino.setSelectedItem(ataLocal.getEnsinoAta());
+		// verifica qual o tipo de objeto que esta sendo inserido
+		try {
+			Ata ata = (Ata) object;
+			atribuirValoresNosCampos((Ata)ata);
+		} catch (Exception ex) {
+			AtaResultado ataResultado = (AtaResultado) object;
+			atribuirValoresNosCampos((AtaResultado)ataResultado);
+		}
 	}
 	
+	/**
+	 * Metodo para inserir os valores nos campos. Aceita tanto objeto tipo ata quanto objeto tipo AtaResultado
+	 **/
+	private void atribuirValoresNosCampos(InterfacePadraoAta model) {
+		tfTurma.setText(model.getTurmaAta());
+		comboTurno.setSelectedItem(model.getTurnoAta());
+		ftAno.setText(model.getAnoAta());
+		comboModalidade.setSelectedItem(model.getModalidadeAta());
+		comboEnsino.setSelectedItem(model.getEnsinoAta());
+	}
+
 	public JPanel getMainJDialog() {
 		return mainJDialog;
 	}
@@ -112,6 +132,29 @@ public class EventoDiscenteAta extends EventosPadrão {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			limparCampos();
+		}
+	};
+	
+	protected ActionListener onClickPesquisar = new ActionListener() {	
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			List<AtaResultado> lista = evento.getListaAtaResul(); // pega o resultado das atas com o aluno
+			
+			int valorComboBox = comboOrdem.getSelectedIndex(); // cria uma combox com os itens da lista sequenciados
+			ataResultadoGlobal = new AtaResultado();
+			
+			try {
+				if(valorComboBox > 0) {
+					ataResultadoGlobal = lista.get(valorComboBox-1); //é retirado um para que seja contado corretamento da lista, pois a lista na combo incrementa um
+					setValoresDosCampos(ataResultadoGlobal); // inserindo os valores nos campos
+					btnExcluir.setEnabled(true); // ativar o botão excluir
+					btnSalvar.setEnabled(false); // desativa o botão salvar do aluno
+				} else {
+					JOptionPane.showMessageDialog(null, "Escolha uma ata válida.");
+				}
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "Item foi excluído ou não existe.");
+			}
 		}
 	};
 	
@@ -131,7 +174,7 @@ public class EventoDiscenteAta extends EventosPadrão {
 							(Ata) getValoresDosCampos());
 					
 					daoAtaResultado.save(ataResul); //salva a entidade
-					finallyOperation();
+					finallyOperation(); // realizando as operações apos salvar
 				} else {
 					new erroNullRequisitoException("Ata não foi cadastrada, insira a nova ata no banco de dados.", "ER04" ,null);
 				}
@@ -148,16 +191,55 @@ public class EventoDiscenteAta extends EventosPadrão {
 			mainJDialog.removeAll();
 		}
 	};
+	
+	protected ActionListener onClickExcluir = new ActionListener() {	
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(JOptionPane.showConfirmDialog(null, "O aluno será retirado da Ata. Deseja continuar com a operação?") == 0) {
+				daoAtaResultado.remover(ataResultadoGlobal);
+				evento.tabelaAta(aluno);
+				itemDaComboBox();
+				JOptionPane.showMessageDialog(null, "Aluno foi retirado da ata com sucesso.");
+				limparCampos();
+			}
+		}
+	};
 
 	protected boolean validaAta(Ata ataTest) {
 		int i = listaAta.size()-1; // pega todos os elementos da lista
 		boolean boo = true;
 
-		while (i >=0 && boo) { // inicia do ultimo elemento para o primeiro
+		while (i !=0 && boo) { // inicia do ultimo elemento para o primeiro
 			// compara todos.
 			boo = !(listaAta.get(i).toString().equals(ataTest.toString())); // caso encontre (true) ele retorna falso para acabar com o loop
+			System.out.println(boo);
+			i--;
 		}
 		return !boo; // retorna o resultado final. encontrou ou nao? true ou falso.
+	}
+	
+	/**
+	 * Pega a quantidade de item da lista de ataResultados e transforma em comoboBox
+	 **/
+	public JComboBox<Integer> itemComboBoxOrdem() {
+		comboOrdem.setBackground(Color.white);
+		comboOrdem.setFont(font.font_PLA_14);
+		comboOrdem.setPreferredSize(new Dimension(50,0));
+		
+		itemDaComboBox();
+
+		return comboOrdem;
+	}
+
+	private void itemDaComboBox() {
+		comboOrdem.removeAllItems();
+		comboOrdem.addItem(null);
+		int i;
+		int quantElementList = evento.getListaAtaResul().size();
+		for(i=0;i<quantElementList;i++) {
+			comboOrdem.addItem(i+1);
+		}
+		
 	}
 
 	/**

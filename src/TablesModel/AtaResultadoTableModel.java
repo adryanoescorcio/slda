@@ -11,13 +11,15 @@ public class AtaResultadoTableModel extends AbstractTableModel{
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final int COL_CODIGO = 0;
+	private static final int COL_ORDEM = 0;
 	private static final int COL_TURMA = 1;
 	private static final int COL_TURNO = 2;
 	private static final int COL_ANO = 3;
+	private static final int COL_MODALI = 4;
+	private static final int COL_ENSINO = 5;
 	
 	private List<AtaResultado> linhas;
-	private String[] colunas = new String[]{"CODIGO","TURMA", "TURNO", "ANO",};
+	private String[] colunas = new String[]{"ÍNDICE","TURMA", "TURNO", "ANO", "MODALIDADE", "ENSINO" };
 
 	public AtaResultadoTableModel(List<AtaResultado> ata) {
 		this.linhas = new ArrayList<>(ata);
@@ -55,12 +57,15 @@ public class AtaResultadoTableModel extends AbstractTableModel{
 			return m.getTurmaAta();
 		} else if (column == COL_TURNO) {
 			return m.getTurnoAta();
+		} else if (column == COL_ORDEM) {
+			return row+1;
 		} else if (column == COL_ANO) {
 			return m.getAnoAta();
-		} else if (column == COL_CODIGO) {
-			return m.getAluno();
+		} else if (column == COL_MODALI) {
+			return m.getModalidadeAta();
+		}	else if (column == COL_ENSINO) {
+				return m.getEnsinoAta();
 		}
-		
 		return "";
 	}
 

@@ -1,6 +1,7 @@
 package Forms;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JFrame;
@@ -76,11 +77,18 @@ public class MainJFrame {
 		
 		//SETANDO AS CAMADAS COM O FUNDO BRANCO
 		camadaExterna.setOpaque(true);
-
+		camadaExterna.setBackground(Color.YELLOW);
+		
 		//DEFININDO OS PAINEIS DA CAMADA EXTERNA 
-		camadaExterna.addTab("Caixa",  icone.getIconeArquivo(), cadastrarCaixa.getTelaPrincipal(),"Gerenciar Caixas");
-		camadaExterna.addTab("Discente", icone.getIconeAluno(), cadastrarAluno.getTelaPrincipal(), "Gerenciar Alunos");
-		camadaExterna.addTab("Ata", icone.getIconeAta32x(), cadastrarAta.getTelaPrincipal(), "Gerenciar Atas");
+		camadaExterna.addTab("Caixa",  icone.getIconeArquivo(), 
+				cadastrarCaixa.getTelaPrincipal(),"Gerenciar Caixas");
+		
+		camadaExterna.addTab("Discente", icone.getIconeAluno(), 
+				cadastrarAluno.getTelaPrincipal(), "Gerenciar Alunos");
+		
+		camadaExterna.addTab("Ata", icone.getIconeAta32x(), 
+				cadastrarAta.getTelaPrincipal(), "Gerenciar Atas");
+		camadaExterna.setSelectedIndex(1);
 	}
 	
 	private void alterandoFontes() {

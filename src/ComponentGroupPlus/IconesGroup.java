@@ -16,7 +16,7 @@ public class IconesGroup {
 	private ImageIcon iconeDoc = new ImageIcon(DIR_ICONES+"doc.png");
 	private ImageIcon iconeAta = new ImageIcon(DIR_ICONES+"ata2.png");
 	private ImageIcon iconeCaixa = new ImageIcon(DIR_ICONES+"caixa.png");
-	private ImageIcon iconeBox = new ImageIcon(DIR_ICONES+"box.jpg");
+	private ImageIcon iconeBox = new ImageIcon(DIR_ICONES+"box2.jpg");
 	private ImageIcon iconeCancelar = new ImageIcon(DIR_ICONES+"cancel.png");
 	
 	// Icones principais 32x32

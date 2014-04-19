@@ -21,7 +21,7 @@ import TablesModel.AtaTableModel;
  * @version 2.0
  * @extends EventoPadrão
  **/
-public class EventosAta extends EventosPadrão {
+public class EventosAta extends EventosPadrao {
 
 	//TABELA
 	protected List<Ata> lista = daoAta.getTodasAtas();

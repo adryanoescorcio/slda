@@ -174,7 +174,7 @@ public class PainelMainCaixa extends EventosCaixa {
 		lbDadosCaixa.setFont(font.font_NEG_15);
 		
 		tfCodigo.setFont(font.font_NEG_15);
-		tfCodigo.setPreferredSize(new Dimension(400,0));
+		tfCodigo.setPreferredSize(new Dimension(200,0));
 		
 		btnSalvar.setFont(font.font_PLA_14);
 		btnLimpar.setFont(font.font_PLA_14);

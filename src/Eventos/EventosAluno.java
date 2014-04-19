@@ -14,10 +14,10 @@ import javax.swing.JTextField;
 import ComponentGroupPlus.MaskFormatterGroup;
 import ComponentGroupPlus.PainelTabela;
 import ExceptionSLDA.erroNullRequisitoException;
-import Forms.PainelDiscenteAta;
 import Forms.MainJFrame;
+import Forms.PainelDiscenteArquivo;
+import Forms.PainelDiscenteAta;
 import Model.Aluno;
-import Model.Arquivo;
 import Model.Ata;
 import Model.AtaResultado;
 import Model.Documento;
@@ -35,7 +35,7 @@ import TablesModel.DocumentoTableModel;
  * @version 2.0
  * @extends EventoPadrão
  **/
-public class EventosAluno extends EventosPadrão{
+public class EventosAluno extends EventosPadrao{
 	
 	//Listas
 	protected ArrayList<Aluno> listaAluno = new ArrayList<Aluno>();
@@ -213,6 +213,7 @@ public class EventosAluno extends EventosPadrão{
 				btnExcluir.setEnabled(true); // necessario a pesquisa para ativar botão
 				btnAtaResul.setEnabled(true);
 				btnDocumento.setEnabled(true);
+				btnCaixa.setEnabled(true);
 				
 				btnSalvar.setEnabled(false); // nao sera possivel salvar, somente alterar
 				tfCodigo.setEditable(false); // nao sera possivel alterar o codigo de objeto consultado.
@@ -238,6 +239,16 @@ public class EventosAluno extends EventosPadrão{
 		}
 	};
 	
+	protected ActionListener onClickCaixa = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {			
+			PainelDiscenteArquivo painelDisCaixa = 
+					new PainelDiscenteArquivo(EventosAluno.this);
+			main.addCamada(painelDisCaixa.getMainDialog(),"Inserir Aluno-Caixa");
+		}
+	};
+	
 	//OBJETO ActionListener QUE LIMPA OS CAMPOS DA TELA
 	protected ActionListener onClickLimparCampos = new ActionListener() {	
 		@Override
@@ -259,10 +270,10 @@ public class EventosAluno extends EventosPadrão{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o aluno de uma ata?") == 0) {
-				PainelDiscenteAta dialogMain = 
+				PainelDiscenteAta painelDiscAta = 
 						new PainelDiscenteAta(EventosAluno.this);
 				
-				main.addCamada(dialogMain.getMainDialog());
+				main.addCamada(painelDiscAta.getMainDialog(), "Inserir Aluno-Ata");
 			}
 		}
 	};
@@ -287,7 +298,7 @@ public class EventosAluno extends EventosPadrão{
 		 
 		 // colocar as informações para o cliente
 		 try {
-			 Arquivo arquivo = daoArquivo.buscar(localizar);
+			 arquivo = daoArquivo.buscar(localizar);
 			 tfRefBox.setText(arquivo.getCodigoCaixa()); // a caixa em que se encontram os documentos
 			 tfLocaInter.setText(arquivo.getCodDossie()); // a localização interna dos documentos
 		 }catch (NullPointerException e) {
@@ -308,7 +319,6 @@ public class EventosAluno extends EventosPadrão{
 		if(daoAluno.save(aluno)) {
 			JOptionPane.showMessageDialog(null, SUCESSO);
 			limparCampos();
-			
 			//LIMPA A CAIXA
 			aluno = null;
 		}		

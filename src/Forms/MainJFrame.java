@@ -77,7 +77,7 @@ public class MainJFrame {
 		
 		//SETANDO AS CAMADAS COM O FUNDO BRANCO
 		camadaExterna.setOpaque(true);
-		camadaExterna.setBackground(Color.YELLOW);
+		camadaExterna.setBackground(Color.LIGHT_GRAY);
 		
 		//DEFININDO OS PAINEIS DA CAMADA EXTERNA 
 		camadaExterna.addTab("Caixa",  icone.getIconeArquivo(), 
@@ -106,8 +106,8 @@ public class MainJFrame {
 	/**
 	 * Insere uma aba na camada JTabbed e desativa as outras abas.
 	 **/
-	public void addCamada(JPanel painel) {
-		camadaExterna.addTab("Inserir Ata-Aluno", painel); // insere um aba
+	public void addCamada(JPanel painel, String titulo) {
+		camadaExterna.addTab(titulo, painel); // insere um aba
 		// Desativar a outras abas
 		camadaExterna.setEnabledAt(PAINEL_CAIXA, false);
 		camadaExterna.setEnabledAt(PAINEL_ALUNO, false);

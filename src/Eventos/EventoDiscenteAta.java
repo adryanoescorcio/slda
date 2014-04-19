@@ -18,12 +18,13 @@ import Model.Ata;
 import Model.AtaResultado;
 import Model.InterfacePadraoAta;
 
-public class EventoDiscenteAta extends EventosPadrão {
+public class EventoDiscenteAta extends EventosPadrao {
 	
 	// Objeto Mask
 	protected MaskFormatterGroup mask = new MaskFormatterGroup();
 	
 	protected JTextField tfTurma = new JTextField();
+	
 	protected JFormattedTextField ftAno;
 	protected JComboBox<String> comboTurno;
 	protected JComboBox<String> comboModalidade;

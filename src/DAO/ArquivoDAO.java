@@ -38,9 +38,11 @@ public class ArquivoDAO extends DAO {
 	 **/
 	public Arquivo buscar(Object codigo) {
 		try {
+			// tenta realizar consulta usando a interface
 			return (Arquivo) this.consultar((InterfaceKey) codigo);
 		
 		} catch (Exception e) {
+			// tenta fazer consulta composta usando o codigo PK
 			try {
 				Arquivo arquivo = null;
 				ResultSet rs = this.consultarAluno((String) codigo);
@@ -49,11 +51,11 @@ public class ArquivoDAO extends DAO {
 					arquivo = new Arquivo();
 					arquivo.setCodDossie(rs.getString("coddossie")); // insere o codigoDossie
 					arquivo.setCodigo(rs.getString("codigoaluno"), rs.getString("codigocaixa"));
-					arquivo.setCodDossie(rs.getString("coddossie"));
 					arquivo.setDatadeEntradaArquivo(rs.getString("datadeentradaarquivo"));
 				}
-
-				System.out.println(arquivo.getCodigo()); // forçar o erro de nullPoint
+				
+				// serve para verificar se o objeto não é null;
+				System.out.println("Não Excluir: "+ arquivo.getCodigoAluno() +"(TESTE OBJETO)"); // forçar o erro de nullPoint
 				return (Arquivo) arquivo;
 				
 			} catch (NullPointerException e1) {
@@ -62,7 +64,6 @@ public class ArquivoDAO extends DAO {
 				JOptionPane.showMessageDialog(null, "Erro SQL" + e1);
 				return null;
 			}
-			
 		}
 	}
 	

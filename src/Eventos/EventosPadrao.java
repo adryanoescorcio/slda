@@ -20,6 +20,7 @@ import DAO.DocumentoDAO;
 import DAO.JPAUtil;
 import ExceptionSLDA.erroNullRequisitoException;
 import Model.Aluno;
+import Model.Arquivo;
 import Model.Ata;
 import Model.Caixa;
 
@@ -30,7 +31,7 @@ import Model.Caixa;
  * @author Adryano Escorcio
  * @version 2.0
  **/
-public abstract class EventosPadrão {
+public abstract class EventosPadrao {
 	
 	//CONEXÃO - DAOS
 	protected JPAUtil conexaoBD = new JPAUtil();
@@ -45,6 +46,7 @@ public abstract class EventosPadrão {
 	protected Aluno aluno;
 	protected Caixa caixa;
 	protected Ata ata;
+	public Arquivo arquivo;
 	
 	// FONTE
 	protected FontGroup font = new FontGroup();
@@ -71,7 +73,7 @@ public abstract class EventosPadrão {
 	
 	protected static final String SUCESSO = "Operação realizada com sucesso.";
 	
-	public EventosPadrão() {
+	public EventosPadrao() {
 		
 		configInit();
 		alterarFont();
@@ -104,6 +106,7 @@ public abstract class EventosPadrão {
 		btnExcluir.setEnabled(false); // necessario a pesquisa para ativar botão
 		btnAtaResul.setEnabled(false);
 		btnDocumento.setEnabled(false);
+		btnCaixa.setEnabled(false);
 	}
 	
 	/**

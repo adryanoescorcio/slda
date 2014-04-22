@@ -35,6 +35,7 @@ import TablesModel.DocumentoTableModel;
  * @version 2.0
  * @extends EventoPadrão
  **/
+
 public class EventosAluno extends EventosPadrão{
 	
 	//Listas
@@ -184,7 +185,18 @@ public class EventosAluno extends EventosPadrão{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			metodoSalvar();
+			String codigo = tfCodigo.getText().trim(); // pega o codigo digitado pelo cliente.
+
+			AlunoPK pk = new AlunoPK(); // chave primaria da caixa.
+			pk.setCodigo(codigo); // seta a chave
+			
+			try{
+				daoAluno.buscar(pk); // realiza a busca no banco de dados
+				throw new erroNullRequisitoException("(ER04) Aluno \"" +codigo+ "\" já existe.", "ERRO ER04",null);
+			}catch(NullPointerException exc){
+				metodoSalvar();
+			}
+			
 		}
 	};
 	

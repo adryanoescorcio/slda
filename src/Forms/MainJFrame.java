@@ -23,6 +23,7 @@ import Menus.MenuVisualizar;
  * @author Adryano Escorcio
  * @version 3.0
  **/
+
 public class MainJFrame {
 	
 	// JFRAME MAINJFRAME ESTA EM TELAPADRAO
@@ -41,6 +42,7 @@ public class MainJFrame {
 	 * CRIADO UM PAINEL EM CAMADAS(JTABBEDPANE) PRINCIPAL - TOP
 	 * EM QUE CADA CAMADA TEM OUTROS PAINEIS EM CAMADAS(JTABBEDPANE) LATERAIS
 	 **/
+	
 	private JTabbedPane camadaExterna = new JTabbedPane(TOP);
 
 	// ICONES
@@ -48,6 +50,7 @@ public class MainJFrame {
 	
 	// Menu Principal
 	private JMenuBar menuBar = new JMenuBar();
+	
 	// Itens do Menu Principal
 	private MenuUsuario menuUsuario = new MenuUsuario();
 	private MenuExportar menuExportar = new MenuExportar();
@@ -58,6 +61,7 @@ public class MainJFrame {
 	/**
 	 * Painel Principal e mais externo da JFrame. 
 	 **/
+	
 	private JPanel mainJPanel = new JPanel(new BorderLayout(2, 2));
 	
 	//INSTANCIANDO OS PAINEIS CRUD

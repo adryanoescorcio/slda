@@ -113,6 +113,7 @@ public class EventosAluno extends EventosPadrão{
 		btnDocumento.setEnabled(false);
 		btnSalvar.setEnabled(true);
 		tfCodigo.setEditable(true);
+		
 	}
 	
 	@Override
@@ -191,7 +192,8 @@ public class EventosAluno extends EventosPadrão{
 			pk.setCodigo(codigo); // seta a chave
 			
 			try{
-				daoAluno.buscar(pk); // realiza a busca no banco de dados
+				// realiza a busca no banco de dados
+				daoAluno.buscar(pk).getCodigo();
 				throw new erroNullRequisitoException("(ER04) Aluno \"" +codigo+ "\" já existe.", "ERRO ER04",null);
 			}catch(NullPointerException exc){
 				metodoSalvar();

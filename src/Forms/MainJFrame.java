@@ -11,8 +11,6 @@ import javax.swing.JTabbedPane;
 
 import ComponentGroupPlus.IconesGroup;
 import Menus.MenuAvancado;
-import Menus.MenuExportar;
-import Menus.MenuImportar;
 import Menus.MenuUsuario;
 import Menus.MenuVisualizar;
 
@@ -53,8 +51,6 @@ public class MainJFrame {
 	
 	// Itens do Menu Principal
 	private MenuUsuario menuUsuario = new MenuUsuario();
-	private MenuExportar menuExportar = new MenuExportar();
-	private MenuImportar menuImportar = new MenuImportar();
 	private MenuVisualizar menuVisualizar = new MenuVisualizar();
 	private MenuAvancado menuAvancado = new MenuAvancado();
 	
@@ -144,8 +140,6 @@ public class MainJFrame {
 	private void menusWindows() {
 		//---------> CRIANDO A BARRA DE MENUS E ADICIONANDO MENUS A ELA <-----------
 		menuBar.add(menuUsuario.getMenuUsuario());
-		menuBar.add(menuExportar.getMenuExportar());
-		menuBar.add(menuImportar.getMenuImportar());
 		menuBar.add(menuVisualizar.getMenuVisualizar());
 		menuBar.add(menuAvancado.getMenuAvancado());
 	}

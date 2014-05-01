@@ -195,7 +195,7 @@ public class EventosAluno extends EventosPadrao{
 			pk.setCodigo(codigo); // seta a chave
 			
 			try{
-				daoAluno.buscar(pk); // realiza a busca no banco de dados
+				daoAluno.buscar(pk).getCodigo(); // realiza a busca no banco de dados
 				throw new erroNullRequisitoException("(ER04) Aluno \"" +codigo+ "\" já existe.", "ERRO ER04",null);
 			}catch(NullPointerException exc){
 				metodoSalvar();
@@ -314,28 +314,31 @@ public class EventosAluno extends EventosPadrao{
 
 		try{
 			Aluno aln = daoAluno.buscar(pk); // realiza a busca no banco de dados
-			setValoresDosCampos(aln); // atribui os valores recuperados para os campos.
-			pesquisarCaixa(aln); // pesquisa se o aluno se encontra em alguma caixa
-			pesquisarDoc();
-
-			modeloDoc = new DocumentoTableModel(daoDoc.buscarDocumentoporAluno(aln));
-			tabelaDocumento();
-			tabelaAta(aln);
-
-			btnAlterar.setEnabled(true); // necessario a pesquisa para ativar botão
-			btnExcluir.setEnabled(true); // necessario a pesquisa para ativar botão
-			btnAtaResul.setEnabled(true);
-			btnDocumento.setEnabled(true);
-			btnCaixa.setEnabled(true);
-			
-			btnSalvar.setEnabled(false); // nao sera possivel salvar, somente alterar
-			tfCodigo.setEditable(false); // nao sera possivel alterar o codigo de objeto consultado.
-			
-			aluno = aln;
-		
+			processoMostarAluno(aln);
 		} catch(NullPointerException exc){
 			throw new erroNullRequisitoException("(ER03) Nenhum Aluno \"" +codigoLocalizar+ "\" foi encontrada.", "ERRO ER03",null);
 		}		
+	}
+
+	public void processoMostarAluno(Aluno aln) {
+		setValoresDosCampos(aln); // atribui os valores recuperados para os campos.
+		pesquisarCaixa(aln); // pesquisa se o aluno se encontra em alguma caixa
+		pesquisarDoc();
+
+		modeloDoc = new DocumentoTableModel(daoDoc.buscarDocumentoporAluno(aln));
+		tabelaDocumento();
+		tabelaAta(aln);
+
+		btnAlterar.setEnabled(true); // necessario a pesquisa para ativar botão
+		btnExcluir.setEnabled(true); // necessario a pesquisa para ativar botão
+		btnAtaResul.setEnabled(true);
+		btnDocumento.setEnabled(true);
+		btnCaixa.setEnabled(true);
+		
+		btnSalvar.setEnabled(false); // nao sera possivel salvar, somente alterar
+		tfCodigo.setEditable(false); // nao sera possivel alterar o codigo de objeto consultado.
+		
+		aluno = aln;
 	}
 
 	private void tabelaDocumento(){

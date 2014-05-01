@@ -7,10 +7,13 @@ import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import ComponentGroupPlus.MaskFormatterGroup;
+import ComponentGroupPlus.PainelTabela;
 import ExceptionSLDA.erroNullRequisitoException;
+import Model.Aluno;
 import Model.Ata;
 import Model.AtaResultado;
 
@@ -21,6 +24,8 @@ public class PlusEventoDiscenteLista extends EventosPadrao{
 		
 		protected JTextField tfRefCaixa = new JTextField();
 		protected JTextField tfLocaInter = new JTextField();
+		protected PainelTabela table = new PainelTabela();
+		protected JTable tabela = table.getTabela();
 		
 		protected JFormattedTextField ftData;
 		protected JComboBox<String> comboBoxSubSecao = comboGroup.getComboBoxSubSecao();
@@ -43,8 +48,7 @@ public class PlusEventoDiscenteLista extends EventosPadrao{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			evento.normalizarCamadas();
-			mainJDialog.removeAll();
+			finalizeOperation();
 		}
 	};
 	
@@ -52,15 +56,22 @@ public class PlusEventoDiscenteLista extends EventosPadrao{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//TODO
+			Aluno aluno = evento.modeloAlunoTable.getContato(
+					tabela.getSelectedRow());
+			evento.processoMostarAluno(aluno);
+			finalizeOperation();
 		}
 	};
-	
 	
 	public void setMainJDialog(JPanel mainJDialog) {
 		this.mainJDialog = mainJDialog;
 	}
 	
+	protected void finalizeOperation() {
+		evento.normalizarCamadas();
+		mainJDialog.removeAll();		
+	}
+
 	@Override
 	public void limparCampos() {
 		// TODO Auto-generated method stub

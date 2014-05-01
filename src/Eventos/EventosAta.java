@@ -37,7 +37,8 @@ public class EventosAta extends EventosPadrao {
 	protected JFormattedTextField ftAno = new JFormattedTextField(mask.getMascaraAno());
 	protected JComboBox<String> comboTurno = comboGroup.getComboBoxTurno(); 
 	protected JComboBox<String> comboModalidade = comboGroup.getComboBoxModalidade();
-	protected JComboBox<String> comboEnsino  = comboGroup.getComboBoxEnsino();
+	protected JComboBox<String> comboEnsinoMEDIO  = comboGroup.getComboBoxEnsinoMEDIO();
+	protected JComboBox<String> comboEnsinoFUNDAMENTAL  = comboGroup.getComboBoxEnsinoFUNDAMENTAL();
 	AtaPK pk = new AtaPK(); // chave primaria da ata.
 
 	public EventosAta() {
@@ -51,7 +52,7 @@ public class EventosAta extends EventosPadrao {
 		ftAno.setText("");
 		comboTurno.setSelectedIndex(0);
 		comboModalidade.setSelectedIndex(0);
-		comboEnsino.setSelectedIndex(0);
+		comboEnsinoMEDIO.setSelectedIndex(0);
 		
 	}
 	
@@ -60,7 +61,7 @@ public class EventosAta extends EventosPadrao {
 		Ata ata = new Ata();
 		ata.setCodigo((String)comboTurno.getSelectedItem(), tfTurma.getText(), mask.verificarMascara(ftAno));
 		ata.setModalidadeAta((String)comboModalidade.getSelectedItem());
-		ata.setEnsinoAta((String)comboEnsino.getSelectedItem());
+		ata.setEnsinoAta((String)comboEnsinoMEDIO.getSelectedItem());
 		
 		return ata;
 	}
@@ -73,7 +74,7 @@ public class EventosAta extends EventosPadrao {
 		comboTurno.setSelectedItem(ata.getTurnoAta());
 		ftAno.setText(ata.getAnoAta());
 		comboModalidade.setSelectedItem(ata.getModalidadeAta());
-		comboEnsino.setSelectedItem(ata.getEnsinoAta());
+		comboEnsinoMEDIO.setSelectedItem(ata.getEnsinoAta());
 		
 	}
 	
@@ -131,7 +132,7 @@ public class EventosAta extends EventosPadrao {
 			pk.setCodigo(tfTurma.getText().trim(), (String) comboTurno.getSelectedItem(), ftAno.getText()); // seta a chave
 	
 			try{
-				daoAta.buscar(pk); // realiza a busca no banco de dados
+				daoAta.buscar(pk).getCodigoKEY(); // realiza a busca no banco de dados
 				throw new erroNullRequisitoException("(ER04) Esta Ata já existe.", "ERRO ER04",null);
 			}catch(NullPointerException exc){
 				metodoSalvar();

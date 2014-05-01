@@ -122,7 +122,7 @@ public class EventosCaixa extends EventosPadrao {
 			pk.setCodigo(codigo); // seta a chave
 			
 			try{
-				daoCaixa.buscar(pk); // realiza a busca no banco de dados
+				daoCaixa.buscar(pk).getCodigo(); // realiza a busca no banco de dados
 				throw new erroNullRequisitoException("(ER04) Caixa \"" +codigo+ "\" já existe.", "ERRO ER04",null);
 			}catch(NullPointerException exc){
 				metodoSalvar();

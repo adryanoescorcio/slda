@@ -181,8 +181,8 @@ public class ComboBoxGroup {
 		
 		JComboBox<String> combo = new JComboBox<String>();
 		
-		combo.addItem("CURSANDO");
 		combo.addItem("CONCLUIDO");
+		combo.addItem("CURSANDO");
 		combo.addItem("TRASNFERIDO");
 		combo.addItem("EVADIDO");
 		
@@ -202,8 +202,8 @@ public class ComboBoxGroup {
 		JComboBox<String> combo = new JComboBox<String>();
 		
 		combo.addItem("");
-		combo.addItem("NORMAL");
-		combo.addItem("EJA");
+		combo.addItem("MÉDIO");
+		combo.addItem("FUNDAMENTAL");
 
 		combo.setBackground(Color.WHITE);
 		combo.setFont(fonte.font_PLA_14);
@@ -211,12 +211,30 @@ public class ComboBoxGroup {
 		return combo;
 	}
 	
-	public JComboBox<String> getComboBoxEnsino(){
+	public JComboBox<String> getComboBoxEnsinoMEDIO(){
 		
 		JComboBox<String> combo = new JComboBox<String>();
 		
-		combo.addItem("MEDIO");
-		combo.addItem("FUNDAMENTAL");
+		combo.addItem("REGULAR");
+		combo.addItem("EJA");
+		combo.addItem("PROEJA");
+		combo.addItem("TÉC. CONTABILIDADE");
+		
+		combo.setBackground(Color.WHITE);
+		combo.setFont(fonte.font_PLA_14);
+		
+		return combo;
+	}
+	
+	public JComboBox<String> getComboBoxEnsinoFUNDAMENTAL(){
+		
+		JComboBox<String> combo = new JComboBox<String>();
+		
+		combo.addItem("REGULAR");
+		combo.addItem("ACELERAÇÃO");
+		combo.addItem("AVANÇO");
+		combo.addItem("CLASSE ESPECIAL");
+		combo.addItem("EJA");
 		
 		combo.setBackground(Color.WHITE);
 		combo.setFont(fonte.font_PLA_14);

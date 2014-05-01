@@ -84,7 +84,7 @@ public class AlunoDAO extends DAO {
 		try {
 			Aluno aluno = null;
 			ResultSet rs = this.consultarAlunoNome((String) nomeLocalizar);
-		
+			
 			while (rs.next()) {
 				aluno = new Aluno(); // cria um aluno vindo dos resultados
 				

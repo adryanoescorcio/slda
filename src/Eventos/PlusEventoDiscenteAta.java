@@ -61,7 +61,7 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 		ftAno = new JFormattedTextField(mask.getMascaraAno());
 		comboTurno = comboGroup.getComboBoxTurno();
 		comboModalidade = comboGroup.getComboBoxModalidade();
-		comboEnsino  = comboGroup.getComboBoxEnsino();
+		comboEnsino  = comboGroup.getComboBoxEnsinoMEDIO();
 	}
 
 	public List<Ata> getListaAta() {

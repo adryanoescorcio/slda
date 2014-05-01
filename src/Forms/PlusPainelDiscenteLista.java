@@ -1,16 +1,12 @@
 package Forms;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-
-import sun.security.action.GetLongAction;
 
 import ComponentGroupPlus.PainelTabela;
 import Eventos.EventosAluno;
@@ -23,8 +19,6 @@ public class PlusPainelDiscenteLista extends PlusEventoDiscenteLista {
 	protected JPanel painelTabela= new JPanel(new BorderLayout(2,2));	
 	protected JScrollPane scroll = new JScrollPane();
 	protected JScrollPane scrollMain = new JScrollPane();
-	protected PainelTabela table = new PainelTabela();
-	protected JTable tabela = table.getTabela();
 	
 	private JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));
 	

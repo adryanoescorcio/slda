@@ -64,7 +64,7 @@ public class PainelMainAta extends EventosAta {
 		painelDireito.add(editPanel.painelContentComponent("West", comboTurno));
 		painelDireito.add(editPanel.painelContentComponent("West", ftAno));
 		painelDireito.add(editPanel.painelContentComponent("West", comboModalidade));
-		painelDireito.add(editPanel.painelContentComponent("West", comboEnsino));
+		painelDireito.add(editPanel.painelContentComponent("West", comboEnsinoMEDIO));
 		
 		painelContentEIA.add("North", lbDadosAta);
 		painelContentEIA.add("West", painelEsquerdoInfoAluno);

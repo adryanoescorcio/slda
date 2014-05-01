@@ -35,7 +35,7 @@ import PrimaryKey.DocumentoPK;
  * @author Adryano Escorcio
  * @version 3.0
  **/
-public class MainTeste extends TestSuite{
+public class MainTeste extends TestSuite {
 
 	// Intervalo para o Random
 	private static final int INTERVALO = 999999999;
@@ -515,8 +515,8 @@ public class MainTeste extends TestSuite{
 		this.arquivoPK1 = new ArquivoPK();
 		this.arquivo2PK2 = new ArquivoPK();
 		
-		arquivoPK1.setCodigo(ID_CAIXA_SEARCH_PADRAO, ID_ALUNO_SEARCH_PADRAO);
-		arquivo2PK2.setCodigo(CHAVE_REMOVER, CHAVE_REMOVER);
+		arquivoPK1.setCodigoAluno(ID_ALUNO_SEARCH_PADRAO);
+		arquivo2PK2.setCodigoAluno(CHAVE_REMOVER);
 		
 		arquivo1.setCodigo(aluno1, caixa1);
 		arquivo1.setCodDossie(numAleatorio());

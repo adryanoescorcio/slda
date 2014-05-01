@@ -63,15 +63,20 @@ public class PainelMainCaixa extends EventosCaixa {
 		painelEsquerdo.add(lbLetra);
 		painelEsquerdo.add(lbStatus);
 		
-		painelDireito.add(editPanel.painelNull(0, 0));
-	painelDireito.add(editPanel.painelContentComponent("West",tfCodigo));
+		painelDireito.add(
+				editPanel.painelNull(0, 0));
 		
-		painelDireito.add(editPanel.painelContentComponent("West", 
-				comboTurno));
-		painelDireito.add(editPanel.painelContentComponent("West", 
-				comboLetra));
-		painelDireito.add(editPanel.painelContentComponent("West", 
-				comboStatus));
+		painelDireito.add(
+				editPanel.painelContentComponent("West",tfCodigo));
+		
+		painelDireito.add(
+				editPanel.painelContentComponent("West", comboTurno));
+		
+		painelDireito.add(
+				editPanel.painelContentComponent("West", comboLetra));
+		
+		painelDireito.add(
+				editPanel.painelContentComponent("West", comboStatus));
 		
 		// Este painel guarda o lado direito e esquedo descrito acima. Define também a borda especifica.
 		painelContentEIA.add("North", lbDadosCaixa );
@@ -174,7 +179,7 @@ public class PainelMainCaixa extends EventosCaixa {
 		lbDadosCaixa.setFont(font.font_NEG_15);
 		
 		tfCodigo.setFont(font.font_NEG_15);
-		tfCodigo.setPreferredSize(new Dimension(400,0));
+		tfCodigo.setPreferredSize(new Dimension(200,0));
 		
 		btnSalvar.setFont(font.font_PLA_14);
 		btnLimpar.setFont(font.font_PLA_14);

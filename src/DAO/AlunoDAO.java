@@ -1,8 +1,12 @@
 package DAO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 
 import Model.Aluno;
 import Model.InterfacePadraoEntidade;
@@ -71,6 +75,53 @@ public class AlunoDAO extends DAO {
 		List<Aluno> alunos = query.getResultList();
 		
 		return alunos;
+	}
+
+	public List<Aluno> buscarNome(String nomeLocalizar) {
+
+		// tenta fazer consulta composta usando o codigo PK
+		List<Aluno> list = new ArrayList<Aluno>();
+		try {
+			Aluno aluno = null;
+			ResultSet rs = this.consultarAlunoNome((String) nomeLocalizar);
+		
+			while (rs.next()) {
+				aluno = new Aluno(); // cria um aluno vindo dos resultados
+				
+				aluno.setCodigo(rs.getString("codigoaluno")); // insere o codigoDossie
+				aluno.setTranferenciaAluno(rs.getString("tranferenciaaluno"));
+				aluno.setTelefoneAluno(rs.getString("telefonealuno"));
+				aluno.setSituacaoAluno(rs.getString("situacaoaluno"));
+				aluno.setSexoAluno(rs.getString("sexoaluno"));
+				aluno.setNomeMae(rs.getString("nomemae"));
+				aluno.setNomeAluno(rs.getString("nomealuno"));
+				aluno.setEstadoNascAluno(rs.getString("estadonascaluno"));
+				aluno.setEnderecoAluno(rs.getString("enderecoaluno"));
+				aluno.setDataNascimento(rs.getString("datanascimento"));
+				aluno.setDataMatriculaAluno(rs.getString("datamatriculaaluno"));
+				aluno.setCorAluno(rs.getString("coraluno"));
+				aluno.setCidadeNascAluno(rs.getString("cidadenascaluno"));
+				aluno.setCPF_Aluno(rs.getString("cpf_aluno"));
+				
+				list.add(aluno); // adiciona o aluno na lista
+//				System.out.println(aluno.getNomeAluno());
+			}
+			
+			// serve para verificar se o objeto não é null;
+			System.out.println("Não Excluir: "+ aluno.getCodigo() +"(TESTE OBJETO)"); // forçar o erro de nullPoint
+			return list;
+			
+		} catch (NullPointerException e1) {
+			JOptionPane.showMessageDialog(null, "Nenhum Aluno foi encontrado no banco de dados.");
+			return list;
+		} catch (SQLException e1) {
+			JOptionPane.showMessageDialog(null, "Erro SQL: " + e1.getMessage());
+			return list;
+		}
+	}
+
+	private ResultSet consultarAlunoNome(String codigo) throws SQLException {
+		return stm.executeQuery("SELECT * FROM ALUNO WHERE nomealuno LIKE '%"+codigo+"%'");
 	}
 	
 }

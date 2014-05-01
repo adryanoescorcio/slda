@@ -133,11 +133,11 @@ public class ComboBoxGroup {
 		
 		combo.setBackground(Color.WHITE);
 		combo.addItem("");
-		combo.addItem("1 - BRANCO");
-		combo.addItem("2 - PRETO");
-		combo.addItem("3 - PARDO");
-		combo.addItem("4 - AMARELO");
-		combo.addItem("5 - INDÍGENA");
+		combo.addItem("BRANCO");
+		combo.addItem("PRETO");
+		combo.addItem("PARDO");
+		combo.addItem("AMARELO");
+		combo.addItem("INDÍGENA");
 		combo.setFont(fonte.font_PLA_14);
 		combo.setLightWeightPopupEnabled(false);
 		
@@ -154,8 +154,8 @@ public class ComboBoxGroup {
 		
 		combo.setBackground(Color.WHITE);
 		combo.addItem("");
-		combo.addItem("1 - MASCULINO");
-		combo.addItem("2 - FEMININO");
+		combo.addItem("MASCULINO");
+		combo.addItem("FEMININO");
 		combo.setFont(fonte.font_PLA_14);
 		
 		return combo;
@@ -166,8 +166,8 @@ public class ComboBoxGroup {
 		JComboBox<String> combo = new JComboBox<String>();
 		
 		combo.setBackground(Color.WHITE);
-		combo.addItem("1 - NÃO");
-		combo.addItem("2 - SIM");
+		combo.addItem("NÃO");
+		combo.addItem("SIM");
 		combo.setFont(fonte.font_PLA_14);
 		combo.setLightWeightPopupEnabled(false);
 		
@@ -217,6 +217,20 @@ public class ComboBoxGroup {
 		
 		combo.addItem("MEDIO");
 		combo.addItem("FUNDAMENTAL");
+		
+		combo.setBackground(Color.WHITE);
+		combo.setFont(fonte.font_PLA_14);
+		
+		return combo;
+	}
+	
+	public JComboBox<String> getComboBoxSubSecao(){
+	
+		JComboBox<String> combo = new JComboBox<String>();
+		
+		combo.addItem("ÍNICIO");
+		combo.addItem("MEIO");
+		combo.addItem("FIM");
 		
 		combo.setBackground(Color.WHITE);
 		combo.setFont(fonte.font_PLA_14);

@@ -28,8 +28,7 @@ public class PainelTabela {
 	 **/
 	public JScrollPane organizandoColunasTables(AbstractTableModel modelo) {
 	// carregando modelo da tabela.
-		JTable tabela = this.tabela;
-		
+				
 		tabela.setModel(modelo);
 		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		

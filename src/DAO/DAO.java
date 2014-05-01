@@ -96,7 +96,7 @@ public abstract class DAO {
 	/**
 	 * Atualizar um objeto PadraoEntidade do BD 
 	 **/
-	protected boolean atualizar(InterfacePadraoEntidade entidade) {
+	public boolean atualizar(InterfacePadraoEntidade entidade) {
 		try{
 			//atualizar
 			System.out.println("Alterando");

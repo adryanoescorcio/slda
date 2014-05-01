@@ -117,7 +117,7 @@ public class PainelMainAta extends EventosAta {
 	private JPanel painelInternoSul() {
 		painelInternoSul.add("Center",editPanel.painelContentComponent("West", painelBotoes()));
 		painelInternoSul.add("North",editPanel.painelNull(0, 5));
-		painelInternoSul.add("West",editPanel.painelNull(150, 0));
+		painelInternoSul.add("West",editPanel.painelNull(200, 0));
 		painelInternoSul.add("South",painelTable());
 		
 		return painelInternoSul;
@@ -137,19 +137,19 @@ public class PainelMainAta extends EventosAta {
 		
 		painelTabela.add("North", editPanel.painelNull(0, 10));
 		painelTabela.add("Center", scroll);
+		painelTabela.add("South", painelLocaliza(lbCodigo2));
 		
 		return painelTabela;
 	}
 
 	private JPanel painelBotoes() {
 		JPanel painelBotoes = new JPanel(new BorderLayout(2,2));
-		JPanel painelContentBotoes = new JPanel(new GridLayout(1,5,5,5));
+		JPanel painelContentBotoes = new JPanel(new GridLayout(1,6,5,5));
 		
 		painelContentBotoes.add(btnSalvar);
 		painelContentBotoes.add(btnAlterar);
 		painelContentBotoes.add(btnExcluir);
 		painelContentBotoes.add(btnLimpar);
-		painelContentBotoes.add(btnPesquisar);
 	
 		painelBotoes.add("Center", painelContentBotoes);
 		

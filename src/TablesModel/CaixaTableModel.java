@@ -83,7 +83,7 @@ public class CaixaTableModel extends AbstractTableModel {
 		linhas.add(contato);
 		int ultimoIndice = getRowCount() - 1;
 		fireTableRowsInserted(ultimoIndice, ultimoIndice);
-		System.out.println("A lista: " + linhas);
+//		System.out.println("A lista: " + linhas);
 	}
 
 	public void updateContato(int indiceLinha, Caixa marca) {

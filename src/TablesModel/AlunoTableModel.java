@@ -32,6 +32,11 @@ private static final long serialVersionUID = 1L;
 		this.linhas = new ArrayList<>(Aluno);
 	}
 
+	public void setList(List<Aluno> list) {
+		this.linhas = list;
+		fireTableDataChanged();
+	}
+	
 	public int getRowCount() {
 		return linhas.size();
 	}

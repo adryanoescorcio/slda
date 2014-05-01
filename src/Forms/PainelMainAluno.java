@@ -51,7 +51,7 @@ public class PainelMainAluno extends EventosAluno {
 	protected JLabel lbCodigo2 = new JLabel("Discente: ",SwingConstants.RIGHT);
 	protected JLabel lbCodigo = new JLabel("Código:* ",SwingConstants.RIGHT);
 	protected JLabel lbCPF = new JLabel("CPF: ",SwingConstants.RIGHT);
-	protected JLabel lbCor = new JLabel("Cor: ",SwingConstants.RIGHT);
+	protected JLabel lbCor = new JLabel("Cor/Raça: ",SwingConstants.RIGHT);
 	protected JLabel lbNis = new JLabel("NIS: ",SwingConstants.RIGHT);
 	protected JLabel lbDataNasc = new JLabel("Data Nasc.:* ",SwingConstants.RIGHT);
 	protected JLabel lbSexo = new JLabel("Sexo: ",SwingConstants.RIGHT);
@@ -65,8 +65,8 @@ public class PainelMainAluno extends EventosAluno {
 	protected JLabel lbDataMatricula = new JLabel("Data Matrícula: ",SwingConstants.RIGHT);
 	protected JLabel lbTransferencia = new JLabel("Admitido por Transferência? ",SwingConstants.RIGHT); // Tem que ativar um campo de data
 	protected JLabel lbSituacao = new JLabel("Situação Atual: ",SwingConstants.RIGHT);
-	protected JLabel lbRefBox = new JLabel("Cod. Caixa");
-	protected JLabel lbLocaInter = new JLabel("Localização Interna");
+	protected JLabel lbRefBox = new JLabel("Cód. Caixa");
+	protected JLabel lbLocaInter = new JLabel("Subseção");
 
 	public PainelMainAluno(MainJFrame mainJFrame) {
 		super(mainJFrame);
@@ -110,19 +110,19 @@ public class PainelMainAluno extends EventosAluno {
 	private void eventosBotoes() {
 		// Evento botão excluir
 		btnExcluir.addActionListener(
-					onClickExcluirAluno);
+				onClickExcluirAluno);
 		
 		// Evento do botão Limpar
 		btnLimpar.addActionListener(
-					onClickLimparCampos);
+				onClickLimparCampos);
 		
 		// Evento do botão Salvar
 		btnSalvar.addActionListener(
-					onClickSalvarAluno);
+				onClickSalvarAluno);
 		
 		//Evento do botão Alterar
 		btnAlterar.addActionListener(
-					onClickAlterarAluno);
+				onClickAlterarAluno);
 		
 		// Evento do Botão Documento
 		btnDocumento.addActionListener(
@@ -130,11 +130,14 @@ public class PainelMainAluno extends EventosAluno {
 		
 		// Evento do botão Ata
 		btnAtaResul.addActionListener(
-					onClickAtaResul);
+				onClickAtaResul);
 		
 		//Evento do botão Buscar
 		btnPesquisar.addActionListener(
-					onClickBuscarAluno);
+				onClickBuscarAluno);
+		
+		btnCaixa.addActionListener(
+				onClickCaixa);
 	}
 
 	/**

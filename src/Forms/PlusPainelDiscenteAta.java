@@ -10,10 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import Eventos.EventoDiscenteAta;
+import Eventos.PlusEventoDiscenteAta;
 import Eventos.EventosAluno;
 
-public class PainelDiscenteAta extends EventoDiscenteAta {
+public class PlusPainelDiscenteAta extends PlusEventoDiscenteAta {
 	
 	private static JPanel mainDialog = new JPanel();
 	
@@ -34,7 +34,7 @@ public class PainelDiscenteAta extends EventoDiscenteAta {
 	private JLabel lbEnsino = new JLabel("Ensino: ",SwingConstants.RIGHT);
 	private JLabel lbPesquisaAta =new JLabel("Índice das atas do aluno: ",SwingConstants.RIGHT);
 	
-	public PainelDiscenteAta(EventosAluno evento) {
+	public PlusPainelDiscenteAta(EventosAluno evento) {
 		super(mainDialog, evento); // passado a tela principal e o evento de aluno com as instancias
 		eventoBotoes();
 		
@@ -72,7 +72,7 @@ public class PainelDiscenteAta extends EventoDiscenteAta {
 	}
 
 	public static void setMainDialog(JPanel mainDialog) {
-		PainelDiscenteAta.mainDialog = mainDialog;
+		PlusPainelDiscenteAta.mainDialog = mainDialog;
 	}
 
 	private void eventoBotoes() {
@@ -144,10 +144,10 @@ public class PainelDiscenteAta extends EventoDiscenteAta {
 		JPanel contentPainelSul = new JPanel(new BorderLayout(2,2));
 		JPanel painelSul = new JPanel(new GridLayout(4,1,5,5));
 		
-		painelSul.add(editPanel.painelContentComponent("West",btnSalvar));
-		painelSul.add(editPanel.painelContentComponent("West",btnLimpar));
-		painelSul.add(editPanel.painelContentComponent("West",btnExcluir));
-		painelSul.add(editPanel.painelContentComponent("West",btnCancelar));
+		painelSul.add(btnSalvar);
+		painelSul.add(btnLimpar);
+		painelSul.add(btnExcluir);
+		painelSul.add(btnCancelar);
 		
 		contentPainelSul.add("Center", painelSul);
 		contentPainelSul.add("West", editPanel.painelNull(10, 0));
@@ -176,6 +176,7 @@ public class PainelDiscenteAta extends EventoDiscenteAta {
 		
 		// JTextField
 		tfTurma.setFont(font.font_NEG_15);
+		ftAno.setFont(font.font_NEG_15);
 		tfTurma.setPreferredSize(new Dimension(70,0)); // Setado tamanho fixo do Text
 		
 		tfTurma.setSize(20, 10);

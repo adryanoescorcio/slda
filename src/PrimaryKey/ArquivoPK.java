@@ -1,6 +1,5 @@
 package PrimaryKey;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -13,21 +12,17 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ArquivoPK implements InterfaceKey {
 	
-	@Column (unique = true)
-	private String codigoAluno;
-	private String codigoCaixa;
+	private String codigoAluno = null;
 
-	public String getCodigoCaixa() {
-		return codigoCaixa;
-	}
-	
-	public void setCodigo(String codigoCaixa, String codigoAluno) {
-		this.codigoCaixa = codigoCaixa;
-		this.codigoAluno = codigoAluno;
+	/**
+	 * Metodo que insere o valor da Chave Primaria
+	 **/
+	public void setCodigoAluno(String codigo) {
+		this.codigoAluno = codigo;
 	}
 	
 	public String getCodigoAluno() {
-		return codigoAluno;
+		return this.codigoAluno;
 	}
 	
 	@Override

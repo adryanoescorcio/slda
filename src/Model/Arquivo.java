@@ -25,6 +25,8 @@ public class Arquivo implements InterfacePadraoEntidade{
 	@EmbeddedId
 	private ArquivoPK arquivopk = new ArquivoPK();
 	
+	private String codigoCaixa;
+	
 	private String codDossie = null;
 	private String datadeEntradaArquivo = null;
 	
@@ -33,13 +35,8 @@ public class Arquivo implements InterfacePadraoEntidade{
 	}
 
 	public void setCodigo(Aluno aluno, Caixa caixa) {
-		this.aluno = aluno;
-		this.caixa = caixa;
-		this.arquivopk.setCodigo(caixa.getCodigo(), aluno.getCodigo());
-	}
-	
-	public void setCodigo(String aluno, String caixa) {
-		this.arquivopk.setCodigo(aluno, aluno);
+		this.arquivopk.setCodigoAluno(aluno.getCodigo());
+		this.codigoCaixa = caixa.getCodigo();
 	}
 	
 	public void setAluno(Aluno aluno) {
@@ -48,6 +45,14 @@ public class Arquivo implements InterfacePadraoEntidade{
 	
 	public void setCaixa(Caixa caixa) {
 		this.caixa = caixa;
+	}
+	
+	public void setArquivo (Arquivo arquivo) {
+		this.arquivopk.setCodigoAluno(arquivopk.getCodigoAluno());
+		this.setCodigoCaixa(arquivo.getCodigoCaixa());
+		this.setCodigoAluno(arquivo.getCodigoAluno());
+		this.setDatadeEntradaArquivo(arquivo.getDatadeEntradaArquivo());
+		this.setCodDossie(arquivo.getCodDossie());
 	}
 	
 	public Caixa getCaixa() {
@@ -73,25 +78,11 @@ public class Arquivo implements InterfacePadraoEntidade{
 	@Override
 	public String toString() {
 		return "" +
-			"Aluno: "+this.arquivopk.getCodigoAluno()+ ", " +
-			"Caixa: "+this.arquivopk.getCodigoCaixa()+ ", " +
+			"Aluno: "+this.getCodigoAluno()+ ", " +
+			"Caixa: "+this.getCodigoCaixa()+ ", " +
 			"Codigo: "+this.codDossie+ ", " +
 			"Entrada: "+this.datadeEntradaArquivo+ ", " +
 			"";
-	}
-	
-	
-	
-	public String getCodigoCaixa() {
-		return (String) arquivopk.getCodigoCaixa();
-	}
-
-	public String getCodigoAluno() {
-		return arquivopk.getCodigoAluno();
-	}
-
-	public String getCodigo() {
-		return this.arquivopk.getCodigoAluno();
 	}
 	
 	@Override
@@ -102,5 +93,26 @@ public class Arquivo implements InterfacePadraoEntidade{
 	@Override
 	public void setCodigoKEY(InterfaceKey chaveEntidade) {
 		this.arquivopk = (ArquivoPK) chaveEntidade;
+	}
+	
+	public String getCodigoCaixa() {
+		return codigoCaixa;
+	}
+	
+	public void setCodigo(String codigoAluno, String codigoCaixa) {
+		this.codigoCaixa = codigoCaixa;
+		this.arquivopk.setCodigoAluno(codigoAluno);
+	}
+	
+	public String getCodigoAluno() {
+		return arquivopk.getCodigoAluno();
+	}
+	
+	public void setCodigoAluno(String codigoAluno) {
+		this.arquivopk.setCodigoAluno(codigoAluno);
+	}
+
+	public void setCodigoCaixa(String caixa) {
+		this.codigoCaixa = caixa;
 	}
 }

@@ -20,7 +20,7 @@ import TablesModel.CaixaTableModel;
  * @version 2.0
  * @extends EventoPadrão
  **/
-public class EventosCaixa extends EventosPadrão {
+public class EventosCaixa extends EventosPadrao {
 		
 	//TABELA
 	protected List<Caixa> lista = daoCaixa.getTodasCaixas();

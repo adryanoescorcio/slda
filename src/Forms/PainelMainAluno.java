@@ -110,19 +110,19 @@ public class PainelMainAluno extends EventosAluno {
 	private void eventosBotoes() {
 		// Evento botão excluir
 		btnExcluir.addActionListener(
-					onClickExcluirAluno);
+				onClickExcluirAluno);
 		
 		// Evento do botão Limpar
 		btnLimpar.addActionListener(
-					onClickLimparCampos);
+				onClickLimparCampos);
 		
 		// Evento do botão Salvar
 		btnSalvar.addActionListener(
-					onClickSalvarAluno);
+				onClickSalvarAluno);
 		
 		//Evento do botão Alterar
 		btnAlterar.addActionListener(
-					onClickAlterarAluno);
+				onClickAlterarAluno);
 		
 		// Evento do Botão Documento
 		btnDocumento.addActionListener(
@@ -130,11 +130,11 @@ public class PainelMainAluno extends EventosAluno {
 		
 		// Evento do botão Ata
 		btnAtaResul.addActionListener(
-					onClickAtaResul);
+				onClickAtaResul);
 		
 		//Evento do botão Buscar
 		btnPesquisar.addActionListener(
-					onClickBuscarAluno);
+				onClickBuscarAluno);
 		
 		btnCaixa.addActionListener(
 				onClickCaixa);

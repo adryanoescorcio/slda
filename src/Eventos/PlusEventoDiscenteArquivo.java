@@ -20,7 +20,7 @@ import Model.AtaResultado;
 import Model.Caixa;
 import PrimaryKey.CaixaPK;
 
-public class EventoDiscenteArquivo extends EventosPadrao {
+public class PlusEventoDiscenteArquivo extends EventosPadrao {
 	
 	// Objeto Mask
 	protected MaskFormatterGroup mask = new MaskFormatterGroup();
@@ -39,7 +39,7 @@ public class EventoDiscenteArquivo extends EventosPadrao {
 
 	protected EventosAluno evento;
 	
-	public EventoDiscenteArquivo(JPanel mainDialog, EventosAluno evAluno) {
+	public PlusEventoDiscenteArquivo(JPanel mainDialog, EventosAluno evAluno) {
 		this.evento = evAluno;
 		initVar();
 		this.setMainJDialog(mainDialog);
@@ -174,7 +174,7 @@ public class EventoDiscenteArquivo extends EventosPadrao {
 	private void acaoFinal() {
 		evento.normalizarCamadas(); // colocar as abas superiores normais
 		mainJDialog.removeAll(); // remove todos os compnentes da janela de aluno
-		evento.pesquisarCaixa(); // atualiza o painel de caixa na janela aluno
+		evento.pesquisarCaixa(aluno); // atualiza o painel de caixa na janela aluno
 	}
 
 	@Override

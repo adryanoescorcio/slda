@@ -18,7 +18,7 @@ import Model.Ata;
 import Model.AtaResultado;
 import Model.InterfacePadraoAta;
 
-public class EventoDiscenteAta extends EventosPadrao {
+public class PlusEventoDiscenteAta extends EventosPadrao {
 	
 	// Objeto Mask
 	protected MaskFormatterGroup mask = new MaskFormatterGroup();
@@ -41,7 +41,7 @@ public class EventoDiscenteAta extends EventosPadrao {
 
 	protected EventosAluno evento;
 	
-	public EventoDiscenteAta(JPanel mainDialog, EventosAluno evAluno) {
+	public PlusEventoDiscenteAta(JPanel mainDialog, EventosAluno evAluno) {
 		this.evento = evAluno;
 		initVar();
 		this.setMainJDialog(mainDialog);
@@ -213,7 +213,7 @@ public class EventoDiscenteAta extends EventosPadrao {
 		while (i !=0 && boo) { // inicia do ultimo elemento para o primeiro
 			// compara todos.
 			boo = !(listaAta.get(i).toString().equals(ataTest.toString())); // caso encontre (true) ele retorna falso para acabar com o loop
-			System.out.println(boo);
+//			System.out.println(boo);
 			i--;
 		}
 		return !boo; // retorna o resultado final. encontrou ou nao? true ou falso.

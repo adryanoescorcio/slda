@@ -10,7 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import ComponentGroupPlus.MaskFormatterGroup;
+import ExceptionSLDA.erroNullRequisitoException;
 import Model.Ata;
+import PrimaryKey.AtaPK;
 import TablesModel.AtaTableModel;
 
 /**
@@ -36,7 +38,8 @@ public class EventosAta extends EventosPadrao {
 	protected JComboBox<String> comboTurno = comboGroup.getComboBoxTurno(); 
 	protected JComboBox<String> comboModalidade = comboGroup.getComboBoxModalidade();
 	protected JComboBox<String> comboEnsino  = comboGroup.getComboBoxEnsino();
-	
+	AtaPK pk = new AtaPK(); // chave primaria da ata.
+
 	public EventosAta() {
 		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
 		btnExcluir.setEnabled(false); // necessario a pesquisa para ativar botão
@@ -125,7 +128,15 @@ public class EventosAta extends EventosPadrao {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			metodoSalvar();
+			pk.setCodigo(tfTurma.getText().trim(), (String) comboTurno.getSelectedItem(), ftAno.getText()); // seta a chave
+	
+			try{
+				daoAta.buscar(pk); // realiza a busca no banco de dados
+				throw new erroNullRequisitoException("(ER04) Esta Ata já existe.", "ERRO ER04",null);
+			}catch(NullPointerException exc){
+				metodoSalvar();
+			}
+			
 		}
 	};
 

@@ -116,11 +116,18 @@ public class EventosCaixa extends EventosPadrao {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			metodoSalvar();
-			modelo.addContato(caixa); // Insere a caixa na tabela.
+			String codigo = tfCodigo.getText().trim(); // pega o codigo digitado pelo cliente.
+
+			CaixaPK pk = new CaixaPK(); // chave primaria da caixa.
+			pk.setCodigo(codigo); // seta a chave
 			
-			//LIMPA A CAIXA
-			caixa = null;
+			try{
+				daoCaixa.buscar(pk); // realiza a busca no banco de dados
+				throw new erroNullRequisitoException("(ER04) Caixa \"" +codigo+ "\" já existe.", "ERRO ER04",null);
+			}catch(NullPointerException exc){
+				metodoSalvar();
+			}
+			
 		}
 	};
 

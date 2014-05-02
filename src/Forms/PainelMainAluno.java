@@ -2,6 +2,7 @@ package Forms;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -28,10 +29,8 @@ public class PainelMainAluno extends EventosAluno {
 
 	protected static final int DIST = 5;
 	
-	private FontGroup font = new FontGroup();
-	
 	protected static final String BORDER_INFO_ALUNO = "DOSSIÊ DO DISCENTE";
-	protected static final int QUANT_LINHAS_GRID = 10;
+	protected static final int QUANT_LINHAS_GRID = 13;
 
 	protected JScrollPane scroll = new JScrollPane();
 	protected JScrollPane scrollMain = new JScrollPane();
@@ -57,7 +56,7 @@ public class PainelMainAluno extends EventosAluno {
 	protected JLabel lbSexo = new JLabel("Sexo: ",SwingConstants.RIGHT);
 	protected JLabel lbNomeMae = new JLabel("Mãe: ",SwingConstants.RIGHT);
 	protected JLabel lbEstadoMae = new JLabel("Estado Nasc. Mae: ",SwingConstants.RIGHT);
-	protected JLabel lbNomePai = new JLabel("Pai: ",SwingConstants.RIGHT);
+	protected JLabel lbCertRegNum = new JLabel("Certificado Reg. Nº: ",SwingConstants.RIGHT);
 	protected JLabel lbEnd = new JLabel("Endereço: ",SwingConstants.RIGHT);
 	protected JLabel lbCidade = new JLabel("Cidade Nasc.: ",SwingConstants.RIGHT);
 	protected JLabel lbEstado = new JLabel("Estado Nasc.: ",SwingConstants.RIGHT);
@@ -65,8 +64,11 @@ public class PainelMainAluno extends EventosAluno {
 	protected JLabel lbDataMatricula = new JLabel("Data Matrícula: ",SwingConstants.RIGHT);
 	protected JLabel lbTransferencia = new JLabel("Admitido por Transferência? ",SwingConstants.RIGHT); // Tem que ativar um campo de data
 	protected JLabel lbSituacao = new JLabel("Situação Atual: ",SwingConstants.RIGHT);
-	protected JLabel lbRefBox = new JLabel("Cód. Caixa");
-	protected JLabel lbLocaInter = new JLabel("Subseção");
+	protected JLabel lbRefBox = new JLabel("Cód. Caixa",SwingConstants.RIGHT);
+	protected JLabel lbLocaInter = new JLabel("Ordem",SwingConstants.RIGHT);
+	protected JLabel lbLivro = new JLabel("Livro:",SwingConstants.RIGHT);
+	protected JLabel lbFolha = new JLabel("Fls.:",SwingConstants.RIGHT);
+	protected JLabel lbDataReg = new JLabel("Data Reg.:",SwingConstants.RIGHT);
 
 	public PainelMainAluno(MainJFrame mainJFrame) {
 		super(mainJFrame);
@@ -82,17 +84,23 @@ public class PainelMainAluno extends EventosAluno {
 		painelEsquerdoInfoAluno.add(lbEnd);
 		painelEsquerdoInfoAluno.add(lbDataMatricula);
 		painelEsquerdoInfoAluno.add(lbSituacao);
+		painelEsquerdoInfoAluno.add(lbCertRegNum);
+		painelEsquerdoInfoAluno.add(lbLivro);
+		painelEsquerdoInfoAluno.add(lbDataReg);
 		
 		painelDireito.add(editPanel.painelNull(0, 0)); // Vazio
 		painelDireito.add(editPanel.painelContentComponent("West", tfNome)); // Nome
-		painelDireito.add(editPanel.painelContentComponent("West", tfCodigo)); //Codigo
-		painelDireito.add(editPanel.painelContentComponent("West", painelCPFEstado())); // CPF - Estado
+		painelDireito.add(painelLadoLado(tfCodigo, lbNis, tfNis)); //Codigo - NIS
+		painelDireito.add(painelLadoLado(ftCpf,lbEstado, comboUFAluno)); // CPF - Estado
 		painelDireito.add(editPanel.painelContentComponent("West", tfNomeMae)); // Mae
 		painelDireito.add(editPanel.painelContentComponent("West", painelDataSexoCor())); // Data Nac. - Sexo - Cor
 		painelDireito.add(editPanel.painelContentComponent("West", tfCidade)); // Cidade
-		painelDireito.add(painelTelefoneEnd()); // Telefone - Endereço
-		painelDireito.add(painelDataMatriculaTransf()); // Data Matri - Transfe
+		painelDireito.add(painelLadoLado(tfEnd,lbFone,ftFone)); // Telefone - Endereço
+		painelDireito.add(painelLadoLado(ftDataMatricula,lbTransferencia,comboTranferencia)); // Data Matri - Transfe
 		painelDireito.add(editPanel.painelContentComponent("West", comboSituacao)); //Situação
+		painelDireito.add(editPanel.painelContentComponent("West", tfNumCertificado)); //Certificado
+		painelDireito.add(painelLadoLado(tfLivro, lbFolha, tfFolha)); //Livro - Folha
+		painelDireito.add(editPanel.painelContentComponent("West", ftDataReg)); //Data
 		
 		JPanel painete = new JPanel(new BorderLayout(2,2));
 		painete.setBackground(Color.black);
@@ -101,7 +109,6 @@ public class PainelMainAluno extends EventosAluno {
 		painelContentEIA.add("West", painelEsquerdoInfoAluno);
 		painelContentEIA.add("Center", painelDireito);
 		
-		ConfInit();
 		alterarFontes();
 		painelInternoNorte();
 		getTelaPrincipal();
@@ -141,68 +148,25 @@ public class PainelMainAluno extends EventosAluno {
 	}
 
 	/**
-	 * Painel para organizar horizontalmente os atributos Data e Transferencia lado-a-lado
-	 **/
-	private JPanel painelDataMatriculaTransf() {
-		
-		JPanel painelDataMatriculaTransf = new JPanel(new BorderLayout(2,2));
-		JPanel painelTrasferencia = new JPanel(new BorderLayout(2,2));
-		JPanel painelSeparador2 = new JPanel(new BorderLayout(2,2));
-		
-		// Telefone
-		painelTrasferencia.add("West", lbTransferencia);
-		painelTrasferencia.add("Center", editPanel.painelContentComponent("West", comboTranferencia));
-		// SEPARADOR
-		painelSeparador2.add("West", editPanel.painelNull(50, 0));
-		painelSeparador2.add("Center", painelTrasferencia);
-		// Endereço
-		painelDataMatriculaTransf.add("West", editPanel.painelContentComponent("West", ftDataMatricula));
-		painelDataMatriculaTransf.add("Center", painelSeparador2);
-		
-		return painelDataMatriculaTransf;
-	}
-
-	/**
 	 * Painel para organizar horizontalmente o Telefone e o Endereço
 	 **/
-	private JPanel painelTelefoneEnd() {
+	private JPanel painelLadoLado(Component comp1, JLabel lb2, Component comp2) {
 		
 		JPanel painelEndTelefone = new JPanel(new BorderLayout(2,2));
 		JPanel painelTelefone = new JPanel(new BorderLayout(2,2));
 		JPanel painelSeparador2 = new JPanel(new BorderLayout(2,2));
 		
 		// Telefone
-		painelTelefone.add("West", lbFone);
-		painelTelefone.add("Center", editPanel.painelContentComponent("West", ftFone));
+		painelTelefone.add("West", lb2);
+		painelTelefone.add("Center", editPanel.painelContentComponent("West", comp2));
 		// SEPARADOR
 		painelSeparador2.add("West", editPanel.painelNull(50, 0));
 		painelSeparador2.add("Center", painelTelefone);
 		// Endereço
-		painelEndTelefone.add("West", editPanel.painelContentComponent("West", tfEnd));
+		painelEndTelefone.add("West", editPanel.painelContentComponent("West", comp1));
 		painelEndTelefone.add("Center", painelSeparador2);
 		
 		return painelEndTelefone;
-	}
-
-	/**
-	 * Paine para organizar horizontalmente o CPF e o Estado lado-a-lado
-	 **/
-	private JPanel painelCPFEstado() {
-		JPanel painelCpfEstado = new JPanel(new BorderLayout(2,2));
-		JPanel painelEstado = new JPanel(new BorderLayout(2,2));
-		JPanel painelSeparador2 = new JPanel(new BorderLayout(2,2));
-		
-		// SEXO
-		painelEstado.add("West", lbEstado);
-		painelEstado.add("Center", editPanel.painelContentComponent("West", comboUFAluno));
-		// SEPARADOR
-		painelSeparador2.add("West", editPanel.painelNull(50, 0));
-		painelSeparador2.add("Center", painelEstado);
-		// DATA
-		painelCpfEstado.add("West", ftCpf);
-		painelCpfEstado.add("Center", painelSeparador2);
-		
-		return painelCpfEstado;
 	}
 
 	/**
@@ -276,7 +240,7 @@ public class PainelMainAluno extends EventosAluno {
 		
 		painel.add("North", lbImagem);
 		painel.add("Center",painelGrid);
-		painel.add("South",editPanel.painelNull(0, 50));
+		painel.add("South",editPanel.painelNull(0, 120));
 		
 		painelContent.add("North", editPanel.painelNull(0, 4));
 		painelContent.add("Center", painel);
@@ -340,7 +304,9 @@ public class PainelMainAluno extends EventosAluno {
 		return painelBotoes;
 	}
 	
-	private void ConfInit() {
+	private void alterarFontes() {
+		FontGroup font = new FontGroup();
+		
 		// FONTE
 		lbNome.setFont(font.font_PLA_14);
 		lbCodigo2.setFont(font.font_PLA_14);
@@ -352,7 +318,7 @@ public class PainelMainAluno extends EventosAluno {
 		lbSexo.setFont(font.font_PLA_14);
 		lbNomeMae.setFont(font.font_PLA_14);
 		lbEstadoMae.setFont(font.font_PLA_14);
-		lbNomePai.setFont(font.font_PLA_14);
+		lbCertRegNum.setFont(font.font_PLA_14);
 		lbEnd.setFont(font.font_PLA_14);
 		lbCidade.setFont(font.font_PLA_14);
 		lbEstado.setFont(font.font_PLA_14);
@@ -361,44 +327,54 @@ public class PainelMainAluno extends EventosAluno {
 		lbSituacao.setFont(font.font_PLA_14);		
 		lbRefBox.setFont(font.font_PLA_14);
 		lbLocaInter.setFont(font.font_PLA_14);
+		lbFolha.setFont(font.font_PLA_14);
+		lbDataReg.setFont(font.font_PLA_14);
+		lbCertRegNum.setFont(font.font_PLA_14);
+		lbLivro.setFont(font.font_PLA_14);
 		
 		// TITULO
 		lbDadosAluno.setFont(font.font_NEG_15);
 
 		// Cor
 		lbCodigo.setForeground(Color.RED);
-	}
-	
-	private void alterarFontes() {
-		FontGroup font = new FontGroup();
 		
 		// JTextField
-			tfNome.setFont(font.font_NEG_15);
-			tfCidade.setFont(font.font_NEG_15);
-			tfEnd.setFont(font.font_NEG_15);
-			tfCodigo.setFont(font.font_NEG_15);
-			tfRefBox.setFont(font.font_NEG_18);
-			tfLocaInter.setFont(font.font_NEG_18);
-			
-			tfNome.setPreferredSize(new Dimension(450,0));
-			tfCodigo.setPreferredSize(new Dimension(100,0));
-			tfNomeMae.setPreferredSize(new Dimension(450,0));
-			tfEnd.setPreferredSize(new Dimension(312,0));
-			tfCidade.setPreferredSize(new Dimension(312,0));
-			tfRefBox.setPreferredSize(new Dimension(130,0));
-			tfLocaInter.setPreferredSize(new Dimension(130,0));
-			
-			tfRefBox.setForeground(Color.RED);
-			tfLocaInter.setForeground(Color.RED);
-			
-			// Outros
-			ftFone.setBorder(null);
-			ftCpf.setBorder(null);
-			ftDataNasc.setBorder(null);
-			ftDataMatricula.setBorder(null);
-			
-			//Desativando
-			tfRefBox.setEditable(false);
-			tfLocaInter.setEditable(false);
+		tfNome.setFont(font.font_NEG_15);
+		tfCidade.setFont(font.font_NEG_15);
+		tfEnd.setFont(font.font_NEG_15);
+		tfNumCertificado.setFont(font.font_NEG_15);
+		tfNis.setFont(font.font_NEG_15);
+		tfCodigo.setFont(font.font_NEG_15);
+		tfLivro.setFont(font.font_NEG_15);
+		tfFolha.setFont(font.font_NEG_15);
+		
+		tfRefBox.setFont(font.font_NEG_18);
+		tfLocaInter.setFont(font.font_NEG_18);
+		
+		tfNome.setPreferredSize(new Dimension(450,0));
+		tfCodigo.setPreferredSize(new Dimension(100,0));
+		tfNis.setPreferredSize(new Dimension(100,0));
+		tfNomeMae.setPreferredSize(new Dimension(450,0));
+		tfEnd.setPreferredSize(new Dimension(312,0));
+		tfCidade.setPreferredSize(new Dimension(312,0));
+		tfRefBox.setPreferredSize(new Dimension(130,0));
+		tfLocaInter.setPreferredSize(new Dimension(130,0));
+		tfNumCertificado.setPreferredSize(new Dimension(130,0));
+		tfLivro.setPreferredSize(new Dimension(100,0));
+		tfFolha.setPreferredSize(new Dimension(100,0));
+		
+		tfRefBox.setForeground(Color.RED);
+		tfLocaInter.setForeground(Color.RED);
+		
+		// Outros
+		ftFone.setBorder(null);
+		ftCpf.setBorder(null);
+		ftDataNasc.setBorder(null);
+		ftDataMatricula.setBorder(null);
+		ftDataReg.setBorder(null);
+		
+		//Desativando
+		tfRefBox.setEditable(false);
+		tfLocaInter.setEditable(false);
 	}
 }

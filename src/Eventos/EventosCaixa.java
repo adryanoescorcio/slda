@@ -51,7 +51,7 @@ public class EventosCaixa extends EventosPadrao {
 			return caixa;
 			
 		} else {
-			throw new erroNullRequisitoException("(ER02) Preencha todos os requisitos com dados válidos.", "ERRO ER02",null);
+			throw new erroNullRequisitoException("(ER02) Preencha todos os requisitos com dados válidos.", "ERRO ER02");
 		}
 	}
 
@@ -107,6 +107,10 @@ public class EventosCaixa extends EventosPadrao {
 		if(daoCaixa.save(caixa)) {
 			JOptionPane.showMessageDialog(null, SUCESSO);
 			limparCampos();
+			modelo.addContato(caixa); // Insere a caixa na tabela.
+            //LIMPA A CAIXA
+            caixa = null;
+
 		}		
 	}
 	/**
@@ -123,11 +127,10 @@ public class EventosCaixa extends EventosPadrao {
 			
 			try{
 				daoCaixa.buscar(pk).getCodigo(); // realiza a busca no banco de dados
-				throw new erroNullRequisitoException("(ER04) Caixa \"" +codigo+ "\" já existe.", "ERRO ER04",null);
+				throw new erroNullRequisitoException("(ER04) Caixa \"" +codigo+ "\" já existe.", "ERRO ER04");
 			}catch(NullPointerException exc){
 				metodoSalvar();
 			}
-			
 		}
 	};
 
@@ -156,7 +159,7 @@ public class EventosCaixa extends EventosPadrao {
 				caixa = cx;
 			
 			}catch(NullPointerException exc){
-				throw new erroNullRequisitoException("(ER03) Nenhuma Caixa \"" +codigoLocalizar+ "\" foi encontrada.", "ERRO ER03",null);
+				throw new erroNullRequisitoException("(ER03) Nenhuma Caixa \"" +codigoLocalizar+ "\" foi encontrada.", "ERRO ER03");
 			}
 		}
 	};

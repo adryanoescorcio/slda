@@ -73,7 +73,6 @@ public class ComboBoxGroup {
 		JComboBox<String> combo = new JComboBox<String>();
 		
 		combo.addItem("CORRENTE");
-		combo.addItem("INTERMEDIÁRIO");
 		combo.addItem("PERMANENTE");
 		
 		combo.setBackground(Color.white);

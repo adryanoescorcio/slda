@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -56,10 +57,14 @@ public class PlusEventoDiscenteLista extends EventosPadrao{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Aluno aluno = evento.modeloAlunoTable.getContato(
+			try{
+				Aluno aluno = evento.modeloAlunoTable.getContato(
 					tabela.getSelectedRow());
-			evento.processoMostarAluno(aluno);
-			finalizeOperation();
+				evento.processoMostarAluno(aluno);
+				finalizeOperation();
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "Selecione um aluno na tabela.", "ER09", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	};
 	

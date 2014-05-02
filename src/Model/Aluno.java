@@ -32,8 +32,13 @@ public class Aluno implements InterfacePadraoEntidade {
 	private String enderecoAluno = null;
 	private String telefoneAluno = null;
 	private String dataMatriculaAluno = null;
-	private String tranferenciaAluno = null;
 	private String situacaoAluno = null;
+	private String tranferenciaAluno = null;
+	private String nis = null;
+	private String numCertificado = null;
+	private String livro = null;
+	private String folha = null;
+	private String dataRegCertif = null;
 	
 	public String getNomeAluno() {
 		return nomeAluno;
@@ -43,6 +48,46 @@ public class Aluno implements InterfacePadraoEntidade {
 		this.nomeAluno = nomeAluno;
 	}
 	
+	public String getNis() {
+		return nis;
+	}
+
+	public void setNis(String nis) {
+		this.nis = nis;
+	}
+
+	public String getNumCertificado() {
+		return numCertificado;
+	}
+
+	public void setNumCertificado(String numCertificado) {
+		this.numCertificado = numCertificado;
+	}
+
+	public String getLivro() {
+		return livro;
+	}
+
+	public void setLivro(String livro) {
+		this.livro = livro;
+	}
+
+	public String getFolha() {
+		return folha;
+	}
+
+	public void setFolha(String folha) {
+		this.folha = folha;
+	}
+
+	public String getDataRegCertif() {
+		return dataRegCertif;
+	}
+
+	public void setDataRegCertif(String dataNasc) {
+		this.dataRegCertif = dataNasc;
+	}
+
 	public String getCPF_Aluno() {
 		return CPF_Aluno;
 	}
@@ -155,6 +200,11 @@ public class Aluno implements InterfacePadraoEntidade {
 			"Data da Matrícula: "+this.dataMatriculaAluno+", "+
 			"Admitido por transferência: " +this.tranferenciaAluno+", "+
 			"Situação Atual: "+this.situacaoAluno+", "+
+			"Nis: "+this.nis+", "+
+			"Livro: "+this.livro+", "+
+			"Folha: "+this.folha+", "+
+			"N Certificado: "+this.numCertificado+", "+
+			"data Reg: "+this.dataRegCertif+", "+
 			"";
 	}
 	

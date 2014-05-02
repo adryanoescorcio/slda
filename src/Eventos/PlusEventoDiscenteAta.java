@@ -177,10 +177,10 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 					daoAtaResultado.save(ataResul); //salva a entidade
 					finallyOperation(); // realizando as operações apos salvar
 				} else {
-					new erroNullRequisitoException("Ata não foi cadastrada, insira a nova ata no banco de dados.", "ER04" ,null);
+					new erroNullRequisitoException("Ata não foi cadastrada, insira a nova ata no banco de dados.", "ER04");
 				}
 			} catch (Exception ex) {
-				new erroNullRequisitoException("Errou de inserção. Verifique os dados inseridos ou se o aluno já foi inserido nesta Ata.","ER05",null);
+				new erroNullRequisitoException("Errou de inserção. Verifique os dados inseridos ou se o aluno já foi inserido nesta Ata.","ER05");
 			}
 		}
 	};
@@ -210,7 +210,7 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 		int i = listaAta.size()-1; // pega todos os elementos da lista
 		boolean boo = true;
 
-		while (i !=0 && boo) { // inicia do ultimo elemento para o primeiro
+		while (i >= 0 && boo) { // inicia do ultimo elemento para o primeiro
 			// compara todos.
 			boo = !(listaAta.get(i).toString().equals(ataTest.toString())); // caso encontre (true) ele retorna falso para acabar com o loop
 //			System.out.println(boo);

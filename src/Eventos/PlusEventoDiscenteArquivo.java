@@ -119,10 +119,10 @@ public class PlusEventoDiscenteArquivo extends EventosPadrao {
 					finallyOperation(); // realizando as operações apos salvar
 					
 				} else {
-					new erroNullRequisitoException("Caixa não foi cadastrada, insira a nova Caixa no banco de dados.", "ER06" ,null);
+					new erroNullRequisitoException("Caixa não foi cadastrada, insira a nova Caixa no banco de dados.", "ER06");
 				}
 			} catch (Exception ex) {
-				new erroNullRequisitoException("Errou de inserção.\nVerifique os dados inseridos ou se o aluno já foi inserido nesta Caixa.","ER07",null);
+				new erroNullRequisitoException("Errou de inserção.\nVerifique os dados inseridos ou se o aluno já foi inserido nesta Caixa.","ER07");
 			}
 		}
 	};

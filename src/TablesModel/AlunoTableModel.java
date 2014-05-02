@@ -14,19 +14,24 @@ private static final long serialVersionUID = 1L;
 	private static final int COL_ID = 0;
 	private static final int COL_NOME = 1;
 	private static final int COL_CPF = 2;
-	private static final int COL_DATA_NASC = 3;
-	private static final int COL_ESTADO_NASC = 4;
-	private static final int COL_SEXO = 5;
-	private static final int COL_COR = 6;
-	private static final int COL_ENDERECO = 7;
-	private static final int COL_TELEFONE = 8;
-	private static final int COL_DATA_MATRI = 9;
-	private static final int COL_ADMIT_TRANSF = 10;
-	private static final int COL_SITUACAO = 11;
+	private static final int COL_NIS = 3;
+	private static final int COL_DATA_NASC = 4;
+	private static final int COL_ESTADO_NASC = 5;
+	private static final int COL_SEXO = 6;
+	private static final int COL_COR = 7;
+	private static final int COL_ENDERECO = 8;
+	private static final int COL_TELEFONE = 9;
+	private static final int COL_DATA_MATRI = 10;
+	private static final int COL_ADMIT_TRANSF = 11;
+	private static final int COL_SITUACAO = 12;
+	private static final int COL_LIVRO = 13;
+	private static final int COL_CERTIFICADO = 14;
+	private static final int COL_FOLHA = 15;
+	private static final int COL_DATA_REG = 16;
 
 	private List<Aluno> linhas;
-	private String[] colunas = new String[]{"CODIGO", "NOME", "CPF", "DATA NASC", "ESTADO NASC", 
-			"SEXO", "COR", "ENDEREÇO", "TELEFONE", "DATA MATRICULA", "TRANSFERENCIA", "SITUAÇÃO"};
+	private String[] colunas = new String[]{"CODIGO", "NOME", "CPF", "NIS", "DATA NASC.", "ESTADO NASC.", 
+			"SEXO", "COR", "ENDEREÇO", "FONE", "DATA MATRIC.", "TRANSF.", "SITUAÇÃO", "CERTIFICADO", "LIVRO", "FOLHA", "DATA REG."};
 
 	public AlunoTableModel(List<Aluno> Aluno) {
 		this.linhas = new ArrayList<>(Aluno);
@@ -86,6 +91,16 @@ private static final long serialVersionUID = 1L;
 			return m.getSexoAluno();
 		} else if (column == COL_TELEFONE) {
 			return m.getTelefoneAluno();
+		} else if (column == COL_CERTIFICADO) {
+			return m.getNumCertificado();
+		} else if (column == COL_NIS) {
+			return m.getNis();
+		} else if (column == COL_FOLHA) {
+			return m.getFolha();
+		} else if (column == COL_LIVRO) {
+			return m.getTelefoneAluno();
+		} else if (column == COL_DATA_REG) {
+			return m.getDataRegCertif();
 		}
 		
 		return "";

@@ -102,6 +102,11 @@ public class AlunoDAO extends DAO {
 				aluno.setCorAluno(rs.getString("coraluno"));
 				aluno.setCidadeNascAluno(rs.getString("cidadenascaluno"));
 				aluno.setCPF_Aluno(rs.getString("cpf_aluno"));
+				aluno.setNis(rs.getString("nis"));
+				aluno.setLivro(rs.getString("livro"));
+				aluno.setFolha(rs.getString("folha"));
+				aluno.setNumCertificado(rs.getString("numcertificado"));
+				aluno.setDataRegCertif(rs.getString("dataregcertif"));
 				
 				list.add(aluno); // adiciona o aluno na lista
 //				System.out.println(aluno.getNomeAluno());

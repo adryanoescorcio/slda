@@ -133,7 +133,7 @@ public class EventosAta extends EventosPadrao {
 	
 			try{
 				daoAta.buscar(pk).getCodigoKEY(); // realiza a busca no banco de dados
-				throw new erroNullRequisitoException("(ER04) Esta Ata já existe.", "ERRO ER04",null);
+				throw new erroNullRequisitoException("(ER04) Esta Ata já existe.", "ERRO ER04");
 			}catch(NullPointerException exc){
 				metodoSalvar();
 			}

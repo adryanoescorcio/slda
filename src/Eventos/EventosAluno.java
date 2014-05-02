@@ -64,10 +64,15 @@ public class EventosAluno extends EventosPadrao{
 	protected JTextField tfEnd = new JTextField();
 	protected JTextField tfNomeMae = new JTextField();
 	protected JTextField tfRefBox = new JTextField();
+	protected JTextField tfNis = new JTextField();
+	protected JTextField tfNumCertificado = new JTextField();
 	protected JTextField tfLocaInter = new JTextField();
+	protected JTextField tfLivro = new JTextField();
+	protected JTextField tfFolha = new JTextField();
 	protected JFormattedTextField ftCpf = new JFormattedTextField(mask.getMascaraCPF());
 	protected JFormattedTextField ftDataNasc = new JFormattedTextField(mask.getMascaraData());
 	protected JFormattedTextField ftDataMatricula = new JFormattedTextField(mask.getMascaraData());
+	protected JFormattedTextField ftDataReg = new JFormattedTextField(mask.getMascaraData());
 	protected JFormattedTextField ftFone = new JFormattedTextField(mask.getMascaraTelefone());
 	protected JComboBox<String> comboUFAluno = comboGroup.getComboBoxEstadosBR();
 	protected JComboBox<String> comboCor = comboGroup.getComboBoxCorRaca();
@@ -99,22 +104,31 @@ public class EventosAluno extends EventosPadrao{
 		tfNomeMae.setText("");
 		tfRefBox.setText("");
 		tfLocaInter.setText("");
+		tfNis.setText("");
+		tfNumCertificado.setText("");
+		tfFolha.setText("");
+		tfLivro.setText("");
+		
+		tfCodigo.setEditable(true);
+
 		ftCpf.setText("");
+		ftDataReg.setText("");
 		ftDataNasc.setText("");
 		ftDataMatricula.setText("");
 		ftFone.setText("");	
+		
 		comboUFAluno.setSelectedIndex(0);
 		comboCor.setSelectedIndex(0);		
 		comboSexo.setSelectedIndex(0);	
 		comboTranferencia.setSelectedIndex(0);	
 		comboSituacao.setSelectedIndex(0);	
+		
 		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
 		btnExcluir.setEnabled(false);
 		btnAtaResul.setEnabled(false);
 		btnDocumento.setEnabled(false);
 		btnSalvar.setEnabled(true);
 		btnCaixa.setEnabled(false);
-		tfCodigo.setEditable(true);
 		
 		modeloAtaResultado.clear();
 	}
@@ -130,19 +144,27 @@ public class EventosAluno extends EventosPadrao{
 			aluno.setCidadeNascAluno(tfCidade.getText());
 			aluno.setEnderecoAluno(tfEnd.getText());
 			aluno.setNomeMae(tfNomeMae.getText());
+			aluno.setNis(tfNis.getText());
+			aluno.setNumCertificado(tfNumCertificado.getText());
+			aluno.setFolha(tfFolha.getText());
+			aluno.setLivro(tfLivro.getText());
+			
 			aluno.setCPF_Aluno(mask.verificarMascara(ftCpf));
 			aluno.setDataNascimento(mask.verificarMascara(ftDataNasc));
 			aluno.setDataMatriculaAluno(mask.verificarMascara(ftDataMatricula));
 			aluno.setTelefoneAluno(mask.verificarMascara(ftFone));
+			aluno.setDataRegCertif(mask.verificarMascara(ftDataReg));
+			
 			aluno.setEstadoNascAluno((String) comboUFAluno.getSelectedItem());
 			aluno.setCorAluno((String) comboCor.getSelectedItem());
 			aluno.setSexoAluno((String) comboSexo.getSelectedItem());
 			aluno.setTranferenciaAluno((String) comboTranferencia.getSelectedItem());
 			aluno.setSituacaoAluno((String) comboSituacao.getSelectedItem());	
+			
 			return aluno;
 			
 		} else{
-			throw new erroNullRequisitoException("(ER02) Preencha todos os requisitos com dados válidos.", "ERRO ER02",null);
+			throw new erroNullRequisitoException("(ER02) Preencha todos os requisitos com dados válidos.", "ERRO ER02");
 		}
 	}
 	
@@ -155,10 +177,17 @@ public class EventosAluno extends EventosPadrao{
 		tfCidade.setText(aluno.getCidadeNascAluno());
 		tfEnd.setText(aluno.getEnderecoAluno());
 		tfNomeMae.setText(aluno.getNomeMae());
+		tfNis.setText(aluno.getNis());
+		tfNumCertificado.setText(aluno.getNumCertificado());
+		tfLivro.setText(aluno.getLivro());
+		tfFolha.setText(aluno.getFolha());
+		
 		ftCpf.setText(aluno.getCPF_Aluno());
 		ftDataNasc.setText(aluno.getDataNascimento());
 		ftDataMatricula.setText(aluno.getDataMatriculaAluno());
 		ftFone.setText(aluno.getTelefoneAluno());
+		ftDataReg.setText(aluno.getDataRegCertif());
+		
 		comboUFAluno.setSelectedItem(aluno.getEstadoNascAluno());
 		comboCor.setSelectedItem(aluno.getCorAluno());
 		comboSexo.setSelectedItem(aluno.getSexoAluno());
@@ -196,7 +225,7 @@ public class EventosAluno extends EventosPadrao{
 			
 			try{
 				daoAluno.buscar(pk).getCodigo(); // realiza a busca no banco de dados
-				throw new erroNullRequisitoException("(ER04) Aluno \"" +codigo+ "\" já existe.", "ERRO ER04",null);
+				throw new erroNullRequisitoException("(ER04) Aluno \"" +codigo+ "\" já existe.", "ERRO ER04");
 			}catch(NullPointerException exc){
 				metodoSalvar();
 			}
@@ -282,7 +311,7 @@ public class EventosAluno extends EventosPadrao{
 	 **/
 	protected boolean verificarCodigo(String codigoLocalizar) {
 		try {
-			int isNumber = Integer.parseInt(codigoLocalizar); // caso erro tratar no catch
+			Integer.parseInt(codigoLocalizar); // caso erro tratar no catch
 			return true;
 		}catch(Exception ex) {
 			return false;
@@ -316,7 +345,7 @@ public class EventosAluno extends EventosPadrao{
 			Aluno aln = daoAluno.buscar(pk); // realiza a busca no banco de dados
 			processoMostarAluno(aln);
 		} catch(NullPointerException exc){
-			throw new erroNullRequisitoException("(ER03) Nenhum Aluno \"" +codigoLocalizar+ "\" foi encontrada.", "ERRO ER03",null);
+			throw new erroNullRequisitoException("(ER03) Nenhum Aluno \"" +codigoLocalizar+ "\" foi encontrada.", "ERRO ER03");
 		}		
 	}
 
@@ -375,14 +404,20 @@ public class EventosAluno extends EventosPadrao{
 	private void metodoSalvar() {
 		// Tentar pegar os valores
 		aluno = (Aluno) getValoresDosCampos();
+		String matricula = aluno.getCodigo();
+		String nome = aluno.getNomeAluno();
+		String data = aluno.getDataNascimento();
 		
-		// Caso seja salvo com sucesso
-		if(daoAluno.save(aluno)) {
-			JOptionPane.showMessageDialog(null, SUCESSO);
+		// Verificar se os campos foram digitados
+        if(matricula.equals("") || 
+        	nome.equals("") || data.equals("")){
+        	JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios.", "ER08", JOptionPane.ERROR_MESSAGE);                
+        }else if(daoAluno.save(aluno)) {
+        	JOptionPane.showMessageDialog(null, SUCESSO);
 			limparCampos();
 			//LIMPA A CAIXA
 			aluno = null;
-		}		
+        }
 	}
 
 	public List<AtaResultado> getListaAtaResul() {

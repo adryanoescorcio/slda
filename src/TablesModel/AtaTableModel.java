@@ -17,7 +17,7 @@ public class AtaTableModel extends AbstractTableModel{
 	private static final int COL_MODALIDADE = 3;
 	private static final int COL_ENSINO = 4;
 	
-	private List<Ata> linhas;
+	private ArrayList<Ata> linhas;
 	private String[] colunas = new String[]{"TURMA", "TURNO", "ANO", "MODALIDADE", "ENSINO"};
 
 	public AtaTableModel(List<Ata> ata) {
@@ -105,18 +105,22 @@ public class AtaTableModel extends AbstractTableModel{
 		}
 		linhas.remove(indice);
 		fireTableRowsDeleted(indice, indice);
-
 	}
 	
 	//ATUALIZAR NOVO A PARTIR DO VELHO
+	
 	public void updateContato(Ata velho, Ata novo) {
-		int indice = 0;
+		Integer indice = null;
 		for(int i = 0; i < linhas.size(); i++){
 			if(linhas.get(i).toString().equals(velho.toString())){
 				indice = i;
 			}
 		}
-		linhas.set(indice, novo);
-		fireTableRowsUpdated(indice, indice);
+		if(indice == null){
+			System.out.println("Elemento Não Encontrado :(");
+		}else{
+			linhas.set(indice, novo);
+			fireTableRowsUpdated(indice, indice);
+		}
 	}
 }

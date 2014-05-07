@@ -2,14 +2,19 @@ package Eventos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
-
 import ComponentGroupPlus.MaskFormatterGroup;
+import ComponentGroupPlus.PainelTabela;
 import ExceptionSLDA.erroNullRequisitoException;
 import Model.Ata;
 import PrimaryKey.AtaPK;
@@ -23,9 +28,15 @@ import TablesModel.AtaTableModel;
  * @version 2.0
  * @extends EventoPadrão
  **/
+
 public class EventosAta extends EventosPadrao {
 
+	//OBJETO UTILIZADO NAS BUSCAS
+	Ata ataPesquisa = new Ata();
+	
 	//TABELA
+	protected PainelTabela table = new PainelTabela();
+	protected JTable tabela = table.getTabela();
 	protected List<Ata> lista = daoAta.getTodasAtas();
 	protected AtaTableModel modeloAta = new AtaTableModel(lista);
 	
@@ -36,8 +47,9 @@ public class EventosAta extends EventosPadrao {
 	protected JTextField tfTurma = new JTextField();
 	protected JFormattedTextField ftAno = new JFormattedTextField(mask.getMascaraAno());
 	protected JComboBox<String> comboTurno = comboGroup.getComboBoxTurno(); 
-	protected JComboBox<String> comboModalidade = comboGroup.getComboBoxModalidade();
-	protected JComboBox<String> comboEnsino  = comboGroup.getComboBoxEnsino();
+	protected JComboBox<String> comboEnsino  = comboGroup.getComboBoxEnsinoMF();
+	protected JComboBox<String> comboModalidade  = comboGroup.getComboBoxModalidade();
+
 	AtaPK pk = new AtaPK(); // chave primaria da ata.
 
 	public EventosAta() {
@@ -47,17 +59,25 @@ public class EventosAta extends EventosPadrao {
 	
 	@Override
 	public void limparCampos() {
+
 		tfTurma.setText("");
 		ftAno.setText("");
 		comboTurno.setSelectedIndex(0);
 		comboModalidade.setSelectedIndex(0);
 		comboEnsino.setSelectedIndex(0);
 		
+		//RESCONTRÓI A TABELA CASO ELA TENHA SIDO REDUZIDA NA BUSCA 
+		lista = daoAta.getTodasAtas();
+		modeloAta = new AtaTableModel(lista);
+		tabela.setModel(modeloAta);
+		
+		habilitarBotoes(false);
+	
 	}
 	
 	@Override
 	public Object getValoresDosCampos() {
-		Ata ata = new Ata();
+		ata = new Ata();
 		ata.setCodigo((String)comboTurno.getSelectedItem(), tfTurma.getText(), mask.verificarMascara(ftAno));
 		ata.setModalidadeAta((String)comboModalidade.getSelectedItem());
 		ata.setEnsinoAta((String)comboEnsino.getSelectedItem());
@@ -95,11 +115,13 @@ public class EventosAta extends EventosPadrao {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ata = (Ata) getValoresDosCampos();
-			Ata ata2 = daoAta.buscar(ata.getCodigoKEY());
 			
-			if(!ata.toString().equals(ata2.toString())) {
-				metodoSalvar();
-				
+			if(!ata.toString().equals(ataPesquisa.toString())) {
+				if(daoAta.save(ata)) {
+					JOptionPane.showMessageDialog(null, SUCESSO);
+					modeloAta.updateContato(ataPesquisa, ata);
+					limparCampos();					
+				}		
 			} else {
 				JOptionPane.showMessageDialog(null, "(AT01) Não houve modificação.","ATENÇÃO AT01", 
 						JOptionPane.WARNING_MESSAGE);
@@ -107,20 +129,6 @@ public class EventosAta extends EventosPadrao {
 		}
 	};
 	
-	private void metodoSalvar() {
-		// Tentar pegar os valores
-		ata = (Ata) getValoresDosCampos();
-		
-		// Caso seja salvo com sucesso
-		if(daoAta.save(ata)) {
-			JOptionPane.showMessageDialog(null, SUCESSO);
-			modeloAta.addContato(ata); // Insere a ata na tabela da tela ATA.
-			limparCampos();
-			
-			//LIMPA A ATA
-			ata = null;
-		}		
-	}
 	/**
 	 * Metodo com a função de salvar e alterar uma caixa.
 	 **/
@@ -128,47 +136,44 @@ public class EventosAta extends EventosPadrao {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			pk.setCodigo(tfTurma.getText().trim(), (String) comboTurno.getSelectedItem(), ftAno.getText()); // seta a chave
+			ata = (Ata) getValoresDosCampos();
+			pk.setCodigo(ata.getTurmaAta(), ata.getTurnoAta(), ata.getAnoAta()); // seta a chave
 	
 			try{
-				daoAta.buscar(pk); // realiza a busca no banco de dados
+				daoAta.buscar(pk).getCodigoKEY(); // realiza a busca no banco de dados
 				throw new erroNullRequisitoException("(ER04) Esta Ata já existe.", "ERRO ER04",null);
 			}catch(NullPointerException exc){
-				metodoSalvar();
+				
+				if(daoAta.save(ata)) {
+					JOptionPane.showMessageDialog(null, SUCESSO);
+					modeloAta.addContato(ata); // Insere a ata na tabela da tela ATA.
+					limparCampos();
+					
+				}		
 			}
-			
 		}
 	};
 
 	/***
 	 * Metodo com  a função de buscar um caixa
-	 
+	 */
 	protected ActionListener onClickBuscarAta = new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String codigoLocalizar = tfLocalizar.getText().trim(); // pega o codigo digitado pelo cliente.
-
-			AtaPK pk = new AtaPK(); // chave primaria da caixa.
-			pk.setCodigo(codigoLocalizar); // seta a chave
+			String ano = tfLocalizar.getText().trim(); // pega o codigo digitado pelo cliente.
 
 			try{
-				Ata at = daoAta.buscar(pk); // realiza a busca no banco de dados
-				setValoresDosCampos(at); // atribui os valores recuperados para os campos.
-				btnAlterar.setEnabled(true); // necessario a pesquisa para ativar botão
-				btnExcluir.setEnabled(true); // necessario a pesquisa para ativar botão
+				List<Ata> atas = daoAta.getAtasByYear(ano); 
+				modeloAta = new AtaTableModel(atas);
+				tabela.setModel(modeloAta);
 				
-				btnSalvar.setEnabled(false); // nao sera possivel salvar, somente alterar
-				tfCodigo.setEditable(false); // nao sera possivel alterar o codigo de objeto consultado.
-				
-				ata = at;
-			
 			}catch(NullPointerException exc){
-				throw new erroNullRequisitoException("(ER03) Nenhuma Ata \"" +codigoLocalizar+ "\" foi encontrada.", "ERRO ER03",null);
+				throw new erroNullRequisitoException("(ER03) Nenhuma Ata com ano: \"" +ano+ "\" foi encontrada.", "ERRO ER03",null);
 			}
 		}
 	};
-*/
+
 	
 	/**
 	 * Metodo com a função de excluir uma caixa
@@ -178,12 +183,67 @@ public class EventosAta extends EventosPadrao {
 		@Override
 		public void actionPerformed(ActionEvent e) {			
 			if(JOptionPane.showConfirmDialog(null, "Deseja excluir a ata?") == 0) {
-				daoAta.remover(ata);
+				daoAta.remover(ataPesquisa);
 				JOptionPane.showMessageDialog(null, "Ata excluída com sucesso.");
+				modeloAta.removeContato(ataPesquisa);
 				limparCampos();
 			}
 		}
 	};
+	
+	protected ItemListener onClickChangeModalidade = new ItemListener() {
+		@Override
+		public void itemStateChanged(ItemEvent ev) {
+			//SE FUNDAMENTAL ESSE METODO RECONTRÓI O COMBO
+			if(comboModalidade.getSelectedIndex() == 0){
+				comboEnsino.removeAllItems();
+				comboEnsino.addItem("REGULAR");
+				comboEnsino.addItem("ACELERAÇÃO");
+				comboEnsino.addItem("AVANÇADO");
+				comboEnsino.addItem("CLASSE ESPECIAL");
+				comboEnsino.addItem("EJA");
+				
+			//SE MEDIO ESSE METODO RECONTRÓI O COMBO	
+			}else if(comboModalidade.getSelectedIndex() == 1){
+				comboEnsino.removeAllItems();
+				comboEnsino.addItem("REGULAR");
+				comboEnsino.addItem("EJA");
+				comboEnsino.addItem("PROEJA");
+				comboEnsino.addItem("TÉC. CONTABILIDADE");
+			}	
+		}
+	};
+	
+	protected MouseListener onClickRowTable = new MouseListener() {
 
-
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(e.getClickCount() == 2){
+				int linha = tabela.getSelectedRow();
+				ataPesquisa = modeloAta.getContato(linha);
+				setValoresDosCampos(ataPesquisa);
+				habilitarBotoes(true);
+			}
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {}
+		@Override
+		public void mouseExited(MouseEvent e) {}
+		@Override
+		public void mousePressed(MouseEvent e) {}
+		@Override
+		public void mouseReleased(MouseEvent e) {}
+	};
+	
+	public void habilitarBotoes(boolean bool) {
+		
+		btnAlterar.setEnabled(bool); // necessario a pesquisa para ativar botão
+		btnExcluir.setEnabled(bool); // necessario a pesquisa para ativar botão
+		btnSalvar.setEnabled(!bool); // nao sera possivel salvar, somente alterar
+		
+		tfTurma.setEditable(!bool); // nao sera possivel alterar o codigo de objeto consultado.
+		ftAno.setEditable(!bool); // nao sera possivel alterar o codigo de objeto consultado.
+		comboTurno.setEnabled(!bool);
+	}
+		
 }

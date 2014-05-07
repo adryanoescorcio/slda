@@ -2,11 +2,18 @@ package Eventos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+
+import ComponentGroupPlus.PainelTabela;
 import ExceptionSLDA.erroNullRequisitoException;
 import Model.Caixa;
 import PrimaryKey.CaixaPK;
@@ -14,17 +21,26 @@ import TablesModel.CaixaTableModel;
 
 /**
  * Classe responsavel pelos eventos do painelCaixa
- * 
+ * $$
  * @author Walysson Oliveira
  * @author Adryano Escorcio
  * @version 2.0
  * @extends EventoPadrão
  **/
+
 public class EventosCaixa extends EventosPadrao {
+	
+	//OBJETO UTILIZADO NAS BUSCAS
+	Caixa caixaPesquisa = new Caixa();
 		
+	//COMPARADOR DE OBJETOS PARA ORDENAR O ARRAY
+	ComparadorObjetos comparador = new ComparadorObjetos();
+	
 	//TABELA
+	PainelTabela table = new PainelTabela();
+	protected JTable tabela = table.getTabela();
 	protected List<Caixa> lista = daoCaixa.getTodasCaixas();
-	protected CaixaTableModel modelo = new CaixaTableModel(lista);
+	protected CaixaTableModel modelo;
 	
 	//COMPONENTES NECESSÁRIOS
 	protected JTextField tfCodigo = new JTextField();
@@ -33,6 +49,9 @@ public class EventosCaixa extends EventosPadrao {
 	protected JComboBox<String> comboStatus = comboGroup.getComboBoxStatus();
 	
 	public EventosCaixa() {
+		//INICIA A TABELA ORDENADA
+		Collections.sort(lista, comparador);
+		modelo = new CaixaTableModel(lista);
 		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
 		btnExcluir.setEnabled(false); // necessario a pesquisa para ativar botão
 	}
@@ -49,7 +68,6 @@ public class EventosCaixa extends EventosPadrao {
 			caixa.setLetra((String) comboLetra.getSelectedItem());
 			
 			return caixa;
-			
 		} else {
 			throw new erroNullRequisitoException("(ER02) Preencha todos os requisitos com dados válidos.", "ERRO ER02",null);
 		}
@@ -78,20 +96,18 @@ public class EventosCaixa extends EventosPadrao {
 	/**
 	 * Necessário verificar se houve alteração para poder atualiza a caixa modificada.
 	 **/
-	protected ActionListener onClickAterarCaixa = new ActionListener() {
+	protected ActionListener onClickAlterarCaixa = new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			caixa = (Caixa) getValoresDosCampos();
-			Caixa caixa2 = daoCaixa.buscar(caixa.getCodigoKEY());
 			
-			if(!caixa.toString().equals(caixa2.toString())) {
-				
-				modelo.updateContato(caixa2, caixa);
-				
-				//LIMPA A CAIXA
-				caixa = null;
-				
+			if(!caixa.toString().equals(caixaPesquisa.toString())) {			
+				if(daoCaixa.save(caixa)) {
+					JOptionPane.showMessageDialog(null, SUCESSO);
+					modelo.updateContato(caixaPesquisa, caixa);
+					limparCampos();
+				}	
 			} else {
 				JOptionPane.showMessageDialog(null, "(AT01) Não houve modificação.","ATENÇÃO AT01", 
 						JOptionPane.WARNING_MESSAGE);
@@ -99,16 +115,6 @@ public class EventosCaixa extends EventosPadrao {
 		}
 	};
 	
-	private void metodoSalvar() {
-		// Tentar pegar os valores
-		caixa = (Caixa) getValoresDosCampos();
-		
-		// Caso seja salvo com sucesso
-		if(daoCaixa.save(caixa)) {
-			JOptionPane.showMessageDialog(null, SUCESSO);
-			limparCampos();
-		}		
-	}
 	/**
 	 * Metodo com a função de salvar e alterar uma caixa.
 	 **/
@@ -116,18 +122,27 @@ public class EventosCaixa extends EventosPadrao {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String codigo = tfCodigo.getText().trim(); // pega o codigo digitado pelo cliente.
+			caixa = (Caixa) getValoresDosCampos();
 
-			CaixaPK pk = new CaixaPK(); // chave primaria da caixa.
-			pk.setCodigo(codigo); // seta a chave
-			
+			//BUSCA NECESSARIO PARA SABER SE O OBJETO JÁ EXISTE NO BANCO
+			CaixaPK pk = new CaixaPK(); 
+			pk.setCodigo(caixa.getCodigo()); 
 			try{
-				daoCaixa.buscar(pk); // realiza a busca no banco de dados
-				throw new erroNullRequisitoException("(ER04) Caixa \"" +codigo+ "\" já existe.", "ERRO ER04",null);
+				daoCaixa.buscar(pk).getCodigo(); 
+				throw new erroNullRequisitoException("(ER04) Caixa \"" + caixa.getCodigo() + "\" já existe.", "ERRO ER04",null);
 			}catch(NullPointerException exc){
-				metodoSalvar();
+				
+				if(daoCaixa.save(caixa)) {
+					JOptionPane.showMessageDialog(null, SUCESSO);
+					lista.add(caixa);
+					//ORDENA A LISTA
+					Collections.sort(lista, comparador);
+					//RECRIA A TABELA
+					modelo = new CaixaTableModel(lista);
+					tabela.setModel(modelo);
+					limparCampos();
+				}
 			}
-			
 		}
 	};
 
@@ -145,15 +160,9 @@ public class EventosCaixa extends EventosPadrao {
 			pk.setCodigo(codigoLocalizar); // seta a chave
 
 			try{
-				Caixa cx = daoCaixa.buscar(pk); // realiza a busca no banco de dados
-				setValoresDosCampos(cx); // atribui os valores recuperados para os campos.
-				btnAlterar.setEnabled(true); // necessario a pesquisa para ativar botão
-				btnExcluir.setEnabled(true); // necessario a pesquisa para ativar botão
-				
-				btnSalvar.setEnabled(false); // nao sera possivel salvar, somente alterar
-				tfCodigo.setEditable(false); // nao sera possivel alterar o codigo de objeto consultado.
-				
-				caixa = cx;
+				caixaPesquisa = daoCaixa.buscar(pk); // realiza a busca no banco de dados
+				setValoresDosCampos(caixaPesquisa); // atribui os valores recuperados para os campos.
+				habilitarBotoes(true);	
 			
 			}catch(NullPointerException exc){
 				throw new erroNullRequisitoException("(ER03) Nenhuma Caixa \"" +codigoLocalizar+ "\" foi encontrada.", "ERRO ER03",null);
@@ -169,17 +178,39 @@ public class EventosCaixa extends EventosPadrao {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
-			if (JOptionPane.showConfirmDialog(null, "Deseja excluir a ata?") == 0) {
-				daoCaixa.remover(caixa);
+			if (JOptionPane.showConfirmDialog(null, "Deseja excluir a Caixa?") == 0) {
+				daoCaixa.remover(caixaPesquisa);
 				JOptionPane.showMessageDialog(null, "Caixa excluído com sucesso.");
-				modelo.removeContato(caixa);
-				lista.remove(caixa);
+				modelo.removeContato(caixaPesquisa);
 				limparCampos();
 				
 				//LIMPA A CAIXA
 				caixa = null;
 			}
 		}
+	};
+	
+	//OBJETO QUE REALIZA UMA BUSCA ATRAVÉS DAS LINHAS DA TABELA
+	protected MouseListener onClickRowTable = new MouseListener() {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(e.getClickCount() == 2){
+				int linha = tabela.getSelectedRow();
+				caixaPesquisa = modelo.getContato(linha);
+				
+				setValoresDosCampos(caixaPesquisa);
+				habilitarBotoes(true);
+			}
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {}
+		@Override
+		public void mouseExited(MouseEvent e) {}
+		@Override
+		public void mousePressed(MouseEvent e) {}
+		@Override
+		public void mouseReleased(MouseEvent e) {}
 	};
 	
 	@Override
@@ -189,11 +220,24 @@ public class EventosCaixa extends EventosPadrao {
 		comboLetra.setSelectedIndex(0);
 		comboStatus.setSelectedIndex(0);
 		
-		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
-		btnExcluir.setEnabled(false);
-		
-		btnSalvar.setEnabled(true);
-		tfCodigo.setEditable(true);
+		habilitarBotoes(false);
 	}
 	
+	//METODO PARA HABILITAR OU DESABILITAR OS BOTOES QUE INICIAM Enabled E TAMBÉM OUTROS COMPONENTES NECESSÁRIOS
+	public void habilitarBotoes(boolean bool) {
+		
+		btnAlterar.setEnabled(bool);
+		btnExcluir.setEnabled(bool);
+		btnSalvar.setEnabled(!bool); 
+		tfCodigo.setEditable(!bool);
+	}
+	
+	//PEQUENA CLASSE DE COMPARAÇÃO UTILIZADA NA ORDENAÇÃO DA LISTA 
+	public static class  ComparadorObjetos implements Comparator<Caixa> {
+      
+		@Override
+		public int compare(Caixa objetoParaComparar, Caixa objetoAserComparado) {
+			return  objetoParaComparar.getCodigo().compareTo(objetoAserComparado.getCodigo());
+		}
+    }    	
 }

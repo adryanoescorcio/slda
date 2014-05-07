@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import ComponentGroupPlus.PainelTabela;
 import Eventos.EventosAta;
 
 /**
@@ -50,6 +49,7 @@ public class PainelMainAta extends EventosAta {
 	
 	public PainelMainAta() {
 		
+		
 		eventosBotoes();
 		
 		painelEsquerdoInfoAluno.add(editPanel.painelNull(0, 0));
@@ -74,6 +74,7 @@ public class PainelMainAta extends EventosAta {
 		alterarFontes();
 		painelInternoNorte();
 		getTelaPrincipal();
+		
 	}
 	
 	private void eventosBotoes() {
@@ -82,6 +83,9 @@ public class PainelMainAta extends EventosAta {
 		btnSalvar.addActionListener(onClickSalvarAta);
 		btnAlterar.addActionListener(onClickAterarAta);
 		btnExcluir.addActionListener(onClickExcluirAta);
+		btnPesquisar.addActionListener(onClickBuscarAta);
+		comboModalidade.addItemListener(onClickChangeModalidade);
+		tabela.addMouseListener(onClickRowTable);
 	}
 
 	private void painelInternoNorte() {
@@ -124,14 +128,12 @@ public class PainelMainAta extends EventosAta {
 	}
 	
 	private JPanel painelTable() {
-		PainelTabela table = new PainelTabela();
-		// carregando modelo da tabela.
-		table.getTabela().setModel(modeloAta);
+		tabela.setModel(modeloAta);
+		tabela.setToolTipText("Dê um duplo clique na Ata para Excluir ou Alterar");
 		
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		
 		scroll.setViewportView(table.getTabela()); // insere a tabela no painel Scroll
 		scroll.setWheelScrollingEnabled(true);
 		

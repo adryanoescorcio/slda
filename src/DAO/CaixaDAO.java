@@ -51,7 +51,7 @@ public class CaixaDAO extends DAO {
 	 **/
 	public List<Caixa> getTodasCaixas(){
 		
-		Query query = em.createNamedQuery("Caixa.findAll");
+		Query query = em.createNamedQuery("Caixa.findAllC");
 		@SuppressWarnings("unchecked")
 		List<Caixa> caixas = query.getResultList();
 		

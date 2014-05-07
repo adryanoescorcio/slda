@@ -44,6 +44,16 @@ public class EditPanelGroup {
 		return painelContent;
 	}
 	
+	public JPanel painelContentComponent(String lado, Component componente1, Component componente2) {
+		JPanel painelContent1 = new JPanel(new GridLayout(1, 2));
+		JPanel painelContent2 = new JPanel(new BorderLayout());
+		painelContent1.add(componente1);
+		painelContent1.add(componente2);
+		painelContent2.add(lado,painelContent1);
+		
+		return painelContent2;
+	}
+	
 	/**
 	 * Painel especifico para a criação de botões de pesquisa parte inferior
 	 **/

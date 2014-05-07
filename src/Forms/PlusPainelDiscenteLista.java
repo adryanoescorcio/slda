@@ -1,7 +1,6 @@
 package Forms;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -9,8 +8,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
-import sun.security.action.GetLongAction;
 
 import ComponentGroupPlus.PainelTabela;
 import Eventos.EventosAluno;

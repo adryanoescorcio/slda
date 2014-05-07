@@ -42,6 +42,7 @@ public class AtaResultadoTableModel extends AbstractTableModel{
 		return colunas[columnIndex];
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Class getColumnClass(int columnIndex) {
 		return String.class;
 	}

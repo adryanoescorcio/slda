@@ -347,6 +347,7 @@ public class PainelMainAluno extends EventosAluno {
 		tfCodigo.setFont(font.font_NEG_15);
 		tfLivro.setFont(font.font_NEG_15);
 		tfFolha.setFont(font.font_NEG_15);
+		tfNomeMae.setFont(font.font_NEG_15);
 		
 		tfRefBox.setFont(font.font_NEG_18);
 		tfLocaInter.setFont(font.font_NEG_18);

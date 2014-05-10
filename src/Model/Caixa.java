@@ -15,7 +15,7 @@ import PrimaryKey.InterfaceKey;
  * @implements PadraoEntidade
  **/
 
-@NamedQuery(name="Caixa.findAll", query="SELECT c FROM Caixa c")
+@NamedQuery(name="Caixa.findAllC", query="SELECT c FROM Caixa c")
 @Entity
 public class Caixa implements InterfacePadraoEntidade{
 

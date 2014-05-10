@@ -16,7 +16,7 @@ public class CaixaTableModel extends AbstractTableModel {
 	private static final int COL_STATUS = 2;
 	private static final int COL_LETRA = 3;
 
-	private List<Caixa> linhas;
+	private ArrayList<Caixa> linhas;
 	private String[] colunas = new String[]{"CODIGO", "TURNO", "STATUS", "LETRA"};
 
 	public CaixaTableModel(List<Caixa> caixa) {
@@ -111,14 +111,18 @@ public class CaixaTableModel extends AbstractTableModel {
 	
 	//ATUALIZAR NOVO A PARTIR DO VELHO
 	public void updateContato(Caixa velho, Caixa novo) {
-		int indice = 0;
+		Integer indice = null;
 		for(int i = 0; i < linhas.size(); i++){
 			if(linhas.get(i).toString().equals(velho.toString())){
 				indice = i;
 			}
 		}
-		linhas.set(indice, novo);
-		fireTableRowsUpdated(indice, indice);
+		if(indice == null){
+			System.out.println("Elemento Não Encontrado :(");
+		}else{
+			linhas.set(indice, novo);
+			fireTableRowsUpdated(indice, indice);
+		}
 	}
 
 }

@@ -9,11 +9,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import ComponentGroupPlus.FontGroup;
-import ComponentGroupPlus.PainelTabela;
 import Eventos.EventosCaixa;
 
 /**
@@ -24,6 +22,7 @@ import Eventos.EventosCaixa;
  * @version 3.0
  * @extends EventoCaixa
  **/
+
 public class PainelMainCaixa extends EventosCaixa {
 
 	protected static final int DIST = 5;
@@ -93,9 +92,10 @@ public class PainelMainCaixa extends EventosCaixa {
 		//ADD EVENTOS
 		btnLimpar.addActionListener(onClickLimparCampos);
 		btnSalvar.addActionListener(onClickSalvarCaixa);
-		btnAlterar.addActionListener(onClickAterarCaixa);
+		btnAlterar.addActionListener(onClickAlterarCaixa);
 		btnPesquisar.addActionListener(onClickBuscarCaixa);
 		btnExcluir.addActionListener(onClickExcluirCaixa);
+		tabela.addMouseListener(onClickRowTable);
 	}
 
 	private void painelInternoNorte() {
@@ -106,8 +106,17 @@ public class PainelMainCaixa extends EventosCaixa {
 		BorderFactory.createSoftBevelBorder(2), BORDER_INFO_CAIXA));
 
 		
+		painelInternoNorte.add("North",contentPainelLocalizar());
 		painelInternoNorte.add("Center",controleSuperior);
 		painelInternoNorte.add("South",painelInternoSul());
+	}
+	
+	private JPanel contentPainelLocalizar() {
+		JPanel painel = new JPanel(new BorderLayout(2,2));
+		painel.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createSoftBevelBorder(2), "CONSULTAR"));
+		painel.add("North", painelLocaliza(lbCodigo2));
+		return painel;
 	}
 
 	public JPanel getTelaPrincipal() {
@@ -141,17 +150,15 @@ public class PainelMainCaixa extends EventosCaixa {
 	}
 	
 	private JPanel painelTable() {
-		PainelTabela table = new PainelTabela();
-		// carregando modelo da tabela.
-		JTable tabela = table.getTabela();
 		tabela.setModel(modelo);
-		
+		tabela.setToolTipText("Dê um duplo clique na Caixa para Excluir ou Alterar");
+
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setViewportView(tabela); // insere a tabela no painel Scroll
 		
 		painelTabela.add("North", editPanel.painelNull(0, 10));
 		painelTabela.add("Center",scroll);
-		painelTabela.add("South", painelLocaliza(lbCodigo2));
+//		painelTabela.add("South", painelLocaliza(lbCodigo2));
 		
 		return painelTabela;
 	}

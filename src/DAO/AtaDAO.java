@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+
 import Model.Ata;
 import Model.InterfacePadraoEntidade;
 import PrimaryKey.AtaPK;
@@ -60,5 +61,15 @@ public class AtaDAO extends DAO {
 
 		public boolean isContem(Ata ataTest) {
 			return em.contains(ataTest);
+		}
+		
+		public List<Ata> getAtasByYear(String ano){
+			
+			Query query = em.createNamedQuery("Ata.findByYear");
+			query.setParameter("ano", ano);
+			@SuppressWarnings("unchecked")
+			List<Ata> atas = query.getResultList();
+			return atas;
+			
 		}
 }

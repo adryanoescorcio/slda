@@ -80,15 +80,14 @@ public class MainJFrame {
 		camadaExterna.setBackground(Color.LIGHT_GRAY);
 		
 		//DEFININDO OS PAINEIS DA CAMADA EXTERNA 
+		camadaExterna.addTab("Discente", icone.getIconeAluno(), 
+				cadastrarAluno.getTelaPrincipal(), "Gerenciar Alunos");
+
 		camadaExterna.addTab("Caixa",  icone.getIconeArquivo(), 
 				cadastrarCaixa.getTelaPrincipal(),"Gerenciar Caixas");
 		
-		camadaExterna.addTab("Discente", icone.getIconeAluno(), 
-				cadastrarAluno.getTelaPrincipal(), "Gerenciar Alunos");
-		
 		camadaExterna.addTab("Ata", icone.getIconeAta32x(), 
 				cadastrarAta.getTelaPrincipal(), "Gerenciar Atas");
-		camadaExterna.setSelectedIndex(1);
 	}
 	
 	private void alterandoFontes() {
@@ -155,5 +154,9 @@ public class MainJFrame {
 		camadaExterna.setEnabledAt(PAINEL_ALUNO, true);
 		camadaExterna.setSelectedIndex(PAINEL_ALUNO); // volta a tela para o painel do aluno
 		camadaExterna.setEnabledAt(PAINEL_ATA, true);
+	}
+	
+	public void direcionarParaCamada (int i) {
+		camadaExterna.setSelectedIndex(i);
 	}
 }

@@ -42,15 +42,20 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 	protected EventosAluno evento;
 	
 	public PlusEventoDiscenteAta(JPanel mainDialog, EventosAluno evAluno) {
-		this.evento = evAluno;
-		initVar();
-		this.setMainJDialog(mainDialog);
-		this.aluno = evAluno.getAluno();
+		try {
+			this.evento = evAluno;
+			initVar();
+			this.setMainJDialog(mainDialog);
+			this.aluno = evAluno.getAluno();
 		
-		// pega a ultima ata inserida
-		setListaAta(daoAta.getTodasAtas()); // pega todas do banco de dados
-		ultimaAtaList = listaAta.get(listaAta.size()-1); // pega a ultima ata da lista
-		setValoresDosCampos(ultimaAtaList);
+			// pega a ultima ata inserida
+			setListaAta(daoAta.getTodasAtas()); // pega todas do banco de dados
+			ultimaAtaList = listaAta.get(listaAta.size()-1); // pega a ultima ata da lista
+			setValoresDosCampos(ultimaAtaList);
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Nenhuma ata foi inserida. Faça isso antes de continuar.");
+			direcionarParaCamada();
+		}
 	}
 	
 	/**
@@ -60,8 +65,7 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 		tfTurma = new JTextField();
 		ftAno = new JFormattedTextField(mask.getMascaraAno());
 		comboTurno = comboGroup.getComboBoxTurno();
-		comboModalidade = comboGroup.getComboBoxModalidade();
-		comboEnsino  = comboGroup.getComboBoxEnsinoMEDIO();
+		comboEnsino  = comboGroup.getComboBoxEnsinoMF();
 	}
 
 	public List<Ata> getListaAta() {
@@ -249,6 +253,11 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 	protected void finallyOperation() {
 		JOptionPane.showMessageDialog(null, "Operação realizada com sucesso.");
 		evento.normalizarCamadas();
+		mainJDialog.removeAll();
+	}
+	
+	protected void direcionarParaCamada() {
+		evento.direcionarParaCamada(2);
 		mainJDialog.removeAll();
 	}
 

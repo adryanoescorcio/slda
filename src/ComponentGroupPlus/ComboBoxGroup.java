@@ -196,13 +196,12 @@ public class ComboBoxGroup {
 	/**
 	 * Metodo que cria comboBox com as Modalidades de Ensino
 	 **/
-	public JComboBox<String> getComboBoxModalidade(){
+	public JComboBox<String> getComboBoxEnsinoMF(){
 		
 		JComboBox<String> combo = new JComboBox<String>();
 		
-		combo.addItem("");
-		combo.addItem("MÉDIO");
 		combo.addItem("FUNDAMENTAL");
+		combo.addItem("MÉDIO");
 
 		combo.setBackground(Color.WHITE);
 		combo.setFont(fonte.font_PLA_14);
@@ -210,8 +209,7 @@ public class ComboBoxGroup {
 		return combo;
 	}
 	
-	public JComboBox<String> getComboBoxEnsinoMEDIO(){
-		
+	public JComboBox<String> getComboBoxEnsinoMEDIO() {
 		JComboBox<String> combo = new JComboBox<String>();
 		
 		combo.addItem("REGULAR");

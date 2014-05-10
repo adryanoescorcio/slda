@@ -36,6 +36,7 @@ import TablesModel.DocumentoTableModel;
  * @version 2.0
  * @extends EventoPadrão
  **/
+
 public class EventosAluno extends EventosPadrao{
 	
 	//Listas
@@ -129,8 +130,8 @@ public class EventosAluno extends EventosPadrao{
 		btnDocumento.setEnabled(false);
 		btnSalvar.setEnabled(true);
 		btnCaixa.setEnabled(false);
-		
-		modeloAtaResultado.clear();
+
+		ftCpf.setText(null);
 	}
 	
 	@Override
@@ -224,7 +225,8 @@ public class EventosAluno extends EventosPadrao{
 			pk.setCodigo(codigo); // seta a chave
 			
 			try{
-				daoAluno.buscar(pk).getCodigo(); // realiza a busca no banco de dados
+				// realiza a busca no banco de dados
+				daoAluno.buscar(pk).getCodigo();
 				throw new erroNullRequisitoException("(ER04) Aluno \"" +codigo+ "\" já existe.", "ERRO ER04");
 			}catch(NullPointerException exc){
 				metodoSalvar();
@@ -292,10 +294,14 @@ public class EventosAluno extends EventosPadrao{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o aluno de uma ata?") == 0) {
-				PlusPainelDiscenteAta painelDiscAta = 
-						new PlusPainelDiscenteAta(EventosAluno.this);
-				
-				main.addCamada(painelDiscAta.getMainDialog(), "Inserir Aluno-Ata");
+				try {
+					PlusPainelDiscenteAta painelDiscAta = 
+							new PlusPainelDiscenteAta(EventosAluno.this);
+					
+					main.addCamada(painelDiscAta.getMainDialog(), "Inserir Aluno-Ata");
+				} catch (Exception ex) {
+					// o metodo foi parado por falta dos requisitos minimos.
+				}
 			}
 		}
 	};
@@ -374,6 +380,10 @@ public class EventosAluno extends EventosPadrao{
 		tabela.setModel(modeloDoc);
 	}
 
+	public void direcionarParaCamada(int i) {
+		main.direcionarParaCamada(i);
+	}
+	
 	public void normalizarCamadas() {
 		main.normalizarCamadas();
 		try {

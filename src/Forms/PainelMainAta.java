@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import ComponentGroupPlus.PainelTabela;
 import Eventos.EventosAta;
 
 /**
@@ -40,13 +39,13 @@ public class PainelMainAta extends EventosAta {
 	private JScrollPane scroll = new JScrollPane();
 	private JScrollPane scrollMain = new JScrollPane();
 
-	private JLabel lbDadosAta = new JLabel("DADOS DA ATA",SwingConstants.CENTER);
-	private JLabel lbTurma = new JLabel("Turma: ",SwingConstants.RIGHT);
-	private JLabel lbCodigo2 = new JLabel("Código Ata: ",SwingConstants.RIGHT);
-	private JLabel lbTurno = new JLabel("Turno: ",SwingConstants.RIGHT);
-	private JLabel lbAno = new JLabel("Ano: ",SwingConstants.RIGHT);
-	private JLabel lbModalidade = new JLabel("Modalidade: ",SwingConstants.RIGHT);
-	private JLabel lbEnsino = new JLabel("Ensino: ",SwingConstants.RIGHT);
+	private JLabel lbDadosAta = new JLabel("DADOS DA ATA", SwingConstants.CENTER);
+	private JLabel lbTurma = new JLabel("Turma: ", SwingConstants.RIGHT);
+	private JLabel lbCodigo2 = new JLabel("Ano da Ata: ", SwingConstants.RIGHT);
+	private JLabel lbTurno = new JLabel("Turno: ", SwingConstants.RIGHT);
+	private JLabel lbAno = new JLabel("Ano: ", SwingConstants.RIGHT);
+	private JLabel lbModalidade = new JLabel("Modalidade: ", SwingConstants.RIGHT);
+	private JLabel lbEnsino = new JLabel("Ensino: ", SwingConstants.RIGHT);
 	
 	public PainelMainAta() {
 		
@@ -64,7 +63,7 @@ public class PainelMainAta extends EventosAta {
 		painelDireito.add(editPanel.painelContentComponent("West", comboTurno));
 		painelDireito.add(editPanel.painelContentComponent("West", ftAno));
 		painelDireito.add(editPanel.painelContentComponent("West", comboModalidade));
-		painelDireito.add(editPanel.painelContentComponent("West", comboEnsinoMEDIO));
+		painelDireito.add(editPanel.painelContentComponent("West", comboEnsino));
 		
 		painelContentEIA.add("North", lbDadosAta);
 		painelContentEIA.add("West", painelEsquerdoInfoAluno);
@@ -74,6 +73,7 @@ public class PainelMainAta extends EventosAta {
 		alterarFontes();
 		painelInternoNorte();
 		getTelaPrincipal();
+		
 	}
 	
 	private void eventosBotoes() {
@@ -82,6 +82,9 @@ public class PainelMainAta extends EventosAta {
 		btnSalvar.addActionListener(onClickSalvarAta);
 		btnAlterar.addActionListener(onClickAterarAta);
 		btnExcluir.addActionListener(onClickExcluirAta);
+		btnPesquisar.addActionListener(onClickBuscarAta);
+		comboModalidade.addItemListener(onClickChangeModalidade);
+		tabela.addMouseListener(onClickRowTable);
 	}
 
 	private void painelInternoNorte() {
@@ -91,10 +94,19 @@ public class PainelMainAta extends EventosAta {
 		controleSuperior.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createSoftBevelBorder(2), BORDER_INFO_ATA));
 		
-		painelInternoNorte.add("Center",controleSuperior);
-		painelInternoNorte.add("South",painelInternoSul());
+		painelInternoNorte.add("North", contentPainelLocalizar());
+		painelInternoNorte.add("Center", controleSuperior);
+		painelInternoNorte.add("South", painelInternoSul());
 	}
 
+	private JPanel contentPainelLocalizar() {
+		JPanel painel = new JPanel(new BorderLayout(2,2));
+		painel.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createSoftBevelBorder(2), "CONSULTAR"));
+		painel.add("North", painelLocaliza(lbCodigo2));
+		return painel;
+	}
+	
 	public JPanel getTelaPrincipal() {
 		JPanel painelScrollMain = new JPanel(new BorderLayout(1,1));
 		
@@ -124,20 +136,18 @@ public class PainelMainAta extends EventosAta {
 	}
 	
 	private JPanel painelTable() {
-		PainelTabela table = new PainelTabela();
-		// carregando modelo da tabela.
-		table.getTabela().setModel(modeloAta);
+		tabela.setModel(modeloAta);
+		tabela.setToolTipText("Dê um duplo clique na Ata para Excluir ou Alterar");
 		
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		
 		scroll.setViewportView(table.getTabela()); // insere a tabela no painel Scroll
 		scroll.setWheelScrollingEnabled(true);
 		
 		painelTabela.add("North", editPanel.painelNull(0, 10));
 		painelTabela.add("Center", scroll);
-		painelTabela.add("South", painelLocaliza(lbCodigo2));
+//		painelTabela.add("South", painelLocaliza(lbCodigo2));
 		
 		return painelTabela;
 	}

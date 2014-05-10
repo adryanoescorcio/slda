@@ -17,6 +17,7 @@ import PrimaryKey.InterfaceKey;
  * @author Adryano Escorcio
  * @version 2.0
  **/
+
 public abstract class DAO {
 	
 	protected EntityManager em; // Conexão JPA
@@ -146,6 +147,7 @@ public abstract class DAO {
 	/**
 	 * Pegar a Conexao que esta sendo utilizada.
 	 **/
+	
 	public JPAUtil getConexaoBD() {
 		return this.conexao;
 	}

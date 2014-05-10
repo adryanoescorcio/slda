@@ -8,7 +8,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import ComponentGroupPlus.PainelTabela;
 import Eventos.EventosAluno;
 import Eventos.PlusEventoDiscenteLista;
 

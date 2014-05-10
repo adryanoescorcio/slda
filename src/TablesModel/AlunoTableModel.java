@@ -148,5 +148,4 @@ private static final long serialVersionUID = 1L;
 		fireTableRowsUpdated(indiceLinha, indiceLinha);
 	}
 
-	
 }

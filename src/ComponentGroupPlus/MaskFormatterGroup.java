@@ -44,7 +44,7 @@ public class MaskFormatterGroup {
 	
 	public MaskFormatter getMascaraAno(){
 		try {
-			ano = new MaskFormatter("####.1");
+			ano = new MaskFormatter("####");
 			ano.setPlaceholderCharacter('_');
 		} catch (ParseException e) {
 			e.printStackTrace();

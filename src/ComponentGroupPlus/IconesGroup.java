@@ -6,7 +6,7 @@ public class IconesGroup {
 
 	// Diretorio padrão dos icones
 	public static final String DIR_ICONES = "src/Icones/";
-	
+
 	// icones botoes 20x20
 	private ImageIcon iconePesquisar = new ImageIcon(DIR_ICONES+"search.png");
 	private ImageIcon iconeSalvar = new ImageIcon(DIR_ICONES+"save.png");
@@ -18,12 +18,12 @@ public class IconesGroup {
 	private ImageIcon iconeCaixa = new ImageIcon(DIR_ICONES+"caixa.png");
 	private ImageIcon iconeBox = new ImageIcon(DIR_ICONES+"box2.jpg");
 	private ImageIcon iconeCancelar = new ImageIcon(DIR_ICONES+"cancel.png");
-	
+
 	// Icones principais 32x32
 	private ImageIcon iconeAluno = new ImageIcon(DIR_ICONES+"aluno.png");
 	private ImageIcon iconeAta32x = new ImageIcon(DIR_ICONES+"ata.png");
 	private ImageIcon iconeArquivo = new ImageIcon(DIR_ICONES+"arquivo.png");
-	
+
 	public ImageIcon getIconeBox() {
 		return iconeBox;
 	}
@@ -102,5 +102,5 @@ public class IconesGroup {
 	public void setIconeCancelar(ImageIcon iconeCancelar) {
 		this.iconeCancelar = iconeCancelar;
 	}
-	
+
 }

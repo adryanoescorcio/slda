@@ -13,7 +13,7 @@ import javax.swing.JMenuItem;
 public class MenuAvancado {
 
 	JMenu menuAvancado;
-	
+
 	public MenuAvancado() {
 		menuAvancado = new JMenu("Ajuda");	
 		//ADICIONA UM MNEMÔNICO OU ATALHO(ALT + A) 
@@ -22,11 +22,11 @@ public class MenuAvancado {
 		menuAvancado.add(itemControle);
 		JMenuItem itemControle2 = new JMenuItem("Contato"); 
 		menuAvancado.add(itemControle2);
-		
+
 	}
-	
+
 	public JMenu getMenuAvancado() {
-		 return menuAvancado;
+		return menuAvancado;
 	}
 
 }

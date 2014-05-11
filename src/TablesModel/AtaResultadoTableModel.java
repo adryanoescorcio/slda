@@ -10,14 +10,14 @@ import Model.AtaResultado;
 public class AtaResultadoTableModel extends AbstractTableModel{
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final int COL_ORDEM = 0;
 	private static final int COL_TURMA = 1;
 	private static final int COL_TURNO = 2;
 	private static final int COL_ANO = 3;
 	private static final int COL_MODALI = 4;
 	private static final int COL_ENSINO = 5;
-	
+
 	private List<AtaResultado> linhas;
 	private String[] colunas = new String[]{"ÍNDICE","TURMA", "TURNO", "ANO", "MODALIDADE", "ENSINO" };
 
@@ -29,7 +29,7 @@ public class AtaResultadoTableModel extends AbstractTableModel{
 		this.linhas = ata;
 		fireTableDataChanged();
 	}
-	
+
 	public int getRowCount() {
 		return linhas.size();
 	}
@@ -65,7 +65,7 @@ public class AtaResultadoTableModel extends AbstractTableModel{
 		} else if (column == COL_MODALI) {
 			return m.getModalidadeAta();
 		}	else if (column == COL_ENSINO) {
-				return m.getEnsinoAta();
+			return m.getEnsinoAta();
 		}
 		return "";
 	}
@@ -93,13 +93,13 @@ public class AtaResultadoTableModel extends AbstractTableModel{
 		linhas.remove(indiceLinha);
 		fireTableRowsDeleted(indiceLinha, indiceLinha);
 	}
-	
+
 	public void changedAll(List<AtaResultado> list){
 		this.linhas.removeAll(this.linhas);
 		fireTableRowsDeleted(0, this.linhas.size()-1);
 		this.linhas.addAll(list);
 	}
-	
+
 	/**
 	 * Apagar as linhas e limpar a lista da tabela.
 	 **/

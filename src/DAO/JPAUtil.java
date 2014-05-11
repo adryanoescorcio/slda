@@ -14,7 +14,7 @@ import javax.persistence.Persistence;
  Classe que realiza a conexao com o Banco de 
  Dados SQLite<br> embarcado na App e faz a 
  conexao com o arquivo persistence.xml.
- 
+
  <br>Abrindo vários tipos de manipulação de Dados. 
  *@param EntityManagerFactory factory<br>
 	<b>EntityManager</b> em <br>
@@ -24,26 +24,26 @@ import javax.persistence.Persistence;
  * @version 2.0
  **/
 public class JPAUtil {
-	
+
 	private static final String CLASS_BD = "org.sqlite.JDBC";
 	private static final String CONEXAO_BD = "jdbc:sqlite:";
 	private static final String BANCO_AD = "sldav2.db";
 	private static final String BANCO_WA = "sldav1.db";
-	
+
 	private static final String DIR_AD = "D:/Dropbox/SLDA-WORK/Banco de dados/"; // Diretorio do Computador ADRYANO
-	
+
 	// ALTERAR EM CASO DE ERRO - WALYSSON
 	private static final String DIR_WA = "C:/users/Walysson Oliveira/Dropbox/SLDA-WORK/Banco de dados/"; // Diretorio do Computador
-	
+
 	private static final String FILE_PERSISTENCE_XML_AD = "managerAD";
 	private static final String FILE_PERSISTENCE_XML_WA = "managerWA";
-	
+
 	//Direciona o arquivo XML para conectar o BD
 	private EntityManagerFactory factory;
 	protected EntityManager em;
 	private Connection conn;
 	private Statement stm;
-	
+
 	/**
 	 * Classe responsavel pela conexão com o BD. Abrindo vários<br>
 	 * tipos de manipulação de Dados
@@ -59,24 +59,24 @@ public class JPAUtil {
 			conexaoManager(FILE_PERSISTENCE_XML_WA, BANCO_WA, DIR_WA);
 		}
 	}
-	
+
 	private void conexaoManager(String filePersistence, String nomeBD, String diretorioComp) {
 		// Conexao com JPA
-			try{
-				this.factory = Persistence.createEntityManagerFactory(filePersistence);
-				this.em = factory.createEntityManager();
-			} catch(Exception e) {
-				System.out.println("Erro: conexao JPA" +e.getMessage());
-			}
-			
-			// Conexao com JDBC
-			try {
-				Class.forName(CLASS_BD);
-				conn = DriverManager.getConnection(CONEXAO_BD + diretorioComp + nomeBD); // Tenta conectar no banco de dados
-				setStm(conn.createStatement());
-			} catch (ClassNotFoundException | SQLException e) {
-				System.out.println("Erro: conexao JDBC" + e);
-			}
+		try{
+			this.factory = Persistence.createEntityManagerFactory(filePersistence);
+			this.em = factory.createEntityManager();
+		} catch(Exception e) {
+			System.out.println("Erro: conexao JPA" +e.getMessage());
+		}
+
+		// Conexao com JDBC
+		try {
+			Class.forName(CLASS_BD);
+			conn = DriverManager.getConnection(CONEXAO_BD + diretorioComp + nomeBD); // Tenta conectar no banco de dados
+			setStm(conn.createStatement());
+		} catch (ClassNotFoundException | SQLException e) {
+			System.out.println("Erro: conexao JDBC" + e);
+		}
 	}
 
 	/**
@@ -89,15 +89,15 @@ public class JPAUtil {
 	public EntityManagerFactory getFactory() {
 		return factory;
 	}
-	
+
 	public void setFactory(EntityManagerFactory factory) {
 		this.factory = factory;
 	}
-	
+
 	public Connection getConn() {
 		return conn;
 	}
-	
+
 	public void setConn(Connection conn) {
 		this.conn = conn;
 	}

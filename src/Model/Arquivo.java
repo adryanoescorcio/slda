@@ -16,20 +16,20 @@ import PrimaryKey.InterfaceKey;
  **/
 @Entity
 public class Arquivo implements InterfacePadraoEntidade{
-	
+
 	@Transient
 	private Aluno aluno = null;
 	@Transient
 	private Caixa caixa = null;
-	
+
 	@EmbeddedId
 	private ArquivoPK arquivopk = new ArquivoPK();
-	
+
 	private String codigoCaixa;
-	
+
 	private String codDossie = null;
 	private String datadeEntradaArquivo = null;
-	
+
 	public Aluno getAluno() {
 		return aluno;
 	}
@@ -38,15 +38,15 @@ public class Arquivo implements InterfacePadraoEntidade{
 		this.arquivopk.setCodigoAluno(aluno.getCodigo());
 		this.codigoCaixa = caixa.getCodigo();
 	}
-	
+
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
-	
+
 	public void setCaixa(Caixa caixa) {
 		this.caixa = caixa;
 	}
-	
+
 	public void setArquivo (Arquivo arquivo) {
 		this.arquivopk.setCodigoAluno(arquivopk.getCodigoAluno());
 		this.setCodigoCaixa(arquivo.getCodigoCaixa());
@@ -54,7 +54,7 @@ public class Arquivo implements InterfacePadraoEntidade{
 		this.setDatadeEntradaArquivo(arquivo.getDatadeEntradaArquivo());
 		this.setCodDossie(arquivo.getCodDossie());
 	}
-	
+
 	public Caixa getCaixa() {
 		return caixa;
 	}
@@ -78,13 +78,13 @@ public class Arquivo implements InterfacePadraoEntidade{
 	@Override
 	public String toString() {
 		return "" +
-			"Aluno: "+this.getCodigoAluno()+ ", " +
-			"Caixa: "+this.getCodigoCaixa()+ ", " +
-			"Codigo: "+this.codDossie+ ", " +
-			"Entrada: "+this.datadeEntradaArquivo+ ", " +
-			"";
+				"Aluno: "+this.getCodigoAluno()+ ", " +
+				"Caixa: "+this.getCodigoCaixa()+ ", " +
+				"Codigo: "+this.codDossie+ ", " +
+				"Entrada: "+this.datadeEntradaArquivo+ ", " +
+				"";
 	}
-	
+
 	@Override
 	public InterfaceKey getCodigoKEY() {
 		return (ArquivoPK) this.arquivopk;
@@ -94,20 +94,20 @@ public class Arquivo implements InterfacePadraoEntidade{
 	public void setCodigoKEY(InterfaceKey chaveEntidade) {
 		this.arquivopk = (ArquivoPK) chaveEntidade;
 	}
-	
+
 	public String getCodigoCaixa() {
 		return codigoCaixa;
 	}
-	
+
 	public void setCodigo(String codigoAluno, String codigoCaixa) {
 		this.codigoCaixa = codigoCaixa;
 		this.arquivopk.setCodigoAluno(codigoAluno);
 	}
-	
+
 	public String getCodigoAluno() {
 		return arquivopk.getCodigoAluno();
 	}
-	
+
 	public void setCodigoAluno(String codigoAluno) {
 		this.arquivopk.setCodigoAluno(codigoAluno);
 	}

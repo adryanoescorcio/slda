@@ -13,7 +13,7 @@ import javax.swing.JMenuItem;
 public class MenuVisualizar {
 
 	JMenu menuVisualizar;
-	
+
 	public MenuVisualizar() {
 		menuVisualizar = new JMenu("Visualizar");
 		//ADICIONA UM MNEMÔNICO OU ATALHO(ALT + V)
@@ -24,9 +24,9 @@ public class MenuVisualizar {
 		menuVisualizar.add(itemVisCaixas);
 		JMenuItem itemVisAtas = new JMenuItem("Todas as Atas"); 
 		menuVisualizar.add(itemVisAtas);
-		
+
 	}
-	
+
 	public JMenu getMenuVisualizar(){
 		return menuVisualizar;
 	}

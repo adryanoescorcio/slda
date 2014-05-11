@@ -16,7 +16,7 @@ public class MenuUsuario {
 		JMenuItem itemFazerLogoff = new JMenuItem("Fazer Logoff"); 
 		menuUsuario.add(itemFazerLogoff); 
 	}
-	
+
 	public JMenu getMenuUsuario() {
 		return menuUsuario;
 	}

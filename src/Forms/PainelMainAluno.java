@@ -28,13 +28,13 @@ import Eventos.EventosAluno;
 public class PainelMainAluno extends EventosAluno {
 
 	protected static final int DIST = 5;
-	
+
 	protected static final String BORDER_INFO_ALUNO = "DOSSIÊ DO DISCENTE";
 	protected static final int QUANT_LINHAS_GRID = 13;
 
 	protected JScrollPane scroll = new JScrollPane();
 	protected JScrollPane scrollMain = new JScrollPane();
-	
+
 	protected JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
 	protected JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
 	protected JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));
@@ -73,7 +73,7 @@ public class PainelMainAluno extends EventosAluno {
 	public PainelMainAluno(MainJFrame mainJFrame) {
 		super(mainJFrame);
 		eventosBotoes();
-		
+
 		painelEsquerdoInfoAluno.add(editPanel.painelNull(0, 0));
 		painelEsquerdoInfoAluno.add(lbNome);
 		painelEsquerdoInfoAluno.add(lbCodigo);
@@ -87,7 +87,7 @@ public class PainelMainAluno extends EventosAluno {
 		painelEsquerdoInfoAluno.add(lbCertRegNum);
 		painelEsquerdoInfoAluno.add(lbLivro);
 		painelEsquerdoInfoAluno.add(lbDataReg);
-		
+
 		painelDireito.add(editPanel.painelNull(0, 0)); // Vazio
 		painelDireito.add(editPanel.painelContentComponent("West", tfNome)); // Nome
 		painelDireito.add(painelLadoLado(tfCodigo, lbNis, tfNis)); //Codigo - NIS
@@ -101,14 +101,14 @@ public class PainelMainAluno extends EventosAluno {
 		painelDireito.add(editPanel.painelContentComponent("West", tfNumCertificado)); //Certificado
 		painelDireito.add(painelLadoLado(tfLivro, lbFolha, tfFolha)); //Livro - Folha
 		painelDireito.add(editPanel.painelContentComponent("West", ftDataReg)); //Data
-		
+
 		JPanel painete = new JPanel(new BorderLayout(2,2));
 		painete.setBackground(Color.black);
-		
+
 		painelContentEIA.add("North", lbDadosAluno);
 		painelContentEIA.add("West", painelEsquerdoInfoAluno);
 		painelContentEIA.add("Center", painelDireito);
-		
+
 		alterarFontes();
 		painelInternoNorte();
 		getTelaPrincipal();
@@ -118,31 +118,31 @@ public class PainelMainAluno extends EventosAluno {
 		// Evento botão excluir
 		btnExcluir.addActionListener(
 				onClickExcluirAluno);
-		
+
 		// Evento do botão Limpar
 		btnLimpar.addActionListener(
 				onClickLimparCampos);
-		
+
 		// Evento do botão Salvar
 		btnSalvar.addActionListener(
 				onClickSalvarAluno);
-		
+
 		//Evento do botão Alterar
 		btnAlterar.addActionListener(
 				onClickAlterarAluno);
-		
+
 		// Evento do Botão Documento
 		btnDocumento.addActionListener(
 				onClickDocumento);
-		
+
 		// Evento do botão Ata
 		btnAtaResul.addActionListener(
 				onClickAtaResul);
-		
+
 		//Evento do botão Buscar
 		btnPesquisar.addActionListener(
 				onClickBuscarAluno);
-		
+
 		btnCaixa.addActionListener(
 				onClickCaixa);
 	}
@@ -151,11 +151,11 @@ public class PainelMainAluno extends EventosAluno {
 	 * Painel para organizar horizontalmente o Telefone e o Endereço
 	 **/
 	private JPanel painelLadoLado(Component comp1, JLabel lb2, Component comp2) {
-		
+
 		JPanel painelEndTelefone = new JPanel(new BorderLayout(2,2));
 		JPanel painelTelefone = new JPanel(new BorderLayout(2,2));
 		JPanel painelSeparador2 = new JPanel(new BorderLayout(2,2));
-		
+
 		// Telefone
 		painelTelefone.add("West", lb2);
 		painelTelefone.add("Center", editPanel.painelContentComponent("West", comp2));
@@ -165,7 +165,7 @@ public class PainelMainAluno extends EventosAluno {
 		// Endereço
 		painelEndTelefone.add("West", editPanel.painelContentComponent("West", comp1));
 		painelEndTelefone.add("Center", painelSeparador2);
-		
+
 		return painelEndTelefone;
 	}
 
@@ -176,10 +176,10 @@ public class PainelMainAluno extends EventosAluno {
 		JPanel painelDataSexoCor = new JPanel(new BorderLayout(10,10));
 		JPanel painelCor = new JPanel(new BorderLayout(10,10));
 		JPanel painelSexo = new JPanel(new BorderLayout(10,10));
-		
+
 		JPanel painelSeparador = new JPanel(new BorderLayout(10,10));
 		JPanel painelSeparador2 = new JPanel(new BorderLayout(10,10));
-		
+
 		// COR
 		painelCor.add("West", lbCor); // COR
 		painelCor.add("Center", editPanel.painelContentComponent("West", comboCor));
@@ -196,17 +196,17 @@ public class PainelMainAluno extends EventosAluno {
 		painelDataSexoCor.add("West", ftDataNasc); // DATA
 		painelDataSexoCor.add("Center", painelSeparador2);
 		painelDataSexoCor.add("East", painelSeparador);
-		
+
 		return painelDataSexoCor;
 	}
 
 	private void painelInternoNorte() {
 		JPanel controleSuperior = new JPanel(new BorderLayout(2,2));
-		
+
 		controleSuperior.add("North",painelContentEIA);
 		controleSuperior.setBorder(BorderFactory.createTitledBorder(
-		BorderFactory.createSoftBevelBorder(2), BORDER_INFO_ALUNO));
-		
+				BorderFactory.createSoftBevelBorder(2), BORDER_INFO_ALUNO));
+
 		painelInternoNorte.add("Center",controleSuperior);
 		painelInternoNorte.add("South",painelInternoSul());
 		painelInternoNorte.add("North", contentPainelLocalizar());
@@ -224,47 +224,47 @@ public class PainelMainAluno extends EventosAluno {
 	private JPanel painelReferenciaDireito() {
 		// Icone
 		IconesGroup icone = new IconesGroup();
-		
+
 		JPanel painel = new JPanel(new BorderLayout(2,2));
 		JPanel painelGrid = new JPanel(new GridLayout(4,1,0,0));
 		JPanel painelContent = new JPanel(new BorderLayout(2,2)); 
-		
+
 		JLabel lbImagem = new JLabel("",0);
 		lbImagem.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		lbImagem.setIcon(icone.getIconeBox());
-		
+
 		painelGrid.add(editPanel.painelContentComponent("West", lbRefBox));
 		painelGrid.add(editPanel.painelContentComponent("West", tfRefBox));
 		painelGrid.add(editPanel.painelContentComponent("West", lbLocaInter));
 		painelGrid.add(editPanel.painelContentComponent("West", tfLocaInter));
-		
+
 		painel.add("North", lbImagem);
 		painel.add("Center",painelGrid);
 		painel.add("South",editPanel.painelNull(0, 120));
-		
+
 		painelContent.add("North", editPanel.painelNull(0, 4));
 		painelContent.add("Center", painel);
-		
+
 		return painelContent;
 	}
 
 	public JPanel getTelaPrincipal() {
 		JPanel painelScrollMain = new JPanel(new BorderLayout(1,1));
-		
+
 		scrollMain.setPreferredSize(mainJPanel.getPreferredSize());
 		scrollMain.setViewportView(mainJPanel);
-		
+
 		painelScrollMain.add(scrollMain);
 		painelLocalizarArquivo.add("North",painelInternoNorte);
-		
+
 		mainJPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-		
+
 		mainJPanel.add("Center",painelLocalizarArquivo);
 		mainJPanel.add("West",editPanel.painelNull(20, 0));
 		mainJPanel.add("East",editPanel.painelNull(20, 0));
 		mainJPanel.add("North",editPanel.painelNull(0, 10));
 		mainJPanel.add("South",editPanel.painelNull(0, 50));
-		
+
 		// Vai para Janela Principal
 		return painelScrollMain;
 	}
@@ -274,13 +274,13 @@ public class PainelMainAluno extends EventosAluno {
 		painelInternoSul.add("North",editPanel.painelNull(0, 5));
 		painelInternoSul.add("West",editPanel.painelNull(120, 0));
 		painelInternoSul.add("South",painelTable()); // TABELA
-		
+
 		return painelInternoSul;
 	}
-	
+
 	private JPanel painelTable() {
 		PainelTabela table = new PainelTabela();
-		
+
 		painelTabela.add("North", editPanel.painelNull(0, 10));
 		painelTabela.add("Center", table.organizandoColunasTables(modeloAtaResultado));
 
@@ -289,7 +289,7 @@ public class PainelMainAluno extends EventosAluno {
 
 	private JPanel painelBotoes() {
 		JPanel painelContentBotoes = new JPanel(new GridLayout(1,8,5,5));
-		
+
 		painelContentBotoes.add(btnSalvar);
 		painelContentBotoes.add(btnAlterar);
 		painelContentBotoes.add(btnExcluir);
@@ -298,15 +298,15 @@ public class PainelMainAluno extends EventosAluno {
 		painelContentBotoes.add(btnDocumento);
 		painelContentBotoes.add(btnAtaResul);
 		painelContentBotoes.add(btnCaixa);
-		
+
 		painelBotoes.add("Center", painelContentBotoes);
-		
+
 		return painelBotoes;
 	}
-	
+
 	private void alterarFontes() {
 		FontGroup font = new FontGroup();
-		
+
 		// FONTE
 		lbNome.setFont(font.font_PLA_14);
 		lbCodigo2.setFont(font.font_PLA_14);
@@ -331,13 +331,13 @@ public class PainelMainAluno extends EventosAluno {
 		lbDataReg.setFont(font.font_PLA_14);
 		lbCertRegNum.setFont(font.font_PLA_14);
 		lbLivro.setFont(font.font_PLA_14);
-		
+
 		// TITULO
 		lbDadosAluno.setFont(font.font_NEG_15);
 
 		// Cor
 		lbCodigo.setForeground(Color.RED);
-		
+
 		// JTextField
 		tfNome.setFont(font.font_NEG_15);
 		tfCidade.setFont(font.font_NEG_15);
@@ -348,10 +348,10 @@ public class PainelMainAluno extends EventosAluno {
 		tfLivro.setFont(font.font_NEG_15);
 		tfFolha.setFont(font.font_NEG_15);
 		tfNomeMae.setFont(font.font_NEG_15);
-		
+
 		tfRefBox.setFont(font.font_NEG_18);
 		tfLocaInter.setFont(font.font_NEG_18);
-		
+
 		tfNome.setPreferredSize(new Dimension(450,0));
 		tfCodigo.setPreferredSize(new Dimension(100,0));
 		tfNis.setPreferredSize(new Dimension(100,0));
@@ -363,17 +363,17 @@ public class PainelMainAluno extends EventosAluno {
 		tfNumCertificado.setPreferredSize(new Dimension(130,0));
 		tfLivro.setPreferredSize(new Dimension(100,0));
 		tfFolha.setPreferredSize(new Dimension(100,0));
-		
+
 		tfRefBox.setForeground(Color.RED);
 		tfLocaInter.setForeground(Color.RED);
-		
+
 		// Outros
 		ftFone.setBorder(null);
 		ftCpf.setBorder(null);
 		ftDataNasc.setBorder(null);
 		ftDataMatricula.setBorder(null);
 		ftDataReg.setBorder(null);
-		
+
 		//Desativando
 		tfRefBox.setEditable(false);
 		tfLocaInter.setEditable(false);

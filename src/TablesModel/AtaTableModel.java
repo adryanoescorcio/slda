@@ -10,13 +10,13 @@ import Model.Ata;
 public class AtaTableModel extends AbstractTableModel{
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final int COL_TURMA = 0;
 	private static final int COL_TURNO = 1;
 	private static final int COL_ANO = 2;
 	private static final int COL_MODALIDADE = 3;
 	private static final int COL_ENSINO = 4;
-	
+
 	private ArrayList<Ata> linhas;
 	private String[] colunas = new String[]{"TURMA", "TURNO", "ANO", "MODALIDADE", "ENSINO"};
 
@@ -58,7 +58,7 @@ public class AtaTableModel extends AbstractTableModel{
 		} else if (column == COL_MODALIDADE) {
 			return m.getModalidadeAta();
 		}
-		
+
 		return "";
 	}
 
@@ -88,13 +88,13 @@ public class AtaTableModel extends AbstractTableModel{
 		fireTableRowsDeleted(indiceLinha, indiceLinha);
 
 	}
-	
+
 	public void changedAll(List<Ata> list){
 		this.linhas.removeAll(this.linhas);
 		fireTableRowsDeleted(0, this.linhas.size()-1);
 		this.linhas.addAll(list);
 	}
-	
+
 	//REMOVE A PATIR DO OBJETO
 	public void removeContato(Ata object) {
 		int indice = 0;
@@ -106,9 +106,9 @@ public class AtaTableModel extends AbstractTableModel{
 		linhas.remove(indice);
 		fireTableRowsDeleted(indice, indice);
 	}
-	
+
 	//ATUALIZAR NOVO A PARTIR DO VELHO
-	
+
 	public void updateContato(Ata velho, Ata novo) {
 		Integer indice = null;
 		for(int i = 0; i < linhas.size(); i++){

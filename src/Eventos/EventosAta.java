@@ -33,22 +33,22 @@ public class EventosAta extends EventosPadrao {
 
 	//OBJETO UTILIZADO NAS BUSCAS
 	Ata ataPesquisa = new Ata();
-	
+
 	//TABELA
 	protected PainelTabela table = new PainelTabela();
 	protected JTable tabela = table.getTabela();
 	protected List<Ata> lista = daoAta.getTodasAtas();
 	protected AtaTableModel modeloAta = new AtaTableModel(lista);
-	
+
 	// Objeto Mask
 	MaskFormatterGroup mask = new MaskFormatterGroup();
-	
+
 	//COMPONENTES NECESSÁRIOS
 	protected JTextField tfTurma = new JTextField();
-    protected JFormattedTextField ftAno = new JFormattedTextField(mask.getMascaraAno());
-    protected JComboBox<String> comboTurno = comboGroup.getComboBoxTurno();
-    protected JComboBox<String> comboEnsino  = comboGroup.getComboBoxEnsinoFUNDAMENTAL();
-    protected JComboBox<String> comboModalidade  = comboGroup.getComboBoxEnsinoMF();
+	protected JFormattedTextField ftAno = new JFormattedTextField(mask.getMascaraAno());
+	protected JComboBox<String> comboTurno = comboGroup.getComboBoxTurno();
+	protected JComboBox<String> comboEnsino  = comboGroup.getComboBoxEnsinoFUNDAMENTAL();
+	protected JComboBox<String> comboModalidade  = comboGroup.getComboBoxEnsinoMF();
 
 	AtaPK pk = new AtaPK(); // chave primaria da ata.
 
@@ -56,7 +56,7 @@ public class EventosAta extends EventosPadrao {
 		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
 		btnExcluir.setEnabled(false); // necessario a pesquisa para ativar botão
 	}
-	
+
 	@Override
 	public void limparCampos() {
 
@@ -65,38 +65,38 @@ public class EventosAta extends EventosPadrao {
 		comboTurno.setSelectedIndex(0);
 		comboModalidade.setSelectedIndex(0);
 		comboEnsino.setSelectedIndex(0);
-		
+
 		//RESCONTRÓI A TABELA CASO ELA TENHA SIDO REDUZIDA NA BUSCA 
 		lista = daoAta.getTodasAtas();
 		modeloAta = new AtaTableModel(lista);
 		tabela.setModel(modeloAta);
-		
+
 		habilitarBotoes(false);
-	
+
 	}
-	
+
 	@Override
 	public Object getValoresDosCampos() {
 		ata = new Ata();
 		ata.setCodigo((String)comboTurno.getSelectedItem(), tfTurma.getText(), mask.verificarMascara(ftAno));
 		ata.setModalidadeAta((String)comboModalidade.getSelectedItem());
 		ata.setEnsinoAta((String)comboEnsino.getSelectedItem());
-		
+
 		return ata;
 	}
 
 	@Override
 	public void setValoresDosCampos(Object objeto) {
 		ata = (Ata) objeto;
-		
+
 		tfTurma.setText(ata.getTurmaAta());
 		comboTurno.setSelectedItem(ata.getTurnoAta());
 		ftAno.setText(ata.getAnoAta());
 		comboModalidade.setSelectedItem(ata.getModalidadeAta());
 		comboEnsino.setSelectedItem(ata.getEnsinoAta());
-		
+
 	}
-	
+
 	/**
 	 * Metodos que realiza a função de limpar os campos.
 	 **/
@@ -106,16 +106,16 @@ public class EventosAta extends EventosPadrao {
 			limparCampos();
 		}
 	};
-	
+
 	/**
 	 * Necessário verificar se houve alteração para poder atualiza a ata modificada.
 	 **/
 	protected ActionListener onClickAterarAta = new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ata = (Ata) getValoresDosCampos();
-			
+
 			if(!ata.toString().equals(ataPesquisa.toString())) {
 				if(daoAta.save(ata)) {
 					JOptionPane.showMessageDialog(null, SUCESSO);
@@ -128,27 +128,27 @@ public class EventosAta extends EventosPadrao {
 			}
 		}
 	};
-	
+
 	/**
 	 * Metodo com a função de salvar e alterar uma caixa.
 	 **/
 	protected ActionListener onClickSalvarAta = new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ata = (Ata) getValoresDosCampos();
 			pk.setCodigo(ata.getTurmaAta(), ata.getTurnoAta(), ata.getAnoAta()); // seta a chave
-	
+
 			try{
 				daoAta.buscar(pk).getCodigoKEY(); // realiza a busca no banco de dados
 				throw new erroNullRequisitoException("(ER04) Esta Ata já existe.", "ERRO ER04");
 			}catch(NullPointerException exc){
-				
+
 				if(daoAta.save(ata)) {
 					JOptionPane.showMessageDialog(null, SUCESSO);
 					modeloAta.addContato(ata); // Insere a ata na tabela da tela ATA.
 					limparCampos();
-					
+
 				}		
 			}
 		}
@@ -158,7 +158,7 @@ public class EventosAta extends EventosPadrao {
 	 * Metodo com  a função de buscar um caixa
 	 */
 	protected ActionListener onClickBuscarAta = new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String ano = tfLocalizar.getText().trim(); // pega o codigo digitado pelo cliente.
@@ -167,19 +167,19 @@ public class EventosAta extends EventosPadrao {
 				List<Ata> atas = daoAta.getAtasByYear(ano); 
 				modeloAta = new AtaTableModel(atas);
 				tabela.setModel(modeloAta);
-				
+
 			}catch(NullPointerException exc){
 				throw new erroNullRequisitoException("(ER03) Nenhuma Ata com ano: \"" +ano+ "\" foi encontrada.", "ERRO ER03");
 			}
 		}
 	};
 
-	
+
 	/**
 	 * Metodo com a função de excluir uma caixa
 	 **/
 	protected ActionListener onClickExcluirAta = new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {			
 			if(JOptionPane.showConfirmDialog(null, "Deseja excluir a ata?") == 0) {
@@ -190,7 +190,7 @@ public class EventosAta extends EventosPadrao {
 			}
 		}
 	};
-	
+
 	protected ItemListener onClickChangeModalidade = new ItemListener() {
 		@Override
 		public void itemStateChanged(ItemEvent ev) {
@@ -202,8 +202,8 @@ public class EventosAta extends EventosPadrao {
 				comboEnsino.addItem("AVANÇADO");
 				comboEnsino.addItem("CLASSE ESPECIAL");
 				comboEnsino.addItem("EJA");
-				
-			//SE MEDIO ESSE METODO RECONTRÓI O COMBO	
+
+				//SE MEDIO ESSE METODO RECONTRÓI O COMBO	
 			} else if(comboModalidade.getSelectedIndex() == 1){
 				comboEnsino.removeAllItems();
 				comboEnsino.addItem("REGULAR");
@@ -213,7 +213,7 @@ public class EventosAta extends EventosPadrao {
 			}	
 		}
 	};
-	
+
 	protected MouseListener onClickRowTable = new MouseListener() {
 
 		@Override
@@ -234,16 +234,16 @@ public class EventosAta extends EventosPadrao {
 		@Override
 		public void mouseReleased(MouseEvent e) {}
 	};
-	
+
 	public void habilitarBotoes(boolean bool) {
-		
+
 		btnAlterar.setEnabled(bool); // necessario a pesquisa para ativar botão
 		btnExcluir.setEnabled(bool); // necessario a pesquisa para ativar botão
 		btnSalvar.setEnabled(!bool); // nao sera possivel salvar, somente alterar
-		
+
 		tfTurma.setEditable(!bool); // nao sera possivel alterar o codigo de objeto consultado.
 		ftAno.setEditable(!bool); // nao sera possivel alterar o codigo de objeto consultado.
 		comboTurno.setEnabled(!bool);
 	}
-		
+
 }

@@ -10,7 +10,7 @@ import Model.Caixa;
 public class CaixaTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final int COL_ID = 0;
 	private static final int COL_TURNO = 1;
 	private static final int COL_STATUS = 2;
@@ -41,10 +41,10 @@ public class CaixaTableModel extends AbstractTableModel {
 	}
 
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		
+
 		return false;
 	}
-	
+
 	public Object getValueAt(int row, int column) {
 
 		Caixa m = linhas.get(row);
@@ -58,7 +58,7 @@ public class CaixaTableModel extends AbstractTableModel {
 		} else if (column == COL_STATUS) {
 			return m.getStatus();
 		}
-		
+
 		return "";
 	}
 
@@ -83,7 +83,7 @@ public class CaixaTableModel extends AbstractTableModel {
 		linhas.add(contato);
 		int ultimoIndice = getRowCount() - 1;
 		fireTableRowsInserted(ultimoIndice, ultimoIndice);
-//		System.out.println("A lista: " + linhas);
+		//		System.out.println("A lista: " + linhas);
 	}
 
 	public void updateContato(int indiceLinha, Caixa marca) {
@@ -95,7 +95,7 @@ public class CaixaTableModel extends AbstractTableModel {
 		linhas.remove(indiceLinha);
 		fireTableRowsDeleted(indiceLinha, indiceLinha);
 	}
-	
+
 	//REMOVE A PATIR DO OBJETO
 	public void removeContato(Caixa object) {
 		int indice = 0;
@@ -108,7 +108,7 @@ public class CaixaTableModel extends AbstractTableModel {
 		fireTableRowsDeleted(indice, indice);
 
 	}
-	
+
 	//ATUALIZAR NOVO A PARTIR DO VELHO
 	public void updateContato(Caixa velho, Caixa novo) {
 		Integer indice = null;

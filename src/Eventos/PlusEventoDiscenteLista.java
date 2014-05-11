@@ -19,25 +19,25 @@ import Model.Ata;
 import Model.AtaResultado;
 
 public class PlusEventoDiscenteLista extends EventosPadrao{
-	
-	// Objeto Mask
-		protected MaskFormatterGroup mask = new MaskFormatterGroup();
-		
-		protected JTextField tfRefCaixa = new JTextField();
-		protected JTextField tfLocaInter = new JTextField();
-		protected PainelTabela table = new PainelTabela();
-		protected JTable tabela = table.getTabela();
-		
-		protected JFormattedTextField ftData;
-		protected JComboBox<String> comboBoxSubSecao = comboGroup.getComboBoxSubSecao();
-		
-		private JPanel mainJDialog;
-		protected List<Ata> listaAta;
-		protected Ata ultimaAtaList;
-		
-		protected AtaResultado ataResultadoGlobal;
 
-		protected EventosAluno evento;
+	// Objeto Mask
+	protected MaskFormatterGroup mask = new MaskFormatterGroup();
+
+	protected JTextField tfRefCaixa = new JTextField();
+	protected JTextField tfLocaInter = new JTextField();
+	protected PainelTabela table = new PainelTabela();
+	protected JTable tabela = table.getTabela();
+
+	protected JFormattedTextField ftData;
+	protected JComboBox<String> comboBoxSubSecao = comboGroup.getComboBoxSubSecao();
+
+	private JPanel mainJDialog;
+	protected List<Ata> listaAta;
+	protected Ata ultimaAtaList;
+
+	protected AtaResultado ataResultadoGlobal;
+
+	protected EventosAluno evento;
 
 	public PlusEventoDiscenteLista(JPanel mainDialog, EventosAluno evento) {
 		this.evento = evento;
@@ -46,20 +46,20 @@ public class PlusEventoDiscenteLista extends EventosPadrao{
 	}
 
 	protected ActionListener onClickCancelar = new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			finalizeOperation();
 		}
 	};
-	
+
 	protected ActionListener onClickSalvar = new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try{
 				Aluno aluno = evento.modeloAlunoTable.getContato(
-					tabela.getSelectedRow());
+						tabela.getSelectedRow());
 				evento.processoMostarAluno(aluno);
 				finalizeOperation();
 			} catch (Exception ex) {
@@ -67,11 +67,11 @@ public class PlusEventoDiscenteLista extends EventosPadrao{
 			}
 		}
 	};
-	
+
 	public void setMainJDialog(JPanel mainJDialog) {
 		this.mainJDialog = mainJDialog;
 	}
-	
+
 	protected void finalizeOperation() {
 		evento.normalizarCamadas();
 		mainJDialog.removeAll();		
@@ -91,7 +91,7 @@ public class PlusEventoDiscenteLista extends EventosPadrao{
 	@Override
 	public void setValoresDosCampos(Object object) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

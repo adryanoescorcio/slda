@@ -11,7 +11,7 @@ import javax.persistence.Embeddable;
  **/
 @Embeddable
 public class ArquivoPK implements InterfaceKey {
-	
+
 	private String codigoAluno = null;
 
 	/**
@@ -20,11 +20,11 @@ public class ArquivoPK implements InterfaceKey {
 	public void setCodigoAluno(String codigo) {
 		this.codigoAluno = codigo;
 	}
-	
+
 	public String getCodigoAluno() {
 		return this.codigoAluno;
 	}
-	
+
 	@Override
 	public String toString() {
 		return codigoAluno;

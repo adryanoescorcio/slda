@@ -24,14 +24,14 @@ public class ArquivoDAO extends DAO {
 	public ArquivoDAO(JPAUtil conexaoBD) {
 		super(conexaoBD);
 	}
-	
+
 	/**
 	 * Metodo para inserir/atualiza o Entidade no Banco de Dados.
 	 **/
 	public boolean save(Arquivo arquivo) {
 		return super.save(arquivo);
 	}
-	
+
 	/**
 	 * Buscar Caixa usando o codigo
 	 * @return arquivo
@@ -40,24 +40,24 @@ public class ArquivoDAO extends DAO {
 		try {
 			// tenta realizar consulta usando a interface
 			return (Arquivo) this.consultar((InterfaceKey) codigo);
-		
+
 		} catch (Exception e) {
 			// tenta fazer consulta composta usando o codigo PK
 			try {
 				Arquivo arquivo = null;
 				ResultSet rs = this.consultarAluno((String) codigo);
-			
+
 				while (rs.next()) {
 					arquivo = new Arquivo();
 					arquivo.setCodDossie(rs.getString("coddossie")); // insere o codigoDossie
 					arquivo.setCodigo(rs.getString("codigoaluno"), rs.getString("codigocaixa"));
 					arquivo.setDatadeEntradaArquivo(rs.getString("datadeentradaarquivo"));
 				}
-				
+
 				// serve para verificar se o objeto não é null;
 				System.out.println("Não Excluir: "+ arquivo.getCodigoAluno() +"(TESTE OBJETO)"); // forçar o erro de nullPoint
 				return (Arquivo) arquivo;
-				
+
 			} catch (NullPointerException e1) {
 				throw new NullPointerException();
 			} catch (SQLException e1) {
@@ -66,17 +66,17 @@ public class ArquivoDAO extends DAO {
 			}
 		}
 	}
-	
+
 	/**
 	 * Realiza a consulta do aluno usando o codigo e retorna um arquivo
 	 **/
 	private ResultSet consultarAluno(String codigo) throws SQLException {
-			return stm.executeQuery("Select * from arquivo where codigoaluno =="+codigo);
+		return stm.executeQuery("Select * from arquivo where codigoaluno =="+codigo);
 	}
 
 	@Override
 	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
 		return em.find(Arquivo.class, codigo);
 	}
-	
+
 }

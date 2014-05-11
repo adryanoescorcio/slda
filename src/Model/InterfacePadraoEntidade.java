@@ -8,7 +8,7 @@ import PrimaryKey.InterfaceKey;
  * @version 1.5
  **/
 public interface InterfacePadraoEntidade {
-	
+
 	/**
 	 * Pegar o Codigo(PK) da entidade
 	 **/
@@ -18,7 +18,7 @@ public interface InterfacePadraoEntidade {
 	 * Modificar o Codigo(PK) da entidade
 	 **/
 	public void setCodigoKEY(InterfaceKey chaveEntidade);
-	
+
 	/**
 	 * Descreve todos os atributos do objeto
 	 **/

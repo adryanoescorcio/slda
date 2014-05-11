@@ -30,10 +30,10 @@ public class Documento implements InterfacePadraoEntidade {
 	private String dataPedido = null;
 	private String dataEntrega = null;
 	private String status = null;
-	
+
 	@ManyToOne
 	private Aluno aluno = null;
-	
+
 	public String getNomeDocumento() {
 		return nomeDocumento;
 	}
@@ -85,14 +85,14 @@ public class Documento implements InterfacePadraoEntidade {
 	@Override
 	public String toString() {
 		return "" +
-			"Codigo: "+ this.getCodigo()+ ", " +
-			"Codigo Aluno: "+this.getAluno().toString()+ ", " +
-			"Nome Documento: "+this.nomeDocumento+ ", " +
-			"Descrição: "+this.descricao+ ", " +
-			"Data de Entrega: "+this.dataEntrega+ ", " +
-			"Data de Pedido: "+this.dataPedido+ ", " +
-			"Status: "+this.status+ ", " +
-			"";
+				"Codigo: "+ this.getCodigo()+ ", " +
+				"Codigo Aluno: "+this.getAluno().toString()+ ", " +
+				"Nome Documento: "+this.nomeDocumento+ ", " +
+				"Descrição: "+this.descricao+ ", " +
+				"Data de Entrega: "+this.dataEntrega+ ", " +
+				"Data de Pedido: "+this.dataPedido+ ", " +
+				"Status: "+this.status+ ", " +
+				"";
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class Documento implements InterfacePadraoEntidade {
 	public void setCodigo(String codigo) {
 		this.documentopk.setCodigo(codigo);
 	}
-	
+
 	public String getCodigo() {
 		return documentopk.getCodigo();
 	}

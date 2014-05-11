@@ -17,10 +17,10 @@ import PrimaryKey.InterfaceKey;
 @NamedQuery(name="Aluno.findAll", query="SELECT a FROM Aluno a")
 @Entity
 public class Aluno implements InterfacePadraoEntidade {
-	
+
 	@EmbeddedId
 	private AlunoPK alunoPK = new AlunoPK();
-	
+
 	private String nomeAluno = null;
 	private String CPF_Aluno = null;
 	private String sexoAluno = null;
@@ -39,15 +39,15 @@ public class Aluno implements InterfacePadraoEntidade {
 	private String livro = null;
 	private String folha = null;
 	private String dataRegCertif = null;
-	
+
 	public String getNomeAluno() {
 		return nomeAluno;
 	}
-	
+
 	public void setNomeAluno(String nomeAluno) {
 		this.nomeAluno = nomeAluno;
 	}
-	
+
 	public String getNis() {
 		return nis;
 	}
@@ -91,71 +91,71 @@ public class Aluno implements InterfacePadraoEntidade {
 	public String getCPF_Aluno() {
 		return CPF_Aluno;
 	}
-	
+
 	public void setCPF_Aluno(String CPF_Aluno) {
 		this.CPF_Aluno = CPF_Aluno;
 	}
-	
+
 	public String getSexoAluno() {
 		return sexoAluno;
 	}
-	
+
 	public void setSexoAluno(String sexoAluno) {
 		this.sexoAluno = sexoAluno;
 	}
-	
+
 	public String getCorAluno() {
 		return corAluno;
 	}
-	
+
 	public void setCorAluno(String corAluno) {
 		this.corAluno = corAluno;
 	}
-	
+
 	public String getDataNascimento() {
 		return dataNascimento;
 	}
-	
+
 	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	
+
 	public String getCidadeNascAluno() {
 		return cidadeNascAluno;
 	}
-	
+
 	public void setCidadeNascAluno(String cidadeNascAluno) {
 		this.cidadeNascAluno = cidadeNascAluno;
 	}
-	
+
 	public String getEstadoNascAluno() {
 		return estadoNascAluno;
 	}
-	
+
 	public void setEstadoNascAluno(String estadoNascAluno) {
 		this.estadoNascAluno = estadoNascAluno;
 	}
-	
+
 	public String getNomeMae() {
 		return nomeMae;
 	}
-	
+
 	public void setNomeMae(String nomeMae) {
 		this.nomeMae = nomeMae;
 	}
-	
+
 	public String getEnderecoAluno() {
 		return enderecoAluno;
 	}
-	
+
 	public void setEnderecoAluno(String enderecoAluno) {
 		this.enderecoAluno = enderecoAluno;
 	}
-	
+
 	public String getTelefoneAluno() {
 		return telefoneAluno;
 	}
-	
+
 	public void setTelefoneAluno(String telefoneAluno) {
 		this.telefoneAluno = telefoneAluno;
 	}
@@ -186,36 +186,36 @@ public class Aluno implements InterfacePadraoEntidade {
 	@Override
 	public String toString() throws NullPointerException {
 		return "" +
-			"CodigoAluno: "+this.alunoPK.toString()+", " +
-			"Nome: "+this.nomeAluno+", " +
-			"CPF: "+this.CPF_Aluno+", " +
-			"Cor: "+this.corAluno+", " +
-			"Sexo: "+this.sexoAluno+", " +
-			"Data Nasc: "+this.dataNascimento+", " +
-			"Cidade: "+this.cidadeNascAluno+", " +
-			"Estado: "+this.estadoNascAluno+", " +
-			"Mae: "+this.nomeMae+", " +
-			"Endereco: "+this.enderecoAluno+", " +
-			"Telefone: "+this.telefoneAluno+", " +
-			"Data da Matrícula: "+this.dataMatriculaAluno+", "+
-			"Admitido por transferência: " +this.tranferenciaAluno+", "+
-			"Situação Atual: "+this.situacaoAluno+", "+
-			"Nis: "+this.nis+", "+
-			"Livro: "+this.livro+", "+
-			"Folha: "+this.folha+", "+
-			"N Certificado: "+this.numCertificado+", "+
-			"data Reg: "+this.dataRegCertif+", "+
-			"";
+				"CodigoAluno: "+this.alunoPK.toString()+", " +
+				"Nome: "+this.nomeAluno+", " +
+				"CPF: "+this.CPF_Aluno+", " +
+				"Cor: "+this.corAluno+", " +
+				"Sexo: "+this.sexoAluno+", " +
+				"Data Nasc: "+this.dataNascimento+", " +
+				"Cidade: "+this.cidadeNascAluno+", " +
+				"Estado: "+this.estadoNascAluno+", " +
+				"Mae: "+this.nomeMae+", " +
+				"Endereco: "+this.enderecoAluno+", " +
+				"Telefone: "+this.telefoneAluno+", " +
+				"Data da Matrícula: "+this.dataMatriculaAluno+", "+
+				"Admitido por transferência: " +this.tranferenciaAluno+", "+
+				"Situação Atual: "+this.situacaoAluno+", "+
+				"Nis: "+this.nis+", "+
+				"Livro: "+this.livro+", "+
+				"Folha: "+this.folha+", "+
+				"N Certificado: "+this.numCertificado+", "+
+				"data Reg: "+this.dataRegCertif+", "+
+				"";
 	}
-	
+
 	public void setCodigo(String codigo) {
 		this.alunoPK.setCodigo(codigo);
 	}
-	
+
 	public String getCodigo() {
 		return this.alunoPK.toString();
 	}
-	
+
 	@Override
 	public AlunoPK getCodigoKEY() {
 		return this.alunoPK;

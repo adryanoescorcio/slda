@@ -22,7 +22,7 @@ import PrimaryKey.InterfaceKey;
  * @version 2.0
  * */
 public class AlunoDAO extends DAO {
-	
+
 	/**
 	 * <b>Construtor</b><p>
 	 * Transmite a conexao do BD para super classe.<br>
@@ -31,32 +31,32 @@ public class AlunoDAO extends DAO {
 	public AlunoDAO(JPAUtil conexaoBD) {
 		super(conexaoBD);
 	}
-	
+
 	/**
 	 * Metodo para inserir/atualiza o Entidade no Banco de Dados.
 	 **/
 	public boolean save(Aluno aluno) {
 		return super.save(aluno);
 	}
-	
+
 	/**
 	 * Buscar Aluno usando o CodigoAluno
 	 **/
 	public Aluno buscar(AlunoPK codigo) {
 		return (Aluno) this.consultar(codigo);
 	}
-	
+
 	@Override
 	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
 		return em.find(Aluno.class, codigo);
 	}
-	
+
 	public boolean isExist(String codigo) {
 		AlunoPK pk = new AlunoPK();
 		pk.setCodigo(codigo);
-		
+
 		Aluno alunoDaConsulta = (Aluno) this.consultar(pk);
-		
+
 		try{
 			alunoDaConsulta.toString();
 			return true;
@@ -64,16 +64,16 @@ public class AlunoDAO extends DAO {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * RETORNA TODAS OS ALUNOS DO BANCO
 	 **/
 	public List<Aluno> getTodosAlunos(){
-		
+
 		Query query = em.createNamedQuery("Aluno.findAll");
 		@SuppressWarnings("unchecked")
 		List<Aluno> alunos = query.getResultList();
-		
+
 		return alunos;
 	}
 
@@ -84,10 +84,10 @@ public class AlunoDAO extends DAO {
 		try {
 			Aluno aluno = null;
 			ResultSet rs = this.consultarAlunoNome((String) nomeLocalizar);
-			
+
 			while (rs.next()) {
 				aluno = new Aluno(); // cria um aluno vindo dos resultados
-				
+
 				aluno.setCodigo(rs.getString("codigoaluno")); // insere o codigoDossie
 				aluno.setTranferenciaAluno(rs.getString("tranferenciaaluno"));
 				aluno.setTelefoneAluno(rs.getString("telefonealuno"));
@@ -107,15 +107,15 @@ public class AlunoDAO extends DAO {
 				aluno.setFolha(rs.getString("folha"));
 				aluno.setNumCertificado(rs.getString("numcertificado"));
 				aluno.setDataRegCertif(rs.getString("dataregcertif"));
-				
+
 				list.add(aluno); // adiciona o aluno na lista
-//				System.out.println(aluno.getNomeAluno());
+				//				System.out.println(aluno.getNomeAluno());
 			}
-			
+
 			// serve para verificar se o objeto não é null;
 			System.out.println("Não Excluir: "+ aluno.getCodigo() +"(TESTE OBJETO)"); // forçar o erro de nullPoint
 			return list;
-			
+
 		} catch (NullPointerException e1) {
 			JOptionPane.showMessageDialog(null, "Nenhum Aluno foi encontrado no banco de dados.");
 			return list;
@@ -128,5 +128,5 @@ public class AlunoDAO extends DAO {
 	private ResultSet consultarAlunoNome(String codigo) throws SQLException {
 		return stm.executeQuery("SELECT * FROM ALUNO WHERE nomealuno LIKE '%"+codigo+"%'");
 	}
-	
+
 }

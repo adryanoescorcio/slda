@@ -21,50 +21,50 @@ import Model.Caixa;
 import PrimaryKey.CaixaPK;
 
 public class PlusEventoDiscenteArquivo extends EventosPadrao {
-	
+
 	// Objeto Mask
 	protected MaskFormatterGroup mask = new MaskFormatterGroup();
-	
+
 	protected JTextField tfRefCaixa = new JTextField();
 	protected JTextField tfLocaInter = new JTextField();
-	
+
 	protected JFormattedTextField ftData;
 	protected JComboBox<String> comboBoxSubSecao = comboGroup.getComboBoxSubSecao();
-	
+
 	private JPanel mainJDialog;
 	protected List<Ata> listaAta;
 	protected Ata ultimaAtaList;
-	
+
 	protected AtaResultado ataResultadoGlobal;
 
 	protected EventosAluno evento;
-	
+
 	public PlusEventoDiscenteArquivo(JPanel mainDialog, EventosAluno evAluno) {
 		this.evento = evAluno;
 		initVar();
 		this.setMainJDialog(mainDialog);
 		this.aluno = evAluno.getAluno();
 	}
-	
+
 	/**
 	 * Inicializar a variaveis
 	 **/
 	private void initVar() {
 		tfRefCaixa = new JTextField();
 		ftData = new JFormattedTextField(mask.getMascaraData());
-		
+
 		ftData.setText(dateToday());
 	}
-	
+
 	private String dateToday() {
-		
+
 		Date date = new Date();
 		SimpleDateFormat dateToday = new SimpleDateFormat("dd/MM/yyyy");
 		String strDateToday = dateToday.format(date);
-		
+
 		return strDateToday;
 	}
-	
+
 	@Override
 	public void limparCampos() {
 		tfRefCaixa.setText("");
@@ -80,7 +80,7 @@ public class PlusEventoDiscenteArquivo extends EventosPadrao {
 		arquivo.setCodDossie((String) comboBoxSubSecao.getSelectedItem());
 		arquivo.setDatadeEntradaArquivo(ftData.getText());
 		arquivo.setCodigoCaixa(tfRefCaixa.getText());
-		
+
 		return arquivo;
 	}
 
@@ -101,23 +101,23 @@ public class PlusEventoDiscenteArquivo extends EventosPadrao {
 			limparCampos();
 		}
 	};
-	
+
 	protected ActionListener onClickSalvarAtaResultado = new ActionListener() {	
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Arquivo arquivoBD = new Arquivo(); // cria o objeto de resultados
 			arquivoBD.setCodigoAluno(aluno.getCodigo()); // passa o codigo do aluno
-			
+
 			// inseri todas as informações do arquivo.
 			arquivoBD.setArquivo(
 					(Arquivo) getValoresDosCampos());
-			
+
 			try {
 				// verificar se a ata existe no banco de dados
 				if(validaCaixa(arquivoBD.getCodigoCaixa())) {
 					daoArquivo.save(arquivoBD); //salva a entidade
 					finallyOperation(); // realizando as operações apos salvar
-					
+
 				} else {
 					new erroNullRequisitoException("Caixa não foi cadastrada, insira a nova Caixa no banco de dados.", "ER06");
 				}
@@ -126,7 +126,7 @@ public class PlusEventoDiscenteArquivo extends EventosPadrao {
 			}
 		}
 	};
-	
+
 	protected ActionListener onClickCancelarOperacao = new ActionListener() {	
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -134,7 +134,7 @@ public class PlusEventoDiscenteArquivo extends EventosPadrao {
 			mainJDialog.removeAll();
 		}
 	};
-	
+
 	protected ActionListener onClickExcluir = new ActionListener() {	
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -144,7 +144,7 @@ public class PlusEventoDiscenteArquivo extends EventosPadrao {
 				btnExcluir.setEnabled(false); // o botão volta ao normal
 				limparCampos();
 				acaoFinal();
-				
+
 			}
 		}
 	};
@@ -154,7 +154,7 @@ public class PlusEventoDiscenteArquivo extends EventosPadrao {
 		pkCaixa.setCodigo(codigoCaixa);
 
 		Caixa caixa = daoCaixa.buscar(pkCaixa);
-		
+
 		try {
 			caixa.toString();
 			return true;

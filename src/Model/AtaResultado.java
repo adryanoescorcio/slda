@@ -20,117 +20,117 @@ import PrimaryKey.InterfaceKey;
 @Entity
 public class AtaResultado implements InterfacePadraoEntidade, InterfacePadraoAta {
 
-        @EmbeddedId
-        private AtaResultadoPK atapk = new AtaResultadoPK();
+	@EmbeddedId
+	private AtaResultadoPK atapk = new AtaResultadoPK();
 
-        private String modalidadeAta = null;
-        private String ensinoAta = null;
-        
-        @Transient
-        private String nomeAluno = "";
-        
-		public AtaResultadoPK getAtapk() {
-			return atapk;
-		}
+	private String modalidadeAta = null;
+	private String ensinoAta = null;
 
-		public void setAtapk(AtaResultadoPK atapk) {
-			this.atapk = atapk;
-		}
+	@Transient
+	private String nomeAluno = "";
 
-		public String getModalidadeAta() {
-			return modalidadeAta;
-		}
+	public AtaResultadoPK getAtapk() {
+		return atapk;
+	}
 
-		public void setModalidadeAta(String modalidadeAta) {
-			this.modalidadeAta = modalidadeAta;
-		}
+	public void setAtapk(AtaResultadoPK atapk) {
+		this.atapk = atapk;
+	}
 
-		public String getEnsinoAta() {
-			return ensinoAta;
-		}
+	public String getModalidadeAta() {
+		return modalidadeAta;
+	}
 
-		public void setEnsinoAta(String ensinoAta) {
-			this.ensinoAta = ensinoAta;
-		}
+	public void setModalidadeAta(String modalidadeAta) {
+		this.modalidadeAta = modalidadeAta;
+	}
 
-		public void setCodigo(String aluno, String turnoAta, String turmaAta, String anoAta) {
-            atapk.setCodigo(aluno, turmaAta, turnoAta, anoAta);
-        }
-       
-        public String getNomeAluno() {
-			return nomeAluno;
-		}
-        
-        public String getTurmaAta() {
-                return atapk.getTurmaAta();
-        }
+	public String getEnsinoAta() {
+		return ensinoAta;
+	}
 
-        public String getTurnoAta() {
-                return atapk.getTurnoAta();
-        }
+	public void setEnsinoAta(String ensinoAta) {
+		this.ensinoAta = ensinoAta;
+	}
 
-        public String getAnoAta() {
-                return atapk.getAnoAta();
-        }
-       
-        @Override
-        public InterfaceKey getCodigoKEY() {
-                return atapk;
-        }
+	public void setCodigo(String aluno, String turnoAta, String turmaAta, String anoAta) {
+		atapk.setCodigo(aluno, turmaAta, turnoAta, anoAta);
+	}
 
-        @Override
-        public void setCodigoKEY(InterfaceKey chaveEntidade) {
-                this.atapk = (AtaResultadoPK) chaveEntidade;
-        }
-        
-        public String toString() {
-        	return "" +
-        			"Turma: "+this.atapk.getTurmaAta()+ ", " +
-        			"Ano: "+this.atapk.getAnoAta()+ ", " +
-        			"Turno: "+this.atapk.getTurnoAta()+ ", " +
-        			"Aluno: "+this.atapk.getAluno()+ ", " +
-        			"Ensino: "+ getEnsinoAta()+ ", " +
-        			"Modalidade: "+ getModalidadeAta()+ ", " +
-        			"";
-        }
+	public String getNomeAluno() {
+		return nomeAluno;
+	}
 
-		public boolean equals(Object obj) {
-			return atapk.equals(obj);
-		}
+	public String getTurmaAta() {
+		return atapk.getTurmaAta();
+	}
 
-		public String getAluno() {
-			return atapk.getAluno();
-		}
+	public String getTurnoAta() {
+		return atapk.getTurnoAta();
+	}
 
-		public int hashCode() {
-			return atapk.hashCode();
-		}
+	public String getAnoAta() {
+		return atapk.getAnoAta();
+	}
 
-		public void setNomeAluno(String nomeAluno) {
-			this.nomeAluno = nomeAluno;
-		}
-		
-		public void setAluno(String aluno) {
-			atapk.setAluno(aluno);
-		}
+	@Override
+	public InterfaceKey getCodigoKEY() {
+		return atapk;
+	}
 
-		public void setTurmaAta(String turmaAta) {
-			atapk.setTurmaAta(turmaAta);
-		}
+	@Override
+	public void setCodigoKEY(InterfaceKey chaveEntidade) {
+		this.atapk = (AtaResultadoPK) chaveEntidade;
+	}
 
-		public void setTurnoAta(String turnoAta) {
-			atapk.setTurnoAta(turnoAta);
-		}
+	public String toString() {
+		return "" +
+				"Turma: "+this.atapk.getTurmaAta()+ ", " +
+						"Ano: "+this.atapk.getAnoAta()+ ", " +
+								"Turno: "+this.atapk.getTurnoAta()+ ", " +
+										"Aluno: "+this.atapk.getAluno()+ ", " +
+												"Ensino: "+ getEnsinoAta()+ ", " +
+												"Modalidade: "+ getModalidadeAta()+ ", " +
+												"";
+	}
 
-		public void setAnoAta(String anoAta) {
-			atapk.setAnoAta(anoAta);
-		}
+	public boolean equals(Object obj) {
+		return atapk.equals(obj);
+	}
 
-		public void setAta(Ata ata) {
-			this.setEnsinoAta(ata.getModalidadeAta());
-			this.setModalidadeAta(ata.getModalidadeAta());
-			this.setTurmaAta(ata.getTurmaAta());
-			this.setTurnoAta(ata.getTurnoAta());
-			this.setAnoAta(ata.getAnoAta());
-		}
+	public String getAluno() {
+		return atapk.getAluno();
+	}
+
+	public int hashCode() {
+		return atapk.hashCode();
+	}
+
+	public void setNomeAluno(String nomeAluno) {
+		this.nomeAluno = nomeAluno;
+	}
+
+	public void setAluno(String aluno) {
+		atapk.setAluno(aluno);
+	}
+
+	public void setTurmaAta(String turmaAta) {
+		atapk.setTurmaAta(turmaAta);
+	}
+
+	public void setTurnoAta(String turnoAta) {
+		atapk.setTurnoAta(turnoAta);
+	}
+
+	public void setAnoAta(String anoAta) {
+		atapk.setAnoAta(anoAta);
+	}
+
+	public void setAta(Ata ata) {
+		this.setEnsinoAta(ata.getModalidadeAta());
+		this.setModalidadeAta(ata.getModalidadeAta());
+		this.setTurmaAta(ata.getTurmaAta());
+		this.setTurnoAta(ata.getTurnoAta());
+		this.setAnoAta(ata.getAnoAta());
+	}
 }

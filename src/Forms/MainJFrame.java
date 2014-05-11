@@ -23,10 +23,10 @@ import Menus.MenuVisualizar;
  **/
 
 public class MainJFrame {
-	
+
 	// JFRAME MAINJFRAME ESTA EM TELAPADRAO
 	private JFrame mainJFrame = new JFrame();
-	
+
 	// constantes
 	private static final String TITULO_WINDOW = "SLDA - Sistema de Localização de Documentos do Aluno";
 	private static final int TOP = JTabbedPane.TOP;
@@ -40,56 +40,56 @@ public class MainJFrame {
 	 * CRIADO UM PAINEL EM CAMADAS(JTABBEDPANE) PRINCIPAL - TOP
 	 * EM QUE CADA CAMADA TEM OUTROS PAINEIS EM CAMADAS(JTABBEDPANE) LATERAIS
 	 **/
-	
+
 	private JTabbedPane camadaExterna = new JTabbedPane(TOP);
 
 	// ICONES
 	private IconesGroup icone = new IconesGroup();
-	
+
 	// Menu Principal
 	private JMenuBar menuBar = new JMenuBar();
-	
+
 	// Itens do Menu Principal
 	private MenuUsuario menuUsuario = new MenuUsuario();
 	private MenuVisualizar menuVisualizar = new MenuVisualizar();
 	private MenuAvancado menuAvancado = new MenuAvancado();
-	
+
 	/**
 	 * Painel Principal e mais externo da JFrame. 
 	 **/
-	
+
 	private JPanel mainJPanel = new JPanel(new BorderLayout(2, 2));
-	
+
 	//INSTANCIANDO OS PAINEIS CRUD
 	// ALUNO
 	private PainelMainCaixa cadastrarCaixa = new PainelMainCaixa();
 	private PainelMainAluno cadastrarAluno = new PainelMainAluno(this);
 	private PainelMainAta cadastrarAta = new PainelMainAta();
-	
+
 	private Font font = new Font(Font.SANS_SERIF, 0, 18);
-	
+
 	public MainJFrame(){
-		
+
 		menusWindows();
 		alterandoFontes();
 		addComponentesMainJPanel();
 		configuracaoMainJFrame();
-		
+
 		//SETANDO AS CAMADAS COM O FUNDO BRANCO
 		camadaExterna.setOpaque(true);
 		camadaExterna.setBackground(Color.LIGHT_GRAY);
-		
+
 		//DEFININDO OS PAINEIS DA CAMADA EXTERNA 
 		camadaExterna.addTab("Discente", icone.getIconeAluno(), 
 				cadastrarAluno.getTelaPrincipal(), "Gerenciar Alunos");
 
 		camadaExterna.addTab("Caixa",  icone.getIconeArquivo(), 
 				cadastrarCaixa.getTelaPrincipal(),"Gerenciar Caixas");
-		
+
 		camadaExterna.addTab("Ata", icone.getIconeAta32x(), 
 				cadastrarAta.getTelaPrincipal(), "Gerenciar Atas");
 	}
-	
+
 	private void alterandoFontes() {
 		camadaExterna.setFont(font);
 	}
@@ -113,7 +113,7 @@ public class MainJFrame {
 		camadaExterna.setEnabledAt(PAINEL_ATA, false);
 		camadaExterna.setSelectedIndex(PAINEL_EXTRA); // seta o ultimo painel
 	}
-	
+
 	private void addComponentesMainJPanel() {
 		//ADICIONANDO A CAMADA EXTERNA À JANELA(JFrame)
 		mainJPanel.add(camadaExterna);
@@ -124,7 +124,7 @@ public class MainJFrame {
 		mainJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainJFrame.setVisible(true);
 		mainJFrame.setSize(1050, 700);
-		
+
 		// Inserindo o MenuBar na Janela
 		mainJFrame.setJMenuBar(menuBar);
 		// Centraliza a criação da Janela no monitor
@@ -155,7 +155,7 @@ public class MainJFrame {
 		camadaExterna.setSelectedIndex(PAINEL_ALUNO); // volta a tela para o painel do aluno
 		camadaExterna.setEnabledAt(PAINEL_ATA, true);
 	}
-	
+
 	public void direcionarParaCamada (int i) {
 		camadaExterna.setSelectedIndex(i);
 	}

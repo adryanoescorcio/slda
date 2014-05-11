@@ -9,8 +9,8 @@ import Model.Aluno;
 
 public class AlunoTableModel extends AbstractTableModel{
 
-private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;
+
 	private static final int COL_ID = 0;
 	private static final int COL_NOME = 1;
 	private static final int COL_CPF = 2;
@@ -41,7 +41,7 @@ private static final long serialVersionUID = 1L;
 		this.linhas = list;
 		fireTableDataChanged();
 	}
-	
+
 	public int getRowCount() {
 		return linhas.size();
 	}
@@ -54,7 +54,7 @@ private static final long serialVersionUID = 1L;
 		return colunas[columnIndex];
 	}
 
-	
+
 	public Class<String> getColumnClass(int columnIndex) {
 		return String.class;
 	}
@@ -102,7 +102,7 @@ private static final long serialVersionUID = 1L;
 		} else if (column == COL_DATA_REG) {
 			return m.getDataRegCertif();
 		}
-		
+
 		return "";
 	}
 
@@ -132,7 +132,7 @@ private static final long serialVersionUID = 1L;
 		fireTableRowsDeleted(indiceLinha, indiceLinha);
 
 	}
-	
+
 	//REMOVE A PATIR DO OBJETO
 	public void removeContato(Object object) {
 		int indiceLinha = linhas.indexOf(object);
@@ -140,7 +140,7 @@ private static final long serialVersionUID = 1L;
 		fireTableRowsDeleted(indiceLinha, indiceLinha);
 
 	}
-	
+
 	//ATUALIZAR NOVO A PARTIR DO VELHO
 	public void updateContato(Object velho, Aluno novo) {
 		int indiceLinha = linhas.indexOf(velho);

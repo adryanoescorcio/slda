@@ -26,37 +26,37 @@ public class AtaResultadoDAO extends DAO {
 	public AtaResultadoDAO(JPAUtil conexaoBD) {
 		super(conexaoBD);
 	}
-	
+
 	/**
 	 * Metodo para inserir/atualiza o Entidade no Banco de Dados.
 	 **/
 	public boolean save(AtaResultado ataResultado) {
 		return super.save(ataResultado);
 	}
-	
+
 	/**
 	 * Buscar Caixa usando o codigo
 	 **/
 	public AtaResultado buscar(AtaResultadoPK codigo) {
 		return (AtaResultado) this.consultar(codigo);
 	}
-	
+
 	@Override
 	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
 		return em.find(AtaResultado.class, codigo);
 	}
 
 	public List<AtaResultado> buscarAtaporAluno(Aluno aluno){
-		
+
 		String codAluno = aluno.getCodigo();
-		
+
 		Query query = em.createNamedQuery("AtaResultado.findByAluno");
 		query.setParameter("aluno", codAluno);
-		
+
 		@SuppressWarnings("unchecked")
 		List<AtaResultado> ataResultado = query.getResultList();
-			
+
 		return ataResultado;
 	}
-	
+
 }

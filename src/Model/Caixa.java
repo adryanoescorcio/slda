@@ -21,35 +21,35 @@ public class Caixa implements InterfacePadraoEntidade{
 
 	@EmbeddedId
 	private CaixaPK caixapk = new CaixaPK();
-	
+
 	private String status;
 	private String turno;
 	private String letra;
-	
+
 	public String getStatus() {
 		return status;
 	}
-	
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 	public String getTurno() {
 		return turno;
 	}
-	
+
 	public void setTurno(String turno) {
 		this.turno = turno;
 	}
-	
+
 	public String getCodigo() {
 		return this.caixapk.toString();
 	}
-	
+
 	public void setCodigo(String codigo) {
 		this.caixapk.setCodigo(codigo);
 	}
-	
+
 	public String getLetra() {
 		return this.letra;
 	}
@@ -57,15 +57,15 @@ public class Caixa implements InterfacePadraoEntidade{
 	public void setLetra(String string) {
 		this.letra = string;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "" +
-			"Codigo: "+this.caixapk.toString()+ ", " +
-			"Status: "+this.status+ ", " +
-			"Turno: "+this.turno+ ", " +
-			"Letra: "+this.letra +
-			"";
+				"Codigo: "+this.caixapk.toString()+ ", " +
+				"Status: "+this.status+ ", " +
+				"Turno: "+this.turno+ ", " +
+				"Letra: "+this.letra +
+				"";
 	}
 
 	@Override

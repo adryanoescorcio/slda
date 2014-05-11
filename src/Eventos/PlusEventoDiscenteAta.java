@@ -19,35 +19,35 @@ import Model.AtaResultado;
 import Model.InterfacePadraoAta;
 
 public class PlusEventoDiscenteAta extends EventosPadrao {
-	
+
 	// Objeto Mask
 	protected MaskFormatterGroup mask = new MaskFormatterGroup();
-	
+
 	protected JTextField tfTurma = new JTextField();
-	
+
 	protected JFormattedTextField ftAno;
 	protected JComboBox<String> comboTurno;
 	protected JComboBox<String> comboModalidade;
 	protected JComboBox<String> comboEnsino;
 	protected JComboBox<Integer> comboOrdem = new JComboBox<Integer>();
-	
-//	protected JButton btnUltimaAta = new JButton(icone.getIconeAta());
+
+	//	protected JButton btnUltimaAta = new JButton(icone.getIconeAta());
 
 	private JPanel mainJDialog;
 	protected List<Ata> listaAta;
 	protected Ata ultimaAtaList;
-	
+
 	protected AtaResultado ataResultadoGlobal;
 
 	protected EventosAluno evento;
-	
+
 	public PlusEventoDiscenteAta(JPanel mainDialog, EventosAluno evAluno) {
 		try {
 			this.evento = evAluno;
 			initVar();
 			this.setMainJDialog(mainDialog);
 			this.aluno = evAluno.getAluno();
-		
+
 			// pega a ultima ata inserida
 			setListaAta(daoAta.getTodasAtas()); // pega todas do banco de dados
 			ultimaAtaList = listaAta.get(listaAta.size()-1); // pega a ultima ata da lista
@@ -57,7 +57,7 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 			direcionarParaCamada();
 		}
 	}
-	
+
 	/**
 	 * Inicializar a variaveis
 	 **/
@@ -75,7 +75,7 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 	public void setListaAta(List<Ata> listaAta) {
 		this.listaAta = listaAta;
 	}
-	
+
 	@Override
 	public void limparCampos() {
 		tfTurma.setText("");
@@ -89,13 +89,13 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 	@Override
 	public Object getValoresDosCampos() throws erroNullRequisitoException {
 		Ata ata = new Ata();
-		
+
 		ata.setCodigo((String)comboTurno.getSelectedItem(), 
 				tfTurma.getText(), mask.verificarMascara(ftAno));
-		
+
 		ata.setModalidadeAta((String)comboModalidade.getSelectedItem());
 		ata.setEnsinoAta((String)comboEnsino.getSelectedItem());
-		
+
 		return ata;
 	}
 
@@ -110,7 +110,7 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 			atribuirValoresNosCampos((AtaResultado)ataResultado);
 		}
 	}
-	
+
 	/**
 	 * Metodo para inserir os valores nos campos. Aceita tanto objeto tipo ata quanto objeto tipo AtaResultado
 	 **/
@@ -139,15 +139,15 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 			limparCampos();
 		}
 	};
-	
+
 	protected ActionListener onClickPesquisar = new ActionListener() {	
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			List<AtaResultado> lista = evento.getListaAtaResul(); // pega o resultado das atas com o aluno
-			
+
 			int valorComboBox = comboOrdem.getSelectedIndex(); // cria uma combox com os itens da lista sequenciados
 			ataResultadoGlobal = new AtaResultado();
-			
+
 			try {
 				if(valorComboBox > 0) {
 					ataResultadoGlobal = lista.get(valorComboBox-1); //é retirado um para que seja contado corretamento da lista, pois a lista na combo incrementa um
@@ -162,22 +162,22 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 			}
 		}
 	};
-	
+
 	protected ActionListener onClickSalvarAtaResultado = new ActionListener() {	
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			AtaResultado ataResul = new AtaResultado(); // cria o objeto de resultados
 			ataResul.setAluno(aluno.getCodigo()); // passa o codigo do aluno
-			
+
 			try {
 				// verificar se a ata existe no banco de dados
 				if(validaAta(
 						(Ata) getValoresDosCampos())) {
-					
+
 					// inseri todas as informações da ata.
 					ataResul.setAta(
 							(Ata) getValoresDosCampos());
-					
+
 					daoAtaResultado.save(ataResul); //salva a entidade
 					finallyOperation(); // realizando as operações apos salvar
 				} else {
@@ -188,7 +188,7 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 			}
 		}
 	};
-	
+
 	protected ActionListener onClickCancelarOperacao = new ActionListener() {	
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -196,7 +196,7 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 			mainJDialog.removeAll();
 		}
 	};
-	
+
 	protected ActionListener onClickExcluir = new ActionListener() {	
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -217,12 +217,12 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 		while (i >= 0 && boo) { // inicia do ultimo elemento para o primeiro
 			// compara todos.
 			boo = !(listaAta.get(i).toString().equals(ataTest.toString())); // caso encontre (true) ele retorna falso para acabar com o loop
-//			System.out.println(boo);
+			//			System.out.println(boo);
 			i--;
 		}
 		return !boo; // retorna o resultado final. encontrou ou nao? true ou falso.
 	}
-	
+
 	/**
 	 * Pega a quantidade de item da lista de ataResultados e transforma em comoboBox
 	 **/
@@ -230,7 +230,7 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 		comboOrdem.setBackground(Color.white);
 		comboOrdem.setFont(font.font_PLA_14);
 		comboOrdem.setPreferredSize(new Dimension(50,0));
-		
+
 		itemDaComboBox();
 
 		return comboOrdem;
@@ -244,7 +244,7 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 		for(i=0;i<quantElementList;i++) {
 			comboOrdem.addItem(i+1);
 		}
-		
+
 	}
 
 	/**
@@ -255,7 +255,7 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 		evento.normalizarCamadas();
 		mainJDialog.removeAll();
 	}
-	
+
 	protected void direcionarParaCamada() {
 		evento.direcionarParaCamada(2);
 		mainJDialog.removeAll();

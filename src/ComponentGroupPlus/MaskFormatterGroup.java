@@ -6,12 +6,12 @@ import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
 
 public class MaskFormatterGroup {
-	
+
 	protected MaskFormatter data;
 	protected MaskFormatter tel;
 	protected MaskFormatter cpf;
 	protected MaskFormatter ano;
-	
+
 	public MaskFormatter getMascaraCPF(){
 		try {
 			cpf = new MaskFormatter("###.###.###-##");
@@ -21,7 +21,7 @@ public class MaskFormatterGroup {
 		}
 		return cpf;
 	}
-	
+
 	public MaskFormatter getMascaraData(){
 		try {
 			data = new MaskFormatter(" ##/##/####");
@@ -31,7 +31,7 @@ public class MaskFormatterGroup {
 		}
 		return data;
 	}
-	
+
 	public MaskFormatter getMascaraTelefone(){
 		try {
 			tel = new MaskFormatter("(##) ####-####");
@@ -41,7 +41,7 @@ public class MaskFormatterGroup {
 		}
 		return tel;
 	}
-	
+
 	public MaskFormatter getMascaraAno(){
 		try {
 			ano = new MaskFormatter("####");
@@ -51,13 +51,13 @@ public class MaskFormatterGroup {
 		}
 		return ano;
 	}
-	
+
 	public String verificarMascara(JFormattedTextField campo){              
-        if(campo.getText().contains("_")){
-                return "";
-        }else{
-                return campo.getText();
-        }
-}
-	
+		if(campo.getText().contains("_")){
+			return "";
+		}else{
+			return campo.getText();
+		}
+	}
+
 }

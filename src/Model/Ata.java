@@ -27,11 +27,11 @@ public class Ata implements InterfacePadraoEntidade, InterfacePadraoAta {
 
 	private String modalidadeAta = null;
 	private String ensinoAta = null;
-	
+
 	public AtaPK getAtapk() {
 		return ata;
 	}
-	
+
 	public String getTurmaAta() {
 		return ata.getTurmaAta();
 	}
@@ -63,12 +63,12 @@ public class Ata implements InterfacePadraoEntidade, InterfacePadraoAta {
 	@Override
 	public String toString() {
 		return "" +
-			"Turma: "+this.ata.getTurmaAta()+ ", " +
-			"Ano: "+this.ata.getAnoAta()+ ", " +
-			"Turno: "+this.ata.getTurnoAta()+ ", " +
-			"Modalidade de Ensino: "+this.modalidadeAta+ ", " +
-			"Nivel de Ensino: "+this.ensinoAta+ ", " +
-			"";
+				"Turma: "+this.ata.getTurmaAta()+ ", " +
+				"Ano: "+this.ata.getAnoAta()+ ", " +
+				"Turno: "+this.ata.getTurnoAta()+ ", " +
+				"Modalidade de Ensino: "+this.modalidadeAta+ ", " +
+				"Nivel de Ensino: "+this.ensinoAta+ ", " +
+				"";
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class Ata implements InterfacePadraoEntidade, InterfacePadraoAta {
 	public void setCodigo(String turnoAta, String turmaAta, String anoAta) {
 		this.ata.setCodigo(turmaAta, turnoAta, anoAta);
 	}
-	
+
 	@Override
 	public AtaPK getCodigoKEY() {
 		return this.ata;

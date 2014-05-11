@@ -11,17 +11,17 @@ import javax.persistence.Embeddable;
  **/
 @Embeddable
 public class AtaPK implements InterfaceKey {
-	
+
 	private String turmaAta = null;
 	private String turnoAta = null;
 	private String anoAta = null;
-	
+
 	public void setCodigo(String turmaAta, String turnoAta, String anoAta) {
 		this.turmaAta = turmaAta;
 		this.turnoAta = turnoAta;
 		this.anoAta = anoAta;
 	}
-	
+
 	public String getTurmaAta() {
 		return turmaAta;
 	}
@@ -33,7 +33,7 @@ public class AtaPK implements InterfaceKey {
 	public String getAnoAta() {
 		return anoAta;
 	}
-	
+
 	public void setTurmaAta(String turmaAta) {
 		this.turmaAta = turmaAta;
 	}

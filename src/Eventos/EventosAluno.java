@@ -38,26 +38,26 @@ import TablesModel.DocumentoTableModel;
  **/
 
 public class EventosAluno extends EventosPadrao{
-	
+
 	//Listas
 	protected List<Aluno> listaAluno = new ArrayList<Aluno>();
 	protected List<Documento> listaDocumento = new ArrayList<Documento>();
 	protected List<AtaResultado> listaAtaResul = new ArrayList<AtaResultado>();
-	
+
 	// Table Model
 	public AlunoTableModel modeloAlunoTable = new AlunoTableModel(listaAluno);
 	protected AtaResultadoTableModel modeloAtaResultado = new AtaResultadoTableModel(listaAtaResul);
 	protected DocumentoTableModel modeloDoc = new DocumentoTableModel(listaDocumento);
-	
+
 	// Tabela
 	public PainelTabela tablePadrao = new PainelTabela(); // instancia da tabela padrao
 	private JTable tabela = tablePadrao.getTabela(); // setando a tabela padrao
-	
+
 	// Objeto Mask
 	private MaskFormatterGroup mask = new MaskFormatterGroup();	
 	protected List<Ata> listaAta = new ArrayList<Ata>();;
 	protected AtaTableModel modeloAta = new AtaTableModel(listaAta);
-	
+
 	//COMPONENTES NECESSÁRIOS
 	protected JTextField tfNome = new JTextField();
 	protected JTextField tfCodigo = new JTextField();
@@ -80,9 +80,9 @@ public class EventosAluno extends EventosPadrao{
 	protected JComboBox<String> comboSexo = comboGroup.getComboBoxSexo();
 	protected JComboBox<String> comboTranferencia = comboGroup.getComboBoxTransferencia();
 	protected JComboBox<String> comboSituacao = comboGroup.getComboBoxSituacaoAluno();
-	
+
 	private MainJFrame main;
-	
+
 	public EventosAluno(MainJFrame mainJFrame) {
 		this.main = mainJFrame;
 	}
@@ -97,7 +97,7 @@ public class EventosAluno extends EventosPadrao{
 
 	@Override	
 	public void limparCampos(){
-		
+
 		tfNome.setText("");
 		tfCodigo.setText("");
 		tfCidade.setText("");
@@ -109,7 +109,7 @@ public class EventosAluno extends EventosPadrao{
 		tfNumCertificado.setText("");
 		tfFolha.setText("");
 		tfLivro.setText("");
-		
+
 		tfCodigo.setEditable(true);
 
 		ftCpf.setText("");
@@ -117,13 +117,13 @@ public class EventosAluno extends EventosPadrao{
 		ftDataNasc.setText("");
 		ftDataMatricula.setText("");
 		ftFone.setText("");	
-		
+
 		comboUFAluno.setSelectedIndex(0);
 		comboCor.setSelectedIndex(0);		
 		comboSexo.setSelectedIndex(0);	
 		comboTranferencia.setSelectedIndex(0);	
 		comboSituacao.setSelectedIndex(0);	
-		
+
 		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
 		btnExcluir.setEnabled(false);
 		btnAtaResul.setEnabled(false);
@@ -133,12 +133,12 @@ public class EventosAluno extends EventosPadrao{
 
 		ftCpf.setText(null);
 	}
-	
+
 	@Override
 	public Aluno getValoresDosCampos(){
-		
+
 		if(!tfCodigo.getText().trim().equals("")){
-			
+
 			aluno = new Aluno();
 			aluno.setNomeAluno(tfNome.getText());
 			aluno.setCodigo(tfCodigo.getText());
@@ -149,30 +149,30 @@ public class EventosAluno extends EventosPadrao{
 			aluno.setNumCertificado(tfNumCertificado.getText());
 			aluno.setFolha(tfFolha.getText());
 			aluno.setLivro(tfLivro.getText());
-			
+
 			aluno.setCPF_Aluno(mask.verificarMascara(ftCpf));
 			aluno.setDataNascimento(mask.verificarMascara(ftDataNasc));
 			aluno.setDataMatriculaAluno(mask.verificarMascara(ftDataMatricula));
 			aluno.setTelefoneAluno(mask.verificarMascara(ftFone));
 			aluno.setDataRegCertif(mask.verificarMascara(ftDataReg));
-			
+
 			aluno.setEstadoNascAluno((String) comboUFAluno.getSelectedItem());
 			aluno.setCorAluno((String) comboCor.getSelectedItem());
 			aluno.setSexoAluno((String) comboSexo.getSelectedItem());
 			aluno.setTranferenciaAluno((String) comboTranferencia.getSelectedItem());
 			aluno.setSituacaoAluno((String) comboSituacao.getSelectedItem());	
-			
+
 			return aluno;
-			
+
 		} else{
 			throw new erroNullRequisitoException("(ER02) Preencha todos os requisitos com dados válidos.", "ERRO ER02");
 		}
 	}
-	
+
 	@Override
 	public void setValoresDosCampos(Object object) throws NullPointerException{
 		Aluno aluno = (Aluno) object;
-		
+
 		tfNome.setText(aluno.getNomeAluno());
 		tfCodigo.setText(aluno.getCodigo());
 		tfCidade.setText(aluno.getCidadeNascAluno());
@@ -182,13 +182,13 @@ public class EventosAluno extends EventosPadrao{
 		tfNumCertificado.setText(aluno.getNumCertificado());
 		tfLivro.setText(aluno.getLivro());
 		tfFolha.setText(aluno.getFolha());
-		
+
 		ftCpf.setText(aluno.getCPF_Aluno());
 		ftDataNasc.setText(aluno.getDataNascimento());
 		ftDataMatricula.setText(aluno.getDataMatriculaAluno());
 		ftFone.setText(aluno.getTelefoneAluno());
 		ftDataReg.setText(aluno.getDataRegCertif());
-		
+
 		comboUFAluno.setSelectedItem(aluno.getEstadoNascAluno());
 		comboCor.setSelectedItem(aluno.getCorAluno());
 		comboSexo.setSelectedItem(aluno.getSexoAluno());
@@ -198,32 +198,32 @@ public class EventosAluno extends EventosPadrao{
 
 	//OBJETO ActionListener QUE SALVA O ALUNO
 	protected ActionListener onClickAlterarAluno = new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			aluno = (Aluno) getValoresDosCampos();
 			Aluno aluno2 = daoAluno.buscar(aluno.getCodigoKEY());
-			
+
 			if(!aluno.toString().equals(aluno2.toString())) {
 				metodoSalvar();
-				
+
 			} else {
 				JOptionPane.showMessageDialog(null, "(AT01) Não houve modificação.","ATENÇÃO AT01", 
 						JOptionPane.WARNING_MESSAGE);
 			}
 		}
 	};
-	
+
 	//OBJETO ActionListener QUE SALVA O ALUNO
 	protected ActionListener onClickSalvarAluno = new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String codigo = tfCodigo.getText().trim(); // pega o codigo digitado pelo cliente.
 
 			AlunoPK pk = new AlunoPK(); // chave primaria da caixa.
 			pk.setCodigo(codigo); // seta a chave
-			
+
 			try{
 				// realiza a busca no banco de dados
 				daoAluno.buscar(pk).getCodigo();
@@ -231,16 +231,16 @@ public class EventosAluno extends EventosPadrao{
 			}catch(NullPointerException exc){
 				metodoSalvar();
 			}
-			
+
 		}
 	};
-	
+
 	//OBJETO ActionListener QUE BUSCA O ALUNO NO BANCO
 	protected ActionListener onClickBuscarAluno = new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			String codigoLocalizar = tfLocalizar.getText().trim(); // pega o codigo digitado pelo cliente.
 			if(verificarCodigo(codigoLocalizar)) {
 				buscarCodigo(codigoLocalizar);
@@ -252,7 +252,7 @@ public class EventosAluno extends EventosPadrao{
 
 	//OBJETO ActionListener QUE EXCLUE O ALUNO NO BANCO
 	protected ActionListener onClickExcluirAluno = new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {			
 			if(JOptionPane.showConfirmDialog(null, "Deseja excluir o Discente?") == 0) {
@@ -262,9 +262,9 @@ public class EventosAluno extends EventosPadrao{
 			}
 		}
 	};
-	
+
 	protected ActionListener onClickCaixa = new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {			
 			PlusPainelDiscenteArquivo painelDisCaixa = 
@@ -272,7 +272,7 @@ public class EventosAluno extends EventosPadrao{
 			main.addCamada(painelDisCaixa.getMainDialog(),"Inserir Aluno-Caixa");
 		}
 	};
-	
+
 	//OBJETO ActionListener QUE LIMPA OS CAMPOS DA TELA
 	protected ActionListener onClickLimparCampos = new ActionListener() {	
 		@Override
@@ -280,15 +280,15 @@ public class EventosAluno extends EventosPadrao{
 			limparCampos();
 		}
 	};
-			
+
 	protected ActionListener onClickDocumento = new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			tabelaDocumento();
 		}
 	};
-	
+
 	protected ActionListener onClickAtaResul = new ActionListener() {
 
 		@Override
@@ -297,7 +297,7 @@ public class EventosAluno extends EventosPadrao{
 				try {
 					PlusPainelDiscenteAta painelDiscAta = 
 							new PlusPainelDiscenteAta(EventosAluno.this);
-					
+
 					main.addCamada(painelDiscAta.getMainDialog(), "Inserir Aluno-Ata");
 				} catch (Exception ex) {
 					// o metodo foi parado por falta dos requisitos minimos.
@@ -305,13 +305,13 @@ public class EventosAluno extends EventosPadrao{
 			}
 		}
 	};
-	
+
 	public void tabelaAta(Aluno aln){
 		List<AtaResultado> lista = daoAtaResultado.buscarAtaporAluno(aln); // realizando a busca
 		listaAtaResul = lista; // passando para a variavel global
 		modeloAtaResultado.setList(lista); // Inserindo a nova lista no modelo
 	}
-	
+
 	/**
 	 * Verificar se o codigo digitado pelo usuário é numero ou letra
 	 **/
@@ -335,7 +335,7 @@ public class EventosAluno extends EventosPadrao{
 			PlusPainelDiscenteLista painelListaDiscente = 
 					new PlusPainelDiscenteLista(EventosAluno.this);
 			main.addCamada(painelListaDiscente.getMainDialog(), "Selecionar Aluno");
-			
+
 		}
 	}
 
@@ -343,7 +343,7 @@ public class EventosAluno extends EventosPadrao{
 	 * Realiza busca usando o codigo do Aluno
 	 **/
 	protected void buscarCodigo(String codigoLocalizar) {
-		
+
 		AlunoPK pk = new AlunoPK(); // chave primaria da caixa.
 		pk.setCodigo(codigoLocalizar); // seta a chave
 
@@ -369,10 +369,10 @@ public class EventosAluno extends EventosPadrao{
 		btnAtaResul.setEnabled(true);
 		btnDocumento.setEnabled(true);
 		btnCaixa.setEnabled(true);
-		
+
 		btnSalvar.setEnabled(false); // nao sera possivel salvar, somente alterar
 		tfCodigo.setEditable(false); // nao sera possivel alterar o codigo de objeto consultado.
-		
+
 		aluno = aln;
 	}
 
@@ -383,7 +383,7 @@ public class EventosAluno extends EventosPadrao{
 	public void direcionarParaCamada(int i) {
 		main.direcionarParaCamada(i);
 	}
-	
+
 	public void normalizarCamadas() {
 		main.normalizarCamadas();
 		try {
@@ -392,21 +392,21 @@ public class EventosAluno extends EventosPadrao{
 			// nenhum aluno foi escolhido pelo usuário. sem erro. 
 		}
 	}
- 
+
 	protected void pesquisarCaixa(Aluno aln) {
 		String localizar = aln.getCodigo();
-		 
-		 // colocar as informações para o cliente
-		 try {
-			 arquivo = daoArquivo.buscar(localizar);
-			 tfRefBox.setText(arquivo.getCodigoCaixa()); // a caixa em que se encontram os documentos
-			 tfLocaInter.setText(arquivo.getCodDossie()); // a localização interna dos documentos
-		 }catch (NullPointerException e) {
-			 tfRefBox.setText("Sem caixa");
-			 tfLocaInter.setText("Sem caixa");
-		 }
+
+		// colocar as informações para o cliente
+		try {
+			arquivo = daoArquivo.buscar(localizar);
+			tfRefBox.setText(arquivo.getCodigoCaixa()); // a caixa em que se encontram os documentos
+			tfLocaInter.setText(arquivo.getCodDossie()); // a localização interna dos documentos
+		}catch (NullPointerException e) {
+			tfRefBox.setText("Sem caixa");
+			tfLocaInter.setText("Sem caixa");
+		}
 	}
-	
+
 	protected void pesquisarDoc() {
 		// TODO Auto-generated method stub
 	}
@@ -417,17 +417,17 @@ public class EventosAluno extends EventosPadrao{
 		String matricula = aluno.getCodigo();
 		String nome = aluno.getNomeAluno();
 		String data = aluno.getDataNascimento();
-		
+
 		// Verificar se os campos foram digitados
-        if(matricula.equals("") || 
-        	nome.equals("") || data.equals("")){
-        	JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios.", "ER08", JOptionPane.ERROR_MESSAGE);                
-        }else if(daoAluno.save(aluno)) {
-        	JOptionPane.showMessageDialog(null, SUCESSO);
+		if(matricula.equals("") || 
+				nome.equals("") || data.equals("")){
+			JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios.", "ER08", JOptionPane.ERROR_MESSAGE);                
+		}else if(daoAluno.save(aluno)) {
+			JOptionPane.showMessageDialog(null, SUCESSO);
 			limparCampos();
 			//LIMPA A CAIXA
 			aluno = null;
-        }
+		}
 	}
 
 	public List<AtaResultado> getListaAtaResul() {

@@ -9,8 +9,8 @@ import Model.Documento;
 
 public class DocumentoTableModel extends AbstractTableModel{
 
-private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;
+
 	private static final int COL_PROT = 0; // protocolo
 	private static final int COL_NOMEDOC = 1; // nome do documento
 	private static final int COL_DESC = 2; // descrição
@@ -18,7 +18,7 @@ private static final long serialVersionUID = 1L;
 	private static final int COL_DATA_ENT = 4; // data da entrega
 	private static final int COL_STATUS = 5; // status
 	private static final int COL_ALUNO = 6; // status
-	
+
 	private List<Documento> linhas;
 	private String[] colunas = new String[]{"PROTOCOLO", "CÓD. ALUNO", "DOCUMENTO", "DATA PEDIDO", "DATA ENTREGA", "STATUS", "DESCRIÇÃO"};
 
@@ -33,7 +33,7 @@ private static final long serialVersionUID = 1L;
 	public int getColumnCount() {
 		return colunas.length;
 	}
-	
+
 
 	public String getColumnName(int columnIndex) {
 		return colunas[columnIndex];
@@ -65,7 +65,7 @@ private static final long serialVersionUID = 1L;
 		} else if (column == COL_STATUS) {
 			return m.getStatus();
 		}
-		
+
 		return "";
 	}
 
@@ -94,7 +94,7 @@ private static final long serialVersionUID = 1L;
 		linhas.remove(indiceLinha);
 		fireTableRowsDeleted(indiceLinha, indiceLinha);
 	}
-	
+
 	//REMOVE A PATIR DO OBJETO
 	public void removeContato(Object object) {
 		int indiceLinha = linhas.indexOf(object);
@@ -102,7 +102,7 @@ private static final long serialVersionUID = 1L;
 		fireTableRowsDeleted(indiceLinha, indiceLinha);
 
 	}
-	
+
 	//ATUALIZAR NOVO A PARTIR DO VELHO
 	public void updateContato(Object velho, Documento novo) {
 		int indiceLinha = linhas.indexOf(velho);

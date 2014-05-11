@@ -26,35 +26,35 @@ public class CaixaDAO extends DAO {
 	public CaixaDAO(JPAUtil conexaoBD) {
 		super(conexaoBD);
 	}
-	
+
 	/**
 	 * Metodo para inserir/atualiza o Entidade no Banco de Dados.
 	 **/
 	public boolean save(Caixa caixa) {
 		return super.save(caixa);
 	}
-	
+
 	/**
 	 * Buscar Caixa usando o codigo
 	 **/
 	public Caixa buscar(CaixaPK codigo) {
 		return (Caixa) this.consultar(codigo);
 	}
-	
+
 	@Override
 	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
 		return em.find(Caixa.class, codigo);
 	}
-	
+
 	/**
 	 * RETORNA TODAS AS CAIXAS DO BANCO
 	 **/
 	public List<Caixa> getTodasCaixas(){
-		
+
 		Query query = em.createNamedQuery("Caixa.findAllC");
 		@SuppressWarnings("unchecked")
 		List<Caixa> caixas = query.getResultList();
-		
+
 		return caixas;
 	}
 }

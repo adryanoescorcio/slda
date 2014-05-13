@@ -40,10 +40,10 @@ public class PainelMainAta extends EventosAta {
 	private JScrollPane scrollMain = new JScrollPane();
 
 	private JLabel lbDadosAta = new JLabel("DADOS DA ATA", SwingConstants.CENTER);
-	private JLabel lbTurma = new JLabel("Turma: ", SwingConstants.RIGHT);
+	private JLabel lbTurma = new JLabel("Turma:* ", SwingConstants.RIGHT);
 	private JLabel lbCodigo2 = new JLabel("Ano da Ata: ", SwingConstants.RIGHT);
-	private JLabel lbTurno = new JLabel("Turno: ", SwingConstants.RIGHT);
-	private JLabel lbAno = new JLabel("Ano: ", SwingConstants.RIGHT);
+	private JLabel lbTurno = new JLabel("Turno:* ", SwingConstants.RIGHT);
+	private JLabel lbAno = new JLabel("Ano:* ", SwingConstants.RIGHT);
 	private JLabel lbModalidade = new JLabel("Modalidade: ", SwingConstants.RIGHT);
 	private JLabel lbEnsino = new JLabel("Ensino: ", SwingConstants.RIGHT);
 
@@ -187,10 +187,6 @@ public class PainelMainAta extends EventosAta {
 		btnExcluir.setFont(font.font_PLA_14);
 
 		tfTurma.setSize(20, 10);
-
-		// Cor
-		lbTurno.setForeground(Color.RED);
-		ftAno.setBackground(Color.WHITE);
 
 		// Outros
 		ftAno.setBorder(null); // tirando a borda do component

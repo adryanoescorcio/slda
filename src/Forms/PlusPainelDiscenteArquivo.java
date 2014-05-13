@@ -28,7 +28,7 @@ public class PlusPainelDiscenteArquivo extends PlusEventoDiscenteArquivo {
 	private JLabel lbDadosAta = new JLabel("DADOS DA CAIXA",SwingConstants.CENTER);
 	private JLabel lbNomeAluno = new JLabel(evento.getAluno().getNomeAluno(), SwingConstants.CENTER);
 	private JLabel lbRefCaixa = new JLabel("Cód. da Caixa: ",SwingConstants.RIGHT);
-	private JLabel lbLocalInterno = new JLabel("Subseção: ",SwingConstants.RIGHT);
+	private JLabel lbLocalInterno = new JLabel("Ordem: ",SwingConstants.RIGHT);
 	private JLabel lbData = new JLabel("Data de Entrada: ",SwingConstants.RIGHT);
 
 	public PlusPainelDiscenteArquivo(EventosAluno evento) {
@@ -44,7 +44,7 @@ public class PlusPainelDiscenteArquivo extends PlusEventoDiscenteArquivo {
 
 		painelDireito.add(editPanel.painelNull(0, 0));
 		painelDireito.add(tfRefCaixa);
-		painelDireito.add(comboBoxSubSecao);
+		painelDireito.add(tfLocaInter);
 		painelDireito.add(ftData);
 
 		painelTopoTitulo.add("North", lbDadosAta);
@@ -75,6 +75,7 @@ public class PlusPainelDiscenteArquivo extends PlusEventoDiscenteArquivo {
 		btnSalvar.addActionListener(onClickSalvarAtaResultado);
 		btnExcluir.addActionListener(onClickExcluir);
 		btnCancelar.addActionListener(onClickCancelarOperacao);
+		btnInserirCaixa.addActionListener(onClickInserirCaixa);
 	}
 
 	private JPanel painelInternoNorte() {
@@ -85,6 +86,8 @@ public class PlusPainelDiscenteArquivo extends PlusEventoDiscenteArquivo {
 		contentPainel.add("Center", painelContentEIA);
 		contentPainel.add("West", editPanel.painelNull(10, 0));
 		contentPainel.add("East", editPanel.painelNull(50, 0));
+		contentPainel.add("South", editPanel.painelNull(0, 10));
+		contentPainel.add("North", editPanel.painelNull(0, 10));
 
 		controleSuperior.add("Center",contentPainel);
 		controleSuperior.setBorder(BorderFactory.createTitledBorder(
@@ -106,18 +109,20 @@ public class PlusPainelDiscenteArquivo extends PlusEventoDiscenteArquivo {
 	 **/
 	private JPanel painelBotoesSul() {
 		JPanel contentPainelSul = new JPanel(new BorderLayout(2,2));
-		JPanel painelSul = new JPanel(new GridLayout(4,1,5,5));
+		JPanel painelSul = new JPanel(new GridLayout(6,1,5,5));
 
-		painelSul.add(btnSalvar);
+		painelSul.add(btnInserirCaixa);
 		painelSul.add(btnLimpar);
 		painelSul.add(btnExcluir);
 		painelSul.add(btnCancelar);
+		painelSul.add(editPanel.painelNull(0, 10));
+		painelSul.add(btnSalvar);
 
 		contentPainelSul.add("Center", painelSul);
 		contentPainelSul.add("West", editPanel.painelNull(10, 0));
 		contentPainelSul.add("East", editPanel.painelNull(10, 0));
 		contentPainelSul.add("North", editPanel.painelNull(0, 10));
-		contentPainelSul.add("South", editPanel.painelNull(0, 80)); 
+		contentPainelSul.add("South", editPanel.painelNull(0, 50)); 
 
 		return contentPainelSul;
 	}
@@ -145,13 +150,16 @@ public class PlusPainelDiscenteArquivo extends PlusEventoDiscenteArquivo {
 		ftData.setFont(font.font_NEG_15);
 
 		tfRefCaixa.setPreferredSize(new Dimension(70,0)); // Setado tamanho fixo do Text
-		tfLocaInter.setPreferredSize(new Dimension(70,0)); // Setado tamanho fixo do Text
+		tfLocaInter.setPreferredSize(new Dimension(30,0)); // Setado tamanho fixo do Text
 
 		// Cor
 		lbLocalInterno.setForeground(Color.RED);
 		ftData.setBackground(Color.WHITE);
+		
+		btnSalvar.setForeground(Color.BLUE);
 
 		// Outros
 		ftData.setBorder(null); // tirando a borda do component
+		
 	}
 }

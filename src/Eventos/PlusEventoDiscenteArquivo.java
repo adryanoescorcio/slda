@@ -28,7 +28,7 @@ public class PlusEventoDiscenteArquivo extends EventosPadrao {
 	protected JTextField tfRefCaixa = new JTextField();
 	protected JTextField tfLocaInter = new JTextField();
 
-	protected JFormattedTextField ftData;
+	protected JFormattedTextField ftData = new JFormattedTextField(mask.getMascaraData());
 	protected JComboBox<String> comboBoxSubSecao = comboGroup.getComboBoxSubSecao();
 
 	private JPanel mainJDialog;
@@ -51,8 +51,6 @@ public class PlusEventoDiscenteArquivo extends EventosPadrao {
 	 **/
 	private void initVar() {
 		tfRefCaixa = new JTextField();
-		ftData = new JFormattedTextField(mask.getMascaraData());
-
 		ftData.setText(dateToday());
 	}
 
@@ -77,7 +75,7 @@ public class PlusEventoDiscenteArquivo extends EventosPadrao {
 	public Object getValoresDosCampos() throws erroNullRequisitoException {
 		Arquivo arquivo = new Arquivo();
 		arquivo.setCodigoAluno(aluno.getCodigo());
-		arquivo.setCodDossie((String) comboBoxSubSecao.getSelectedItem());
+		arquivo.setCodDossie(tfLocaInter.getText());
 		arquivo.setDatadeEntradaArquivo(ftData.getText());
 		arquivo.setCodigoCaixa(tfRefCaixa.getText());
 
@@ -149,6 +147,13 @@ public class PlusEventoDiscenteArquivo extends EventosPadrao {
 		}
 	};
 
+	protected ActionListener onClickInserirCaixa = new ActionListener() {	
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			direcionarParaCamada();
+		}
+	};
+	
 	protected boolean validaCaixa(String codigoCaixa) {
 		CaixaPK pkCaixa = new CaixaPK();
 		pkCaixa.setCodigo(codigoCaixa);
@@ -175,6 +180,12 @@ public class PlusEventoDiscenteArquivo extends EventosPadrao {
 		evento.normalizarCamadas(); // colocar as abas superiores normais
 		mainJDialog.removeAll(); // remove todos os compnentes da janela de aluno
 		evento.pesquisarCaixa(aluno); // atualiza o painel de caixa na janela aluno
+	}
+	
+	protected void direcionarParaCamada() {
+		evento.normalizarCamadas(); // colocar as abas superiores normais
+		evento.direcionarParaCamada(1);
+		mainJDialog.removeAll();
 	}
 
 	@Override

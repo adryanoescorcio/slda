@@ -48,7 +48,7 @@ public class PlusPainelDiscenteLista extends PlusEventoDiscenteLista {
 		scroll.setViewportView(tabela); // insere a tabela no painel Scroll
 		
 		painelTabela.add("North", editPanel.painelNull(0, 10));
-		painelTabela.add("Center",table.organizandoColunasTables(evento.modeloAlunoTable));
+		painelTabela.add("Center",table.organizandoColunasTables(evento.modeloAlunoTable, 1500));
 		painelTabela.add("South", editPanel.painelNull(0, 10));
 		
 		return painelTabela;
@@ -97,6 +97,9 @@ public class PlusPainelDiscenteLista extends PlusEventoDiscenteLista {
 	}
 	
 	private JPanel painelbotoes() {
+		// mudando o nome do botão salvar
+		btnSalvar.setText("Selecionar");
+		
 		JPanel painelbotoe = new JPanel(new GridLayout(1,2,5,5));
 		painelbotoe.add(btnSalvar);
 		painelbotoe.add(btnCancelar);

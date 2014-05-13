@@ -8,8 +8,6 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 public class PainelTabela {
-	// tamanho padrao para tabela
-	private static final int TAM_WITH_TABLE_COLUMN = 1000;
 	// quantidade de linhas da tabela
 	protected static final int TAM_ROW_TABLE = 22;
 
@@ -26,13 +24,13 @@ public class PainelTabela {
 	 * @param tabela 
 	 * @return tabela reorganizada
 	 **/
-	public JScrollPane organizandoColunasTables(AbstractTableModel modelo) {
+	public JScrollPane organizandoColunasTables(AbstractTableModel modelo, int tamanho) {
 		// carregando modelo da tabela.
 
 		tabela.setModel(modelo);
 		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-		int x = TAM_WITH_TABLE_COLUMN/tabela.getColumnCount();
+		int x = tamanho/tabela.getColumnCount();
 
 		for(int i=0;i<tabela.getColumnCount();i++) {
 			tabela.getColumnModel().getColumn(i).setPreferredWidth(x);

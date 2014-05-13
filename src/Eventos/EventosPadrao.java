@@ -68,13 +68,13 @@ public abstract class EventosPadrao {
 	public JButton btnAtaResul = new JButton("Ata",icone.getIconeAta());
 	public JButton btnCaixa = new JButton("Caixa", icone.getIconeCaixa());
 	public JButton btnCancelar = new JButton("Cancelar", icone.getIconeCancelar());
+	public JButton btnInserirCaixa = new JButton("Criar Caixa", icone.getIconeCaixa());
 
 	protected JTextField tfLocalizar = new JTextField();
 
 	protected static final String SUCESSO = "Operação realizada com sucesso.";
 
 	public EventosPadrao() {
-
 		configInit();
 		alterarFont();
 	}

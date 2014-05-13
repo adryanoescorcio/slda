@@ -47,8 +47,8 @@ public class PainelMainCaixa extends EventosCaixa {
 
 	protected JLabel lbCodigo = new JLabel("Cód. Caixa:* ",SwingConstants.RIGHT);
 	protected JLabel lbCodigo2 = new JLabel("Cód. Caixa: ",SwingConstants.RIGHT);
-	protected JLabel lbTurno = new JLabel("Turno: ",SwingConstants.RIGHT);
-	protected JLabel lbLetra = new JLabel("Letra: ",SwingConstants.RIGHT);
+	protected JLabel lbTurno = new JLabel("Turno:* ",SwingConstants.RIGHT);
+	protected JLabel lbLetra = new JLabel("Letra:* ",SwingConstants.RIGHT);
 	protected JLabel lbStatus = new JLabel("Status: ",SwingConstants.RIGHT);
 	protected JLabel lbDadosCaixa = new JLabel("DADOS DA CAIXA",SwingConstants.CENTER);
 
@@ -58,8 +58,8 @@ public class PainelMainCaixa extends EventosCaixa {
 
 		painelEsquerdo.add(editPanel.painelNull(0, 0));
 		painelEsquerdo.add(lbCodigo);
-		painelEsquerdo.add(lbTurno);
 		painelEsquerdo.add(lbLetra);
+		painelEsquerdo.add(lbTurno);
 		painelEsquerdo.add(lbStatus);
 
 		painelDireito.add(
@@ -69,10 +69,10 @@ public class PainelMainCaixa extends EventosCaixa {
 				editPanel.painelContentComponent("West",tfCodigo));
 
 		painelDireito.add(
-				editPanel.painelContentComponent("West", comboTurno));
+				editPanel.painelContentComponent("West", comboLetra));
 
 		painelDireito.add(
-				editPanel.painelContentComponent("West", comboLetra));
+				editPanel.painelContentComponent("West", comboTurno));
 
 		painelDireito.add(
 				editPanel.painelContentComponent("West", comboStatus));
@@ -192,8 +192,5 @@ public class PainelMainCaixa extends EventosCaixa {
 		btnLimpar.setFont(font.font_PLA_14);
 		btnAlterar.setFont(font.font_PLA_14);
 		btnExcluir.setFont(font.font_PLA_14);
-
-		// COR
-		lbCodigo.setForeground(Color.red);
 	}
 }

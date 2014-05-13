@@ -31,8 +31,8 @@ public class MainJFrame {
 	private static final String TITULO_WINDOW = "SLDA - Sistema de Localização de Documentos do Aluno";
 	private static final int TOP = JTabbedPane.TOP;
 
-	private static final int PAINEL_CAIXA = 0;
-	private static final int PAINEL_ALUNO = 1;
+	private static final int PAINEL_ALUNO = 0;
+	private static final int PAINEL_CAIXA = 1;
 	private static final int PAINEL_ATA = 2;
 	private static final int PAINEL_EXTRA = 3;
 

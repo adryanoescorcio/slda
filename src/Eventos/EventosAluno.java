@@ -75,6 +75,7 @@ public class EventosAluno extends EventosPadrao{
 	protected JFormattedTextField ftDataMatricula = new JFormattedTextField(mask.getMascaraData());
 	protected JFormattedTextField ftDataReg = new JFormattedTextField(mask.getMascaraData());
 	protected JFormattedTextField ftFone = new JFormattedTextField(mask.getMascaraTelefone());
+	protected JFormattedTextField ftData = new JFormattedTextField(mask.getMascaraData());
 	protected JComboBox<String> comboUFAluno = comboGroup.getComboBoxEstadosBR();
 	protected JComboBox<String> comboCor = comboGroup.getComboBoxCorRaca();
 	protected JComboBox<String> comboSexo = comboGroup.getComboBoxSexo();
@@ -109,6 +110,7 @@ public class EventosAluno extends EventosPadrao{
 		tfNumCertificado.setText("");
 		tfFolha.setText("");
 		tfLivro.setText("");
+		ftData.setText("");
 
 		tfCodigo.setEditable(true);
 
@@ -130,8 +132,6 @@ public class EventosAluno extends EventosPadrao{
 		btnDocumento.setEnabled(false);
 		btnSalvar.setEnabled(true);
 		btnCaixa.setEnabled(false);
-
-		ftCpf.setText(null);
 	}
 
 	@Override
@@ -401,6 +401,7 @@ public class EventosAluno extends EventosPadrao{
 			arquivo = daoArquivo.buscar(localizar);
 			tfRefBox.setText(arquivo.getCodigoCaixa()); // a caixa em que se encontram os documentos
 			tfLocaInter.setText(arquivo.getCodDossie()); // a localização interna dos documentos
+			ftData.setText(arquivo.getDatadeEntradaArquivo());
 		}catch (NullPointerException e) {
 			tfRefBox.setText("Sem caixa");
 			tfLocaInter.setText("Sem caixa");

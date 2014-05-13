@@ -49,7 +49,7 @@ public class PainelMainAluno extends EventosAluno {
 	protected JLabel lbNome = new JLabel("Nome:* ",SwingConstants.RIGHT);
 	protected JLabel lbCodigo2 = new JLabel("Discente: ",SwingConstants.RIGHT);
 	protected JLabel lbCodigo = new JLabel("Código:* ",SwingConstants.RIGHT);
-	protected JLabel lbCPF = new JLabel("CPF: ",SwingConstants.RIGHT);
+	protected JLabel lbCPF = new JLabel("CPF:* ",SwingConstants.RIGHT);
 	protected JLabel lbCor = new JLabel("Cor/Raça: ",SwingConstants.RIGHT);
 	protected JLabel lbNis = new JLabel("NIS: ",SwingConstants.RIGHT);
 	protected JLabel lbDataNasc = new JLabel("Data Nasc.:* ",SwingConstants.RIGHT);
@@ -68,6 +68,7 @@ public class PainelMainAluno extends EventosAluno {
 	protected JLabel lbLocaInter = new JLabel("Ordem",SwingConstants.RIGHT);
 	protected JLabel lbLivro = new JLabel("Livro:",SwingConstants.RIGHT);
 	protected JLabel lbFolha = new JLabel("Fls.:",SwingConstants.RIGHT);
+	protected JLabel lbData = new JLabel("Data Entrada:",SwingConstants.RIGHT);
 	protected JLabel lbDataReg = new JLabel("Data Reg.:",SwingConstants.RIGHT);
 
 	public PainelMainAluno(MainJFrame mainJFrame) {
@@ -226,7 +227,7 @@ public class PainelMainAluno extends EventosAluno {
 		IconesGroup icone = new IconesGroup();
 
 		JPanel painel = new JPanel(new BorderLayout(2,2));
-		JPanel painelGrid = new JPanel(new GridLayout(4,1,0,0));
+		JPanel painelGrid = new JPanel(new GridLayout(6,1,0,0));
 		JPanel painelContent = new JPanel(new BorderLayout(2,2)); 
 
 		JLabel lbImagem = new JLabel("",0);
@@ -237,10 +238,12 @@ public class PainelMainAluno extends EventosAluno {
 		painelGrid.add(editPanel.painelContentComponent("West", tfRefBox));
 		painelGrid.add(editPanel.painelContentComponent("West", lbLocaInter));
 		painelGrid.add(editPanel.painelContentComponent("West", tfLocaInter));
+		painelGrid.add(editPanel.painelContentComponent("West", lbData));
+		painelGrid.add(editPanel.painelContentComponent("West", ftData));
 
 		painel.add("North", lbImagem);
 		painel.add("Center",painelGrid);
-		painel.add("South",editPanel.painelNull(0, 120));
+		painel.add("South",editPanel.painelNull(0, 100));
 
 		painelContent.add("North", editPanel.painelNull(0, 4));
 		painelContent.add("Center", painel);
@@ -282,7 +285,7 @@ public class PainelMainAluno extends EventosAluno {
 		PainelTabela table = new PainelTabela();
 
 		painelTabela.add("North", editPanel.painelNull(0, 10));
-		painelTabela.add("Center", table.organizandoColunasTables(modeloAtaResultado));
+		painelTabela.add("Center", table.organizandoColunasTables(modeloAtaResultado,1000));
 
 		return painelTabela;
 	}
@@ -327,6 +330,7 @@ public class PainelMainAluno extends EventosAluno {
 		lbSituacao.setFont(font.font_PLA_14);		
 		lbRefBox.setFont(font.font_PLA_14);
 		lbLocaInter.setFont(font.font_PLA_14);
+		lbData.setFont(font.font_PLA_14);
 		lbFolha.setFont(font.font_PLA_14);
 		lbDataReg.setFont(font.font_PLA_14);
 		lbCertRegNum.setFont(font.font_PLA_14);
@@ -334,9 +338,6 @@ public class PainelMainAluno extends EventosAluno {
 
 		// TITULO
 		lbDadosAluno.setFont(font.font_NEG_15);
-
-		// Cor
-		lbCodigo.setForeground(Color.RED);
 
 		// JTextField
 		tfNome.setFont(font.font_NEG_15);
@@ -376,6 +377,7 @@ public class PainelMainAluno extends EventosAluno {
 
 		//Desativando
 		tfRefBox.setEditable(false);
+		ftData.setEditable(false);
 		tfLocaInter.setEditable(false);
 	}
 }

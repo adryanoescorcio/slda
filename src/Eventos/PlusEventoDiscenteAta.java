@@ -52,6 +52,8 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 			setListaAta(daoAta.getTodasAtas()); // pega todas do banco de dados
 			ultimaAtaList = listaAta.get(listaAta.size()-1); // pega a ultima ata da lista
 			setValoresDosCampos(ultimaAtaList);
+			
+			// caso não exista nenhuma ata inserida no banco de dados o sistema obriga.
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Nenhuma ata foi inserida. Faça isso antes de continuar.");
 			direcionarParaCamada();
@@ -244,7 +246,6 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 		for(i=0;i<quantElementList;i++) {
 			comboOrdem.addItem(i+1);
 		}
-
 	}
 
 	/**

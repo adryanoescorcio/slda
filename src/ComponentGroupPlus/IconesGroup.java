@@ -18,12 +18,26 @@ public class IconesGroup {
 	private ImageIcon iconeCaixa = new ImageIcon(DIR_ICONES+"caixa.png");
 	private ImageIcon iconeBox = new ImageIcon(DIR_ICONES+"box2.jpg");
 	private ImageIcon iconeCancelar = new ImageIcon(DIR_ICONES+"cancel.png");
+	private ImageIcon iconeInserir = new ImageIcon(DIR_ICONES+"inserir.png");
+	private ImageIcon iconeRetirar = new ImageIcon(DIR_ICONES+"retirar.png");
 
 	// Icones principais 32x32
 	private ImageIcon iconeAluno = new ImageIcon(DIR_ICONES+"aluno.png");
 	private ImageIcon iconeAta32x = new ImageIcon(DIR_ICONES+"ata.png");
 	private ImageIcon iconeArquivo = new ImageIcon(DIR_ICONES+"arquivo.png");
 
+	public ImageIcon getIconeInserir() {
+		return iconeInserir;
+	}
+	public void setIconeInserir(ImageIcon iconeInserir) {
+		this.iconeInserir = iconeInserir;
+	}
+	public ImageIcon getIconeRetirar() {
+		return iconeRetirar;
+	}
+	public void setIconeRetirar(ImageIcon iconeRetirar) {
+		this.iconeRetirar = iconeRetirar;
+	}
 	public ImageIcon getIconeBox() {
 		return iconeBox;
 	}

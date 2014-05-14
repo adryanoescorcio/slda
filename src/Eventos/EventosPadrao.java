@@ -69,6 +69,8 @@ public abstract class EventosPadrao {
 	public JButton btnCaixa = new JButton("Caixa", icone.getIconeCaixa());
 	public JButton btnCancelar = new JButton("Cancelar", icone.getIconeCancelar());
 	public JButton btnInserirCaixa = new JButton("Criar Caixa", icone.getIconeCaixa());
+	public JButton btnInserir = new JButton("Inserir", icone.getIconeInserir());
+	public JButton btnRetirar = new JButton("Retirar", icone.getIconeRetirar());
 
 	protected JTextField tfLocalizar = new JTextField();
 
@@ -99,6 +101,8 @@ public abstract class EventosPadrao {
 	}
 
 	private void configInit() {
+		btnRetirar.setFont(font.font_PLA_14);
+		btnInserir.setFont(font.font_PLA_14);
 		btnPesquisar.setFont(font.font_PLA_14);
 		btnPesquisar.setPreferredSize(new Dimension(140,26));
 		btnPesquisar.setRolloverEnabled(false);
@@ -107,6 +111,8 @@ public abstract class EventosPadrao {
 		btnAtaResul.setEnabled(false);
 		btnDocumento.setEnabled(false);
 		btnCaixa.setEnabled(false);
+		btnInserir.setEnabled(false);
+		btnRetirar.setEnabled(false);
 	}
 
 	/**

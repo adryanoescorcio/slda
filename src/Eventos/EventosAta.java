@@ -45,6 +45,7 @@ public class EventosAta extends EventosPadrao {
 
 	//COMPONENTES NECESSÁRIOS
 	protected JTextField tfTurma = new JTextField();
+	protected JTextField tfDiscente = new JTextField();
 	protected JFormattedTextField ftAno = new JFormattedTextField(mask.getMascaraAno());
 	protected JComboBox<String> comboTurno = comboGroup.getComboBoxTurno();
 	protected JComboBox<String> comboEnsino  = comboGroup.getComboBoxEnsinoFUNDAMENTAL();
@@ -55,6 +56,7 @@ public class EventosAta extends EventosPadrao {
 	public EventosAta() {
 		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
 		btnExcluir.setEnabled(false); // necessario a pesquisa para ativar botão
+		tfDiscente.setEnabled(false); // nunca ira mudar.
 	}
 
 	@Override
@@ -70,6 +72,9 @@ public class EventosAta extends EventosPadrao {
 		lista = daoAta.getTodasAtas();
 		modeloAta = new AtaTableModel(lista);
 		tabela.setModel(modeloAta);
+		
+		btnInserir.setEnabled(false); // botões de caso especial
+		btnRetirar.setEnabled(false); // botões de caso especial
 
 		habilitarBotoes(false);
 
@@ -94,7 +99,6 @@ public class EventosAta extends EventosPadrao {
 		ftAno.setText(ata.getAnoAta());
 		comboModalidade.setSelectedItem(ata.getModalidadeAta());
 		comboEnsino.setSelectedItem(ata.getEnsinoAta());
-
 	}
 
 	/**
@@ -174,7 +178,6 @@ public class EventosAta extends EventosPadrao {
 		}
 	};
 
-
 	/**
 	 * Metodo com a função de excluir uma caixa
 	 **/
@@ -225,6 +228,7 @@ public class EventosAta extends EventosPadrao {
 				habilitarBotoes(true);
 			}
 		}
+		
 		@Override
 		public void mouseEntered(MouseEvent e) {}
 		@Override

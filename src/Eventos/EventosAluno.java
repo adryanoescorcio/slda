@@ -296,9 +296,9 @@ public class EventosAluno extends EventosPadrao{
 			if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o aluno de uma ata?") == 0) {
 				try {
 					PlusPainelDiscenteAta painelDiscAta = 
-							new PlusPainelDiscenteAta(EventosAluno.this);
+							new PlusPainelDiscenteAta();
 
-					main.addCamada(painelDiscAta.getMainDialog(), "Inserir Aluno-Ata");
+					main.addCamada(painelDiscAta.getTelaPrincipal(), "Inserir Aluno-Ata");
 				} catch (Exception ex) {
 					// o metodo foi parado por falta dos requisitos minimos.
 				}

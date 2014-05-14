@@ -41,17 +41,16 @@ public class EventosAta extends EventosPadrao {
 	protected AtaTableModel modeloAta = new AtaTableModel(lista);
 
 	// Objeto Mask
-	MaskFormatterGroup mask = new MaskFormatterGroup();
+	protected MaskFormatterGroup mask = new MaskFormatterGroup();
 
 	//COMPONENTES NECESSÁRIOS
 	protected JTextField tfTurma = new JTextField();
-	protected JTextField tfDiscente = new JTextField();
 	protected JFormattedTextField ftAno = new JFormattedTextField(mask.getMascaraAno());
 	protected JComboBox<String> comboTurno = comboGroup.getComboBoxTurno();
 	protected JComboBox<String> comboEnsino  = comboGroup.getComboBoxEnsinoFUNDAMENTAL();
 	protected JComboBox<String> comboModalidade  = comboGroup.getComboBoxEnsinoMF();
 
-	AtaPK pk = new AtaPK(); // chave primaria da ata.
+	protected AtaPK pk = new AtaPK(); // chave primaria da ata.
 
 	public EventosAta() {
 		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão

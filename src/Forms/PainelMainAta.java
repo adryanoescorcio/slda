@@ -10,10 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
-import sun.security.x509.EDIPartyName;
 
 import Eventos.EventosAta;
 

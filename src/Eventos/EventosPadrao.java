@@ -55,6 +55,8 @@ public abstract class EventosPadrao {
 	public IconesGroup icone = new IconesGroup();
 
 	protected EditPanelGroup editPanel = new EditPanelGroup();
+	
+	protected JTextField tfDiscente = new JTextField(); // campo que estará em todos os Jpanel
 
 	protected ComboBoxGroup comboGroup = new ComboBoxGroup();
 

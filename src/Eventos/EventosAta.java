@@ -72,9 +72,6 @@ public class EventosAta extends EventosPadrao {
 		modeloAta = new AtaTableModel(lista);
 		tabela.setModel(modeloAta);
 		
-		btnInserir.setEnabled(false); // botões de caso especial
-		btnRetirar.setEnabled(false); // botões de caso especial
-
 		habilitarBotoes(false);
 
 	}

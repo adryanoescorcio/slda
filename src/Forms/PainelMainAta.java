@@ -106,6 +106,7 @@ public class PainelMainAta extends EventosAta {
 	}
 
 	private void eventosBotoes() {
+		
 		//ADD EVENTOS
 		btnLimpar.addActionListener(onClickLimparCampos);
 		btnSalvar.addActionListener(onClickSalvarAta);
@@ -127,7 +128,7 @@ public class PainelMainAta extends EventosAta {
 		painelInternoNorte.add("Center", controleSuperior);
 		painelInternoNorte.add("South", painelInternoSul());
 	}
-
+	
 	private JPanel painelDiscente() {
 		
 		JPanel painelDiscenteLabel = new JPanel(new GridLayout(1,2,5,5));
@@ -164,12 +165,13 @@ public class PainelMainAta extends EventosAta {
 
 		return painelContentMain;
 	}
-
+	
 	private JPanel contentPainelLocalizar() {
 		JPanel painel = new JPanel(new BorderLayout(2,2));
 		
 		painel.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createSoftBevelBorder(2), "CONSULTAR"));
+		
 		painel.add("North", painelLocaliza(lbCodigo2));
 		
 		return painel;
@@ -260,6 +262,4 @@ public class PainelMainAta extends EventosAta {
 		btnExcluir.setFont(font.font_PLA_14);
 
 	}
-
-
 }

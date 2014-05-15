@@ -91,8 +91,6 @@ public abstract class EventosPadrao {
 		this.aluno = aluno;
 	}
 
-
-
 	public JPanel painelLocaliza(JLabel titulo) {
 		return editPanel.painelLocaliza(titulo, tfLocalizar, btnPesquisar);
 	}

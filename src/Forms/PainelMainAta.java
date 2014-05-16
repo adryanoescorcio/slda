@@ -49,7 +49,8 @@ public class PainelMainAta extends EventosAta {
 	private JLabel lbEnsino = new JLabel("Ensino: ", SwingConstants.RIGHT);
 	private JLabel lbDiscente = new JLabel("Discente: ", SwingConstants.RIGHT);
 
-	public PainelMainAta() {
+	public PainelMainAta(MainJFrame main) {
+		super(main);
 		eventosBotoes(); // EVENTOS
 		
 		// painel principal
@@ -113,6 +114,8 @@ public class PainelMainAta extends EventosAta {
 		btnAlterar.addActionListener(onClickAterarAta);
 		btnExcluir.addActionListener(onClickExcluirAta);
 		btnPesquisar.addActionListener(onClickBuscarAta);
+		btnInserir.addActionListener(onClickInitInserir);
+		
 		comboModalidade.addItemListener(onClickChangeModalidade);
 		tabela.addMouseListener(onClickRowTable);
 	}

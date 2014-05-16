@@ -56,7 +56,7 @@ public abstract class EventosPadrao {
 
 	protected EditPanelGroup editPanel = new EditPanelGroup();
 	
-	protected JTextField tfDiscente = new JTextField(); // campo que estará em todos os Jpanel
+	public JTextField tfDiscente = new JTextField(); // campo que estará em todos os Jpanel
 
 	protected ComboBoxGroup comboGroup = new ComboBoxGroup();
 
@@ -86,8 +86,13 @@ public abstract class EventosPadrao {
 	public Aluno getAluno() {
 		return aluno;
 	}
+	
+	public Ata getAta() {
+		return ata;
+	}
 
 	public void setAluno(Aluno aluno) {
+		tfDiscente.setText(aluno.getNomeAluno());
 		this.aluno = aluno;
 	}
 
@@ -98,6 +103,7 @@ public abstract class EventosPadrao {
 	private void alterarFont() {
 		tfLocalizar.setFont(font.font_NEG_15);
 		tfLocalizar.setPreferredSize(new Dimension(200,0));
+		tfDiscente.setEditable(false); // nunca ira mudar.
 	}
 
 	private void configInit() {

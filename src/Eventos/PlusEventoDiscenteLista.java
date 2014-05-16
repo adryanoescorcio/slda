@@ -31,7 +31,7 @@ public class PlusEventoDiscenteLista extends EventosPadrao{
 	protected JFormattedTextField ftData;
 	protected JComboBox<String> comboBoxSubSecao = comboGroup.getComboBoxSubSecao();
 
-	private JPanel mainJDialog;
+	private JPanel main;
 	protected List<Ata> listaAta;
 	protected Ata ultimaAtaList;
 
@@ -39,9 +39,9 @@ public class PlusEventoDiscenteLista extends EventosPadrao{
 
 	protected EventosAluno evento;
 
-	public PlusEventoDiscenteLista(JPanel mainDialog, EventosAluno evento) {
+	public PlusEventoDiscenteLista(JPanel main, EventosAluno evento) {
 		this.evento = evento;
-		this.setMainJDialog(mainDialog);
+		this.main = main;
 		this.aluno = evento.getAluno();
 	}
 
@@ -69,12 +69,12 @@ public class PlusEventoDiscenteLista extends EventosPadrao{
 	};
 
 	public void setMainJDialog(JPanel mainJDialog) {
-		this.mainJDialog = mainJDialog;
+		this.main = mainJDialog;
 	}
 
 	protected void finalizeOperation() {
 		evento.normalizarCamadas();
-		mainJDialog.removeAll();		
+		main.removeAll();		
 	}
 
 	@Override

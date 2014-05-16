@@ -16,7 +16,6 @@ import ComponentGroupPlus.PainelTabela;
 import ExceptionSLDA.erroNullRequisitoException;
 import Forms.MainJFrame;
 import Forms.PlusPainelDiscenteArquivo;
-import Forms.PlusPainelDiscenteAta;
 import Forms.PlusPainelDiscenteLista;
 import Model.Aluno;
 import Model.Ata;
@@ -295,10 +294,8 @@ public class EventosAluno extends EventosPadrao{
 		public void actionPerformed(ActionEvent e) {
 			if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o aluno de uma ata?") == 0) {
 				try {
-					PlusPainelDiscenteAta painelDiscAta = 
-							new PlusPainelDiscenteAta();
-
-					main.addCamada(painelDiscAta.getTelaPrincipal(), "Inserir Aluno-Ata");
+					main.mudarPerfilAta(aluno);
+					main.direcionarParaCamada(2);
 				} catch (Exception ex) {
 					// o metodo foi parado por falta dos requisitos minimos.
 				}

@@ -13,6 +13,7 @@ import ComponentGroupPlus.IconesGroup;
 import Menus.MenuAvancado;
 import Menus.MenuUsuario;
 import Menus.MenuVisualizar;
+import Model.Aluno;
 
 /**
  * Classe que representa a tela Principal - Aquela que chama todas as outras
@@ -64,7 +65,7 @@ public class MainJFrame {
 	// ALUNO
 	private PainelMainCaixa cadastrarCaixa = new PainelMainCaixa();
 	private PainelMainAluno cadastrarAluno = new PainelMainAluno(this);
-	private PainelMainAta cadastrarAta = new PainelMainAta();
+	private PainelMainAta cadastrarAta = new PainelMainAta(this);
 
 	private Font font = new Font(Font.SANS_SERIF, 0, 18);
 
@@ -93,6 +94,11 @@ public class MainJFrame {
 	private void alterandoFontes() {
 		camadaExterna.setFont(font);
 	}
+	
+	public void mudarPerfilAta(Aluno aluno) {
+		cadastrarAta.setMudarPerfil(true);
+		cadastrarAta.setAluno(aluno);
+	}
 
 	public JTabbedPane getCamadaExterna() {
 		return camadaExterna;
@@ -101,7 +107,7 @@ public class MainJFrame {
 	public void setCamadaExterna(JTabbedPane camadaExterna) {
 		this.camadaExterna = camadaExterna;
 	}
-
+	
 	/**
 	 * Insere uma aba na camada JTabbed e desativa as outras abas.
 	 **/
@@ -158,5 +164,9 @@ public class MainJFrame {
 
 	public void direcionarParaCamada (int i) {
 		camadaExterna.setSelectedIndex(i);
+	}
+
+	public void atualizarTabelaAluno(Aluno aluno) {
+		cadastrarAluno.tabelaAta(aluno);
 	}
 }

@@ -47,8 +47,8 @@ public class PlusPainelDiscenteAta extends EventosAta {
 	private JLabel lbModalidade = new JLabel("Modalidade: ", SwingConstants.RIGHT);
 	private JLabel lbEnsino = new JLabel("Ensino: ", SwingConstants.RIGHT);
 
-	public PlusPainelDiscenteAta() {
-
+	public PlusPainelDiscenteAta(MainJFrame main) {
+		super(main);
 		eventosBotoes();
 
 		painelEsquerdoInfoAluno.add(editPanel.painelNull(0, 0));

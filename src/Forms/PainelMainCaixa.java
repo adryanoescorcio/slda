@@ -164,7 +164,7 @@ private JPanel painelDiscente() {
 
 		controleSuperior.add("North",contentPainel);
 		controleSuperior.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createSoftBevelBorder(2), BORDER_INFO_CAIXA));
+				BorderFactory.createSoftBevelBorder(2)));
 
 		painelInternoNorte.add("North", painelDiscente());
 		painelInternoNorte.add("Center",controleSuperior);
@@ -255,7 +255,6 @@ private JPanel painelDiscente() {
 		tfDiscente.setFont(font.font_NEG_15);
 		
 		tfDiscente.setPreferredSize(new Dimension(350,0));
-		tfDiscente.setEnabled(false);
 		
 		btnSalvar.setFont(font.font_PLA_14);
 		btnLimpar.setFont(font.font_PLA_14);

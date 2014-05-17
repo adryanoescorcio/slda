@@ -174,7 +174,6 @@ public class EventosAta extends EventosPadrao {
 		}
 	};
 
-
 	/**
 	 * Metodo com a função de excluir uma caixa
 	 **/
@@ -184,6 +183,7 @@ public class EventosAta extends EventosPadrao {
 		public void actionPerformed(ActionEvent e) {			
 			if(JOptionPane.showConfirmDialog(null, "Deseja excluir a ata?") == 0) {
 				daoAta.remover(ataPesquisa);
+				daoAtaResultado.excluirPorAta(ataPesquisa);
 				JOptionPane.showMessageDialog(null, "Ata excluída com sucesso.");
 				modeloAta.removeContato(ataPesquisa);
 				limparCampos();
@@ -235,14 +235,14 @@ public class EventosAta extends EventosPadrao {
 		public void mouseReleased(MouseEvent e) {}
 	};
 
+	//METODO PARA HABILITAR OU DESABILITAR OS BOTOES QUE INICIAM Enabled E TAMBÉM OUTROS COMPONENTES NECESSÁRIOS
 	public void habilitarBotoes(boolean bool) {
 
-		btnAlterar.setEnabled(bool); // necessario a pesquisa para ativar botão
-		btnExcluir.setEnabled(bool); // necessario a pesquisa para ativar botão
-		btnSalvar.setEnabled(!bool); // nao sera possivel salvar, somente alterar
-
-		tfTurma.setEditable(!bool); // nao sera possivel alterar o codigo de objeto consultado.
-		ftAno.setEditable(!bool); // nao sera possivel alterar o codigo de objeto consultado.
+		btnAlterar.setEnabled(bool); 
+		btnExcluir.setEnabled(bool);
+		btnSalvar.setEnabled(!bool); 
+		tfTurma.setEditable(!bool); 
+		ftAno.setEditable(!bool); 
 		comboTurno.setEnabled(!bool);
 	}
 

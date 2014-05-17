@@ -67,7 +67,8 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 		tfTurma = new JTextField();
 		ftAno = new JFormattedTextField(mask.getMascaraAno());
 		comboTurno = comboGroup.getComboBoxTurno();
-		comboEnsino  = comboGroup.getComboBoxEnsinoMF();
+		comboEnsino  = comboGroup.getComboBoxEnsinoFUNDAMENTAL();
+		comboModalidade = comboGroup.getComboBoxEnsinoMF();
 	}
 
 	public List<Ata> getListaAta() {
@@ -118,10 +119,15 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 	 **/
 	private void atribuirValoresNosCampos(InterfacePadraoAta model) {
 		tfTurma.setText(model.getTurmaAta());
+		System.out.println("01");
 		comboTurno.setSelectedItem(model.getTurnoAta());
+		System.out.println("02");
 		ftAno.setText(model.getAnoAta());
+		System.out.println("03");
 		comboModalidade.setSelectedItem(model.getModalidadeAta());
+		System.out.println("04");
 		comboEnsino.setSelectedItem(model.getEnsinoAta());
+		System.out.println("05");
 	}
 
 	public JPanel getMainJDialog() {

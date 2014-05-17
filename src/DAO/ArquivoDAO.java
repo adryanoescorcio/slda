@@ -1,9 +1,13 @@
 package DAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.persistence.Query;
 import javax.swing.JOptionPane;
 
+import Model.Aluno;
 import Model.Arquivo;
+import Model.Caixa;
 import Model.InterfacePadraoEntidade;
 import PrimaryKey.InterfaceKey;
 
@@ -78,5 +82,20 @@ public class ArquivoDAO extends DAO {
 	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
 		return em.find(Arquivo.class, codigo);
 	}
-
+	
+	
+	public void excluirPorCaixa(Caixa caixa){
+		
+		String codCaixa = caixa.getCodigo();
+		
+		try{
+			em.getTransaction().begin();
+			Query query = em.createQuery("DELETE FROM Arquivo a where a.codigoCaixa = :caixa");
+			query.setParameter("caixa", codCaixa);
+			query.executeUpdate();
+			em.getTransaction().commit();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 }

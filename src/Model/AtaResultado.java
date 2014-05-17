@@ -15,6 +15,7 @@ import PrimaryKey.InterfaceKey;
  * @version 1.8
  * @implements PadraoEntidade
  **/
+
 @NamedQuery(name="AtaResultado.findByAluno", query="SELECT a FROM AtaResultado a where a.atapk.aluno = :aluno")
 
 @Entity

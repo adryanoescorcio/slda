@@ -364,6 +364,13 @@ public class PainelMainAluno extends EventosAluno {
 		tfNumCertificado.setPreferredSize(new Dimension(130,0));
 		tfLivro.setPreferredSize(new Dimension(100,0));
 		tfFolha.setPreferredSize(new Dimension(100,0));
+		
+		ftCpf.setPreferredSize(new Dimension(100,0));
+		ftDataMatricula.setPreferredSize(new Dimension(80,0));
+		ftDataReg.setPreferredSize(new Dimension(80,0));
+		ftFone.setPreferredSize(new Dimension(100,0));
+		ftData.setPreferredSize(new Dimension(80,0));
+		ftDataNasc.setPreferredSize(new Dimension(80,0));
 
 		tfRefBox.setForeground(Color.RED);
 		tfLocaInter.setForeground(Color.RED);

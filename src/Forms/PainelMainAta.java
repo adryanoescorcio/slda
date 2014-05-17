@@ -256,7 +256,7 @@ public class PainelMainAta extends EventosAta {
 		tfDiscente.setFont(font.font_NEG_15);
 		tfTurma.setPreferredSize(new Dimension(70,0)); // Setado tamanho fixo do Text
 		tfDiscente.setPreferredSize(new Dimension(350,0)); // Setado tamanho fixo do Text
-		ftAno.setPreferredSize(new Dimension(35,0));
+		ftAno.setPreferredSize(new Dimension(45,0));
 
 		// Button
 		btnSalvar.setFont(font.font_PLA_14);

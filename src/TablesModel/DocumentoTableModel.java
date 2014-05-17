@@ -110,5 +110,15 @@ public class DocumentoTableModel extends AbstractTableModel{
 		fireTableRowsUpdated(indiceLinha, indiceLinha);
 	}
 
+	/**
+	 * Apagar as linhas e limpar a lista da tabela.
+	 **/
+	public void clear() {
+		if(linhas.size() > 0) {
+			fireTableRowsDeleted(0, this.linhas.size()-1);
+			linhas.clear();
+		}
+	}
+
 }
 

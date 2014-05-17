@@ -131,6 +131,10 @@ public class EventosAluno extends EventosPadrao{
 		btnDocumento.setEnabled(false);
 		btnSalvar.setEnabled(true);
 		btnCaixa.setEnabled(false);
+		
+		modeloAtaResultado.clear();
+		modeloDoc.clear();
+		
 	}
 
 	@Override

@@ -263,7 +263,6 @@ public class EventosCaixa extends EventosPadrao {
 
 	//METODO PARA HABILITAR OU DESABILITAR OS BOTOES QUE INICIAM Enabled E TAMBÉM OUTROS COMPONENTES NECESSÁRIOS
 	public void habilitarBotoes(boolean bool) {
-
 		comboTurno.setEnabled(true);
 		comboLetra.setEnabled(true);
 		comboStatus.setEnabled(true);

@@ -8,37 +8,48 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import Eventos.PlusEventoDiscenteAta;
-import Eventos.EventosAluno;
+import Eventos.EventosAta;
 
-public class PlusPainelDiscenteAta extends PlusEventoDiscenteAta {
-
-	private static JPanel mainDialog = new JPanel();
+/**
+ * Classe que representa a tela Ata - Cadastrar
+ * 
+ * @author Walysson Oliveira
+ * @author Adryano Escorcio
+ * @version 3.0
+ * @extends EventosAta
+ **/
+public class PlusPainelDiscenteAta extends EventosAta {
 
 	private static final int DIST = 5;
+	private static final String BORDER_INFO_ATA = "DADOS DA ATA";
 	private static final int QUANT_LINHAS_GRID = 6;
 
+	private JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
+	private JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
 	private JPanel painelInternoNorte = new JPanel(new BorderLayout(2,2));
+	private JPanel painelInternoSul = new JPanel(new BorderLayout(2,2));
 	private JPanel painelEsquerdoInfoAluno = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
 	private JPanel painelDireito = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
+	private JPanel painelTabela= new JPanel(new BorderLayout(2,2));	
 	private JPanel painelContentEIA = new JPanel(new BorderLayout(2,2));
 
-	private JLabel lbDadosAta = new JLabel("DADOS DA ATA",SwingConstants.CENTER);
-	private JLabel lbNomeAluno = new JLabel(evento.getAluno().getNomeAluno(), SwingConstants.CENTER);
-	private JLabel lbTurma = new JLabel("Turma: ",SwingConstants.RIGHT);
-	private JLabel lbTurno = new JLabel("Turno: ",SwingConstants.RIGHT);
-	private JLabel lbAno = new JLabel("Ano: ",SwingConstants.RIGHT);
-	private JLabel lbModalidade = new JLabel("Modalidade: ",SwingConstants.RIGHT);
-	private JLabel lbEnsino = new JLabel("Ensino: ",SwingConstants.RIGHT);
-	private JLabel lbPesquisaAta =new JLabel("Índice das atas do aluno: ",SwingConstants.RIGHT);
+	private JScrollPane scroll = new JScrollPane();
+	private JScrollPane scrollMain = new JScrollPane();
 
-	public PlusPainelDiscenteAta(EventosAluno evento) {
-		super(mainDialog, evento); // passado a tela principal e o evento de aluno com as instancias
-		eventoBotoes();
+	private JLabel lbDadosAta = new JLabel("DADOS DA ATA", SwingConstants.CENTER);
+	private JLabel lbTurma = new JLabel("Turma:* ", SwingConstants.RIGHT);
+	private JLabel lbCodigo2 = new JLabel("Ano da Ata: ", SwingConstants.RIGHT);
+	private JLabel lbTurno = new JLabel("Turno:* ", SwingConstants.RIGHT);
+	private JLabel lbAno = new JLabel("Ano:* ", SwingConstants.RIGHT);
+	private JLabel lbModalidade = new JLabel("Modalidade: ", SwingConstants.RIGHT);
+	private JLabel lbEnsino = new JLabel("Ensino: ", SwingConstants.RIGHT);
 
-		JPanel painelTopoTitulo = new JPanel(new BorderLayout(2,2));
+	public PlusPainelDiscenteAta(MainJFrame main) {
+		super(main);
+		eventosBotoes();
 
 		painelEsquerdoInfoAluno.add(editPanel.painelNull(0, 0));
 		painelEsquerdoInfoAluno.add(lbTurma);
@@ -54,136 +65,130 @@ public class PlusPainelDiscenteAta extends PlusEventoDiscenteAta {
 		painelDireito.add(editPanel.painelContentComponent("West", comboModalidade));
 		painelDireito.add(editPanel.painelContentComponent("West", comboEnsino));
 
-		painelTopoTitulo.add("North", lbDadosAta);
-		painelTopoTitulo.add("Center", editPanel.painelNull(0, 10));
-		painelTopoTitulo.add("South", lbNomeAluno);
-
-		painelContentEIA.add("North", painelTopoTitulo);
+		painelContentEIA.add("North", lbDadosAta);
 		painelContentEIA.add("West", painelEsquerdoInfoAluno);
 		painelContentEIA.add("Center", painelDireito);
+		painelContentEIA.add("East",editPanel.painelNull(200, 0));
 
 		alterarFontes();
-		mainDialog.add(painelInternoNorte());
-		initJDialog();
+		painelInternoNorte();
+		getTelaPrincipal();
+
 	}
 
-	public JPanel getMainDialog() {
-		return mainDialog;
+	private void eventosBotoes() {
+		//ADD EVENTOS
+		btnPesquisar.addActionListener(onClickBuscarAta);
+		comboModalidade.addItemListener(onClickChangeModalidade);
+		tabela.addMouseListener(onClickRowTable);
 	}
 
-	public static void setMainDialog(JPanel mainDialog) {
-		PlusPainelDiscenteAta.mainDialog = mainDialog;
-	}
-
-	private void eventoBotoes() {
-		btnLimpar.addActionListener(onClickLimparCampos);
-		btnSalvar.addActionListener(onClickSalvarAtaResultado);
-		btnExcluir.addActionListener(onClickExcluir);
-		btnCancelar.addActionListener(onClickCancelarOperacao);
-		btnPesquisar.addActionListener(onClickPesquisar);
-	}
-
-	private JPanel painelInternoNorte() {
+	private void painelInternoNorte() {
 		JPanel controleSuperior = new JPanel(new BorderLayout(2,2));
-		JPanel contendControl = new JPanel(new BorderLayout(2,2));
-		JPanel contentPainel = new JPanel(new BorderLayout(2,2));
 
-		contentPainel.add("Center", painelContentEIA);
-		contentPainel.add("West", editPanel.painelNull(10, 0));
-		contentPainel.add("East", editPanel.painelNull(50, 0));
-
-		controleSuperior.add("North",contentPainel);
+		controleSuperior.add("North",painelContentEIA);
 		controleSuperior.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createSoftBevelBorder(2)));
+				BorderFactory.createSoftBevelBorder(2), BORDER_INFO_ATA));
 
-		contendControl.add("Center", controleSuperior);
-		contendControl.add("West", editPanel.painelNull(10, 0));
-		contendControl.add("East", painelLocalizar());
-		contendControl.add("North", editPanel.painelNull(0, 10));
-		contendControl.add("South", editPanel.painelNull(0, 10));
-
-		painelInternoNorte.add("North", contendControl);
-		painelInternoNorte.add("East", editPanel.painelNull(10, 0));
-
-		return painelInternoNorte;
+		painelInternoNorte.add("North", contentPainelLocalizar());
+		painelInternoNorte.add("Center", controleSuperior);
+		painelInternoNorte.add("South", painelInternoSul());
 	}
 
 	/**
-	 * Caixa de localização de item da lista de AtaResultados
-	 **/
-	private JPanel painelLocalizar() {
-		JPanel painelContent = new JPanel(new BorderLayout(2,2));
-		JPanel painelLocalizar = new JPanel(new GridLayout(3,1,2,2));
-		JPanel ContentPainelLocalizar = new JPanel(new BorderLayout(2,2));
+     * Paineis que ficam embaixo da caixa de localizar item
+     **/
+    private JPanel painelBotoesSul() {
+            JPanel contentPainelSul = new JPanel(new BorderLayout(2,2));
+            JPanel painelSul = new JPanel(new GridLayout(4,1,5,5));
 
-		ContentPainelLocalizar.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createSoftBevelBorder(2)));
+            painelSul.add(btnSalvar);
+            painelSul.add(btnLimpar);
+            painelSul.add(btnExcluir);
+            painelSul.add(btnCancelar);
 
-		painelLocalizar.add(lbPesquisaAta);
-		painelLocalizar.add(editPanel.painelContentComponent("West", itemComboBoxOrdem()));
-		painelLocalizar.add(btnPesquisar);
+            contentPainelSul.add("Center", painelSul);
+            contentPainelSul.add("West", editPanel.painelNull(10, 0));
+            contentPainelSul.add("East", editPanel.painelNull(10, 0));
+            contentPainelSul.add("North", editPanel.painelNull(0, 10));
+            contentPainelSul.add("South", editPanel.painelNull(0, 30));
 
-		ContentPainelLocalizar.add("Center", painelLocalizar);
-		ContentPainelLocalizar.add("North", editPanel.painelNull(0, 10));
-		ContentPainelLocalizar.add("West", editPanel.painelNull(10, 0));
-		ContentPainelLocalizar.add("East", editPanel.painelNull(10, 0));
-		ContentPainelLocalizar.add("South", editPanel.painelNull(0, 10));
+            return contentPainelSul;
+    }
 
-		painelContent.add("North", ContentPainelLocalizar);
-		painelContent.add("Center", painelBotoesSul());
-		painelContent.add("West", editPanel.painelNull(10, 0));
-		painelContent.add("East", editPanel.painelNull(10, 0));
-
-		return painelContent;
+	private JPanel contentPainelLocalizar() {
+		JPanel painel = new JPanel(new BorderLayout(2,2));
+		painel.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createSoftBevelBorder(2), "CONSULTAR"));
+		painel.add("North", painelLocaliza(lbCodigo2));
+		return painel;
 	}
 
-	/**
-	 * Paineis que ficam embaixo da caixa de localizar item
-	 **/
-	private JPanel painelBotoesSul() {
-		JPanel contentPainelSul = new JPanel(new BorderLayout(2,2));
-		JPanel painelSul = new JPanel(new GridLayout(4,1,5,5));
+	public JPanel getTelaPrincipal() {
+		JPanel painelScrollMain = new JPanel(new BorderLayout(1,1));
 
-		painelSul.add(btnSalvar);
-		painelSul.add(btnLimpar);
-		painelSul.add(btnExcluir);
-		painelSul.add(btnCancelar);
+		scrollMain.setPreferredSize(mainJPanel.getPreferredSize());
+		scrollMain.setViewportView(mainJPanel);
 
-		contentPainelSul.add("Center", painelSul);
-		contentPainelSul.add("West", editPanel.painelNull(10, 0));
-		contentPainelSul.add("East", editPanel.painelNull(10, 0));
-		contentPainelSul.add("North", editPanel.painelNull(0, 10));
-		contentPainelSul.add("South", editPanel.painelNull(0, 30));
+		painelScrollMain.add(scrollMain);
+		painelLocalizarArquivo.add("North",painelInternoNorte);
 
-		return contentPainelSul;
+		mainJPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+
+		mainJPanel.add("Center",painelLocalizarArquivo);
+		mainJPanel.add("West",editPanel.painelNull(20, 0));
+		mainJPanel.add("East",editPanel.painelNull(20, 0));
+		mainJPanel.add("North",editPanel.painelNull(0, 15));
+
+		return painelScrollMain;
 	}
 
-	private void initJDialog() {
-		mainDialog.setSize(400, 350);
-		mainDialog.setVisible(true);		
+	private JPanel painelInternoSul() {
+		painelInternoSul.add("North",editPanel.painelNull(0, 5));
+		painelInternoSul.add("West",editPanel.painelNull(200, 0));
+		painelInternoSul.add("South",painelTable());
+
+		return painelInternoSul;
+	}
+
+	private JPanel painelTable() {
+		tabela.setModel(modeloAta);
+		tabela.setToolTipText("Dê um duplo clique na Ata para Excluir ou Alterar");
+
+		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scroll.setViewportView(table.getTabela()); // insere a tabela no painel Scroll
+		scroll.setWheelScrollingEnabled(true);
+
+		painelTabela.add("North", editPanel.painelNull(0, 10));
+		painelTabela.add("Center", scroll);
+		//		painelTabela.add("South", painelLocaliza(lbCodigo2));
+
+		return painelTabela;
 	}
 
 	private void alterarFontes() {
 		// FONTE
 		lbTurma.setFont(font.font_PLA_14);
+		lbCodigo2.setFont(font.font_PLA_14);
 		lbTurno.setFont(font.font_PLA_14);
 		lbAno.setFont(font.font_PLA_14);
 		lbModalidade.setFont(font.font_PLA_14);
 		lbEnsino.setFont(font.font_PLA_14);
-		lbPesquisaAta.setFont(font.font_PLA_14);
-		lbNomeAluno.setFont(font.font_PLA_14);
 		lbDadosAta.setFont(font.font_NEG_15);
 
 		// JTextField
 		tfTurma.setFont(font.font_NEG_15);
-		ftAno.setFont(font.font_NEG_15);
 		tfTurma.setPreferredSize(new Dimension(70,0)); // Setado tamanho fixo do Text
 
-		tfTurma.setSize(20, 10);
+		// Button
+		btnSalvar.setFont(font.font_PLA_14);
+		btnLimpar.setFont(font.font_PLA_14);
+		btnAlterar.setFont(font.font_PLA_14);
+		btnExcluir.setFont(font.font_PLA_14);
 
-		// Cor
-		lbTurno.setForeground(Color.RED);
-		ftAno.setBackground(Color.WHITE);
+		tfTurma.setSize(20, 10);
 
 		// Outros
 		ftAno.setBorder(null); // tirando a borda do component

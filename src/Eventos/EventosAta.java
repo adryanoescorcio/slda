@@ -13,9 +13,11 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
 import ComponentGroupPlus.MaskFormatterGroup;
 import ComponentGroupPlus.PainelTabela;
 import ExceptionSLDA.erroNullRequisitoException;
+import Forms.MainJFrame;
 import Model.Ata;
 import PrimaryKey.AtaPK;
 import TablesModel.AtaTableModel;
@@ -32,7 +34,9 @@ import TablesModel.AtaTableModel;
 public class EventosAta extends EventosPadrao {
 
 	//OBJETO UTILIZADO NAS BUSCAS
-	Ata ataPesquisa = new Ata();
+	private Ata ataPesquisa = new Ata();
+	
+	private MainJFrame main;
 
 	//TABELA
 	protected PainelTabela table = new PainelTabela();
@@ -41,7 +45,7 @@ public class EventosAta extends EventosPadrao {
 	protected AtaTableModel modeloAta = new AtaTableModel(lista);
 
 	// Objeto Mask
-	MaskFormatterGroup mask = new MaskFormatterGroup();
+	protected MaskFormatterGroup mask = new MaskFormatterGroup();
 
 	//COMPONENTES NECESSÁRIOS
 	protected JTextField tfTurma = new JTextField();
@@ -50,9 +54,10 @@ public class EventosAta extends EventosPadrao {
 	protected JComboBox<String> comboEnsino  = comboGroup.getComboBoxEnsinoFUNDAMENTAL();
 	protected JComboBox<String> comboModalidade  = comboGroup.getComboBoxEnsinoMF();
 
-	AtaPK pk = new AtaPK(); // chave primaria da ata.
+	protected AtaPK pk = new AtaPK(); // chave primaria da ata.
 
-	public EventosAta() {
+	public EventosAta(MainJFrame main) {
+		this.main = main;
 		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
 		btnExcluir.setEnabled(false); // necessario a pesquisa para ativar botão
 	}
@@ -62,6 +67,9 @@ public class EventosAta extends EventosPadrao {
 
 		tfTurma.setText("");
 		ftAno.setText("");
+		aluno = null;
+		ata = null;
+		tfDiscente.setText("");
 		comboTurno.setSelectedIndex(0);
 		comboModalidade.setSelectedIndex(0);
 		comboEnsino.setSelectedIndex(0);
@@ -70,9 +78,28 @@ public class EventosAta extends EventosPadrao {
 		lista = daoAta.getTodasAtas();
 		modeloAta = new AtaTableModel(lista);
 		tabela.setModel(modeloAta);
-
+	
+		setMudarPerfil(false);
 		habilitarBotoes(false);
 
+	}
+	
+	public MainJFrame getMain() {
+		return main;
+	}
+
+	public void setMain(MainJFrame main) {
+		this.main = main;
+	}
+	
+	public void setMudarPerfil(boolean bool) {
+		btnSalvar.setEnabled(!bool);
+		btnAlterar.setEnabled(!bool);
+		btnExcluir.setEnabled(!bool);
+		
+		btnRetirar.setEnabled(bool);
+		btnInserir.setEnabled(bool);
+		
 	}
 
 	@Override
@@ -94,7 +121,6 @@ public class EventosAta extends EventosPadrao {
 		ftAno.setText(ata.getAnoAta());
 		comboModalidade.setSelectedItem(ata.getModalidadeAta());
 		comboEnsino.setSelectedItem(ata.getEnsinoAta());
-
 	}
 
 	/**
@@ -173,6 +199,17 @@ public class EventosAta extends EventosPadrao {
 			}
 		}
 	};
+	
+	protected ActionListener onClickInitInserir = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			PlusEventoDiscenteAta disAta = new PlusEventoDiscenteAta(EventosAta.this);
+			disAta.onClickSalvarAtaResultado();
+			main.direcionarParaCamada(0);
+			main.atualizarTabelaAluno(aluno);
+		}
+	};
 
 	/**
 	 * Metodo com a função de excluir uma caixa
@@ -222,9 +259,15 @@ public class EventosAta extends EventosPadrao {
 				int linha = tabela.getSelectedRow();
 				ataPesquisa = modeloAta.getContato(linha);
 				setValoresDosCampos(ataPesquisa);
-				habilitarBotoes(true);
+				
+				if (aluno == null) {
+					habilitarBotoes(true);
+				} else {
+					desabilitarTudoFormulario();
+				}
 			}
 		}
+		
 		@Override
 		public void mouseEntered(MouseEvent e) {}
 		@Override
@@ -244,6 +287,14 @@ public class EventosAta extends EventosPadrao {
 		tfTurma.setEditable(!bool); 
 		ftAno.setEditable(!bool); 
 		comboTurno.setEnabled(!bool);
+	}
+
+	protected void desabilitarTudoFormulario() {
+		tfTurma.setEditable(false); // nao sera possivel alterar o codigo de objeto consultado.
+		ftAno.setEditable(false); // nao sera possivel alterar o codigo de objeto consultado.
+		comboTurno.setEnabled(false);
+		comboModalidade.setEnabled(false);
+		comboEnsino.setEnabled(false);
 	}
 
 }

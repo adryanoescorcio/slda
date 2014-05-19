@@ -2,6 +2,7 @@ package Forms;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -41,6 +42,7 @@ public class PainelMainCaixa extends EventosCaixa {
 	protected JPanel painelDireito = new JPanel(new GridLayout(QUANT_LINHAS_GRID,1,DIST,DIST));
 	protected JPanel painelTabela= new JPanel(new BorderLayout(2,2));	
 	protected JPanel painelContentEIA = new JPanel(new BorderLayout(2,2));
+	protected JPanel contentPainel = new JPanel(new BorderLayout(2,2));
 
 	protected JScrollPane scroll = new JScrollPane();
 	protected JScrollPane scrollMain = new JScrollPane();
@@ -51,10 +53,13 @@ public class PainelMainCaixa extends EventosCaixa {
 	protected JLabel lbLetra = new JLabel("Letra:* ",SwingConstants.RIGHT);
 	protected JLabel lbStatus = new JLabel("Status: ",SwingConstants.RIGHT);
 	protected JLabel lbDadosCaixa = new JLabel("DADOS DA CAIXA",SwingConstants.CENTER);
+	protected JLabel lbDiscente = new JLabel("Discente: ", SwingConstants.RIGHT);
 
 	public PainelMainCaixa() {
-
 		eventosBotoes();
+
+		// painel principal
+		JPanel contentFormulario = new JPanel(new BorderLayout(2,2));
 
 		painelEsquerdo.add(editPanel.painelNull(0, 0));
 		painelEsquerdo.add(lbCodigo);
@@ -62,30 +67,85 @@ public class PainelMainCaixa extends EventosCaixa {
 		painelEsquerdo.add(lbTurno);
 		painelEsquerdo.add(lbStatus);
 
-		painelDireito.add(
-				editPanel.painelNull(0, 0));
+		painelDireito.add(editPanel.painelNull(0, 0));
 
-		painelDireito.add(
-				editPanel.painelContentComponent("West",tfCodigo));
+		painelDireito.add(editPanel.painelContentComponent("West",tfCodigo));
 
-		painelDireito.add(
-				editPanel.painelContentComponent("West", comboLetra));
+		painelDireito.add(editPanel.painelContentComponent("West", comboLetra));
 
-		painelDireito.add(
-				editPanel.painelContentComponent("West", comboTurno));
+		painelDireito.add(editPanel.painelContentComponent("West", comboTurno));
 
-		painelDireito.add(
-				editPanel.painelContentComponent("West", comboStatus));
+		painelDireito.add(editPanel.painelContentComponent("West", comboStatus));
+		
+		// Content Formulario contém os campos de dados das Atas
+		contentFormulario.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createSoftBevelBorder(2), "FORMULÁRIO"));
 
-		// Este painel guarda o lado direito e esquedo descrito acima. Define também a borda especifica.
-		painelContentEIA.add("North", lbDadosCaixa );
-		painelContentEIA.add("West", painelEsquerdo);
-		painelContentEIA.add("Center", painelDireito);
-		painelContentEIA.add("East",editPanel.painelNull(200, 0));
+		contentFormulario.add("West", painelEsquerdo);
+		contentFormulario.add("Center", painelDireito);
+		contentFormulario.add("East", editPanel.painelNull(200, 0));
 
+		// Junta o campos de consulta com o formulario de dados mais os botões
+		painelContentEIA.add("North", painelLabelConsultar());
+		painelContentEIA.add("East", editPanel.painelNull(200, 0));
+		painelContentEIA.add("Center", contentFormulario);
+		// inserindo os botões.
+		painelContentEIA.add("South", editPanel.painelContentComponent("West", painelBotoes()));
+		
+		// painel principal de Dados da Ata
+		contentPainel.add("Center", painelContentEIA);
+		contentPainel.add("North", editPanel.painelNull(0, 10));
+		contentPainel.add("West", editPanel.painelNull(10, 0));
+		
 		alterarFontes();
 		painelInternoNorte();
 		getTelaPrincipal();
+	}
+	
+private JPanel painelDiscente() {
+		
+		JPanel painelDiscenteLabel = new JPanel(new GridLayout(1,2,5,5));
+		JPanel painelDiscenteText = new JPanel(new GridLayout(1,2,5,5));
+		JPanel painelContentMain = new JPanel(new BorderLayout(2,2));
+		JPanel contentMain = new JPanel(new BorderLayout(2,2));
+		JPanel contentDiscenteBotoes = new JPanel(new BorderLayout(2,2));
+		JPanel contentDiscente = new JPanel(new BorderLayout(2,2));
+		JPanel painelDiscenteBotoes = new JPanel(new GridLayout(1,2,10,5));
+
+		painelDiscenteLabel.add(lbDiscente);
+		painelDiscenteText.add(editPanel.painelContentComponent("West", tfDiscente));
+
+		contentDiscente.add("Center", painelDiscenteLabel);
+		contentDiscente.add("West", editPanel.painelNull(10, 0));
+		contentDiscente.add("Center", painelDiscenteLabel);
+		contentDiscente.add("East", painelDiscenteText);
+		
+		painelDiscenteBotoes.add(btnInserir);
+		painelDiscenteBotoes.add(btnRetirar);
+		
+		contentDiscenteBotoes.add("Center", editPanel.painelContentComponent("West", painelDiscenteBotoes));
+		contentDiscenteBotoes.add("West", editPanel.painelNull(20, 0));
+
+		contentMain.add("West", contentDiscente);
+		contentMain.add("Center", contentDiscenteBotoes);
+		
+		painelContentMain.add("North", editPanel.painelNull(0, 10));
+		painelContentMain.add("South", editPanel.painelNull(0, 10));
+		painelContentMain.add("West", editPanel.painelContentComponent("West",contentMain));
+		
+		painelContentMain.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createSoftBevelBorder(2), "DISCENTE SELECIONADO"));
+
+		return painelContentMain;
+	}
+	
+	private Component painelLabelConsultar() {
+		JPanel painel = new JPanel(new BorderLayout(2,2));
+		painel.add("North", lbDadosCaixa);
+		painel.add("Center", contentPainelLocalizar());
+		painel.add("East", editPanel.painelNull(200, 0));
+		
+		return painel;
 	}
 
 	private void eventosBotoes() {
@@ -96,17 +156,17 @@ public class PainelMainCaixa extends EventosCaixa {
 		btnPesquisar.addActionListener(onClickBuscarCaixa);
 		btnExcluir.addActionListener(onClickExcluirCaixa);
 		tabela.addMouseListener(onClickRowTable);
+		
 	}
 
 	private void painelInternoNorte() {
 		JPanel controleSuperior = new JPanel(new BorderLayout(2,2));
 
-		controleSuperior.add("North",painelContentEIA);
+		controleSuperior.add("North",contentPainel);
 		controleSuperior.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createSoftBevelBorder(2), BORDER_INFO_CAIXA));
+				BorderFactory.createSoftBevelBorder(2)));
 
-
-		painelInternoNorte.add("North",contentPainelLocalizar());
+		painelInternoNorte.add("North", painelDiscente());
 		painelInternoNorte.add("Center",controleSuperior);
 		painelInternoNorte.add("South",painelInternoSul());
 	}
@@ -116,6 +176,7 @@ public class PainelMainCaixa extends EventosCaixa {
 		painel.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createSoftBevelBorder(2), "CONSULTAR"));
 		painel.add("North", painelLocaliza(lbCodigo2));
+		
 		return painel;
 	}
 
@@ -124,7 +185,7 @@ public class PainelMainCaixa extends EventosCaixa {
 		JPanel painelScrollMain = new JPanel(new BorderLayout(1,1));
 
 		scrollMain.setPreferredSize(mainJPanel.getPreferredSize());
-		scrollMain .setViewportView(mainJPanel);
+		scrollMain.setViewportView(mainJPanel);
 
 		painelScrollMain.add(scrollMain);
 		painelLocalizarArquivo.add("North",painelInternoNorte);
@@ -141,7 +202,7 @@ public class PainelMainCaixa extends EventosCaixa {
 	}
 
 	private JPanel painelInternoSul() {
-		painelInternoSul.add("Center",editPanel.painelContentComponent("West", painelBotoes()));
+//		painelInternoSul.add("Center",editPanel.painelContentComponent("West", painelBotoes()));
 		painelInternoSul.add("North",editPanel.painelNull(0, 5));
 		painelInternoSul.add("West",editPanel.painelNull(220, 0));
 		painelInternoSul.add("South",painelTable());
@@ -173,6 +234,9 @@ public class PainelMainCaixa extends EventosCaixa {
 		painelContentBotoes.add(btnLimpar);
 
 		painelBotoes.add("Center", painelContentBotoes);
+		painelBotoes.add("North", editPanel.painelNull(0, 10));
+		painelBotoes.add("West", editPanel.painelNull(250, 0));
+		painelBotoes.add("South", editPanel.painelNull(0, 10));
 
 		return painelBotoes;
 	}
@@ -184,10 +248,14 @@ public class PainelMainCaixa extends EventosCaixa {
 		lbTurno.setFont(font.font_PLA_14);
 		lbStatus.setFont(font.font_PLA_14);
 		lbDadosCaixa.setFont(font.font_NEG_15);
+		lbDiscente.setFont(font.font_PLA_14);
 
 		tfCodigo.setFont(font.font_NEG_15);
 		tfCodigo.setPreferredSize(new Dimension(200,0));
-
+		tfDiscente.setFont(font.font_NEG_15);
+		
+		tfDiscente.setPreferredSize(new Dimension(350,0));
+		
 		btnSalvar.setFont(font.font_PLA_14);
 		btnLimpar.setFont(font.font_PLA_14);
 		btnAlterar.setFont(font.font_PLA_14);

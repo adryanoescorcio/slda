@@ -15,7 +15,6 @@ public class MaskFormatterGroup {
 	public MaskFormatter getMascaraCPF(){
 		try {
 			cpf = new MaskFormatter("###.###.###-##");
-			cpf.setPlaceholderCharacter('_');
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -25,7 +24,6 @@ public class MaskFormatterGroup {
 	public MaskFormatter getMascaraData(){
 		try {
 			data = new MaskFormatter(" ##/##/####");
-			data.setPlaceholderCharacter('_');
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -35,7 +33,6 @@ public class MaskFormatterGroup {
 	public MaskFormatter getMascaraTelefone(){
 		try {
 			tel = new MaskFormatter("(##) ####-####");
-			tel.setPlaceholderCharacter('_');
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -45,7 +42,6 @@ public class MaskFormatterGroup {
 	public MaskFormatter getMascaraAno(){
 		try {
 			ano = new MaskFormatter("####");
-			ano.setPlaceholderCharacter('_');
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

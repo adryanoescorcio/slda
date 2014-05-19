@@ -115,6 +115,7 @@ public class PainelMainAta extends EventosAta {
 		btnExcluir.addActionListener(onClickExcluirAta);
 		btnPesquisar.addActionListener(onClickBuscarAta);
 		btnInserir.addActionListener(onClickInitInserir);
+		btnRetirar.addActionListener(onClickRetirarAtaResultado);
 		
 		comboModalidade.addItemListener(onClickChangeModalidade);
 		tabela.addMouseListener(onClickRowTable);

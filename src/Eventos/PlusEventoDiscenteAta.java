@@ -1,7 +1,5 @@
 package Eventos;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -63,18 +61,6 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 		}
 	}
 
-	protected ActionListener onClickExcluir = new ActionListener() {	
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(JOptionPane.showConfirmDialog(null, "O aluno será retirado da Ata. Deseja continuar com a operação?") == 0) {
-				daoAtaResultado.remover(ataResultadoGlobal);
-				evento.tabelaAta(aluno);
-				JOptionPane.showMessageDialog(null, "Aluno foi retirado da ata com sucesso.");
-				limparCampos();
-			}
-		}
-	};
-
 	/**
 	 * Metodo que encerra operação da aplicação em caso de sucesso
 	 **/
@@ -86,5 +72,20 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 	@Override
 	public void limparCampos() {
 		
+	}
+
+	public void onClickRetirarAtaResultado() {
+		if(JOptionPane.showConfirmDialog(null, "O aluno será retirado da Ata. Deseja continuar com a operação?") == 0) {
+			AtaResultado ataResul = new AtaResultado(); // cria o objeto de resultados
+			ataResul.setAluno(aluno.getCodigo()); // passa o codigo do aluno
+			ataResul.setAta((Ata) getValoresDosCampos());
+			
+			if(daoAtaResultado.remover(ataResul)) {
+				finallyOperation();
+				JOptionPane.showMessageDialog(null, "Aluno foi retirado da ata com sucesso.");
+			}else {
+				JOptionPane.showMessageDialog(null, "O aluno não está na Ata selecionada.");
+			}
+		}
 	}
 }

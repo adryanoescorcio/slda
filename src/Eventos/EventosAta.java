@@ -100,6 +100,13 @@ public class EventosAta extends EventosPadrao {
 		btnRetirar.setEnabled(bool);
 		btnInserir.setEnabled(bool);
 		
+		tfTurma.setEditable(!bool);
+		ftAno.setEditable(!bool);
+		
+		comboEnsino.setEnabled(!bool);
+		comboModalidade.setEnabled(!bool);
+		comboTurno.setEnabled(!bool);
+		
 	}
 
 	@Override
@@ -206,6 +213,17 @@ public class EventosAta extends EventosPadrao {
 		public void actionPerformed(ActionEvent e) {
 			PlusEventoDiscenteAta disAta = new PlusEventoDiscenteAta(EventosAta.this);
 			disAta.onClickSalvarAtaResultado();
+			main.direcionarParaCamada(0);
+			main.atualizarTabelaAluno(aluno);
+		}
+	};
+	
+	protected ActionListener onClickRetirarAtaResultado= new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			PlusEventoDiscenteAta disAta = new PlusEventoDiscenteAta(EventosAta.this);
+			disAta.onClickRetirarAtaResultado();
 			main.direcionarParaCamada(0);
 			main.atualizarTabelaAluno(aluno);
 		}

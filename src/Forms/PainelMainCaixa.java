@@ -261,4 +261,5 @@ private JPanel painelDiscente() {
 		btnAlterar.setFont(font.font_PLA_14);
 		btnExcluir.setFont(font.font_PLA_14);
 	}
+
 }

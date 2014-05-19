@@ -99,6 +99,11 @@ public class MainJFrame {
 		cadastrarAta.setMudarPerfil(true);
 		cadastrarAta.setAluno(aluno);
 	}
+	
+	public void mudarPerfilCaixa(Aluno aluno) {
+		cadastrarCaixa.setMudarPerfil(true);
+		cadastrarCaixa.setAluno(aluno);
+	}
 
 	public JTabbedPane getCamadaExterna() {
 		return camadaExterna;

@@ -192,7 +192,7 @@ public class EventosCaixa extends EventosPadrao {
 				habilitarBotoes(true);  
 
 			}catch(NullPointerException exc){
-				throw new erroNullRequisitoException("(ER03) Nenhuma Caixa \"" +codigoLocalizar+ "\" foi encontrada.", "ERRO ER03");
+				JOptionPane.showMessageDialog(null,"(ER03) Nenhuma Caixa \"" +codigoLocalizar+ "\" foi encontrada.");
 			}
 		}
 	};
@@ -225,9 +225,13 @@ public class EventosCaixa extends EventosPadrao {
 			if(e.getClickCount() == 2){
 				int linha = tabela.getSelectedRow();
 				caixaPesquisa = modelo.getContato(linha);
-
 				setValoresDosCampos(caixaPesquisa);
-				habilitarBotoes(true);
+				
+				if (aluno == null) {
+					habilitarBotoes(true);
+				} else {
+					desabilitarTudoFormulario();
+				}
 			}
 		}
 
@@ -277,5 +281,26 @@ public class EventosCaixa extends EventosPadrao {
 		public int compare(Caixa objetoParaComparar, Caixa objetoAserComparado) {
 			return  objetoParaComparar.getCodigo().compareTo(objetoAserComparado.getCodigo());
 		}
-	}          
+	}   
+	
+	public void setMudarPerfil(boolean bool) {
+		btnSalvar.setEnabled(!bool);
+		btnAlterar.setEnabled(!bool);
+		btnExcluir.setEnabled(!bool);
+		
+		btnRetirar.setEnabled(bool);
+		btnInserir.setEnabled(bool);
+		
+		comboLetra.setEnabled(!bool);
+		comboStatus.setEnabled(!bool);
+		comboTurno.setEnabled(!bool);
+		
+	}
+	
+	protected void desabilitarTudoFormulario() {
+		comboTurno.setEnabled(false);
+		comboLetra.setEnabled(false);
+		comboStatus.setEditable(false);
+		tfCodigo.setEditable(false);
+	}
 }

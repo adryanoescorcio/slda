@@ -269,10 +269,15 @@ public class EventosAluno extends EventosPadrao{
 	protected ActionListener onClickCaixa = new ActionListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {			
-			PlusPainelDiscenteArquivo painelDisCaixa = 
-					new PlusPainelDiscenteArquivo(EventosAluno.this);
-			main.addCamada(painelDisCaixa.getMainDialog(),"Inserir Aluno-Caixa");
+		public void actionPerformed(ActionEvent e) {	
+			if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o aluno de uma ata?") == 0) {
+				try {
+					main.mudarPerfilCaixa(aluno);
+					main.direcionarParaCamada(1);
+				} catch (Exception ex) {
+					// o metodo foi parado por falta dos requisitos minimos.
+				}
+			}
 		}
 	};
 

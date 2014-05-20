@@ -19,7 +19,7 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 	protected EventosAluno evento;
 	
 	protected MainJFrame main;
-
+	
 	public PlusEventoDiscenteAta(EventosAta ataEvento) {
 		this.aluno = ataEvento.getAluno();
 		this.ata = ataEvento.getAta();

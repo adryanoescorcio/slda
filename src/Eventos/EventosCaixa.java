@@ -207,6 +207,7 @@ public class EventosCaixa extends EventosPadrao {
 
 			if (JOptionPane.showConfirmDialog(null, "Deseja excluir a Caixa?") == 0) {
 				daoCaixa.remover(caixaPesquisa);
+				daoArquivo.excluirPorCaixa(caixaPesquisa);
 				JOptionPane.showMessageDialog(null, "Caixa excluído com sucesso.");
 				modelo.removeContato(caixaPesquisa);
 				limparCampos();

@@ -21,6 +21,7 @@ import Model.Ata;
 import Model.AtaResultado;
 import Model.Documento;
 import PrimaryKey.AlunoPK;
+import PrimaryKey.ArquivoPK;
 import TablesModel.AlunoTableModel;
 import TablesModel.AtaResultadoTableModel;
 import TablesModel.AtaTableModel;
@@ -108,15 +109,13 @@ public class EventosAluno extends EventosPadrao{
 		tfNumCertificado.setText("");
 		tfFolha.setText("");
 		tfLivro.setText("");
-		ftData.setText("");
-
-		tfCodigo.setEditable(true);
-
-		ftCpf.setText("");
-		ftDataReg.setText("");
-		ftDataNasc.setText("");
-		ftDataMatricula.setText("");
-		ftFone.setText("");	
+		
+		ftData.setValue(null);
+		ftCpf.setValue(null);
+		ftDataReg.setValue(null);
+		ftDataNasc.setValue(null);
+		ftDataMatricula.setValue(null);
+		ftFone.setValue(null);	
 
 		comboUFAluno.setSelectedIndex(0);
 		comboCor.setSelectedIndex(0);		
@@ -124,13 +123,8 @@ public class EventosAluno extends EventosPadrao{
 		comboTranferencia.setSelectedIndex(0);	
 		comboSituacao.setSelectedIndex(0);	
 
-		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
-		btnExcluir.setEnabled(false);
-		btnAtaResul.setEnabled(false);
-		btnDocumento.setEnabled(false);
-		btnSalvar.setEnabled(true);
-		btnCaixa.setEnabled(false);
-		
+		//DESABILITA OS BOTOES
+		habilitarBotoes(false);		
 		modeloAtaResultado.clear();
 		modeloDoc.clear();
 		
@@ -258,7 +252,16 @@ public class EventosAluno extends EventosPadrao{
 		@Override
 		public void actionPerformed(ActionEvent e) {			
 			if(JOptionPane.showConfirmDialog(null, "Deseja excluir o Discente?") == 0) {
+				
+				//CHAVE DO TIPO ARQUIVO - NECESSARIO PARA EXCLUIR O ALUNO DA CAIXA
+				ArquivoPK pk = new ArquivoPK();
+				pk.setCodigoAluno(aluno.getCodigo());
+				
+				//REMOVE O ALUNO E SEUS VESTÍGIOS
 				daoAluno.remover(aluno);
+				daoAtaResultado.excluirPorAluno(aluno);
+				daoArquivo.remover(pk);
+				
 				JOptionPane.showMessageDialog(null, "Discente excluído com sucesso.");
 				limparCampos();
 			}
@@ -369,14 +372,8 @@ public class EventosAluno extends EventosPadrao{
 		tabelaDocumento();
 		tabelaAta(aln);
 
-		btnAlterar.setEnabled(true); // necessario a pesquisa para ativar botão
-		btnExcluir.setEnabled(true); // necessario a pesquisa para ativar botão
-		btnAtaResul.setEnabled(true);
-		btnDocumento.setEnabled(true);
-		btnCaixa.setEnabled(true);
-
-		btnSalvar.setEnabled(false); // nao sera possivel salvar, somente alterar
-		tfCodigo.setEditable(false); // nao sera possivel alterar o codigo de objeto consultado.
+		//HABILITA OS BOTOES
+		habilitarBotoes(true);
 
 		aluno = aln;
 	}
@@ -443,4 +440,16 @@ public class EventosAluno extends EventosPadrao{
 	public void setListaAtaResul(List<AtaResultado> listaAtaResul) {
 		this.listaAtaResul = listaAtaResul;
 	}	
+	
+	//METODO PARA HABILITAR OU DESABILITAR OS BOTOES QUE INICIAM Enabled E TAMBÉM OUTROS COMPONENTES NECESSÁRIOS
+	public void habilitarBotoes(boolean bool) {
+
+		tfCodigo.setEditable(!bool);
+		btnSalvar.setEnabled(!bool);
+		btnAlterar.setEnabled(bool); 
+		btnExcluir.setEnabled(bool);
+		btnAtaResul.setEnabled(bool);
+		btnDocumento.setEnabled(bool);
+		btnCaixa.setEnabled(bool);
+	}
 }

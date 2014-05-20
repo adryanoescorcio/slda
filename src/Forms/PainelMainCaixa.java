@@ -55,7 +55,8 @@ public class PainelMainCaixa extends EventosCaixa {
 	protected JLabel lbDadosCaixa = new JLabel("DADOS DA CAIXA",SwingConstants.CENTER);
 	protected JLabel lbDiscente = new JLabel("Discente: ", SwingConstants.RIGHT);
 
-	public PainelMainCaixa() {
+	public PainelMainCaixa(MainJFrame main) {
+		super(main);
 		eventosBotoes();
 
 		// painel principal
@@ -76,10 +77,10 @@ public class PainelMainCaixa extends EventosCaixa {
 		painelDireito.add(editPanel.painelContentComponent("West", comboTurno));
 
 		painelDireito.add(editPanel.painelContentComponent("West", comboStatus));
-		
+
 		// Content Formulario contém os campos de dados das Atas
 		contentFormulario.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createSoftBevelBorder(2), "FORMULÁRIO"));
+				BorderFactory.createSoftBevelBorder(2), "FORMULÁRIO"));
 
 		contentFormulario.add("West", painelEsquerdo);
 		contentFormulario.add("Center", painelDireito);
@@ -91,60 +92,59 @@ public class PainelMainCaixa extends EventosCaixa {
 		painelContentEIA.add("Center", contentFormulario);
 		// inserindo os botões.
 		painelContentEIA.add("South", editPanel.painelContentComponent("West", painelBotoes()));
-		
+
 		// painel principal de Dados da Ata
 		contentPainel.add("Center", painelContentEIA);
 		contentPainel.add("North", editPanel.painelNull(0, 10));
 		contentPainel.add("West", editPanel.painelNull(10, 0));
-		
+
 		alterarFontes();
 		painelInternoNorte();
 		getTelaPrincipal();
 	}
-	
-private JPanel painelDiscente() {
-		
+
+	private JPanel painelDiscente() {
+
 		JPanel painelDiscenteLabel = new JPanel(new GridLayout(1,2,5,5));
 		JPanel painelDiscenteText = new JPanel(new GridLayout(1,2,5,5));
 		JPanel painelContentMain = new JPanel(new BorderLayout(2,2));
 		JPanel contentMain = new JPanel(new BorderLayout(2,2));
 		JPanel contentDiscenteBotoes = new JPanel(new BorderLayout(2,2));
 		JPanel contentDiscente = new JPanel(new BorderLayout(2,2));
-		JPanel painelDiscenteBotoes = new JPanel(new GridLayout(1,2,10,5));
+		JPanel painelDiscenteBotoes = new JPanel(new GridLayout(1,3,5,5));
 
 		painelDiscenteLabel.add(lbDiscente);
 		painelDiscenteText.add(editPanel.painelContentComponent("West", tfDiscente));
 
 		contentDiscente.add("Center", painelDiscenteLabel);
-		contentDiscente.add("West", editPanel.painelNull(10, 0));
-		contentDiscente.add("Center", painelDiscenteLabel);
 		contentDiscente.add("East", painelDiscenteText);
-		
+
+		painelDiscenteBotoes.add(editPanel.painelContentComponent("West", comboNumero));
 		painelDiscenteBotoes.add(btnInserir);
 		painelDiscenteBotoes.add(btnRetirar);
-		
+
 		contentDiscenteBotoes.add("Center", editPanel.painelContentComponent("West", painelDiscenteBotoes));
 		contentDiscenteBotoes.add("West", editPanel.painelNull(20, 0));
 
 		contentMain.add("West", contentDiscente);
 		contentMain.add("Center", contentDiscenteBotoes);
-		
+
 		painelContentMain.add("North", editPanel.painelNull(0, 10));
 		painelContentMain.add("South", editPanel.painelNull(0, 10));
 		painelContentMain.add("West", editPanel.painelContentComponent("West",contentMain));
-		
+
 		painelContentMain.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createSoftBevelBorder(2), "DISCENTE SELECIONADO"));
 
 		return painelContentMain;
 	}
-	
+
 	private Component painelLabelConsultar() {
 		JPanel painel = new JPanel(new BorderLayout(2,2));
 		painel.add("North", lbDadosCaixa);
 		painel.add("Center", contentPainelLocalizar());
 		painel.add("East", editPanel.painelNull(200, 0));
-		
+
 		return painel;
 	}
 
@@ -155,8 +155,10 @@ private JPanel painelDiscente() {
 		btnAlterar.addActionListener(onClickAlterarCaixa);
 		btnPesquisar.addActionListener(onClickBuscarCaixa);
 		btnExcluir.addActionListener(onClickExcluirCaixa);
+		btnInserir.addActionListener(onClickInitInserir);
+		btnRetirar.addActionListener(onClickInitRetirar);
 		tabela.addMouseListener(onClickRowTable);
-		
+
 	}
 
 	private void painelInternoNorte() {
@@ -176,7 +178,7 @@ private JPanel painelDiscente() {
 		painel.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createSoftBevelBorder(2), "CONSULTAR"));
 		painel.add("North", painelLocaliza(lbCodigo2));
-		
+
 		return painel;
 	}
 
@@ -202,7 +204,7 @@ private JPanel painelDiscente() {
 	}
 
 	private JPanel painelInternoSul() {
-//		painelInternoSul.add("Center",editPanel.painelContentComponent("West", painelBotoes()));
+		//		painelInternoSul.add("Center",editPanel.painelContentComponent("West", painelBotoes()));
 		painelInternoSul.add("North",editPanel.painelNull(0, 5));
 		painelInternoSul.add("West",editPanel.painelNull(220, 0));
 		painelInternoSul.add("South",painelTable());
@@ -253,9 +255,9 @@ private JPanel painelDiscente() {
 		tfCodigo.setFont(font.font_NEG_15);
 		tfCodigo.setPreferredSize(new Dimension(200,0));
 		tfDiscente.setFont(font.font_NEG_15);
-		
+
 		tfDiscente.setPreferredSize(new Dimension(350,0));
-		
+
 		btnSalvar.setFont(font.font_PLA_14);
 		btnLimpar.setFont(font.font_PLA_14);
 		btnAlterar.setFont(font.font_PLA_14);

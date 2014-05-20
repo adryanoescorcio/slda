@@ -63,7 +63,7 @@ public class MainJFrame {
 
 	//INSTANCIANDO OS PAINEIS CRUD
 	// ALUNO
-	private PainelMainCaixa cadastrarCaixa = new PainelMainCaixa();
+	private PainelMainCaixa cadastrarCaixa = new PainelMainCaixa(this);
 	private PainelMainAluno cadastrarAluno = new PainelMainAluno(this);
 	private PainelMainAta cadastrarAta = new PainelMainAta(this);
 
@@ -173,5 +173,17 @@ public class MainJFrame {
 
 	public void atualizarTabelaAluno(Aluno aluno) {
 		cadastrarAluno.tabelaAta(aluno);
+	}
+	
+	public void atualizarCaixaAluno(Aluno aluno) {
+		cadastrarAluno.pesquisarCaixa(aluno);
+	}
+
+	public void limparCaixa() {
+		cadastrarCaixa.limparCampos();
+	}
+
+	public void limparAta() {
+		cadastrarAta.limparCampos();
 	}
 }

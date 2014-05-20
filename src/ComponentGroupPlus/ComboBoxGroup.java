@@ -252,4 +252,18 @@ public class ComboBoxGroup {
 
 		return combo;
 	}
+	
+	public JComboBox<String> getComboBoxNumero() {
+		JComboBox<String> combo = new JComboBox<String>();
+		
+		// colocar os valores de 1 ate 100
+		for (int i=1;i<101;i++) {
+			combo.addItem(String.valueOf(i));
+		}
+		
+		combo.setBackground(Color.WHITE);
+		combo.setFont(fonte.font_PLA_14);
+
+		return combo;
+	}
 }

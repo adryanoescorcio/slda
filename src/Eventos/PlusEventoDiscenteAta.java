@@ -44,7 +44,7 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 
 	}
 
-	public void onClickSalvarAtaResultado() {
+	public boolean onClickSalvarAtaResultado() {
 		
 		AtaResultado ataResul = new AtaResultado(); // cria o objeto de resultados
 		ataResul.setAluno(aluno.getCodigo()); // passa o codigo do aluno
@@ -56,8 +56,10 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 	
 			daoAtaResultado.save(ataResul); //salva a entidade
 			finallyOperation(); // realizando as operações apos salvar
+			return true;
 		} catch (Exception ex) {
-			new erroNullRequisitoException("Errou de inserção. Verifique os dados inseridos ou se o aluno já foi inserido nesta Ata.","ER05");
+			new erroNullRequisitoException("Erro de inserção. Verifique os dados inseridos ou se o aluno já foi inserido nesta Ata.","ER05");
+			return false;
 		}
 	}
 

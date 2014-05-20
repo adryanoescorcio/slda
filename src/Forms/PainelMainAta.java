@@ -42,7 +42,7 @@ public class PainelMainAta extends EventosAta {
 
 	private JLabel lbDadosAta = new JLabel("DADOS DA ATA", SwingConstants.CENTER);
 	private JLabel lbTurma = new JLabel("Turma:* ", SwingConstants.RIGHT);
-	private JLabel lbCodigo2 = new JLabel("Ano da Ata: ", SwingConstants.RIGHT);
+	private JLabel lbCodigo2 = new JLabel("Selecionar as atas do ano de: ", SwingConstants.RIGHT);
 	private JLabel lbTurno = new JLabel("Turno:* ", SwingConstants.RIGHT);
 	private JLabel lbAno = new JLabel("Ano:* ", SwingConstants.RIGHT);
 	private JLabel lbModalidade = new JLabel("Modalidade: ", SwingConstants.RIGHT);

@@ -201,7 +201,7 @@ public class EventosAluno extends EventosPadrao{
 			Aluno aluno2 = daoAluno.buscar(aluno.getCodigoKEY());
 
 			if(!aluno.toString().equals(aluno2.toString())) {
-				metodoSalvar();
+				metodoSalvarValidar();
 
 			} else {
 				JOptionPane.showMessageDialog(null, "(AT01) Não houve modificação.","ATENÇÃO AT01", 
@@ -225,7 +225,7 @@ public class EventosAluno extends EventosPadrao{
 				daoAluno.buscar(pk).getCodigo();
 				throw new erroNullRequisitoException("(ER04) Aluno \"" +codigo+ "\" já existe.", "ERRO ER04");
 			}catch(NullPointerException exc){
-				metodoSalvar();
+				metodoSalvarValidar();
 			}
 
 		}
@@ -246,7 +246,7 @@ public class EventosAluno extends EventosPadrao{
 		}
 	};
 
-	//OBJETO ActionListener QUE EXCLUE O ALUNO NO BANCO
+	//OBJETO ActionListener QUE EXCLUI O ALUNO NO BANCO
 	protected ActionListener onClickExcluirAluno = new ActionListener() {
 
 		@Override
@@ -395,7 +395,7 @@ public class EventosAluno extends EventosPadrao{
 		}
 	}
 
-	protected void pesquisarCaixa(Aluno aln) {
+	public void pesquisarCaixa(Aluno aln) {
 		String localizar = aln.getCodigo();
 
 		// colocar as informações para o cliente
@@ -414,7 +414,7 @@ public class EventosAluno extends EventosPadrao{
 		// TODO Auto-generated method stub
 	}
 
-	private void metodoSalvar() {
+	private void metodoSalvarValidar() {
 		// Tentar pegar os valores
 		aluno = (Aluno) getValoresDosCampos();
 		String matricula = aluno.getCodigo();

@@ -16,6 +16,8 @@ import javax.swing.JTextField;
 
 import ComponentGroupPlus.PainelTabela;
 import ExceptionSLDA.erroNullRequisitoException;
+import Forms.MainJFrame;
+import Model.Arquivo;
 import Model.Caixa;
 import PrimaryKey.CaixaPK;
 import TablesModel.CaixaTableModel;
@@ -49,18 +51,29 @@ public class EventosCaixa extends EventosPadrao {
 	protected JComboBox<String> comboTurno = comboGroup.getComboBoxTurno();
 	protected JComboBox<String> comboLetra = comboGroup.getComboBoxLetra();
 	protected JComboBox<String> comboStatus = comboGroup.getComboBoxStatus();
+	protected JComboBox<String> comboNumero = comboGroup.getComboBoxNumero();
 
-	public EventosCaixa() {
+	protected MainJFrame main;
+
+	public EventosCaixa(MainJFrame main) {
+		this.main = main;
 		//INICIA A TABELA ORDENADA
 		Collections.sort(lista, comparador);
 		modelo = new CaixaTableModel(lista);
-		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
-		btnExcluir.setEnabled(false); // necessario a pesquisa para ativar botão
 		tfCodigo.setEditable(false);
+	}
+
+	public MainJFrame getMain() {
+		return main;
+	}
+
+	public void setMain(MainJFrame main) {
+		this.main = main;
 	}
 
 	@Override
 	public Object getValoresDosCampos() {
+
 
 		if(!(((String) comboTurno.getSelectedItem()) == null) &&
 				!(((String) comboLetra.getSelectedItem()) == null)){
@@ -189,7 +202,7 @@ public class EventosCaixa extends EventosPadrao {
 			try{
 				caixaPesquisa = daoCaixa.buscar(pk); // realiza a busca no banco de dados
 				setValoresDosCampos(caixaPesquisa); // atribui os valores recuperados para os campos.
-				habilitarBotoes(true);  
+				habilitarBotoes(true);
 
 			}catch(NullPointerException exc){
 				JOptionPane.showMessageDialog(null,"(ER03) Nenhuma Caixa \"" +codigoLocalizar+ "\" foi encontrada.");
@@ -218,6 +231,45 @@ public class EventosCaixa extends EventosPadrao {
 		}
 	};
 
+	protected ActionListener onClickInitInserir = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				PlusEventoDiscenteArquivo disArquivo = new PlusEventoDiscenteArquivo(EventosCaixa.this);
+
+				// verificar se tudo deu certo.
+				if(disArquivo.onClickSalvarArquivo()){
+					main.direcionarParaCamada(0);
+					main.atualizarCaixaAluno(aluno);
+					main.limparCaixa();
+				}
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "Um erro inesperado ocorreu. Verifique os dados e os campos preenchidos.");
+			}
+		}
+	};
+
+	protected ActionListener onClickInitRetirar = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				PlusEventoDiscenteArquivo disArquivo = new PlusEventoDiscenteArquivo(EventosCaixa.this);
+
+				// verificar se tudo deu certo.
+				if(disArquivo.onClickRetirarArquivo()){
+					main.direcionarParaCamada(0);
+					main.atualizarCaixaAluno(aluno);
+					main.limparCaixa();
+				}
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "Um erro inesperado ocorreu. Verifique os dados e os campos preenchidos.");
+			}
+		}
+	};
+
+
 	//OBJETO QUE REALIZA UMA BUSCA ATRAVÉS DAS LINHAS DA TABELA
 	protected MouseListener onClickRowTable = new MouseListener() {
 
@@ -227,7 +279,7 @@ public class EventosCaixa extends EventosPadrao {
 				int linha = tabela.getSelectedRow();
 				caixaPesquisa = modelo.getContato(linha);
 				setValoresDosCampos(caixaPesquisa);
-				
+
 				if (aluno == null) {
 					habilitarBotoes(true);
 				} else {
@@ -252,7 +304,11 @@ public class EventosCaixa extends EventosPadrao {
 		comboTurno.setSelectedIndex(0);
 		comboLetra.setSelectedIndex(0);
 		comboStatus.setSelectedIndex(0);
+		comboNumero.setSelectedIndex(0);
+		
+		tfDiscente.setText(null);
 
+		setMudarPerfil(false);
 		habilitarBotoes(false);
 	}
 
@@ -283,27 +339,51 @@ public class EventosCaixa extends EventosPadrao {
 			return  objetoParaComparar.getCodigo().compareTo(objetoAserComparado.getCodigo());
 		}
 	}   
-	
+
 	public void setMudarPerfil(boolean bool) {
 		btnSalvar.setEnabled(!bool);
 		btnAlterar.setEnabled(!bool);
 		btnExcluir.setEnabled(!bool);
-		
+
+		comboNumero.setEnabled(bool);
 		btnRetirar.setEnabled(bool);
 		btnInserir.setEnabled(bool);
-		
+
 		comboLetra.setEnabled(!bool);
 		comboStatus.setEnabled(!bool);
 		comboTurno.setEnabled(!bool);
-		
 	}
-	
+
 	protected void desabilitarTudoFormulario() {
 		comboTurno.setEnabled(false);
 		comboLetra.setEnabled(false);
 		comboStatus.setEditable(false);
 		tfCodigo.setEditable(false);
-		
+
 		btnAlterar.setEnabled(false);
+	}
+
+	public Arquivo getArquivo() {
+		
+		if(!(((String) comboTurno.getSelectedItem()) == null) &&
+				!(((String) comboLetra.getSelectedItem()) == null)){
+			
+			arquivo = new Arquivo();
+			arquivo.setCodigo(aluno.getCodigo(), tfCodigo.getText().trim());
+			arquivo.setCodDossie((String) comboNumero.getSelectedItem());
+
+			return arquivo;
+			
+		} else {
+			return null;
+		}
+	}
+
+	public Arquivo setArquivo(Arquivo arquivo) {
+		return this.arquivo = arquivo;
+	}
+
+	public Caixa getCaixa() {
+		return caixa;
 	}
 }

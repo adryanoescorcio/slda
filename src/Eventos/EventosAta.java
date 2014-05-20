@@ -211,10 +211,18 @@ public class EventosAta extends EventosPadrao {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			PlusEventoDiscenteAta disAta = new PlusEventoDiscenteAta(EventosAta.this);
-			disAta.onClickSalvarAtaResultado();
-			main.direcionarParaCamada(0);
-			main.atualizarTabelaAluno(aluno);
+			try {
+				PlusEventoDiscenteAta disAta = new PlusEventoDiscenteAta(EventosAta.this);
+				
+				// verificar se tudo deu certo.
+				if (disAta.onClickSalvarAtaResultado()) {
+					main.direcionarParaCamada(0);
+					main.atualizarTabelaAluno(aluno);
+					main.limparAta();
+				}
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "Um erro inesperado ocorreu. Verifique os dados e os campos preenchidos.");
+			}
 		}
 	};
 	

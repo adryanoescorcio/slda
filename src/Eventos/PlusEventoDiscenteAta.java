@@ -71,7 +71,7 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 
 	@Override
 	public void limparCampos() {
-		
+		// TODO
 	}
 
 	public void onClickRetirarAtaResultado() {

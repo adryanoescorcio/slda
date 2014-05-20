@@ -57,6 +57,8 @@ public class PlusPainelDiscenteLista extends PlusEventoDiscenteLista {
 	private void eventos() {
 		btnCancelar.addActionListener(onClickCancelar);
 		btnSalvar.addActionListener(onClickSalvar);
+		tabela.addMouseListener(onClickRowTable);
+		
 	}
 
 	/**
@@ -99,6 +101,7 @@ public class PlusPainelDiscenteLista extends PlusEventoDiscenteLista {
 	private JPanel painelbotoes() {
 		// mudando o nome do botão salvar
 		btnSalvar.setText("Selecionar");
+		btnCancelar.setText("Voltar");
 		
 		JPanel painelbotoe = new JPanel(new GridLayout(1,2,5,5));
 		painelbotoe.add(btnSalvar);

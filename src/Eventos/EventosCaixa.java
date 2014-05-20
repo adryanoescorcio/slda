@@ -302,5 +302,7 @@ public class EventosCaixa extends EventosPadrao {
 		comboLetra.setEnabled(false);
 		comboStatus.setEditable(false);
 		tfCodigo.setEditable(false);
+		
+		btnAlterar.setEnabled(false);
 	}
 }

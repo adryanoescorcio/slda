@@ -15,7 +15,6 @@ import ComponentGroupPlus.MaskFormatterGroup;
 import ComponentGroupPlus.PainelTabela;
 import ExceptionSLDA.erroNullRequisitoException;
 import Forms.MainJFrame;
-import Forms.PlusPainelDiscenteArquivo;
 import Forms.PlusPainelDiscenteLista;
 import Model.Aluno;
 import Model.Ata;

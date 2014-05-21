@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 public class PainelTabela {
 	// quantidade de linhas da tabela
@@ -24,19 +25,26 @@ public class PainelTabela {
 	 * @param tabela 
 	 * @return tabela reorganizada
 	 **/
-	public JScrollPane organizandoColunasTables(AbstractTableModel modelo, int tamanho) {
+	public JScrollPane organizandoColunasTables(AbstractTableModel modelo) {
 		// carregando modelo da tabela.
 
 		tabela.setModel(modelo);
 		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-		int x = tamanho/tabela.getColumnCount();
-
-		for(int i=0;i<tabela.getColumnCount();i++) {
-			tabela.getColumnModel().getColumn(i).setPreferredWidth(x);
+		int numColunas = tabela.getColumnCount();
+		int x = 100*numColunas;
+		int y = 100; // valor padrão para o tamanho das colunas.
+		
+		// x tem que preencher 800, ou seja o minimo de 8 colunas. 
+		//Senão as colunas serão divididas outras vez para caber na tabela.
+		if (x < 800) {
+			y = 850/numColunas;
 		}
 
-		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
+		for (int i=0;i<tabela.getColumnCount();i++) {
+			tabela.getColumnModel().getColumn(i).setPreferredWidth(y);
+		}
+
+		scroll.setPreferredSize(new Dimension(800, 200)); // Define o tamanho da tabela.
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); // Adiciona o scroll vertical
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS); // adiciona o scroll horizontal
 
@@ -67,6 +75,10 @@ public class PainelTabela {
 
 	public void setTabela(JTable tabela) {
 		this.tabela = tabela;
+	}
+	
+	public void setModelTabela (TableModel dataModel) {
+		this.tabela.setModel(dataModel);
 	}
 
 }

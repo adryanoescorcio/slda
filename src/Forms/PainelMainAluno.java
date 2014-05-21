@@ -14,7 +14,6 @@ import javax.swing.SwingConstants;
 
 import ComponentGroupPlus.FontGroup;
 import ComponentGroupPlus.IconesGroup;
-import ComponentGroupPlus.PainelTabela;
 import Eventos.EventosAluno;
 
 /**
@@ -32,7 +31,6 @@ public class PainelMainAluno extends EventosAluno {
 	protected static final String BORDER_INFO_ALUNO = "DOSSIÊ DO DISCENTE";
 	protected static final int QUANT_LINHAS_GRID = 13;
 
-	protected JScrollPane scroll = new JScrollPane();
 	protected JScrollPane scrollMain = new JScrollPane();
 
 	protected JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
@@ -74,6 +72,7 @@ public class PainelMainAluno extends EventosAluno {
 	public PainelMainAluno(MainJFrame mainJFrame) {
 		super(mainJFrame);
 		eventosBotoes();
+		iniTToolTips();
 
 		painelEsquerdoInfoAluno.add(editPanel.painelNull(0, 0));
 		painelEsquerdoInfoAluno.add(lbNome);
@@ -115,6 +114,19 @@ public class PainelMainAluno extends EventosAluno {
 		getTelaPrincipal();
 	}
 
+	/**
+	 * Carregar as dicas dos botões;
+	 **/
+	private void iniTToolTips() {
+		btnAtaResul.setToolTipText("1 (um) clique para mudar a tabela abaixo. " +
+				"Ou 2 (dois) clique para alterar os dados.");
+		
+		btnDocumento.setToolTipText("1 (um) clique para mudar a tabela abaixo. " +
+				"Ou 2 (dois) cliques para alterar os dados.");
+		
+		btnCaixa.setToolTipText("Alterar Caixa do aluno.");
+	}
+
 	private void eventosBotoes() {
 		// Evento botão excluir
 		btnExcluir.addActionListener(
@@ -133,12 +145,10 @@ public class PainelMainAluno extends EventosAluno {
 				onClickAlterarAluno);
 
 		// Evento do Botão Documento
-		btnDocumento.addActionListener(
-				onClickDocumento);
+		btnDocumento.addMouseListener(onClickMudarTabelaDocumento);
 
 		// Evento do botão Ata
-		btnAtaResul.addActionListener(
-				onClickAtaResul);
+		btnAtaResul.addMouseListener(onClickMudarTabelaAta);
 
 		//Evento do botão Buscar
 		btnPesquisar.addActionListener(
@@ -282,10 +292,10 @@ public class PainelMainAluno extends EventosAluno {
 	}
 
 	private JPanel painelTable() {
-		PainelTabela table = new PainelTabela();
-
+		scroll = table.organizandoColunasTables(modeloAtaResultado);
+		
 		painelTabela.add("North", editPanel.painelNull(0, 10));
-		painelTabela.add("Center", table.organizandoColunasTables(modeloAtaResultado,1000));
+		painelTabela.add("West", scroll);
 
 		return painelTabela;
 	}

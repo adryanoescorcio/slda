@@ -2,13 +2,14 @@ package Eventos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import ComponentGroupPlus.MaskFormatterGroup;
@@ -49,8 +50,7 @@ public class EventosAluno extends EventosPadrao{
 	protected DocumentoTableModel modeloDoc = new DocumentoTableModel(listaDocumento);
 
 	// Tabela
-	public PainelTabela tablePadrao = new PainelTabela(); // instancia da tabela padrao
-	private JTable tabela = tablePadrao.getTabela(); // setando a tabela padrao
+	protected PainelTabela table = new PainelTabela();
 
 	// Objeto Mask
 	private MaskFormatterGroup mask = new MaskFormatterGroup();	
@@ -282,7 +282,65 @@ public class EventosAluno extends EventosPadrao{
 			}
 		}
 	};
+	
+	protected MouseListener onClickMudarTabelaAta = new MouseListener() {
 
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(e.getClickCount() == 1){
+				scroll = table.organizandoColunasTables(modeloAtaResultado);
+			} else if (e.getClickCount() == 2) {
+				if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o aluno de uma ata?") == 0) {
+					try {
+						main.mudarPerfilAta(aluno);
+						main.direcionarParaCamada(2);
+					} catch (Exception ex) {
+						// o metodo foi parado por falta dos requisitos minimos.
+					}
+				}
+			}
+		}
+		
+		@Override
+		public void mouseEntered(MouseEvent e) {}
+		@Override
+		public void mouseExited(MouseEvent e) {}
+		@Override
+		public void mousePressed(MouseEvent e) {}
+		@Override
+		public void mouseReleased(MouseEvent e) {}
+	};
+
+	protected MouseListener onClickMudarTabelaDocumento = new MouseListener() {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(e.getClickCount() == 1){
+				scroll = table.organizandoColunasTables(modeloDoc);
+			} else if (e.getClickCount() == 2) {
+				if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o um documento requisitado pelo aluno?") == 0) {
+					try {
+					} catch (Exception ex) {
+						// o metodo foi parado por falta dos requisitos minimos.
+					}
+				}
+			}
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+	};
+	
 	//OBJETO ActionListener QUE LIMPA OS CAMPOS DA TELA
 	protected ActionListener onClickLimparCampos = new ActionListener() {	
 		@Override
@@ -303,14 +361,7 @@ public class EventosAluno extends EventosPadrao{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o aluno de uma ata?") == 0) {
-				try {
-					main.mudarPerfilAta(aluno);
-					main.direcionarParaCamada(2);
-				} catch (Exception ex) {
-					// o metodo foi parado por falta dos requisitos minimos.
-				}
-			}
+			
 		}
 	};
 
@@ -318,6 +369,7 @@ public class EventosAluno extends EventosPadrao{
 		List<AtaResultado> lista = daoAtaResultado.buscarAtaporAluno(aln); // realizando a busca
 		listaAtaResul = lista; // passando para a variavel global
 		modeloAtaResultado.setList(lista); // Inserindo a nova lista no modelo
+		scroll = table.organizandoColunasTables(modeloAtaResultado);
 	}
 
 	/**
@@ -343,7 +395,6 @@ public class EventosAluno extends EventosPadrao{
 			PlusPainelDiscenteLista painelListaDiscente = 
 					new PlusPainelDiscenteLista(EventosAluno.this);
 			main.addCamada(painelListaDiscente.getMainDialog(), "Selecionar Aluno");
-
 		}
 	}
 
@@ -379,7 +430,7 @@ public class EventosAluno extends EventosPadrao{
 	}
 
 	private void tabelaDocumento(){
-		tabela.setModel(modeloDoc);
+		scroll = table.organizandoColunasTables(modeloDoc);
 	}
 
 	public void direcionarParaCamada(int i) {

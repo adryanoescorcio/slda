@@ -75,13 +75,15 @@ public class PlusEventoDiscenteLista extends EventosPadrao{
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				try{
-					Aluno aluno = evento.modeloAlunoTable.getContato(
-							tabela.getSelectedRow());
-					evento.processoMostarAluno(aluno);
-					finalizeOperation();
-				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(null, "Selecione um aluno na tabela.", "ER09", JOptionPane.ERROR_MESSAGE);
+				if(e.getClickCount() == 2){
+					try{
+						Aluno aluno = evento.modeloAlunoTable.getContato(
+								tabela.getSelectedRow());
+						evento.processoMostarAluno(aluno);
+						finalizeOperation();
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, "Selecione um aluno na tabela.", "ER09", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 

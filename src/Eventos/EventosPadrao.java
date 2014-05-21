@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import ComponentGroupPlus.ComboBoxGroup;
@@ -42,6 +43,9 @@ public abstract class EventosPadrao {
 	protected CaixaDAO daoCaixa = new CaixaDAO(conexaoBD);
 	protected AtaResultadoDAO daoAtaResultado = new AtaResultadoDAO(conexaoBD);
 
+	// scroll que envolve a tabela
+	public JScrollPane scroll = new JScrollPane();
+	
 	//ENTIDADES
 	protected Aluno aluno;
 	protected Caixa caixa;

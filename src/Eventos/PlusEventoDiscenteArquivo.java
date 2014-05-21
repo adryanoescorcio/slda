@@ -62,13 +62,15 @@ public class PlusEventoDiscenteArquivo extends EventosPadrao {
 	};
 
 	protected boolean onClickRetirarArquivo () {	
-		System.out.println(aluno.getCodigo());
 		
-		if(daoArquivo.remover(arquivo)){
+		Arquivo arquivoBD = new Arquivo(); // cria o objeto de resultados
+		arquivoBD.setCodigoAluno(aluno.getCodigo()); // passa o codigo do aluno
+		
+		if(daoArquivo.remover(arquivoBD)){
 			finallyOperation();
 			return true;
 		}else {
-			JOptionPane.showMessageDialog(null, "O aluno não está na Ata selecionada.");
+			JOptionPane.showMessageDialog(null, "Ocorreu um erro. O aluno não está inserido em nenhuma caixa.");
 			return false;
 		}
 	};

@@ -85,7 +85,7 @@ public class PlusEventoDiscenteAta extends EventosPadrao {
 			if(daoAtaResultado.remover(ataResul)) {
 				finallyOperation();
 				JOptionPane.showMessageDialog(null, "Aluno foi retirado da ata com sucesso.");
-			}else {
+			} else {
 				JOptionPane.showMessageDialog(null, "O aluno não está na Ata selecionada.");
 			}
 		}

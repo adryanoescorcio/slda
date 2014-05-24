@@ -295,7 +295,7 @@ public class PainelMainAluno extends EventosAluno {
 		scroll = table.organizandoColunasTables(modeloAtaResultado);
 		
 		painelTabela.add("North", editPanel.painelNull(0, 10));
-		painelTabela.add("West", scroll);
+		painelTabela.add("Center", scroll);
 
 		return painelTabela;
 	}

@@ -61,6 +61,7 @@ public class EventosCaixa extends EventosPadrao {
 		Collections.sort(lista, comparador);
 		modelo = new CaixaTableModel(lista);
 		tfCodigo.setEditable(false);
+		comboNumero.setEnabled(false);
 	}
 
 	public MainJFrame getMain() {

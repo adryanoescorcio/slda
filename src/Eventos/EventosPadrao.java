@@ -12,6 +12,7 @@ import ComponentGroupPlus.ComboBoxGroup;
 import ComponentGroupPlus.EditPanelGroup;
 import ComponentGroupPlus.FontGroup;
 import ComponentGroupPlus.IconesGroup;
+import ComponentGroupPlus.MaskFormatterGroup;
 import DAO.AlunoDAO;
 import DAO.ArquivoDAO;
 import DAO.AtaDAO;
@@ -24,6 +25,7 @@ import Model.Aluno;
 import Model.Arquivo;
 import Model.Ata;
 import Model.Caixa;
+import Model.Documento;
 
 /**
  * Classe responsavel pelos eventos comuns a todos os paineis
@@ -51,6 +53,7 @@ public abstract class EventosPadrao {
 	protected Caixa caixa;
 	protected Ata ata;
 	public Arquivo arquivo;
+	protected Documento documento;
 
 	// FONTE
 	protected FontGroup font = new FontGroup();
@@ -61,6 +64,7 @@ public abstract class EventosPadrao {
 	protected EditPanelGroup editPanel = new EditPanelGroup();
 	
 	public JTextField tfDiscente = new JTextField(); // campo que estará em todos os Jpanel
+	protected MaskFormatterGroup mask = new MaskFormatterGroup();	
 
 	protected ComboBoxGroup comboGroup = new ComboBoxGroup();
 

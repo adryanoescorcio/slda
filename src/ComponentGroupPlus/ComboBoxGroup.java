@@ -27,6 +27,19 @@ public class ComboBoxGroup {
 		return combo;
 	}
 
+	public JComboBox<String> getComboBoxStatusDocumento() {
+
+		JComboBox<String> combo = new JComboBox<String>();
+
+		combo.addItem("REQUISITADO");
+		combo.addItem("FINALIZADO");
+
+		combo.setBackground(Color.white);
+		combo.setFont(fonte.font_PLA_14);
+
+		return combo;
+	}
+	
 	/**
 	 * ComboBox para as Letras do alfabeto
 	 **/

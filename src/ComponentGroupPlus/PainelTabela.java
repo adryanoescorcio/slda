@@ -36,8 +36,8 @@ public class PainelTabela {
 		
 		// x tem que preencher 800, ou seja o minimo de 8 colunas. 
 		//Senão as colunas serão divididas outras vez para caber na tabela.
-		if (x < 800) {
-			y = 850/numColunas;
+		if (x < 900) {
+			y = 1000/numColunas;
 		}
 
 		for (int i=0;i<tabela.getColumnCount();i++) {

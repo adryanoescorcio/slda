@@ -78,8 +78,8 @@ public class Documento implements InterfacePadraoEntidade {
 		return aluno;
 	}
 
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
+	public void setAluno(Aluno string) {
+		this.aluno = string;
 	}
 
 	@Override
@@ -112,5 +112,4 @@ public class Documento implements InterfacePadraoEntidade {
 	public String getCodigo() {
 		return documentopk.getCodigo();
 	}
-
 }

@@ -20,7 +20,7 @@ import Model.Aluno;
 import Model.Ata;
 import Model.AtaResultado;
 
-public class PlusEventoDiscenteLista extends EventosPadrao{
+public class PlusEventoDiscenteLista extends EventosPadrao {
 
 	// Objeto Mask
 	protected MaskFormatterGroup mask = new MaskFormatterGroup();

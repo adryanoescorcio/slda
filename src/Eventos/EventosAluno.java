@@ -1,4 +1,4 @@
-package Eventos;
+	package Eventos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,11 +12,11 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import ComponentGroupPlus.MaskFormatterGroup;
 import ComponentGroupPlus.PainelTabela;
 import ExceptionSLDA.erroNullRequisitoException;
 import Forms.MainJFrame;
 import Forms.PlusPainelDiscenteLista;
+import Forms.PlusPainelDocumento;
 import Model.Aluno;
 import Model.Ata;
 import Model.AtaResultado;
@@ -53,7 +53,6 @@ public class EventosAluno extends EventosPadrao{
 	protected PainelTabela table = new PainelTabela();
 
 	// Objeto Mask
-	private MaskFormatterGroup mask = new MaskFormatterGroup();	
 	protected List<Ata> listaAta = new ArrayList<Ata>();;
 	protected AtaTableModel modeloAta = new AtaTableModel(listaAta);
 
@@ -310,6 +309,35 @@ public class EventosAluno extends EventosPadrao{
 		@Override
 		public void mouseReleased(MouseEvent e) {}
 	};
+	
+	protected MouseListener onClickDocumento = new MouseListener() {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(e.getClickCount() == 1){
+				scroll = table.organizandoColunasTables(modeloAtaResultado);
+			} else if (e.getClickCount() == 2) {
+				if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o aluno de uma ata?") == 0) {
+					try {
+						main.mudarPerfilAta(aluno);
+						main.direcionarParaCamada(2);
+					} catch (Exception ex) {
+						// o metodo foi parado por falta dos requisitos minimos.
+					}
+				}
+			}
+		}
+		
+		@Override
+		public void mouseEntered(MouseEvent e) {}
+		@Override
+		public void mouseExited(MouseEvent e) {}
+		@Override
+		public void mousePressed(MouseEvent e) {}
+		@Override
+		public void mouseReleased(MouseEvent e) {}
+	};
+
 
 	protected MouseListener onClickMudarTabelaDocumento = new MouseListener() {
 
@@ -320,6 +348,9 @@ public class EventosAluno extends EventosPadrao{
 			} else if (e.getClickCount() == 2) {
 				if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o um documento requisitado pelo aluno?") == 0) {
 					try {
+						 PlusPainelDocumento painelDocumento= new PlusPainelDocumento(main, EventosAluno.this);
+
+						 main.addCamada(painelDocumento.getTelaPrincipal(), "Inserir Documento");
 					} catch (Exception ex) {
 						// o metodo foi parado por falta dos requisitos minimos.
 					}
@@ -348,22 +379,17 @@ public class EventosAluno extends EventosPadrao{
 			limparCampos();
 		}
 	};
-
-	protected ActionListener onClickDocumento = new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			tabelaDocumento();
-		}
-	};
-
-	protected ActionListener onClickAtaResul = new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-		}
-	};
+	
+//	if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o aluno de uma ata?") == 0) {
+//        try {
+//                PlusPainelDiscenteAta painelDiscAta =
+//                                new PlusPainelDiscenteAta(EventosAluno.this);
+//
+//                main.addCamada(painelDiscAta.getMainDialog(), "Inserir Aluno-Ata");
+//        } catch (Exception ex) {
+//                // o metodo foi parado por falta dos requisitos minimos.
+//        }
+//}
 
 	public void tabelaAta(Aluno aln){
 		List<AtaResultado> lista = daoAtaResultado.buscarAtaporAluno(aln); // realizando a busca
@@ -391,6 +417,7 @@ public class EventosAluno extends EventosPadrao{
 		List<Aluno> lista = daoAluno.buscarNome(nomeLocalizar);
 		listaAluno = lista;
 		modeloAlunoTable.setList(lista);
+		
 		if (lista.size() > 0) {
 			PlusPainelDiscenteLista painelListaDiscente = 
 					new PlusPainelDiscenteLista(EventosAluno.this);
@@ -494,7 +521,6 @@ public class EventosAluno extends EventosPadrao{
 	
 	//METODO PARA HABILITAR OU DESABILITAR OS BOTOES QUE INICIAM Enabled E TAMBÉM OUTROS COMPONENTES NECESSÁRIOS
 	public void habilitarBotoes(boolean bool) {
-
 		tfCodigo.setEditable(!bool);
 		btnSalvar.setEnabled(!bool);
 		btnAlterar.setEnabled(bool); 

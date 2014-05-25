@@ -99,11 +99,13 @@ public class CaixaTableModel extends AbstractTableModel {
 	//REMOVE A PATIR DO OBJETO
 	public void removeContato(Caixa object) {
 		int indice = 0;
+		
 		for(int i = 0; i < linhas.size(); i++){
 			if(linhas.get(i).toString().equals(object.toString())){
 				indice = i;
 			}
 		}
+		
 		linhas.remove(indice);
 		fireTableRowsDeleted(indice, indice);
 

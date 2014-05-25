@@ -13,14 +13,13 @@ public class DocumentoTableModel extends AbstractTableModel{
 
 	private static final int COL_PROT = 0; // protocolo
 	private static final int COL_NOMEDOC = 1; // nome do documento
-	private static final int COL_DESC = 2; // descrição
-	private static final int COL_DATA_PED = 3; // data do pedido
-	private static final int COL_DATA_ENT = 4; // data da entrega
-	private static final int COL_STATUS = 5; // status
-	private static final int COL_ALUNO = 6; // status
+	private static final int COL_DATA_PED = 2; // data do pedido
+	private static final int COL_DATA_ENT = 3; // data da entrega
+	private static final int COL_STATUS = 4; // status
+	private static final int COL_DESC = 5; // descrição
 
 	private List<Documento> linhas;
-	private String[] colunas = new String[]{"PROTOCOLO", "CÓD. ALUNO", "DOCUMENTO", "DATA PEDIDO", "DATA ENTREGA", "STATUS", "DESCRIÇÃO"};
+	private String[] colunas = new String[]{"PROTOCOLO", "DOCUMENTO", "DATA PEDIDO", "DATA ENTREGA", "STATUS", "DESCRIÇÃO"};
 
 	public DocumentoTableModel(List<Documento> documento) {
 		this.linhas = new ArrayList<>(documento);
@@ -52,8 +51,6 @@ public class DocumentoTableModel extends AbstractTableModel{
 
 		if (column == COL_PROT) {
 			return m.getCodigo();
-		} else if (column == COL_ALUNO) {
-			return m.getAluno();
 		} else if (column == COL_NOMEDOC) {
 			return m.getNomeDocumento();
 		} else if (column == COL_DESC) {
@@ -97,9 +94,14 @@ public class DocumentoTableModel extends AbstractTableModel{
 
 	//REMOVE A PATIR DO OBJETO
 	public void removeContato(Object object) {
-		int indiceLinha = linhas.indexOf(object);
-		linhas.remove(object);
-		fireTableRowsDeleted(indiceLinha, indiceLinha);
+		int indice = 0;
+		for(int i = 0; i < linhas.size(); i++){
+			if(linhas.get(i).toString().equals(object.toString())){
+				indice = i;
+			}
+		}
+		linhas.remove(indice);
+		fireTableRowsDeleted(indice, indice);
 
 	}
 

@@ -155,6 +155,7 @@ public class PlusPainelDocumento extends PlusEventoDocumento {
 		btnExcluir.addActionListener(onClickExcluirCaixa);
 		btnCancelar.addActionListener(onClickCancelarOperacao);
 		tabela.addMouseListener(onClickRowTable);
+		comboStatus.addItemListener(onClickChangeModalidade);
 
 	}
 
@@ -218,6 +219,8 @@ public class PlusPainelDocumento extends PlusEventoDocumento {
 		JPanel painelBotoes = new JPanel(new BorderLayout(2,2));
 		JPanel painelContentBotoes = new JPanel(new GridLayout(1,5,5,5));
 
+		btnCancelar.setText("Voltar");
+		
 		painelContentBotoes.add(btnSalvar);
 		painelContentBotoes.add(btnAlterar);
 		painelContentBotoes.add(btnExcluir);

@@ -2,10 +2,15 @@ package Eventos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -32,13 +37,15 @@ import TablesModel.DocumentoTableModel;
 
 public class PlusEventoDocumento extends EventosPadrao {
 
+	private static final int INTERVALO = 35;
+
 	//OBJETO UTILIZADO NAS BUSCAS
 	Documento DocPesquisa = new Documento();
 
 	//TABELA
 	PainelTabela table = new PainelTabela();
 	protected JTable tabela = table.getTabela();
-	protected List<Documento> lista = daoDoc.buscarDocumentoporAluno(aluno);
+	protected List<Documento> lista;
 	protected DocumentoTableModel modelo;
 	protected String strCodigo;
 
@@ -57,10 +64,24 @@ public class PlusEventoDocumento extends EventosPadrao {
 	public PlusEventoDocumento(MainJFrame main, EventosAluno evento) {
 		this.main = main;
 		this.evento = evento;
-		//INICIA A TABELA ORDENADA
-//		Collections.sort(lista, comparador);
+		dataPedidoCampo();
+		
+		lista = daoDoc.buscarDocumentoporAluno(evento.aluno);
 		modelo = new DocumentoTableModel(lista);
 		tfProtocolo.setEditable(false);
+	}
+
+	private String dateToday() {
+
+		Date date = new Date();
+		SimpleDateFormat dateToday = new SimpleDateFormat("dd/MM/yyyy");
+		String strDateToday = dateToday.format(date);
+
+		return strDateToday;
+	}
+	
+	private void dataPedidoCampo() {
+		ftDataPedido.setText(dateToday());
 	}
 
 	public MainJFrame getMain() {
@@ -73,22 +94,39 @@ public class PlusEventoDocumento extends EventosPadrao {
 
 	@Override
 	public Object getValoresDosCampos() {
-
-
-		if(!(((String) tfDocumento.getText()) == "") &&
-				!(((String) ftDataPedido.getText()) == "")){
+		
+		if(!(((String) ftDataPedido.getText()) == "")){
 
 			documento = new Documento();
+			documento.setNomeDocumento(tfDocumento.getText());
 			documento.setCodigo(tfProtocolo.getText().trim());
-			documento.setAluno(aluno);
+			documento.setAluno(evento.aluno);
 			documento.setStatus((String) comboStatus.getSelectedItem());
 			documento.setDataEntrega(ftDataEntrega.getText());
 			documento.setDataPedido(ftDataPedido.getText());
+			documento.setDescricao(taDescricao.getText().trim());
 
 			return documento;
+			
 		} else {
 			throw new erroNullRequisitoException("(ER02) Preencha todos os requisitos com dados válidos.", "ERRO ER02");
 		}
+	}
+
+	public int numAleatorio() {
+		Random rand = new Random();
+		return rand.nextInt(INTERVALO);
+	}
+	
+	private String stringRandon() {
+		String str = "ABCDEFGHIJKLMNOPQRSTUVXWYZ0123456789";
+		String strRandom = "";
+		
+		for (int i=0; i < 8; i++) {
+			strRandom += str.charAt(numAleatorio());
+		}
+		
+		return strRandom;
 	}
 
 	@Override
@@ -100,6 +138,7 @@ public class PlusEventoDocumento extends EventosPadrao {
 		ftDataEntrega.setText(doc.getDataEntrega());
 		ftDataPedido.setText(doc.getDataPedido());
 		comboStatus.setSelectedItem(doc.getStatus());
+		taDescricao.setText(doc.getDescricao());
 		
 	}
 
@@ -144,9 +183,34 @@ public class PlusEventoDocumento extends EventosPadrao {
 		public void actionPerformed(ActionEvent e) {
 
 			try {
-				// TODO
+				
+				// gerando protocolo
+				tfProtocolo.setText((String.valueOf
+						(numAleatorio()) 
+							+ stringRandon() + numAleatorio()));
+				
+				Documento doc = (Documento) getValoresDosCampos();
+				if(daoDoc.save(doc)) {
+					JOptionPane.showMessageDialog(null, SUCESSO);
+					modelo.addContato(doc);
+					desabilitarAll();
+				} else {
+					JOptionPane.showMessageDialog(null, ERROPROC);
+				}
+				
 			} catch (Exception ex) {
-				System.out.println("Dados estão incompletos");
+				System.out.println("Dados estão incompletos" + ex.getMessage());
+			}
+		}
+	};
+	
+	protected ItemListener onClickChangeModalidade = new ItemListener() {
+		@Override
+		public void itemStateChanged(ItemEvent ev) {
+			if(comboStatus.getSelectedIndex() == 1) {			
+				ftDataEntrega.setText(dateToday());
+			} else {
+				ftDataEntrega.setText(null);
 			}
 		}
 	};
@@ -159,7 +223,7 @@ public class PlusEventoDocumento extends EventosPadrao {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Documento documentoSelect = (Documento) getValoresDosCampos();
-			if (JOptionPane.showConfirmDialog(null, "Deseja excluir a Caixa?") == 0) {
+			if (JOptionPane.showConfirmDialog(null, "Deseja excluir o documento?") == 0) {
 				daoDoc.remover(documentoSelect);
 				JOptionPane.showMessageDialog(null, "Documento foi excluído com sucesso.");
 				modelo.removeContato(documentoSelect);
@@ -178,14 +242,10 @@ public class PlusEventoDocumento extends EventosPadrao {
 		public void mouseClicked(MouseEvent e) {
 			if(e.getClickCount() == 2){
 				int linha = tabela.getSelectedRow();
+				
 				DocPesquisa = modelo.getContato(linha);
 				setValoresDosCampos(DocPesquisa);
-
-				if (aluno == null) {
-					habilitarBotoes(true);
-				} else {
-					desabilitarTudoFormulario();
-				}
+				habilitarBotoes(true,1);
 			}
 		}
 
@@ -210,16 +270,26 @@ public class PlusEventoDocumento extends EventosPadrao {
 		tfDiscente.setText(evento.aluno.getNomeAluno());
 	}
 
+	protected void desabilitarAll() {
+		btnSalvar.setEnabled(false);
+		tfDocumento.setEditable(false);
+		tfProtocolo.setEditable(false);
+		comboStatus.setEnabled(false);
+		taDescricao.setEditable(false);
+		ftDataEntrega.setEditable(false);
+		ftDataPedido.setEditable(false);
+	}
+
 	@Override
 	public void limparCampos() {
 		tfProtocolo.setText(null);
 		tfDocumento.setText(null);
 		ftDataEntrega.setText(null);
-		ftDataPedido.setText(null);
+		ftDataPedido.setText(dateToday());
 		comboStatus.setSelectedIndex(0);
+		taDescricao.setText(null);
 		
-		setMudarPerfil(false);
-		habilitarBotoes(false);
+		habilitarBotoes(false,0);
 	}
 
 	protected void mostarDadoSalvo(Caixa caixa) {
@@ -233,8 +303,16 @@ public class PlusEventoDocumento extends EventosPadrao {
 	}
 
 	//METODO PARA HABILITAR OU DESABILITAR OS BOTOES QUE INICIAM Enabled E TAMBÉM OUTROS COMPONENTES NECESSÁRIOS
-	public void habilitarBotoes(boolean bool) {
-		comboStatus.setEnabled(true);
+	public void habilitarBotoes(boolean bool, int i) {
+		
+		if(i != 1) {
+			tfDocumento.setEditable(!bool);
+			comboStatus.setEnabled(!bool);
+			ftDataEntrega.setEditable(!bool);
+			ftDataPedido.setEditable(!bool);
+			taDescricao.setEditable(!bool);
+		}
+		
 		btnAlterar.setEnabled(bool);
 		btnExcluir.setEnabled(bool);
 		btnSalvar.setEnabled(!bool);
@@ -248,27 +326,6 @@ public class PlusEventoDocumento extends EventosPadrao {
 			return  objetoParaComparar.getCodigo().compareTo(objetoAserComparado.getCodigo());
 		}
 	}   
-
-	public void setMudarPerfil(boolean bool) {
-		btnSalvar.setEnabled(!bool);
-		btnAlterar.setEnabled(!bool);
-		btnExcluir.setEnabled(!bool);
-
-		btnRetirar.setEnabled(bool);
-		btnInserir.setEnabled(bool);
-
-		comboStatus.setEnabled(!bool);
-	}
-
-	protected void desabilitarTudoFormulario() {
-		tfProtocolo.setEnabled(false);
-		comboStatus.setEditable(false);
-		tfDocumento.setEditable(false);
-		ftDataEntrega.setEditable(false);
-		ftDataPedido.setEditable(false);
-
-		btnAlterar.setEnabled(false);
-	}
 
 	public Documento getCaixa() {
 		return documento;

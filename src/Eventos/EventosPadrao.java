@@ -85,6 +85,7 @@ public abstract class EventosPadrao {
 	protected JTextField tfLocalizar = new JTextField();
 
 	protected static final String SUCESSO = "Operação realizada com sucesso.";
+	protected static final String ERROPROC = "Ocorreu um erro durante o processo.";
 
 	public EventosPadrao() {
 		configInit();

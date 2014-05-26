@@ -20,7 +20,8 @@ public class IconesGroup {
 	private ImageIcon iconeCancelar = new ImageIcon(DIR_ICONES+"cancel.png");
 	private ImageIcon iconeInserir = new ImageIcon(DIR_ICONES+"inserir.png");
 	private ImageIcon iconeRetirar = new ImageIcon(DIR_ICONES+"retirar.png");
-
+	private ImageIcon icone = new ImageIcon(DIR_ICONES+"ico.ico");
+	
 	// Icones principais 32x32
 	private ImageIcon iconeAluno = new ImageIcon(DIR_ICONES+"aluno.png");
 	private ImageIcon iconeAta32x = new ImageIcon(DIR_ICONES+"ata.png");
@@ -115,6 +116,12 @@ public class IconesGroup {
 	}
 	public void setIconeCancelar(ImageIcon iconeCancelar) {
 		this.iconeCancelar = iconeCancelar;
+	}
+	public ImageIcon getIcone() {
+		return icone;
+	}
+	public void setIcone(ImageIcon icone) {
+		this.icone = icone;
 	}
 
 }

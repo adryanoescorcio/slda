@@ -193,7 +193,6 @@ public class PlusPainelDocumento extends PlusEventoDocumento {
 	}
 
 	private JPanel painelInternoSul() {
-		//		painelInternoSul.add("Center",editPanel.painelContentComponent("West", painelBotoes()));
 		painelInternoSul.add("North",editPanel.painelNull(0, 5));
 		painelInternoSul.add("West",editPanel.painelNull(220, 0));
 		painelInternoSul.add("South",painelTable());
@@ -210,7 +209,6 @@ public class PlusPainelDocumento extends PlusEventoDocumento {
 
 		painelTabela.add("North", editPanel.painelNull(0, 10));
 		painelTabela.add("Center",scroll);
-		//		painelTabela.add("South", painelLocaliza(lbCodigo2));
 
 		return painelTabela;
 	}

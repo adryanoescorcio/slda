@@ -3,6 +3,7 @@ package Forms;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -71,6 +72,9 @@ public class MainJFrame {
 
 	public MainJFrame(){
 
+		SplashJProgressBar splash = new SplashJProgressBar();
+		splash.run();
+				
 		menusWindows();
 		alterandoFontes();
 		addComponentesMainJPanel();
@@ -89,6 +93,8 @@ public class MainJFrame {
 
 		camadaExterna.addTab("Ata", icone.getIconeAta32x(), 
 				cadastrarAta.getTelaPrincipal(), "Gerenciar Atas");
+
+		splash.stop();
 	}
 
 	private void alterandoFontes() {
@@ -131,6 +137,10 @@ public class MainJFrame {
 	}
 
 	private void configuracaoMainJFrame() {
+		
+		mainJFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(
+				getClass().getResource("../Icones/icon.png")));
+		
 		mainJFrame.setTitle(TITULO_WINDOW);
 		mainJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainJFrame.setVisible(true);

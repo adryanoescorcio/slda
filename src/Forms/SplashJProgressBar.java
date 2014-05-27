@@ -73,6 +73,7 @@ public class SplashJProgressBar extends JWindow {
 
 		// Centraliza a criação da Janela no monitor
 		this.setLocationRelativeTo(null);
+		this.setAlwaysOnTop(true);
 	}
 	
 	public void stop() {

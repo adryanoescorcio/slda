@@ -21,6 +21,7 @@ public class IconesGroup {
 	private ImageIcon iconeInserir = new ImageIcon(DIR_ICONES+"inserir.png");
 	private ImageIcon iconeRetirar = new ImageIcon(DIR_ICONES+"retirar.png");
 	private ImageIcon icone = new ImageIcon(DIR_ICONES+"ico.ico");
+	private ImageIcon imageAbout = new ImageIcon(DIR_ICONES+"about.png");
 	
 	// Icones principais 32x32
 	private ImageIcon iconeAluno = new ImageIcon(DIR_ICONES+"aluno.png");
@@ -122,6 +123,12 @@ public class IconesGroup {
 	}
 	public void setIcone(ImageIcon icone) {
 		this.icone = icone;
+	}
+	public ImageIcon getImageAbout() {
+		return imageAbout;
+	}
+	public void setImageAbout(ImageIcon imageAbout) {
+		this.imageAbout = imageAbout;
 	}
 
 }

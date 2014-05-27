@@ -193,6 +193,7 @@ public class PlusEventoDocumento extends EventosPadrao {
 				if(daoDoc.save(doc)) {
 					JOptionPane.showMessageDialog(null, SUCESSO);
 					modelo.addContato(doc);
+					evento.modeloDoc.addContato(doc);
 					desabilitarAll();
 				} else {
 					JOptionPane.showMessageDialog(null, ERROPROC);
@@ -227,6 +228,7 @@ public class PlusEventoDocumento extends EventosPadrao {
 				daoDoc.remover(documentoSelect);
 				JOptionPane.showMessageDialog(null, "Documento foi excluído com sucesso.");
 				modelo.removeContato(documentoSelect);
+				evento.modeloDoc.removeContato(documentoSelect);
 				limparCampos();
 
 				//LIMPA A CAIXA

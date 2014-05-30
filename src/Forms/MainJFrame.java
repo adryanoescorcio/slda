@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.io.IOException;
+import java.nio.file.Paths;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -15,6 +17,7 @@ import Menus.MenuAvancado;
 import Menus.MenuUsuario;
 import Menus.MenuVisualizar;
 import Model.Aluno;
+import Segurança.Validar;
 
 /**
  * Classe que representa a tela Principal - Aquela que chama todas as outras
@@ -69,12 +72,13 @@ public class MainJFrame {
 	private PainelMainAta cadastrarAta = new PainelMainAta(this);
 
 	private Font font = new Font(Font.SANS_SERIF, 0, 18);
-
+	
+	//---SEGURANÇA
+	private static Validar validar = new Validar(Paths.get("C:/SLDA/mac.txt"));
+	
+	private static SplashJProgressBar splash = new SplashJProgressBar();
 	public MainJFrame(){
-
-		SplashJProgressBar splash = new SplashJProgressBar();
-		splash.run();
-				
+		
 		menusWindows();
 		alterandoFontes();
 		addComponentesMainJPanel();
@@ -164,8 +168,14 @@ public class MainJFrame {
 		menuBar.add(menuAvancado.getMenuAvancado());
 	}
 
-	public static void main(String[] args) {
-		new MainJFrame();
+	public static void main(String[] args) throws IOException {
+		
+		splash.run();
+		if(validar.validar()){
+			splash.setAlwaysOnTop(true);
+			new MainJFrame();
+		}
+		
 	}
 
 	public void normalizarCamadas() {

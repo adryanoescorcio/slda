@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.JWindow;
 
+@SuppressWarnings("serial")
 public class SplashJProgressBar extends JWindow {
 	
 	private JLabel jLabelSplashImage;
@@ -73,7 +74,7 @@ public class SplashJProgressBar extends JWindow {
 
 		// Centraliza a criação da Janela no monitor
 		this.setLocationRelativeTo(null);
-		this.setAlwaysOnTop(true);
+		
 	}
 	
 	public void stop() {

@@ -68,7 +68,6 @@ public abstract class DAO {
 		try {
 			System.out.println("Removendo: "+entidade.getCodigoKEY());
 			em.remove(entidade);
-
 			return true;
 		} catch (Exception e) {
 			System.out.println("Erro: Remover.");

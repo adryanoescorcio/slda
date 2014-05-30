@@ -437,7 +437,7 @@ public class EventosAluno extends EventosPadrao{
 			Aluno aln = daoAluno.buscar(pk); // realiza a busca no banco de dados
 			processoMostarAluno(aln);
 		} catch(NullPointerException exc){
-			throw new erroNullRequisitoException("(ER03) Nenhum Aluno \"" +codigoLocalizar+ "\" foi encontrada.", "ERRO ER03");
+			throw new erroNullRequisitoException("(ER03) Nenhum Aluno \"" +codigoLocalizar+ "\" foi encontrado.", "ERRO ER03");
 		}		
 	}
 

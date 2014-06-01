@@ -25,7 +25,7 @@ import Eventos.EventosAta;
 public class PainelMainAta extends EventosAta {
 
 	private static final int DIST = 5;
-	private static final int QUANT_LINHAS_GRID = 6;
+	private static final int QUANT_LINHAS_GRID = 4;
 
 	private JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
 	private JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
@@ -57,20 +57,16 @@ public class PainelMainAta extends EventosAta {
 		JPanel contentFormulario = new JPanel(new BorderLayout(2,2));
 
 		//painelEsquerdo são as label dos campos das atas
-		painelEsquerdoLabel.add(editPanel.painelNull(0, 0));
 		painelEsquerdoLabel.add(lbTurma);
 		painelEsquerdoLabel.add(lbTurno);
 		painelEsquerdoLabel.add(lbAno);
 		painelEsquerdoLabel.add(lbModalidade);
-		painelEsquerdoLabel.add(lbEnsino);
 
 		// painelDireito são os campos das ata
-		painelDireitoField.add(editPanel.painelNull(0, 0));
 		painelDireitoField.add(editPanel.painelContentComponent("West", tfTurma));
 		painelDireitoField.add(editPanel.painelContentComponent("West", comboTurno));
 		painelDireitoField.add(editPanel.painelContentComponent("West", ftAno));
-		painelDireitoField.add(editPanel.painelContentComponent("West", comboModalidade));
-		painelDireitoField.add(editPanel.painelContentComponent("West", comboEnsino));
+		painelDireitoField.add(editPanel.painelContentComponent("West", painelLadoLado(comboModalidade, lbEnsino, comboEnsino)));
 		
 		// Content Formulario contém os campos de dados das Atas
 		contentFormulario.setBorder(BorderFactory.createTitledBorder(
@@ -97,8 +93,30 @@ public class PainelMainAta extends EventosAta {
 		getTelaPrincipal();
 	}
 
-	private Component painelLabelConsultar() {
-		JPanel painel = new JPanel(new BorderLayout(2,2));
+	/**
+	 * Painel para organizar horizontalmente o Telefone e o Endereço
+	 **/
+	private JPanel painelLadoLado(Component comp1, JLabel lb2, Component comp2) {
+
+		JPanel painelEndTelefone = new JPanel(new BorderLayout(2,2));
+		JPanel painelTelefone = new JPanel(new BorderLayout(2,2));
+		JPanel painelSeparador2 = new JPanel(new BorderLayout(2,2));
+
+		// Telefone
+		painelTelefone.add("West", lb2);
+		painelTelefone.add("Center", editPanel.painelContentComponent("West", comp2));
+		// SEPARADOR
+		painelSeparador2.add("West", editPanel.painelNull(50, 0));
+		painelSeparador2.add("Center", painelTelefone);
+		// Endereço
+		painelEndTelefone.add("West", editPanel.painelContentComponent("West", comp1));
+		painelEndTelefone.add("Center", painelSeparador2);
+
+		return painelEndTelefone;
+	}
+	
+	private JPanel painelLabelConsultar() {
+		JPanel painel = new JPanel(new BorderLayout(1,1));
 		painel.add("North", lbDadosAta);
 		painel.add("Center", contentPainelLocalizar());
 		painel.add("East", editPanel.painelNull(200, 0));
@@ -135,13 +153,13 @@ public class PainelMainAta extends EventosAta {
 	
 	private JPanel painelDiscente() {
 		
-		JPanel painelDiscenteLabel = new JPanel(new GridLayout(1,2,5,5));
-		JPanel painelDiscenteText = new JPanel(new GridLayout(1,2,5,5));
+		JPanel painelDiscenteLabel = new JPanel(new GridLayout(1,2,1,1));
+		JPanel painelDiscenteText = new JPanel(new GridLayout(1,2,1,1));
 		JPanel painelContentMain = new JPanel(new BorderLayout(2,2));
 		JPanel contentMain = new JPanel(new BorderLayout(2,2));
 		JPanel contentDiscenteBotoes = new JPanel(new BorderLayout(2,2));
 		JPanel contentDiscente = new JPanel(new BorderLayout(2,2));
-		JPanel painelDiscenteBotoes = new JPanel(new GridLayout(1,2,10,5));
+		JPanel painelDiscenteBotoes = new JPanel(new GridLayout(1,2,10,1));
 
 		painelDiscenteLabel.add(lbDiscente);
 		painelDiscenteText.add(editPanel.painelContentComponent("West", tfDiscente));
@@ -160,8 +178,8 @@ public class PainelMainAta extends EventosAta {
 		contentMain.add("West", contentDiscente);
 		contentMain.add("Center", contentDiscenteBotoes);
 		
-		painelContentMain.add("North", editPanel.painelNull(0, 10));
-		painelContentMain.add("South", editPanel.painelNull(0, 10));
+		painelContentMain.add("North", editPanel.painelNull(0, 5));
+		painelContentMain.add("South", editPanel.painelNull(0, 5));
 		painelContentMain.add("West", editPanel.painelContentComponent("West",contentMain));
 		
 		painelContentMain.setBorder(BorderFactory.createTitledBorder(
@@ -195,13 +213,12 @@ public class PainelMainAta extends EventosAta {
 		mainJPanel.add("Center",painelLocalizarArquivo);
 		mainJPanel.add("West",editPanel.painelNull(20, 0));
 		mainJPanel.add("East",editPanel.painelNull(20, 0));
-		mainJPanel.add("North",editPanel.painelNull(0, 15));
+		mainJPanel.add("North",editPanel.painelNull(0, 10));
 
 		return painelScrollMain;
 	}
 
 	private JPanel painelInternoSul() {
-		painelInternoSul.add("North",editPanel.painelNull(0, 5));
 		painelInternoSul.add("West",editPanel.painelNull(200, 0));
 		painelInternoSul.add("South",painelTable());
 
@@ -218,7 +235,7 @@ public class PainelMainAta extends EventosAta {
 		scroll.setViewportView(table.getTabela()); // insere a tabela no painel Scroll
 		scroll.setWheelScrollingEnabled(true);
 
-		painelTabela.add("North", editPanel.painelNull(0, 10));
+		painelTabela.add("North", editPanel.painelNull(0, 5));
 		painelTabela.add("Center", scroll);
 
 		return painelTabela;
@@ -226,7 +243,7 @@ public class PainelMainAta extends EventosAta {
 
 	private JPanel painelBotoes() {
 		JPanel painelBotoes = new JPanel(new BorderLayout(2,2));
-		JPanel painelContentBotoes = new JPanel(new GridLayout(1,6,5,5));
+		JPanel painelContentBotoes = new JPanel(new GridLayout(1,6,5,1));
 
 		painelContentBotoes.add(btnSalvar);
 		painelContentBotoes.add(btnAlterar);
@@ -234,9 +251,9 @@ public class PainelMainAta extends EventosAta {
 		painelContentBotoes.add(btnLimpar);
 
 		painelBotoes.add("Center", painelContentBotoes);
-		painelBotoes.add("North", editPanel.painelNull(0, 10));
+		painelBotoes.add("North", editPanel.painelNull(0, 5));
 		painelBotoes.add("West", editPanel.painelNull(250, 0));
-		painelBotoes.add("South", editPanel.painelNull(0, 10));
+		painelBotoes.add("South", editPanel.painelNull(0, 5));
 
 		return painelBotoes;
 	}

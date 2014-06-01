@@ -14,7 +14,7 @@ public class SplashJProgressBar extends JWindow {
 	private JLabel jLabelSplashImage;
 	private static JProgressBar jProgressBarSistema;
 	private Thread init;
-	private ImageIcon imageIcon;
+	private ImageIcon imageInitSoftware;
 
 	public void run() {
 		try {
@@ -45,8 +45,8 @@ public class SplashJProgressBar extends JWindow {
 		
 		this.setLayout(new BorderLayout(2,2));
 		
-		imageIcon = new ImageIcon("src/Icones/csar.png");
-		jLabelSplashImage.setIcon(imageIcon);
+		imageInitSoftware = new ImageIcon("src/Icones/csar.png");
+		jLabelSplashImage.setIcon(imageInitSoftware);
 
 		this.add("North",jLabelSplashImage);
 		
@@ -55,7 +55,7 @@ public class SplashJProgressBar extends JWindow {
 		 */
 		jProgressBarSistema.setForeground(new Color(0,0,204));
 		jProgressBarSistema.setPreferredSize(new java.awt.Dimension(148, 10));
-		jProgressBarSistema.setBounds(0, 266, imageIcon.getIconWidth(), 5);
+		jProgressBarSistema.setBounds(0, 266, imageInitSoftware.getIconWidth(), 5);
 		jProgressBarSistema.setBorderPainted(false);
 		jProgressBarSistema.setIndeterminate(true);
 		
@@ -70,7 +70,7 @@ public class SplashJProgressBar extends JWindow {
 
 	private void configuracaoMainJFrame() {
 		this.setVisible(true);
-		this.setSize(imageIcon.getIconWidth(), imageIcon.getIconHeight());
+		this.setSize(imageInitSoftware.getIconWidth(), imageInitSoftware.getIconHeight());
 
 		// Centraliza a criação da Janela no monitor
 		this.setLocationRelativeTo(null);

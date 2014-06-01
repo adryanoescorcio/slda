@@ -32,7 +32,7 @@ public class PainelMainCaixa extends EventosCaixa {
 	private FontGroup font = new FontGroup();
 
 	protected static final String BORDER_INFO_CAIXA = "DADOS DA CAIXA";
-	protected static final int QUANT_LINHAS_GRID = 5;
+	protected static final int QUANT_LINHAS_GRID = 4;
 
 	protected JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
 	protected JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
@@ -62,13 +62,10 @@ public class PainelMainCaixa extends EventosCaixa {
 		// painel principal
 		JPanel contentFormulario = new JPanel(new BorderLayout(2,2));
 
-		painelEsquerdo.add(editPanel.painelNull(0, 0));
 		painelEsquerdo.add(lbCodigo);
 		painelEsquerdo.add(lbLetra);
 		painelEsquerdo.add(lbTurno);
 		painelEsquerdo.add(lbStatus);
-
-		painelDireito.add(editPanel.painelNull(0, 0));
 
 		painelDireito.add(editPanel.painelContentComponent("West",tfCodigo));
 

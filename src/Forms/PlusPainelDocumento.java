@@ -86,7 +86,6 @@ public class PlusPainelDocumento extends PlusEventoDocumento {
 		contentFormulario.add("East", editPanel.painelNull(200, 0));
 
 		// Junta o campos de consulta com o formulario de dados mais os botões
-//		painelContentEIA.add("North", painelLabelConsultar());
 		painelContentEIA.add("East", editPanel.painelNull(200, 0));
 		painelContentEIA.add("Center", contentFormulario);
 		// inserindo os botões.

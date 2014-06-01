@@ -195,7 +195,7 @@ public class EventosCaixa extends EventosPadrao {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			String codigoLocalizar = tfLocalizar.getText().trim(); // pega o codigo digitado pelo cliente.
+			String codigoLocalizar = tfLocalizar.getText().trim().toUpperCase(); // pega o codigo digitado pelo cliente.
 
 			CaixaPK pk = new CaixaPK(); // chave primaria da caixa.
 			pk.setCodigo(codigoLocalizar); // seta a chave
@@ -204,6 +204,7 @@ public class EventosCaixa extends EventosPadrao {
 				caixaPesquisa = daoCaixa.buscar(pk); // realiza a busca no banco de dados
 				setValoresDosCampos(caixaPesquisa); // atribui os valores recuperados para os campos.
 				habilitarBotoes(true);
+				desabilitarCamposPesquisa();
 
 			}catch(NullPointerException exc){
 				JOptionPane.showMessageDialog(null,"(ER03) Nenhuma Caixa \"" +codigoLocalizar+ "\" foi encontrada.");
@@ -223,7 +224,12 @@ public class EventosCaixa extends EventosPadrao {
 				daoCaixa.remover(caixaPesquisa);
 				daoArquivo.excluirPorCaixa(caixaPesquisa);
 				JOptionPane.showMessageDialog(null, "Caixa excluído com sucesso.");
-				modelo.removeContato(caixaPesquisa);
+				lista.remove(caixaPesquisa);
+				Collections.sort(lista, comparador);
+				
+				modelo = new CaixaTableModel(lista);
+				tabela.setModel(modelo);
+				
 				limparCampos();
 
 				//LIMPA A CAIXA
@@ -283,6 +289,7 @@ public class EventosCaixa extends EventosPadrao {
 
 				if (aluno == null) {
 					habilitarBotoes(true);
+					desabilitarCamposPesquisa();
 				} else {
 					desabilitarTudoFormulario();
 				}
@@ -311,6 +318,11 @@ public class EventosCaixa extends EventosPadrao {
 
 		setMudarPerfil(false);
 		habilitarBotoes(false);
+	}
+
+	protected void desabilitarCamposPesquisa() {
+		comboTurno.setEnabled(false);
+		comboLetra.setEnabled(false);
 	}
 
 	protected void mostarDadoSalvo(Caixa caixa) {

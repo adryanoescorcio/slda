@@ -26,7 +26,7 @@ import Eventos.EventosAluno;
  **/
 public class PainelMainAluno extends EventosAluno {
 
-	protected static final int DIST = 5;
+	protected static final int DIST = 3;
 
 	protected static final String BORDER_INFO_ALUNO = "DOSSIÊ DO DISCENTE";
 	protected static final int QUANT_LINHAS_GRID = 13;
@@ -253,7 +253,7 @@ public class PainelMainAluno extends EventosAluno {
 
 		painel.add("North", lbImagem);
 		painel.add("Center",painelGrid);
-		painel.add("South",editPanel.painelNull(0, 100));
+		painel.add("South",editPanel.painelNull(0, 50)); // comprimir o lado direto da referencia das caixas
 
 		painelContent.add("North", editPanel.painelNull(0, 4));
 		painelContent.add("Center", painel);
@@ -275,8 +275,8 @@ public class PainelMainAluno extends EventosAluno {
 		mainJPanel.add("Center",painelLocalizarArquivo);
 		mainJPanel.add("West",editPanel.painelNull(20, 0));
 		mainJPanel.add("East",editPanel.painelNull(20, 0));
-		mainJPanel.add("North",editPanel.painelNull(0, 10));
-		mainJPanel.add("South",editPanel.painelNull(0, 50));
+		mainJPanel.add("North",editPanel.painelNull(0, 2));
+		mainJPanel.add("South",editPanel.painelNull(0, 2));
 
 		// Vai para Janela Principal
 		return painelScrollMain;

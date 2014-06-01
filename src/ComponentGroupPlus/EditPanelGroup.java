@@ -67,8 +67,8 @@ public class EditPanelGroup {
 		painelBtnSearch.add("West", painelLocalizar);
 		painelBtnSearch.add("Center", painelContentComponent("West", search));
 
-		painelContentLocalizar.add("North", painelNull(0, 10));
-		painelContentLocalizar.add("South", painelNull(0, 10));
+		painelContentLocalizar.add("North", painelNull(0, 1));
+		painelContentLocalizar.add("South", painelNull(0, 1));
 		painelContentLocalizar.add("Center", painelBtnSearch);
 
 		return painelContentLocalizar;

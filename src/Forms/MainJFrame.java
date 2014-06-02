@@ -174,6 +174,8 @@ public class MainJFrame {
 		if(validar.validar()){
 			splash.setAlwaysOnTop(true);
 			new MainJFrame();
+		}else{
+			splash.stop();
 		}
 		
 	}

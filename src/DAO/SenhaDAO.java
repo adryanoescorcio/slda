@@ -1,6 +1,5 @@
 package DAO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -18,20 +17,20 @@ public class SenhaDAO extends DAO {
 
 	}
 	
-	public List<String> getSenhas(){
+	public List<Senha> getSenhas(){
 		
 		String comando = "Select s From Senha s";
 		TypedQuery<Senha> query = em.createQuery(comando, Senha.class);
 		
 		List<Senha> senhas = query.getResultList();
-		List<String> pass = new ArrayList<>();
+	
+		return senhas;
+	}
+	
+	public void setMacSenhas(Senha senha, String mac){
+		senha.setMac(mac);
+		super.save(senha);
 		
-		for (Senha senha : senhas) {
-			SenhaPK pk = senha.getPass();
-			pass.add(pk.getCodigo());
-		}
-		
-		return pass;
 	}
 	
 	public boolean del(String senha){

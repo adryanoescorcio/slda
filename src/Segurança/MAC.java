@@ -11,10 +11,16 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+import DAO.JPAUtil;
+import DAO.SenhaDAO;
+import Model.Senha;
+
 public class MAC {
 
 	private Path url;
 	private Charset utf8 = StandardCharsets.UTF_8;
+	private JPAUtil conexaoBD = new JPAUtil();
+	protected SenhaDAO dao = new SenhaDAO(conexaoBD);
 	
 	public MAC(Path url) {
 		this.url = url;
@@ -28,7 +34,7 @@ public class MAC {
 		this.url = url;
 	}
 	
-	//--- MÉTODO QUE PEGA O(S) ENDEREÇO(S) MAC DIRETAMENTE DO PROMPT  
+	//--- MÉTODO QUE PEGA O(S) ENDEREÇO(S) MAC DIRETAMENTE DO PROMPT (ARRAYLIST)
 	public ArrayList<String> getMac() throws IOException{
 		
 		ArrayList<String> mac = new ArrayList<>();
@@ -48,6 +54,18 @@ public class MAC {
 		return mac;
 	}
 	
+	//--- MÉTODO QUE PEGA O(S) ENDEREÇO(S) MAC DIRETAMENTE DO PROMPT (STRING)
+	public String getMacString() throws IOException{
+		ArrayList<String> macs = getMac();
+		String mac = "";
+		
+		for (String string : macs) {
+			mac += string + "\n";
+		}
+		
+		return mac;
+	}
+
 	//--- MÉTODO QUE PEGA O(S) ENDEREÇO(S) MAC DO ARQUIVO TXT
 	public ArrayList<String> getMacTxt() throws IOException{
 		ArrayList<String> mac = new ArrayList<>();
@@ -66,7 +84,7 @@ public class MAC {
 	}
 	
 	//--- MÉTODO QUE CRIA UM ARQUIVO TXT E O PREENCHE COM O(S) ENDEREÇO(S) MAC COLETADO DO PROMPT
-	public void setMacTxt() throws IOException{
+	public void setMacTxt(Senha senha) throws IOException{
 		
 		//--- CRIA UM DIRETÓRIO
 		Files.createDirectories(url.getParent());	
@@ -74,11 +92,17 @@ public class MAC {
 		Runtime.getRuntime().exec("attrib +h /s /d " + url.getParent());
 	
 		try(BufferedWriter writer = Files.newBufferedWriter(url, utf8)){
+			
 			ArrayList<String> mac = getMac();
 			
+			dao.setMacSenhas(senha, getMacString());
+		
 			for (String string : mac) {
 				writer.write(string + "\n");
-			}			
+			}	
+		}catch(Exception e){
+			e.printStackTrace();
 		}
+		
 	}
 }

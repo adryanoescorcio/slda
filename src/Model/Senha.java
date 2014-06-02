@@ -9,7 +9,9 @@ import PrimaryKey.SenhaPK;
 public class Senha implements InterfacePadraoEntidade {
 
 	@EmbeddedId
-	private SenhaPK pass;
+	private SenhaPK pass = new SenhaPK();
+	
+	private String mac;
 	
 	public SenhaPK getPass() {
 		return pass;
@@ -22,8 +24,8 @@ public class Senha implements InterfacePadraoEntidade {
 	@Override
 	public String toString() {
 		return "" +
-				"Senha: "+this.pass.getCodigo()+ ", " +
-				"";
+				"Senha: " + this.pass.getCodigo()+ ", " +
+				"Mac: " + this.mac + ".";
 	}
 
 	@Override
@@ -35,5 +37,13 @@ public class Senha implements InterfacePadraoEntidade {
 	public void setCodigoKEY(InterfaceKey chaveEntidade) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public String getMac() {
+		return mac;
+	}
+
+	public void setMac(String mac) {
+		this.mac = mac;
 	}
 }

@@ -2,7 +2,6 @@ package Segurança;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,13 +10,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
-import DAO.JPAUtil;
-import DAO.SenhaDAO;
+import Model.Senha;
+import PrimaryKey.SenhaPK;
 
 public class Validar extends MAC{
 
-	private JPAUtil conexaoBD = new JPAUtil();
-	private SenhaDAO dao = new SenhaDAO(conexaoBD);
 	private JPanel padrao = new JPanel();
 	private JPasswordField campo = new JPasswordField(10);
 	
@@ -51,7 +48,7 @@ public class Validar extends MAC{
 	//--- MÉTODO QUE VERIFICA SE A SENHA É COMPATÍVEL
 	public boolean validarSenha(){
 		
-		List<String> senhas = dao.getSenhas();
+		List<Senha> senhas = dao.getSenhas();
 		
 		padrao.add(new JLabel("Senha: "));
 		padrao.add(campo);
@@ -63,27 +60,28 @@ public class Validar extends MAC{
 		String senha = String.valueOf(campo.getPassword());
 		
 		if(x == 0){
-			for (String string : senhas) {
+			for (Senha pass : senhas) {
 				
-				if(string.equals(senha)){
-					try {
-						setMacTxt();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+				SenhaPK pk = (SenhaPK) pass.getCodigoKEY();	
+				
+				try {
+					/**	--- 1 - TESTA SE A SENHA DIGITADA ESTÁ NO BANCO
+						--- 2 - TESTA SE O MAC É NULL OU SE O MAC É COMPATÍVEL COM O DA MÁQUINA */
+					if(pk.getCodigo().equals(senha) && (pass.getMac().equals("INATIVO") || pass.getMac().equals(getMacString()))){
+						setMacTxt(pass);
+						return true;
 					}
-					//--- EXCLUINDO SENHA USADA
-					dao.del(senha);
-					return true;
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			}
 			JOptionPane.showMessageDialog(null, "Contatos:\n\n(98) 9163-0360\n(98) 8120-0104\n\nescorciomax@gmail.com\n" +
 					"walysson21@gmail.com\n ", "Senha Incorreta", JOptionPane.WARNING_MESSAGE);
 		}
-		
 		return false;
 	}
 	
+	//---METODO QUE VALIDA MAC E SENHA 
 	public boolean validar(){
 		if(!validarMAC()){
 			if(validarSenha()){
@@ -92,12 +90,6 @@ public class Validar extends MAC{
 				return false;
 			}
 		}
-		
 		return true;
-	}
-	
-	public static void main(String[] args) {
-		new Validar(Paths.get("C:/SLDA/mac.txt")).validar();
-	}
-	
+	}	
 }

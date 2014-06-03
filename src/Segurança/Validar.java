@@ -52,10 +52,11 @@ public class Validar extends MAC{
 		
 		padrao.add(new JLabel("Senha: "));
 		padrao.add(campo);
+		
 		String[] options = new String[]{"Autenticar", "Cancelar"};
 		
 		int x = JOptionPane.showOptionDialog(null, padrao, "Permissão do Fabricante", 
-				JOptionPane.NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+				JOptionPane.NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, campo);
 		
 		String senha = String.valueOf(campo.getPassword());
 		
@@ -87,6 +88,7 @@ public class Validar extends MAC{
 			if(validarSenha()){
 				return true;
 			}else{
+				conexaoBD.closeAllConexao();
 				return false;
 			}
 		}

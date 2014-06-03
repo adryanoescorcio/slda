@@ -19,7 +19,7 @@ public class MAC {
 
 	private Path url;
 	private Charset utf8 = StandardCharsets.UTF_8;
-	private JPAUtil conexaoBD = new JPAUtil();
+	protected JPAUtil conexaoBD = new JPAUtil();
 	protected SenhaDAO dao = new SenhaDAO(conexaoBD);
 	
 	public MAC(Path url) {
@@ -50,7 +50,7 @@ public class MAC {
 				i++;
 			}
 		}
- 
+		p.destroy();
 		return mac;
 	}
 	

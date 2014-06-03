@@ -71,7 +71,6 @@ public class SplashJProgressBar extends JWindow {
 	private void configuracaoMainJFrame() {
 		this.setVisible(true);
 		this.setSize(imageInitSoftware.getIconWidth(), imageInitSoftware.getIconHeight());
-
 		// Centraliza a criação da Janela no monitor
 		this.setLocationRelativeTo(null);
 		

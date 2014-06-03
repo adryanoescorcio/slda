@@ -32,6 +32,7 @@
       <class>Model.Caixa</class>
       <class>Model.Arquivo</class>
       <class>Model.Ata</class>
+      <class>Model.Senha</class>
       <class>Model.AtaResultado</class>
       <properties>
         <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />

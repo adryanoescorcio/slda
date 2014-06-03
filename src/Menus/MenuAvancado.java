@@ -36,6 +36,7 @@ public class MenuAvancado {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				@SuppressWarnings("unused")
 				FrameAbout jDialog = new FrameAbout();
 			}
 		});
@@ -45,6 +46,7 @@ public class MenuAvancado {
 		return menuAvancado;
 	}
 	
+	@SuppressWarnings("serial")
 	class FrameAbout extends JDialog {
 		
 		public FrameAbout() {

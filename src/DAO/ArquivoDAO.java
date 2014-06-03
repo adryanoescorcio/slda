@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
 
-import Model.Aluno;
 import Model.Arquivo;
 import Model.Caixa;
 import Model.InterfacePadraoEntidade;

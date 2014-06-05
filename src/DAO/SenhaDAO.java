@@ -31,7 +31,11 @@ public class SenhaDAO extends DAO {
 	
 	public void setMacSenhas(Senha senha, String mac){
 		senha.setMac(mac);
-		super.save(senha);
+		
+		emPW.getTransaction().begin();
+		emPW.persist(senha);
+		emPW.getTransaction().commit();
+		emPW.clear(); // limpa a conexao
 	}
 	
 	@Override

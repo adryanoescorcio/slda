@@ -38,6 +38,7 @@ public class JPAUtil {
 
 	private static final String FILE_PERSISTENCE_XML_AD = "managerAD";
 	private static final String FILE_PERSISTENCE_XML_ADPW = "managerADPW";
+	private static final String FILE_PERSISTENCE_XML_WAPW = "managerWAPW";
 	private static final String FILE_PERSISTENCE_XML_WA = "managerWA";
 
 	//Direciona o arquivo XML para conectar o BD
@@ -57,14 +58,14 @@ public class JPAUtil {
 		File file = new File(DIR_AD);
 		if(file.exists()) {
 			// Diretorio Adryano Existe
-			conexaoManager(FILE_PERSISTENCE_XML_AD, BANCO_AD, DIR_AD);
+			conexaoManager(FILE_PERSISTENCE_XML_AD, FILE_PERSISTENCE_XML_ADPW, BANCO_AD, DIR_AD);
 		} else {
 			// Tentar diretorio de Wallyson
-			conexaoManager(FILE_PERSISTENCE_XML_WA, BANCO_WA, DIR_WA);
+			conexaoManager(FILE_PERSISTENCE_XML_WA, FILE_PERSISTENCE_XML_WAPW, BANCO_WA, DIR_WA);
 		}
 	}
 
-	private void conexaoManager(String filePersistence, String nomeBD, String diretorioComp) {
+	private void conexaoManager(String filePersistence, String filePersistenceSenha, String nomeBD, String diretorioComp) {
 		// Conexao com JPA
 		try{
 			// CONEXÃO BD MAIN
@@ -72,7 +73,7 @@ public class JPAUtil {
 			this.em = factory.createEntityManager();
 			
 			//CONEXAO BD SENHA
-			this.factoryPW = Persistence.createEntityManagerFactory(FILE_PERSISTENCE_XML_ADPW);
+			this.factoryPW = Persistence.createEntityManagerFactory(filePersistenceSenha);
 			this.emPW = factoryPW.createEntityManager();
 			
 		} catch(Exception e) {

@@ -70,7 +70,7 @@ public class MenuAvancado {
 			this.setLocationRelativeTo(null);
 			this.setModal(true);
 			this.setVisible(true);
-			this.setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
+			this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		}
 	}
 

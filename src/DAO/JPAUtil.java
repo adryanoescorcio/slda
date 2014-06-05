@@ -1,7 +1,6 @@
 package DAO;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -56,11 +55,9 @@ public class JPAUtil {
 		File file2 = new File(DIR_WAPW);
 		try {
 			if(!file.exists()) {
-				file.createNewFile();
-				file2.createNewFile();
+				file.mkdir();
+				file2.mkdir();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		} finally {
 			conexaoManager(FILE_PERSISTENCE_XML_WA, FILE_PERSISTENCE_XML_WAPW, BANCO_WA, DIR_WA);
 		}

@@ -79,8 +79,9 @@ public class Validar extends MAC{
 						setMacTxt(pass);
 						return true;
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Contatos:\n\n(98) 9163-0360\n(98) 8120-0104\n\nescorciomax@gmail.com\n" +
+							"walysson21@gmail.com\n ", "Senha Incorreta", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 			JOptionPane.showMessageDialog(null, "Contatos:\n\n(98) 9163-0360\n(98) 8120-0104\n\nescorciomax@gmail.com\n" +

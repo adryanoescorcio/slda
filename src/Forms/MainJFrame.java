@@ -141,6 +141,7 @@ public class MainJFrame {
 
 	private void configuracaoMainJFrame() {
 		
+//		Não Funciona no JAR
 //		mainJFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(
 //				getClass().getResource("Icones/icon.png")));
 		

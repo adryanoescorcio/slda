@@ -1,7 +1,6 @@
 package Menus;
 
 import java.awt.BorderLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,7 +25,7 @@ public class MenuAvancado {
 	IconesGroup icones = new IconesGroup();
 
 	public MenuAvancado() {
-		menuAvancado = new JMenu("Ajuda");	
+		menuAvancado = new JMenu("Sobre");	
 		//ADICIONA UM MNEMÔNICO OU ATALHO(ALT + A) 
 		menuAvancado.setMnemonic('A');
 		JMenuItem itemControle = new JMenuItem("Sobre o Software"); 
@@ -60,8 +59,8 @@ public class MenuAvancado {
 			painel.add("Center", labelImagem);
 			
 			this.add(painel);
-			this.setIconImage(Toolkit.getDefaultToolkit().getImage(
-					getClass().getResource("../Icones/icon.png")));
+//			this.setIconImage(Toolkit.getDefaultToolkit().getImage(
+//					getClass().getResource("Icones/about.png")));
 			this.setTitle("About SLDA");
 
 			this.setSize(icones.getImageAbout().getIconWidth(), icones.getImageAbout().getIconHeight());

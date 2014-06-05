@@ -3,7 +3,6 @@ package Forms;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.io.IOException;
 import java.nio.file.Paths;
 
@@ -142,8 +141,8 @@ public class MainJFrame {
 
 	private void configuracaoMainJFrame() {
 		
-		mainJFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(
-				getClass().getResource("../Icones/icon.png")));
+//		mainJFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(
+//				getClass().getResource("Icones/icon.png")));
 		
 		mainJFrame.setTitle(TITULO_WINDOW);
 		mainJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

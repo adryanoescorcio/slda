@@ -32,7 +32,7 @@ public class PainelMainCaixa extends EventosCaixa {
 	private FontGroup font = new FontGroup();
 
 	protected static final String BORDER_INFO_CAIXA = "DADOS DA CAIXA";
-	protected static final int QUANT_LINHAS_GRID = 4;
+	protected static final int QUANT_LINHAS_GRID = 3;
 
 	protected JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
 	protected JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
@@ -65,15 +65,13 @@ public class PainelMainCaixa extends EventosCaixa {
 		painelEsquerdo.add(lbCodigo);
 		painelEsquerdo.add(lbLetra);
 		painelEsquerdo.add(lbTurno);
-		painelEsquerdo.add(lbStatus);
 
 		painelDireito.add(editPanel.painelContentComponent("West",tfCodigo));
 
 		painelDireito.add(editPanel.painelContentComponent("West", comboLetra));
 
-		painelDireito.add(editPanel.painelContentComponent("West", comboTurno));
+		painelDireito.add(editPanel.painelContentComponent("West", painelLadoLado(comboTurno, lbStatus, comboStatus)));
 
-		painelDireito.add(editPanel.painelContentComponent("West", comboStatus));
 
 		// Content Formulario contém os campos de dados das Atas
 		contentFormulario.setBorder(BorderFactory.createTitledBorder(
@@ -100,6 +98,25 @@ public class PainelMainCaixa extends EventosCaixa {
 		getTelaPrincipal();
 	}
 
+	private JPanel painelLadoLado(Component comp1, JLabel lb2, Component comp2) {
+
+		JPanel painelEndTelefone = new JPanel(new BorderLayout(2,2));
+		JPanel painelTelefone = new JPanel(new BorderLayout(2,2));
+		JPanel painelSeparador2 = new JPanel(new BorderLayout(2,2));
+
+		// Telefone
+		painelTelefone.add("West", lb2);
+		painelTelefone.add("Center", editPanel.painelContentComponent("West", comp2));
+		// SEPARADOR
+		painelSeparador2.add("West", editPanel.painelNull(50, 0));
+		painelSeparador2.add("Center", painelTelefone);
+		// Endereço
+		painelEndTelefone.add("West", editPanel.painelContentComponent("West", comp1));
+		painelEndTelefone.add("Center", painelSeparador2);
+
+		return painelEndTelefone;
+	}
+	
 	private JPanel painelDiscente() {
 
 		JPanel painelDiscenteLabel = new JPanel(new GridLayout(1,2,5,5));

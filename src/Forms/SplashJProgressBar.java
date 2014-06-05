@@ -45,7 +45,7 @@ public class SplashJProgressBar extends JWindow {
 		
 		this.setLayout(new BorderLayout(2,2));
 		
-		imageInitSoftware = new ImageIcon("src/Icones/csar.png");
+		imageInitSoftware = new ImageIcon("Icones/csar.png");
 		jLabelSplashImage.setIcon(imageInitSoftware);
 
 		this.add("North",jLabelSplashImage);

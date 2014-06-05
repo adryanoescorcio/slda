@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
 public class IconesGroup {
 
 	// Diretorio padrão dos icones
-	public static final String DIR_ICONES = "src/Icones/";
+	public static final String DIR_ICONES = "Icones/";
 
 	// icones botoes 20x20
 	private ImageIcon iconePesquisar = new ImageIcon(DIR_ICONES+"search.png");

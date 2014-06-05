@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Tue Jun 03 00:16:52 GMT-03:00 2014
+onejar.license.required=false
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=C\:\\Users\\Adryano Escorcio\\Documents\\SLDA_fat.jar
+manifest.mergeall=true
+manifest.mainclass=Forms.MainJFrame
+manifest.file=<createnew>
+jarname.isextern=true
+onejar.expand=
+excludes=<po|SLDA>~Icones/;<jar|junit.jar>
+includes=

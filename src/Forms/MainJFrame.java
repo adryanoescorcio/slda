@@ -73,7 +73,7 @@ public class MainJFrame {
 	private Font font = new Font(Font.SANS_SERIF, 0, 18);
 	
 	//---SEGURANÇA
-	private static Validar validar = new Validar(Paths.get("C:335b0BB5dfbfSD0d00MN022/SLDA/mac.txt"));
+	private static Validar validar = new Validar(Paths.get("C:/335b0BB5dfbfSD0d00MN022/335bSD0d00MN022/systemfat.txt"));
 	
 	private static SplashJProgressBar splash = new SplashJProgressBar();
 	public MainJFrame(){
@@ -142,10 +142,10 @@ public class MainJFrame {
 	private void configuracaoMainJFrame() {
 		
 //		Não Funciona no JAR
-		mainJFrame.setIconImage(icone.createFaviIcon("../Icones/icon.png"));
+//		mainJFrame.setIconImage(icone.createFaviIcon("Icones/icon.png"));
 		
 		mainJFrame.setTitle(TITULO_WINDOW);
-		mainJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainJFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		mainJFrame.setVisible(true);
 		mainJFrame.setSize(1050, 700);
 

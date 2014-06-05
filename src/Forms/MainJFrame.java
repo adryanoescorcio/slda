@@ -73,7 +73,7 @@ public class MainJFrame {
 	private Font font = new Font(Font.SANS_SERIF, 0, 18);
 	
 	//---SEGURANÇA
-	private static Validar validar = new Validar(Paths.get("C:335b0BB5dfbfSD0d00MN022/335bSD0d00MN022/systemfat.txt"));
+	private static Validar validar = new Validar(Paths.get("/C:/335b0BB5dfbfSD0d00MN022/335bSD0d00MN022/systemfat.txt"));
 	
 	private static SplashJProgressBar splash = new SplashJProgressBar();
 	public MainJFrame(){

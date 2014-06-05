@@ -21,6 +21,7 @@ import PrimaryKey.InterfaceKey;
 public abstract class DAO {
 
 	protected EntityManager em; // Conexão JPA
+	protected EntityManager emPW; // Conexão JPA
 	protected Statement stm; // Conexão JDBC
 	private JPAUtil conexao; // Conexão BD
 
@@ -30,6 +31,7 @@ public abstract class DAO {
 	public DAO(JPAUtil conexaoBD) {
 		this.conexao = conexaoBD;
 		this.em = conexaoBD.getEm();
+		this.emPW = conexaoBD.getEmPW();
 		this.stm = conexaoBD.getStm();
 	}
 

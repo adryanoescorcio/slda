@@ -28,6 +28,7 @@ public class JPAUtil {
 	private static final String CLASS_BD = "org.sqlite.JDBC";
 	private static final String CONEXAO_BD = "jdbc:sqlite:";
 	private static final String BANCO_AD = "sldav2.db";
+//	private static final String BANCO_ADPW = "scpw42.db";
 	private static final String BANCO_WA = "sldav1.db";
 
 	private static final String DIR_AD = "D:/Dropbox/SLDA-WORK/Banco de dados/"; // Diretorio do Computador ADRYANO
@@ -36,11 +37,14 @@ public class JPAUtil {
 	private static final String DIR_WA = "C:/users/Walysson Oliveira/Dropbox/SLDA-WORK/Banco de dados/"; // Diretorio do Computador
 
 	private static final String FILE_PERSISTENCE_XML_AD = "managerAD";
+	private static final String FILE_PERSISTENCE_XML_ADPW = "managerADPW";
 	private static final String FILE_PERSISTENCE_XML_WA = "managerWA";
 
 	//Direciona o arquivo XML para conectar o BD
 	private EntityManagerFactory factory;
+	private EntityManagerFactory factoryPW;
 	protected EntityManager em;
+	protected EntityManager emPW;
 	private Connection conn;
 	private Statement stm;
 
@@ -63,8 +67,14 @@ public class JPAUtil {
 	private void conexaoManager(String filePersistence, String nomeBD, String diretorioComp) {
 		// Conexao com JPA
 		try{
+			// CONEXÃO BD MAIN
 			this.factory = Persistence.createEntityManagerFactory(filePersistence);
 			this.em = factory.createEntityManager();
+			
+			//CONEXAO BD SENHA
+			this.factoryPW = Persistence.createEntityManagerFactory(FILE_PERSISTENCE_XML_ADPW);
+			this.emPW = factoryPW.createEntityManager();
+			
 		} catch(Exception e) {
 			System.out.println("Erro: conexao JPA" +e.getMessage());
 		}
@@ -84,6 +94,14 @@ public class JPAUtil {
 	 **/
 	public void closeAllConexao() {
 		factory.close();
+	}
+	
+	public EntityManager getEmPW() {
+		return emPW;
+	}
+
+	public void setEmPW(EntityManager emPW) {
+		this.emPW = emPW;
 	}
 
 	public EntityManagerFactory getFactory() {

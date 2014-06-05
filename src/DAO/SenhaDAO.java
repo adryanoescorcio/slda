@@ -14,13 +14,12 @@ public class SenhaDAO extends DAO {
 
 	public SenhaDAO(JPAUtil conexaoBD) {
 		super(conexaoBD);
-
 	}
 	
 	public List<Senha> getSenhas(){
 		
 		String comando = "Select s From Senha s";
-		TypedQuery<Senha> query = em.createQuery(comando, Senha.class);
+		TypedQuery<Senha> query = emPW.createQuery(comando, Senha.class);
 		
 		List<Senha> senhas = query.getResultList();
 	
@@ -39,11 +38,11 @@ public class SenhaDAO extends DAO {
 		pk.setCodigo(senha);
 		
 		try{
-			em.getTransaction().begin();
+			emPW.getTransaction().begin();
 			Query query = em.createQuery("DELETE FROM Senha s where s.pass = :senha");
 			query.setParameter("senha", pk);
 			query.executeUpdate();
-			em.getTransaction().commit();
+			emPW.getTransaction().commit();
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;

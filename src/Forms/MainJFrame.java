@@ -175,9 +175,9 @@ public class MainJFrame {
 			splash.setAlwaysOnTop(true);
 			new MainJFrame();
 		}else{
-			splash.stop();
+			splash.stop();	
+			System.exit(0);
 		}
-		
 	}
 
 	public void normalizarCamadas() {

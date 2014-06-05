@@ -91,7 +91,7 @@ public abstract class EventosPadrao {
 		configInit();
 		alterarFont();
 	}
-
+	
 	public Aluno getAluno() {
 		return aluno;
 	}

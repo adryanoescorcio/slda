@@ -50,6 +50,13 @@ public class Validar extends MAC{
 		
 		List<Senha> senhas = dao.getSenhas();
 		
+		if(senhas == null){
+			
+			JOptionPane.showMessageDialog(null, "Contatos:\n\n(98) 9163-0360\n(98) 8120-0104\n\nescorciomax@gmail.com\n" +
+					"walysson21@gmail.com\n ", "Sem Permissão de Acesso", JOptionPane.WARNING_MESSAGE);
+			
+			return false;
+		}
 		padrao.add(new JLabel("Senha: "));
 		padrao.add(campo);
 		

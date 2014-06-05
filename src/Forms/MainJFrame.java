@@ -142,7 +142,7 @@ public class MainJFrame {
 	private void configuracaoMainJFrame() {
 		
 //		Não Funciona no JAR
-		mainJFrame.setIconImage(icone.createFaviIcon("../Icones/icon.png"));
+		mainJFrame.setIconImage(icone.createFaviIcon("Icones/icon.png"));
 		
 		mainJFrame.setTitle(TITULO_WINDOW);
 		mainJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

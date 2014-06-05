@@ -1,12 +1,16 @@
 package ComponentGroupPlus;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.File;
+import java.net.URL;
+
 import javax.swing.ImageIcon;
 
 public class IconesGroup {
 
 	// Diretorio padrão dos icones
-//	public static final String DIR_ICONES = "Icones/"; JAR
-	public static final String DIR_ICONES = "src/Icones/";
+		public static final String DIR_ICONES = "src/Icones/";
 
 	// icones botoes 20x20
 	private ImageIcon iconePesquisar = new ImageIcon(DIR_ICONES+"search.png");
@@ -131,5 +135,46 @@ public class IconesGroup {
 	public void setImageAbout(ImageIcon imageAbout) {
 		this.imageAbout = imageAbout;
 	}
+	
+	/**
+	 * Carrega uma imagem existente no mesmo pacote da classe ImageLoader
+	 * @param fileName
+	 * @return
+	 */
+	public static ImageIcon createImageIcon(String fileName){
+		try{
+			URL imageURL = IconesGroup.class.getResource(fileName);
+			ImageIcon icon = new ImageIcon(imageURL);
+			return icon;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	/**
+	 * Carrega uma imagem que exista no diretório fornecido.
+	 * @param dir - caminho completo do diretório
+	 * @param fileName - nome do arquivo
+	 * @return
+	 */
+	public static ImageIcon createImageIcon(String dir, String fileName){
+		try{
+			if(!dir.endsWith(File.separator)){
+				dir = dir + File.separator;
+			}
 
+			ImageIcon icon = new ImageIcon(dir+fileName);
+			return icon;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public Image createFaviIcon (String fileName){
+		// coloca uma figura na barra de título da janela
+		URL url = IconesGroup.class.getResource(fileName);
+		Image faviIcon = Toolkit.getDefaultToolkit().getImage(url);
+		return faviIcon;
+	}
 }

@@ -73,7 +73,7 @@ public class MainJFrame {
 	private Font font = new Font(Font.SANS_SERIF, 0, 18);
 	
 	//---SEGURANÇA
-	private static Validar validar = new Validar(Paths.get("C:/335b0BB5dfbfSD0d00MN022/335bSD0d00MN022/systemfat.txt"));
+	private static Validar validar = new Validar(Paths.get("C:/335b0BB5dfbfSD0d009382MN022/systemfat86x.txt"));
 	
 	private static SplashJProgressBar splash = new SplashJProgressBar();
 	public MainJFrame(){
@@ -145,7 +145,7 @@ public class MainJFrame {
 //		mainJFrame.setIconImage(icone.createFaviIcon("Icones/icon.png"));
 		
 		mainJFrame.setTitle(TITULO_WINDOW);
-		mainJFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		mainJFrame.setDefaultCloseOperation(fecharAll());
 		mainJFrame.setVisible(true);
 		mainJFrame.setSize(1050, 700);
 
@@ -155,6 +155,15 @@ public class MainJFrame {
 		mainJFrame.setLocationRelativeTo(null);
 		// Adicionando o JPanel Principal com todos os outros elementos.
 		mainJFrame.add(mainJPanel);
+	}
+
+	private int fecharAll() {
+		
+		cadastrarAluno.conexaoBD.closeAllConexao();
+		cadastrarAta.conexaoBD.closeAllConexao();
+		cadastrarCaixa.conexaoBD.closeAllConexao();
+		
+		return JFrame.EXIT_ON_CLOSE;
 	}
 
 	/**

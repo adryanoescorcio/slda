@@ -37,7 +37,7 @@ import TablesModel.DocumentoTableModel;
  * @extends EventoPadrão
  **/
 
-public class EventosAluno extends EventosPadrao{
+public class EventosAluno extends EventosPadrao {
 
 	//Listas
 	protected List<Aluno> listaAluno = new ArrayList<Aluno>();

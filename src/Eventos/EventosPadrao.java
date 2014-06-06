@@ -37,7 +37,7 @@ import Model.Documento;
 public abstract class EventosPadrao {
 
 	//CONEXÃO - DAOS
-	protected JPAUtil conexaoBD = new JPAUtil();
+	public JPAUtil conexaoBD = new JPAUtil();
 	protected AlunoDAO daoAluno = new AlunoDAO(conexaoBD);	
 	protected DocumentoDAO daoDoc = new DocumentoDAO(conexaoBD);
 	protected AtaDAO daoAta = new AtaDAO(conexaoBD);

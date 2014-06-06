@@ -16,7 +16,7 @@
       
       <properties>
         <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:sysdrive/in.db" />
+        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:sysdrive/innobd.db" />
         <property name="eclipselink.ddl-generation" value="create-tables" />
       </properties>
     

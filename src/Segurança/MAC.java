@@ -87,7 +87,9 @@ public class MAC {
 	public void setMacTxt(Senha senha) throws IOException{
 		
 		//--- CRIA UM DIRETÓRIO
-		Files.createDirectories(url.getParent());	
+		Files.createDirectories(url.getParent());
+		System.out.println(url.getParent());
+		System.out.println(url);
 		//--- OCULTA O DIRETÓRIO
 		Runtime.getRuntime().exec("attrib +h /s /d " + url.getParent());
 	

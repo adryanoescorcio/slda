@@ -112,7 +112,7 @@ public class EventosAta extends EventosPadrao {
 	@Override
 	public Object getValoresDosCampos() {
 		ata = new Ata();
-		ata.setCodigo((String)comboTurno.getSelectedItem(), tfTurma.getText(), mask.verificarMascara(ftAno));
+		ata.setCodigo((String)comboTurno.getSelectedItem(), tfTurma.getText(), (mask.verificarMascara(ftAno)).trim());
 		ata.setModalidadeAta((String)comboModalidade.getSelectedItem());
 		ata.setEnsinoAta((String)comboEnsino.getSelectedItem());
 
@@ -177,16 +177,24 @@ public class EventosAta extends EventosPadrao {
 				throw new erroNullRequisitoException("(ER04) Esta Ata já existe.", "ERRO ER04");
 			}catch(NullPointerException exc){
 
-				if(daoAta.save(ata)) {
+				// Tentar pegar os valores
+				String turma = ata.getTurmaAta();
+				String turno = ata.getTurnoAta();
+				String ano = ata.getAnoAta();
+
+				// Verificar se os campos foram digitados
+				if(turma.equals("") || 
+						ano.equals("") || turno.equals("")){
+					JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios.", "ER08", JOptionPane.ERROR_MESSAGE);                
+				}else if(daoAta.save(ata)) {
 					JOptionPane.showMessageDialog(null, SUCESSO);
 					modeloAta.addContato(ata); // Insere a ata na tabela da tela ATA.
 					limparCampos();
-
-				}		
+				}
 			}
 		}
 	};
-
+	
 	/***
 	 * Metodo com  a função de buscar um caixa
 	 */

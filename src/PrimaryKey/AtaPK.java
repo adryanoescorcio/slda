@@ -12,9 +12,9 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class AtaPK implements InterfaceKey {
 
-	private String turmaAta = null;
-	private String turnoAta = null;
-	private String anoAta = null;
+	private String turmaAta;
+	private String turnoAta;
+	private String anoAta;
 
 	public void setCodigo(String turmaAta, String turnoAta, String anoAta) {
 		this.turmaAta = turmaAta;

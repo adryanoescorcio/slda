@@ -25,8 +25,8 @@ public class Ata implements InterfacePadraoEntidade, InterfacePadraoAta {
 	@EmbeddedId
 	private AtaPK ata = new AtaPK();
 
-	private String modalidadeAta = null;
-	private String ensinoAta = null;
+	private String modalidadeAta;
+	private String ensinoAta;
 
 	public AtaPK getAtapk() {
 		return ata;

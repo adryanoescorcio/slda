@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -79,6 +80,13 @@ public class MainJFrame {
 	private static SplashJProgressBar splash = new SplashJProgressBar();
 	public MainJFrame(){
 		try {
+			
+			if(!icone.dirExist()){
+				JOptionPane.showMessageDialog(null
+						, "Programa está corrompido. Verifique se está usando a versão correta.", "ERRO", JOptionPane.WARNING_MESSAGE);
+				encerrar();
+			}
+			
 			menusWindows();
 			alterandoFontes();
 			addComponentesMainJPanel();
@@ -264,3 +272,4 @@ public class MainJFrame {
 		cadastrarAta.limparCampos();
 	}
 }
+

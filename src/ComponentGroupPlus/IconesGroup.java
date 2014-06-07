@@ -33,6 +33,11 @@ public class IconesGroup {
 	private ImageIcon iconeAta32x = new ImageIcon(DIR_ICONES+"ata.png");
 	private ImageIcon iconeArquivo = new ImageIcon(DIR_ICONES+"arquivo.png");
 
+	public boolean dirExist() {
+		File file = new File(DIR_ICONES);
+		return file.exists();
+	}
+	
 	public ImageIcon getIconeInserir() {
 		return iconeInserir;
 	}

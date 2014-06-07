@@ -46,7 +46,6 @@ public class MainJFrame {
 	 * CRIADO UM PAINEL EM CAMADAS(JTABBEDPANE) PRINCIPAL - TOP
 	 * EM QUE CADA CAMADA TEM OUTROS PAINEIS EM CAMADAS(JTABBEDPANE) LATERAIS
 	 **/
-
 	private JTabbedPane camadaExterna = new JTabbedPane(TOP);
 
 	// ICONES

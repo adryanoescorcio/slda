@@ -16,7 +16,7 @@
       
       <properties>
         <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:sysdrive/innobd.db" />
+        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:C:/users/Walysson Oliveira/Dropbox/SLDA-WORK/Banco de dados/sldav1.db" />
         <property name="eclipselink.ddl-generation" value="create-tables" />
       </properties>
     
@@ -29,11 +29,38 @@
       
       <properties>
         <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:systout/scpw42.db" />
+        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:C:/users/Walysson Oliveira/Dropbox/SLDA-WORK/Banco de dados/scpw69.db" />
         <property name="eclipselink.ddl-generation" value="create-tables" />
       </properties>
     
     </persistence-unit>
 <!-- FIM -->
 
+<!--  Conexao 2 - ADRYANO    -->
+    <persistence-unit name="managerAD" transaction-type="RESOURCE_LOCAL">
+      <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+      <class>Model.Aluno</class>
+      <class>Model.Documento</class>
+      <class>Model.Caixa</class>
+      <class>Model.Arquivo</class>
+      <class>Model.Ata</class>
+      <class>Model.AtaResultado</class>
+      <properties>
+        <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
+        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:D:/Dropbox/SLDA-WORK/Banco de dados/sldav2.db" />
+        <property name="eclipselink.ddl-generation" value="create-tables" />
+      </properties>
+    </persistence-unit>
+    
+    <!--  Conexao 2.1 - ADRYANO    -->
+    <persistence-unit name="managerADPW" transaction-type="RESOURCE_LOCAL">
+      <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+      <class>Model.Senha</class>
+      <properties>
+        <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
+        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:D:/Dropbox/SLDA-WORK/Banco de dados/scpw42.db" />
+        <property name="eclipselink.ddl-generation" value="create-tables" />
+      </properties>
+    </persistence-unit>
+    
  </persistence>

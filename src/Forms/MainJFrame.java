@@ -3,6 +3,8 @@ package Forms;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.nio.file.Paths;
 
@@ -44,7 +46,6 @@ public class MainJFrame {
 	 * CRIADO UM PAINEL EM CAMADAS(JTABBEDPANE) PRINCIPAL - TOP
 	 * EM QUE CADA CAMADA TEM OUTROS PAINEIS EM CAMADAS(JTABBEDPANE) LATERAIS
 	 **/
-
 	private JTabbedPane camadaExterna = new JTabbedPane(TOP);
 
 	// ICONES
@@ -145,7 +146,8 @@ public class MainJFrame {
 //		mainJFrame.setIconImage(icone.createFaviIcon("Icones/icon.png"));
 		
 		mainJFrame.setTitle(TITULO_WINDOW);
-		mainJFrame.setDefaultCloseOperation(fecharAll());
+		mainJFrame.addWindowListener(onListenerCloseOperation);
+		
 		mainJFrame.setVisible(true);
 		mainJFrame.setSize(1050, 700);
 
@@ -157,14 +159,51 @@ public class MainJFrame {
 		mainJFrame.add(mainJPanel);
 	}
 
-	private int fecharAll() {
+	public WindowListener onListenerCloseOperation =  new WindowListener() {
 		
-		cadastrarAluno.conexaoBD.closeAllConexao();
-		cadastrarAta.conexaoBD.closeAllConexao();
-		cadastrarCaixa.conexaoBD.closeAllConexao();
+		@Override
+		public void windowOpened(WindowEvent arg0) {
+			// TODO Auto-generated method stub
+		}
 		
-		return JFrame.EXIT_ON_CLOSE;
-	}
+		@Override
+		public void windowIconified(WindowEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void windowDeiconified(WindowEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void windowDeactivated(WindowEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void windowClosing(WindowEvent arg0) {
+			cadastrarAluno.conexaoBD.closeAllConexao();
+			cadastrarAta.conexaoBD.closeAllConexao();
+			cadastrarCaixa.conexaoBD.closeAllConexao();
+			System.exit(0);
+		}
+		
+		@Override
+		public void windowClosed(WindowEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void windowActivated(WindowEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+	};
 
 	/**
 	 * Classe responsavel pela criação dos itens do Menu da Janela

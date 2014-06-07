@@ -32,27 +32,21 @@ public class Validar extends MAC{
 		String mac = null;
 		boolean boo = true;
 		
-		try{
+		try {
 			macs1 = getMac();
 			macs2 = getMacTxt();
 			mac = macsBD.get(0).getMac();
-		}catch(IOException e){
+		} catch(IOException e){
 			e.printStackTrace();
 		}
 		
-		if(mac != null) {
-			for (String string2 : macs2) {
-				if(mac.equals(string2)){
-					boo = false;
-				}
-			}
-		}
 		
-		
-		if(mac != null) {
+		if(mac != null && mac.length() >= 20) {
+			String[] str = mac.split(mac.substring(17, 18));
 			for (String string2 : macs1) {
-				if(mac.equals(string2)){
+				if(str[0].equals(string2)){
 					boo = false;
+					System.out.println(boo);
 				}
 			}
 		}
@@ -65,7 +59,6 @@ public class Validar extends MAC{
 					}
 				}
 			}
-			
 		}
 		
 		return false;	

@@ -28,20 +28,46 @@ public class Validar extends MAC{
 		
 		ArrayList<String> macs1 = new ArrayList<>();
 		ArrayList<String> macs2 = new ArrayList<>();
+		List<Senha> macsBD = dao.getSenhas();
+		String mac = null;
+		boolean boo = true;
 		
 		try{
 			macs1 = getMac();
 			macs2 = getMacTxt();
+			mac = macsBD.get(0).getMac();
 		}catch(IOException e){
 			e.printStackTrace();
 		}
 		
-		for (String string1 : macs1) {
+		if(mac != null) {
 			for (String string2 : macs2) {
-				if(string1.equals(string2))
-					return true;
+				if(mac.equals(string2)){
+					boo = false;
+				}
 			}
 		}
+		
+		
+		if(mac != null) {
+			for (String string2 : macs1) {
+				if(mac.equals(string2)){
+					boo = false;
+				}
+			}
+		}
+		
+		if(!boo){
+			for (String string1 : macs1) {
+				for (String string2 : macs2) {
+					if(string1.equals(string2)){
+						return true;
+					}
+				}
+			}
+			
+		}
+		
 		return false;	
 	}
 	

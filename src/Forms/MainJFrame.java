@@ -78,27 +78,38 @@ public class MainJFrame {
 	
 	private static SplashJProgressBar splash = new SplashJProgressBar();
 	public MainJFrame(){
-		
-		menusWindows();
-		alterandoFontes();
-		addComponentesMainJPanel();
-		configuracaoMainJFrame();
+		try {
+			menusWindows();
+			alterandoFontes();
+			addComponentesMainJPanel();
+			configuracaoMainJFrame();
+	
+			//SETANDO AS CAMADAS COM O FUNDO BRANCO
+			camadaExterna.setOpaque(true);
+			camadaExterna.setBackground(Color.LIGHT_GRAY);
+	
+			//DEFININDO OS PAINEIS DA CAMADA EXTERNA 
+			camadaExterna.addTab("Discente", icone.getIconeAluno(), 
+					cadastrarAluno.getTelaPrincipal(), "Gerenciar Alunos");
+	
+			camadaExterna.addTab("Caixa",  icone.getIconeArquivo(), 
+					cadastrarCaixa.getTelaPrincipal(),"Gerenciar Caixas");
+	
+			camadaExterna.addTab("Ata", icone.getIconeAta32x(), 
+					cadastrarAta.getTelaPrincipal(), "Gerenciar Atas");
+	
+			splash.stop();
+		} catch (Exception ex) {
+			encerrar();
+		}
+			
+	}
 
-		//SETANDO AS CAMADAS COM O FUNDO BRANCO
-		camadaExterna.setOpaque(true);
-		camadaExterna.setBackground(Color.LIGHT_GRAY);
-
-		//DEFININDO OS PAINEIS DA CAMADA EXTERNA 
-		camadaExterna.addTab("Discente", icone.getIconeAluno(), 
-				cadastrarAluno.getTelaPrincipal(), "Gerenciar Alunos");
-
-		camadaExterna.addTab("Caixa",  icone.getIconeArquivo(), 
-				cadastrarCaixa.getTelaPrincipal(),"Gerenciar Caixas");
-
-		camadaExterna.addTab("Ata", icone.getIconeAta32x(), 
-				cadastrarAta.getTelaPrincipal(), "Gerenciar Atas");
-
-		splash.stop();
+	private void encerrar() {
+		cadastrarAluno.conexaoBD.closeAllConexao();
+		cadastrarAta.conexaoBD.closeAllConexao();
+		cadastrarCaixa.conexaoBD.closeAllConexao();
+		System.exit(0);
 	}
 
 	private void alterandoFontes() {
@@ -186,10 +197,7 @@ public class MainJFrame {
 		
 		@Override
 		public void windowClosing(WindowEvent arg0) {
-			cadastrarAluno.conexaoBD.closeAllConexao();
-			cadastrarAta.conexaoBD.closeAllConexao();
-			cadastrarCaixa.conexaoBD.closeAllConexao();
-			System.exit(0);
+			encerrar();
 		}
 		
 		@Override

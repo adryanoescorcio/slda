@@ -79,6 +79,11 @@ public class MainJFrame {
 	private static SplashJProgressBar splash = new SplashJProgressBar();
 	public MainJFrame(){
 		try {
+			
+			if(!icone.dirExist()){
+				encerrar();
+			}
+			
 			menusWindows();
 			alterandoFontes();
 			addComponentesMainJPanel();

@@ -1,5 +1,5 @@
 #Fat Jar Configuration File
-#Thu Jun 05 21:17:42 GMT-03:00 2014
+#Sat Jun 07 20:05:33 GMT-03:00 2014
 onejar.license.required=false
 manifest.classpath=
 manifest.removesigners=true
@@ -10,5 +10,5 @@ manifest.mainclass=Forms.MainJFrame
 manifest.file=<createnew>
 jarname.isextern=true
 onejar.expand=
-excludes=<po|SLDA>~Icones/;<jar|junit.jar>
+excludes=<jar|junit.jar>
 includes=

@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -77,13 +76,11 @@ public class MainJFrame {
 	//---SEGURANÇA
 	private static Validar validar = new Validar(Paths.get("C:/335b0BB5dfbfSD0d009382MN022/systemfat86x.txt"));
 	
-	private static SplashJProgressBar splash = new SplashJProgressBar();
+//	private static SplashJProgressBar splash = new SplashJProgressBar();
 	public MainJFrame(){
 		try {
 			
 			if(!icone.dirExist()){
-				JOptionPane.showMessageDialog(null
-						, "Programa está corrompido. Verifique se está usando a versão correta.", "ERRO", JOptionPane.WARNING_MESSAGE);
 				encerrar();
 			}
 			
@@ -106,7 +103,7 @@ public class MainJFrame {
 			camadaExterna.addTab("Ata", icone.getIconeAta32x(), 
 					cadastrarAta.getTelaPrincipal(), "Gerenciar Atas");
 	
-			splash.stop();
+//			splash.stop();
 		} catch (Exception ex) {
 			encerrar();
 		}
@@ -233,12 +230,12 @@ public class MainJFrame {
 
 	public static void main(String[] args) throws IOException {
 		
-		splash.run();
+//		splash.run();
 		if(validar.validar()){
-			splash.setAlwaysOnTop(true);
+//			splash.setAlwaysOnTop(true);
 			new MainJFrame();
 		}else{
-			splash.stop();	
+//			splash.stop();	
 			System.exit(0);
 		}
 	}

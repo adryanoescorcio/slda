@@ -76,7 +76,7 @@ public class PlusEventoDocumento extends EventosPadrao {
 		Date date = new Date();
 		SimpleDateFormat dateToday = new SimpleDateFormat("dd/MM/yyyy");
 		String strDateToday = dateToday.format(date);
-
+		
 		return strDateToday;
 	}
 	

@@ -12,7 +12,16 @@ public class Senha implements InterfacePadraoEntidade {
 	private SenhaPK pass = new SenhaPK();
 	
 	private String mac;
+	private String data;
 	
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
 	public SenhaPK getPass() {
 		return pass;
 	}

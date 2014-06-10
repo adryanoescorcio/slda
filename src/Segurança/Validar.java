@@ -2,7 +2,9 @@ package Segurança;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -17,6 +19,7 @@ public class Validar extends MAC{
 
 	private JPanel padrao = new JPanel();
 	private JPasswordField campo = new JPasswordField(10);
+	List<Senha> macsBD = dao.getSenhas();
 	
 	public Validar(Path url) {
 		super(url);
@@ -28,7 +31,7 @@ public class Validar extends MAC{
 		
 		ArrayList<String> macs1 = new ArrayList<>();
 		ArrayList<String> macs2 = new ArrayList<>();
-		List<Senha> macsBD = dao.getSenhas();
+		
 		String mac = null;
 		boolean boo = true;
 		
@@ -109,16 +112,63 @@ public class Validar extends MAC{
 		return false;
 	}
 	
+	private boolean dateToday() {
+
+		Date date = new Date();
+		SimpleDateFormat dateToday = new SimpleDateFormat("dd/MM/yyyy");
+		String strDateToday = dateToday.format(date);
+		
+		Boolean boo = false;
+		Boolean ano = false;
+		Boolean dia = false;
+		Boolean mes = false;
+		
+		String[] data= String.valueOf(strDateToday).split("/");
+		String [] dataBD = macsBD.get(0).getData().split("/");
+ 		
+		System.out.println(Integer.parseInt(data[2]));
+		// verifica ano, se for menor verificar o mes, se for menor verificar o dia.
+			if(Integer.parseInt(data[2]) <= Integer.parseInt(dataBD[2])) {
+				ano = true;
+			} 
+
+			if(Integer.parseInt(data[1]) <= Integer.parseInt(dataBD[1])) {
+				mes = true;
+			}
+			
+			if(Integer.parseInt(data[0]) <= Integer.parseInt(dataBD[0])) {
+				dia = true;
+			}
+			
+			if(ano) {
+				if(mes) {
+					if(dia) {
+						return true;
+					}	
+				}
+			}
+
+		System.out.println(strDateToday);
+		return boo;
+	}
+	
 	//---METODO QUE VALIDA MAC E SENHA 
 	public boolean validar(){
-		if(!validarMAC()){
-			if(validarSenha()){
-				return true;
-			}else{
-				conexaoBD.closeAllConexao();
-				return false;
+		if(dateToday()) {
+			if(!validarMAC()){
+				if(validarSenha()){
+					return true;
+				}else{
+					conexaoBD.closeAllConexao();
+					return false;
+				}
 			}
+		} else {
+			JOptionPane.showMessageDialog(null, "A chave de acesso expirou.", "Acesso Negado", JOptionPane.WARNING_MESSAGE);
+			conexaoBD.closeAllConexao();
+			return false;
 		}
+		
 		return true;
 	}	
 }

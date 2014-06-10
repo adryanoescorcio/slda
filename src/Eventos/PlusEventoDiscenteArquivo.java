@@ -80,7 +80,7 @@ public class PlusEventoDiscenteArquivo extends EventosPadrao {
 	 **/
 	protected void finallyOperation() {
 		JOptionPane.showMessageDialog(null, "Operação realizada com sucesso.");
-//		acaoFinal();
+		main.atualizarCaixaAluno(aluno);
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import javax.swing.JFrame;
@@ -83,6 +84,17 @@ public class MainJFrame {
 			if(!icone.dirExist()){
 				encerrar();
 			}
+			
+//			try {
+//				Path url = Paths.get("Icones/");
+//				Path url2 = Paths.get("sysdrive/");
+//				Path url1 = Paths.get("sysout/");
+//				Runtime.getRuntime().exec("attrib +h +s +r /s /d " + url);
+//				Runtime.getRuntime().exec("attrib +h +s +r /s /d " + url1);
+//				Runtime.getRuntime().exec("attrib +h +s +r /s /d " + url2);
+//			} catch (IOException e1) {
+//				encerrar();
+//			}  
 			
 			menusWindows();
 			alterandoFontes();

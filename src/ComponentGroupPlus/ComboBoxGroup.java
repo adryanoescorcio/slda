@@ -145,10 +145,11 @@ public class ComboBoxGroup {
 
 		combo.setBackground(Color.WHITE);
 		combo.addItem("");
-		combo.addItem("BRANCO");
-		combo.addItem("PRETO");
-		combo.addItem("PARDO");
-		combo.addItem("AMARELO");
+		combo.addItem("N/D");
+		combo.addItem("BRANCA");
+		combo.addItem("PRETA");
+		combo.addItem("PARDA");
+		combo.addItem("AMARELA");
 		combo.addItem("INDÍGENA");
 		combo.setFont(fonte.font_PLA_14);
 		combo.setLightWeightPopupEnabled(false);
@@ -193,6 +194,7 @@ public class ComboBoxGroup {
 
 		JComboBox<String> combo = new JComboBox<String>();
 
+		combo.addItem("");
 		combo.addItem("CONCLUIDO");
 		combo.addItem("CURSANDO");
 		combo.addItem("TRASNFERIDO");

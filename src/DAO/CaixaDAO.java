@@ -43,6 +43,7 @@ public class CaixaDAO extends DAO {
 
 	@Override
 	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
+		em.clear();
 		return em.find(Caixa.class, codigo);
 	}
 

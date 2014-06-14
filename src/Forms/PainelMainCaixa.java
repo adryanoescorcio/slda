@@ -26,13 +26,13 @@ import Eventos.EventosCaixa;
 
 public class PainelMainCaixa extends EventosCaixa {
 
-	protected static final int DIST = 5;
+	protected static final int DIST = 3;
 
 	// Fonte
 	private FontGroup font = new FontGroup();
 
 	protected static final String BORDER_INFO_CAIXA = "DADOS DA CAIXA";
-	protected static final int QUANT_LINHAS_GRID = 3;
+	protected static final int QUANT_LINHAS_GRID = 4;
 
 	protected JPanel mainJPanel = new JPanel(new BorderLayout(2,2));
 	protected JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2,2));
@@ -54,6 +54,9 @@ public class PainelMainCaixa extends EventosCaixa {
 	protected JLabel lbStatus = new JLabel("Status: ",SwingConstants.RIGHT);
 	protected JLabel lbDadosCaixa = new JLabel("DADOS DA CAIXA",SwingConstants.CENTER);
 	protected JLabel lbDiscente = new JLabel("Discente: ", SwingConstants.RIGHT);
+	private JLabel lbModalidade = new JLabel("Modalidade: ", SwingConstants.RIGHT);
+	private JLabel lbEnsino = new JLabel("Ensino: ", SwingConstants.RIGHT);
+
 
 	public PainelMainCaixa(MainJFrame main) {
 		super(main);
@@ -65,13 +68,14 @@ public class PainelMainCaixa extends EventosCaixa {
 		painelEsquerdo.add(lbCodigo);
 		painelEsquerdo.add(lbLetra);
 		painelEsquerdo.add(lbTurno);
+		painelEsquerdo.add(lbModalidade);
 
 		painelDireito.add(editPanel.painelContentComponent("West",tfCodigo));
 
 		painelDireito.add(editPanel.painelContentComponent("West", comboLetra));
 
 		painelDireito.add(editPanel.painelContentComponent("West", painelLadoLado(comboTurno, lbStatus, comboStatus)));
-
+		painelDireito.add(editPanel.painelContentComponent("West", painelLadoLado(comboModalidade, lbEnsino, comboEnsino)));
 
 		// Content Formulario contém os campos de dados das Atas
 		contentFormulario.setBorder(BorderFactory.createTitledBorder(
@@ -119,13 +123,13 @@ public class PainelMainCaixa extends EventosCaixa {
 	
 	private JPanel painelDiscente() {
 
-		JPanel painelDiscenteLabel = new JPanel(new GridLayout(1,2,5,5));
-		JPanel painelDiscenteText = new JPanel(new GridLayout(1,2,5,5));
+		JPanel painelDiscenteLabel = new JPanel(new GridLayout(1,2,2,2));
+		JPanel painelDiscenteText = new JPanel(new GridLayout(1,2,2,2));
 		JPanel painelContentMain = new JPanel(new BorderLayout(2,2));
 		JPanel contentMain = new JPanel(new BorderLayout(2,2));
 		JPanel contentDiscenteBotoes = new JPanel(new BorderLayout(2,2));
 		JPanel contentDiscente = new JPanel(new BorderLayout(2,2));
-		JPanel painelDiscenteBotoes = new JPanel(new GridLayout(1,3,5,5));
+		JPanel painelDiscenteBotoes = new JPanel(new GridLayout(1,3,2,2));
 
 		painelDiscenteLabel.add(lbDiscente);
 		painelDiscenteText.add(editPanel.painelContentComponent("West", tfDiscente));
@@ -143,8 +147,8 @@ public class PainelMainCaixa extends EventosCaixa {
 		contentMain.add("West", contentDiscente);
 		contentMain.add("Center", contentDiscenteBotoes);
 
-		painelContentMain.add("North", editPanel.painelNull(0, 10));
-		painelContentMain.add("South", editPanel.painelNull(0, 10));
+		painelContentMain.add("North", editPanel.painelNull(0, 5));
+		painelContentMain.add("South", editPanel.painelNull(0, 5));
 		painelContentMain.add("West", editPanel.painelContentComponent("West",contentMain));
 
 		painelContentMain.setBorder(BorderFactory.createTitledBorder(
@@ -172,6 +176,7 @@ public class PainelMainCaixa extends EventosCaixa {
 		btnInserir.addActionListener(onClickInitInserir);
 		btnRetirar.addActionListener(onClickInitRetirar);
 		tabela.addMouseListener(onClickRowTable);
+		comboModalidade.addItemListener(onClickChangeModalidade);
 
 	}
 
@@ -211,7 +216,7 @@ public class PainelMainCaixa extends EventosCaixa {
 		mainJPanel.add("Center",painelLocalizarArquivo);
 		mainJPanel.add("West",editPanel.painelNull(20, 0));
 		mainJPanel.add("East",editPanel.painelNull(20, 0));
-		mainJPanel.add("North",editPanel.painelNull(0, 10));
+		mainJPanel.add("North",editPanel.painelNull(0, 5));
 
 		// Vai para Janela Principal
 		return painelScrollMain;
@@ -233,7 +238,7 @@ public class PainelMainCaixa extends EventosCaixa {
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da tabela.
 		scroll.setViewportView(tabela); // insere a tabela no painel Scroll
 
-		painelTabela.add("North", editPanel.painelNull(0, 10));
+		painelTabela.add("North", editPanel.painelNull(0, 5));
 		painelTabela.add("Center",scroll);
 		//		painelTabela.add("South", painelLocaliza(lbCodigo2));
 
@@ -263,6 +268,8 @@ public class PainelMainCaixa extends EventosCaixa {
 		lbLetra.setFont(font.font_PLA_14);
 		lbTurno.setFont(font.font_PLA_14);
 		lbStatus.setFont(font.font_PLA_14);
+		lbEnsino.setFont(font.font_PLA_14);
+		lbModalidade.setFont(font.font_PLA_14);
 		lbDadosCaixa.setFont(font.font_NEG_15);
 		lbDiscente.setFont(font.font_PLA_14);
 

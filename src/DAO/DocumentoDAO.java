@@ -51,6 +51,7 @@ public class DocumentoDAO extends DAO {
 
 	@Override
 	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
+		em.clear();
 		return em.find(Documento.class, codigo);
 	}
 

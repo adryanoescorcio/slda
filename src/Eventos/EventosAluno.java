@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import Forms.MainJFrame;
 import Forms.PlusPainelDiscenteLista;
 import Forms.PlusPainelDocumento;
 import Model.Aluno;
+import Model.Arquivo;
 import Model.Ata;
 import Model.AtaResultado;
 import Model.Documento;
@@ -235,7 +237,8 @@ public class EventosAluno extends EventosPadrao {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
+			
+			aluno = null;
 			String codigoLocalizar = tfLocalizar.getText().trim(); // pega o codigo digitado pelo cliente.
 			if(verificarCodigo(codigoLocalizar)) {
 				buscarCodigo(codigoLocalizar);
@@ -271,9 +274,9 @@ public class EventosAluno extends EventosPadrao {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {	
-			if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o aluno de uma ata?") == 0) {
+			if(JOptionPane.showConfirmDialog(null, "Deseja inserir/remover o aluno de uma caixa?") == 0) {
 				try {
-					main.mudarPerfilCaixa(aluno);
+					main.mudarPerfilCaixa(aluno, EventosAluno.this);
 					main.direcionarParaCamada(1);
 				} catch (Exception ex) {
 					// o metodo foi parado por falta dos requisitos minimos.
@@ -289,7 +292,7 @@ public class EventosAluno extends EventosPadrao {
 			if(e.getClickCount() == 1){
 				scroll = table.organizandoColunasTables(modeloAtaResultado);
 			} else if (e.getClickCount() == 2) {
-				if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o aluno de uma ata?") == 0) {
+				if(JOptionPane.showConfirmDialog(null, "Deseja inserir/remover o aluno de uma ata?") == 0) {
 					try {
 						main.mudarPerfilAta(aluno);
 						main.direcionarParaCamada(2);
@@ -317,7 +320,7 @@ public class EventosAluno extends EventosPadrao {
 			if(e.getClickCount() == 1){
 				scroll = table.organizandoColunasTables(modeloAtaResultado);
 			} else if (e.getClickCount() == 2) {
-				if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o aluno de uma ata?") == 0) {
+				if(JOptionPane.showConfirmDialog(null, "Deseja inserir/remover o aluno de um documento?") == 0) {
 					try {
 						main.mudarPerfilAta(aluno);
 						main.direcionarParaCamada(2);
@@ -380,17 +383,6 @@ public class EventosAluno extends EventosPadrao {
 		}
 	};
 	
-//	if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o aluno de uma ata?") == 0) {
-//        try {
-//                PlusPainelDiscenteAta painelDiscAta =
-//                                new PlusPainelDiscenteAta(EventosAluno.this);
-//
-//                main.addCamada(painelDiscAta.getMainDialog(), "Inserir Aluno-Ata");
-//        } catch (Exception ex) {
-//                // o metodo foi parado por falta dos requisitos minimos.
-//        }
-//}
-
 	public void tabelaAta(Aluno aln){
 		List<AtaResultado> lista = daoAtaResultado.buscarAtaporAluno(aln); // realizando a busca
 		listaAtaResul = lista; // passando para a variavel global
@@ -474,17 +466,33 @@ public class EventosAluno extends EventosPadrao {
 	}
 
 	public void pesquisarCaixa(Aluno aln) {
-		String localizar = aln.getCodigo();
+		
+		Arquivo arq = new Arquivo();
+		ArquivoPK pk = new ArquivoPK();
+		pk.setCodigoAluno(aln.getCodigo());
 
 		// colocar as informações para o cliente
 		try {
-			arquivo = daoArquivo.buscar(localizar);
-			tfRefBox.setText(arquivo.getCodigoCaixa()); // a caixa em que se encontram os documentos
-			tfLocaInter.setText(arquivo.getCodDossie()); // a localização interna dos documentos
-			ftData.setText(arquivo.getDatadeEntradaArquivo());
+			arq = daoArquivo.buscar(pk);
+		
+			tfRefBox.setText("");
+			tfLocaInter.setText("");
+			ftData.setText("");
+			
+			tfRefBox.setText(arq.getCodigoCaixa()); // a caixa em que se encontram os documentos
+			tfLocaInter.setText(arq.getCodDossie()); // a localização interna dos documentos
+			ftData.setText(arq.getDatadeEntradaArquivo());
+			
+			arq = null;
+			
 		}catch (NullPointerException e) {
+			System.out.println(e.getMessage());
 			tfRefBox.setText("Sem caixa");
 			tfLocaInter.setText("Sem caixa");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

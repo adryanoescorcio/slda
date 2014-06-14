@@ -44,6 +44,7 @@ public class AtaResultadoDAO extends DAO {
 
 	@Override
 	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
+		em.clear();
 		return em.find(AtaResultado.class, codigo);
 	}
 

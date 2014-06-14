@@ -48,6 +48,7 @@ public class AlunoDAO extends DAO {
 
 	@Override
 	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
+		em.clear();
 		return em.find(Aluno.class, codigo);
 	}
 

@@ -15,7 +15,7 @@ public class SenhaDAO extends DAO {
 	}
 	
 	public List<Senha> getSenhas(){
-		
+		emPW.clear();
 		String comando = "Select s From Senha s";
 		TypedQuery<Senha> query = emPW.createQuery(comando, Senha.class);
 		

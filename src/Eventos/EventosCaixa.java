@@ -3,6 +3,8 @@ package Eventos;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Collections;
@@ -52,6 +54,8 @@ public class EventosCaixa extends EventosPadrao {
 	protected JComboBox<String> comboLetra = comboGroup.getComboBoxLetra();
 	protected JComboBox<String> comboStatus = comboGroup.getComboBoxStatus();
 	protected JComboBox<String> comboNumero = comboGroup.getComboBoxNumero();
+	protected JComboBox<String> comboModalidade  = comboGroup.getComboBoxEnsinoMF();
+	protected JComboBox<String> comboEnsino  = comboGroup.getComboBoxEnsinoFUNDAMENTAL();
 
 	protected MainJFrame main;
 
@@ -84,6 +88,8 @@ public class EventosCaixa extends EventosPadrao {
 			caixa.setTurno((String) comboTurno.getSelectedItem());
 			caixa.setLetra((String) comboLetra.getSelectedItem());
 			caixa.setStatus((String) comboStatus.getSelectedItem());
+			caixa.setModalidadeAta((String) comboModalidade.getSelectedItem());
+			caixa.setEnsinoAta((String) comboEnsino.getSelectedItem());
 
 			return caixa;
 		} else {
@@ -99,6 +105,9 @@ public class EventosCaixa extends EventosPadrao {
 		comboTurno.setSelectedItem(caixa.getTurno());
 		comboLetra.setSelectedItem(caixa.getLetra());
 		comboStatus.setSelectedItem(caixa.getStatus());
+		comboEnsino.setSelectedItem(caixa.getEnsinoAta());
+		comboModalidade.setSelectedItem(caixa.getModalidadeAta());
+		
 	}
 
 	/**
@@ -133,6 +142,29 @@ public class EventosCaixa extends EventosPadrao {
 		}
 	};
 
+	protected ItemListener onClickChangeModalidade = new ItemListener() {
+		@Override
+		public void itemStateChanged(ItemEvent ev) {
+			//SE FUNDAMENTAL ESSE METODO RECONTRÓI O COMBO
+			if(comboModalidade.getSelectedIndex() == 0){
+				comboEnsino.removeAllItems();
+				comboEnsino.addItem("REGULAR");
+				comboEnsino.addItem("ACELERAÇÃO");
+				comboEnsino.addItem("AVANÇADO");
+				comboEnsino.addItem("CLASSE ESPECIAL");
+				comboEnsino.addItem("EJA");
+
+				//SE MEDIO ESSE METODO RECONTRÓI O COMBO	
+			} else if(comboModalidade.getSelectedIndex() == 1){
+				comboEnsino.removeAllItems();
+				comboEnsino.addItem("REGULAR");
+				comboEnsino.addItem("EJA");
+				comboEnsino.addItem("PROEJA");
+				comboEnsino.addItem("TÉC. CONTABILIDADE");
+			}	
+		}
+	};
+	
 	/**
 	 * Metodo com a função de salvar e alterar uma caixa.
 	 **/
@@ -145,11 +177,15 @@ public class EventosCaixa extends EventosPadrao {
 				caixa = (Caixa) getValoresDosCampos();
 
 				int num = 1;
-				String codCaixaTMP = ((String) comboLetra.getSelectedItem()) + 
-						((String) comboTurno.getSelectedItem()).substring(0,1) + "0";
+				String codCaixaTMP = ((String) comboLetra.getSelectedItem()) + "-" +
+						((String) comboTurno.getSelectedItem()).substring(0,1) + 
+						((String) comboModalidade.getSelectedItem()).substring(0,1) +
+						((String) comboEnsino.getSelectedItem()).substring(0,1) + "0";
 
-				String codCaixa = ((String) comboLetra.getSelectedItem()) + 
-						((String) comboTurno.getSelectedItem()).substring(0,1) + "" +
+				String codCaixa = ((String) comboLetra.getSelectedItem()) + "-" +
+						((String) comboTurno.getSelectedItem()).substring(0,1) +
+						((String) comboModalidade.getSelectedItem()).substring(0,1) +
+						((String) comboEnsino.getSelectedItem()).substring(0,1) +
 						"0" +String.valueOf(num);
 
 				caixa.setCodigo(codCaixa);
@@ -248,7 +284,6 @@ public class EventosCaixa extends EventosPadrao {
 				// verificar se tudo deu certo.
 				if(disArquivo.onClickSalvarArquivo()){
 					main.direcionarParaCamada(0);
-					main.atualizarCaixaAluno(aluno);
 					main.limparCaixa();
 				}
 			} catch (Exception ex) {
@@ -313,6 +348,8 @@ public class EventosCaixa extends EventosPadrao {
 		comboLetra.setSelectedIndex(0);
 		comboStatus.setSelectedIndex(0);
 		comboNumero.setSelectedIndex(0);
+		comboEnsino.setSelectedIndex(0);
+		comboModalidade.setSelectedIndex(0);
 		
 		tfDiscente.setText(null);
 
@@ -330,6 +367,8 @@ public class EventosCaixa extends EventosPadrao {
 		comboLetra.setEnabled(false);
 		comboTurno.setEnabled(false);
 		comboStatus.setEnabled(false);
+		comboEnsino.setEnabled(false);
+		comboModalidade.setEnabled(false);
 		comboLetra.setForeground(Color.BLACK);
 		btnSalvar.setEnabled(false);
 	}
@@ -339,6 +378,8 @@ public class EventosCaixa extends EventosPadrao {
 		comboTurno.setEnabled(true);
 		comboLetra.setEnabled(true);
 		comboStatus.setEnabled(true);
+		comboEnsino.setEnabled(false);
+		comboModalidade.setEnabled(false);
 		btnAlterar.setEnabled(bool);
 		btnExcluir.setEnabled(bool);
 		btnSalvar.setEnabled(!bool);
@@ -352,7 +393,7 @@ public class EventosCaixa extends EventosPadrao {
 			return  objetoParaComparar.getCodigo().compareTo(objetoAserComparado.getCodigo());
 		}
 	}   
-
+	
 	public void setMudarPerfil(boolean bool) {
 		btnSalvar.setEnabled(!bool);
 		btnAlterar.setEnabled(!bool);
@@ -365,12 +406,16 @@ public class EventosCaixa extends EventosPadrao {
 		comboLetra.setEnabled(!bool);
 		comboStatus.setEnabled(!bool);
 		comboTurno.setEnabled(!bool);
+		comboEnsino.setEnabled(!bool);
+		comboModalidade.setEnabled(!bool);
 	}
 
 	protected void desabilitarTudoFormulario() {
 		comboTurno.setEnabled(false);
 		comboLetra.setEnabled(false);
 		comboStatus.setEditable(false);
+		comboEnsino.setEditable(false);
+		comboModalidade.setEditable(false);
 		tfCodigo.setEditable(false);
 
 		btnAlterar.setEnabled(false);

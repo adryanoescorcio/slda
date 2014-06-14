@@ -25,6 +25,24 @@ public class Caixa implements InterfacePadraoEntidade{
 	private String status;
 	private String turno;
 	private String letra;
+	private String modalidadeAta = null;
+	private String ensinoAta = null;
+	
+	public String getModalidadeAta() {
+		return modalidadeAta;
+	}
+
+	public void setModalidadeAta(String modalidadeAta) {
+		this.modalidadeAta = modalidadeAta;
+	}
+
+	public String getEnsinoAta() {
+		return ensinoAta;
+	}
+
+	public void setEnsinoAta(String ensinoAta) {
+		this.ensinoAta = ensinoAta;
+	}
 
 	public String getStatus() {
 		return status;

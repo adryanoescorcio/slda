@@ -15,9 +15,11 @@ public class CaixaTableModel extends AbstractTableModel {
 	private static final int COL_TURNO = 1;
 	private static final int COL_STATUS = 2;
 	private static final int COL_LETRA = 3;
+	private static final int COL_MODALIDADE = 4;
+	private static final int COL_ENSINO = 5;
 
 	private ArrayList<Caixa> linhas;
-	private String[] colunas = new String[]{"CODIGO", "TURNO", "STATUS", "LETRA"};
+	private String[] colunas = new String[]{"CODIGO", "TURNO", "STATUS", "LETRA", "MODALIDADE", "ENSINO"};
 
 	public CaixaTableModel(List<Caixa> caixa) {
 		this.linhas = new ArrayList<>(caixa);
@@ -57,22 +59,16 @@ public class CaixaTableModel extends AbstractTableModel {
 			return m.getLetra();
 		} else if (column == COL_STATUS) {
 			return m.getStatus();
+		} else if (column == COL_ENSINO) {
+			return m.getEnsinoAta();
+		} else if (column == COL_MODALIDADE) {
+			return m.getModalidadeAta();
 		}
 
 		return "";
 	}
 
 	public void setValueAt(Object aValue, int row, int column) {
-		Caixa u = linhas.get(row);
-		if (column == COL_ID) {
-			u.setCodigo((String) aValue);
-		} else if (column == COL_TURNO) {
-			u.setTurno(aValue.toString());
-		} else if (column == COL_LETRA) {
-			u.setLetra(aValue.toString());
-		} else if (column == COL_STATUS) {
-			u.setStatus(aValue.toString());
-		}
 	}
 
 	public Caixa getContato(int indiceLinha) {

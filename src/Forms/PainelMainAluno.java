@@ -47,10 +47,10 @@ public class PainelMainAluno extends EventosAluno {
 	protected JLabel lbNome = new JLabel("Nome:* ",SwingConstants.RIGHT);
 	protected JLabel lbCodigo2 = new JLabel("Discente: ",SwingConstants.RIGHT);
 	protected JLabel lbCodigo = new JLabel("Código:* ",SwingConstants.RIGHT);
-	protected JLabel lbCPF = new JLabel("CPF:* ",SwingConstants.RIGHT);
+	protected JLabel lbCPF = new JLabel("CPF: ",SwingConstants.RIGHT);
 	protected JLabel lbCor = new JLabel("Cor/Raça: ",SwingConstants.RIGHT);
 	protected JLabel lbNis = new JLabel("NIS: ",SwingConstants.RIGHT);
-	protected JLabel lbDataNasc = new JLabel("Data Nasc.:* ",SwingConstants.RIGHT);
+	protected JLabel lbDataNasc = new JLabel("Nascimento.:* ",SwingConstants.RIGHT);
 	protected JLabel lbSexo = new JLabel("Sexo: ",SwingConstants.RIGHT);
 	protected JLabel lbNomeMae = new JLabel("Mãe: ",SwingConstants.RIGHT);
 	protected JLabel lbEstadoMae = new JLabel("Estado Nasc. Mae: ",SwingConstants.RIGHT);

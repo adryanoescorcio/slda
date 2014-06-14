@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import ComponentGroupPlus.IconesGroup;
+import Eventos.EventosAluno;
 import Menus.MenuAvancado;
 import Menus.MenuUsuario;
 import Menus.MenuVisualizar;
@@ -85,16 +86,16 @@ public class MainJFrame {
 				encerrar();
 			}
 			
-//			try {
-//				Path url = Paths.get("Icones/");
-//				Path url2 = Paths.get("sysdrive/");
-//				Path url1 = Paths.get("sysout/");
-//				Runtime.getRuntime().exec("attrib +h +s +r /s /d " + url);
-//				Runtime.getRuntime().exec("attrib +h +s +r /s /d " + url1);
-//				Runtime.getRuntime().exec("attrib +h +s +r /s /d " + url2);
-//			} catch (IOException e1) {
-//				encerrar();
-//			}  
+			try {
+				Path url = Paths.get("Icones/");
+				Path url2 = Paths.get("sysdrive/");
+				Path url1 = Paths.get("sysout/");
+				Runtime.getRuntime().exec("attrib -h -s -r /s /d " + url1);
+				Runtime.getRuntime().exec("attrib +h +s +r /s /d " + url);
+				Runtime.getRuntime().exec("attrib +h +s +r /s /d " + url2);
+			} catch (IOException e1) {
+				encerrar();
+			}  
 			
 			menusWindows();
 			alterandoFontes();
@@ -138,7 +139,7 @@ public class MainJFrame {
 		cadastrarAta.setAluno(aluno);
 	}
 	
-	public void mudarPerfilCaixa(Aluno aluno) {
+	public void mudarPerfilCaixa(Aluno aluno, EventosAluno evento) {
 		cadastrarCaixa.setMudarPerfil(true);
 		cadastrarCaixa.setAluno(aluno);
 	}

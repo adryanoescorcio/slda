@@ -20,6 +20,7 @@ import Menus.MenuAvancado;
 import Menus.MenuUsuario;
 import Menus.MenuVisualizar;
 import Model.Aluno;
+import Model.AtaResultado;
 import Segurança.Validar;
 
 /**
@@ -137,6 +138,11 @@ public class MainJFrame {
 	public void mudarPerfilAta(Aluno aluno) {
 		cadastrarAta.setMudarPerfil(true);
 		cadastrarAta.setAluno(aluno);
+	}
+	
+	public void mudarPerfilAta(Aluno aluno, AtaResultado ataR) {
+		mudarPerfilAta(aluno);
+		cadastrarAta.setAta(ataR);
 	}
 	
 	public void mudarPerfilCaixa(Aluno aluno, EventosAluno evento) {
@@ -281,5 +287,6 @@ public class MainJFrame {
 	public void limparAta() {
 		cadastrarAta.limparCampos();
 	}
+
 }
 

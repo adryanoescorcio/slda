@@ -151,11 +151,11 @@ public class PainelMainAluno extends EventosAluno {
 		btnAtaResul.addMouseListener(onClickMudarTabelaAta);
 
 		//Evento do botão Buscar
-		btnPesquisar.addActionListener(
-				onClickBuscarAluno);
+		btnPesquisar.addActionListener(onClickBuscarAluno);
 
-		btnCaixa.addActionListener(
-				onClickCaixa);
+		btnCaixa.addActionListener(onClickCaixa);
+		
+		table.getTabela().addMouseListener(onClickSelecionarAtaAluno);
 	}
 
 	/**

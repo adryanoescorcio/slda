@@ -128,10 +128,22 @@ public class AtaResultado implements InterfacePadraoEntidade, InterfacePadraoAta
 	}
 
 	public void setAta(Ata ata) {
-		this.setEnsinoAta(ata.getModalidadeAta());
+		this.setEnsinoAta(ata.getEnsinoAta());
 		this.setModalidadeAta(ata.getModalidadeAta());
 		this.setTurmaAta(ata.getTurmaAta());
 		this.setTurnoAta(ata.getTurnoAta());
 		this.setAnoAta(ata.getAnoAta());
+	}
+
+	public Ata getAta() {
+		Ata ata = new Ata();
+		
+		ata.setAnoAta(atapk.getAnoAta());
+		ata.setModalidadeAta(modalidadeAta);
+		ata.setEnsinoAta(ensinoAta);
+		ata.setTurmaAta(atapk.getTurmaAta());
+		ata.setTurnoAta(atapk.getTurnoAta());
+		
+		return ata;
 	}
 }

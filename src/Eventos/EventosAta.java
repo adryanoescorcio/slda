@@ -19,6 +19,7 @@ import ComponentGroupPlus.PainelTabela;
 import ExceptionSLDA.erroNullRequisitoException;
 import Forms.MainJFrame;
 import Model.Ata;
+import Model.AtaResultado;
 import PrimaryKey.AtaPK;
 import TablesModel.AtaTableModel;
 
@@ -162,6 +163,11 @@ public class EventosAta extends EventosPadrao {
 		}
 	};
 
+	public void setAta(AtaResultado ataR) {
+		ata = ataR.getAta();
+		setValoresDosCampos(ata);
+	}
+	
 	/**
 	 * Metodo com a função de salvar e alterar uma caixa.
 	 **/

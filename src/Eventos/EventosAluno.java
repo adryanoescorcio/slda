@@ -349,11 +349,44 @@ public class EventosAluno extends EventosPadrao {
 			if(e.getClickCount() == 1){
 				scroll = table.organizandoColunasTables(modeloDoc);
 			} else if (e.getClickCount() == 2) {
-				if(JOptionPane.showConfirmDialog(null, "Deseja inserir ou remover o um documento requisitado pelo aluno?") == 0) {
+				if(JOptionPane.showConfirmDialog(null, "Deseja inserir/remover o documento requisitado pelo aluno?") == 0) {
 					try {
 						 PlusPainelDocumento painelDocumento= new PlusPainelDocumento(main, EventosAluno.this);
 
 						 main.addCamada(painelDocumento.getTelaPrincipal(), "Inserir Documento");
+					} catch (Exception ex) {
+						// o metodo foi parado por falta dos requisitos minimos.
+					}
+				}
+			}
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+	};
+	
+	protected MouseListener onClickSelecionarAtaAluno = new MouseListener() {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if (e.getClickCount() == 2) {
+				if(JOptionPane.showConfirmDialog(null, "Deseja selecionar esta ata?") == 0) {
+					try {
+						int linha = table.getTabela().getSelectedRow();
+						System.out.println(linha);
+						 AtaResultado ataR = modeloAtaResultado.getContato(linha);
+						 main.mudarPerfilAta(aluno, ataR);
+						 main.direcionarParaCamada(2);
 					} catch (Exception ex) {
 						// o metodo foi parado por falta dos requisitos minimos.
 					}

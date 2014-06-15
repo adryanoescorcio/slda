@@ -48,7 +48,7 @@ public class PlusPainelDiscenteLista extends PlusEventoDiscenteLista {
 		scroll.setViewportView(tabela); // insere a tabela no painel Scroll
 		
 		painelTabela.add("North", editPanel.painelNull(0, 10));
-		painelTabela.add("Center",table.organizandoColunasTables(evento.modeloAlunoTable));
+		painelTabela.add("Center", table.organizandoColunasTables(evento.modeloAlunoTable));
 		painelTabela.add("South", editPanel.painelNull(0, 10));
 		
 		return painelTabela;

@@ -240,11 +240,25 @@ public class EventosAluno extends EventosPadrao {
 			
 			aluno = null;
 			String codigoLocalizar = tfLocalizar.getText().trim(); // pega o codigo digitado pelo cliente.
-			if(verificarCodigo(codigoLocalizar)) {
-				buscarCodigo(codigoLocalizar);
-			} else {
-				buscaNomeAluno(codigoLocalizar);
+			
+			try {
+				if(codigoLocalizar.length() >= 4 && codigoLocalizar.substring(0, 4).equals("SLDA")) {
+					System.out.println("Caiu aki");
+					buscarCodigo(codigoLocalizar);
+				} else if (verificarCodigo(codigoLocalizar)){
+					buscarCodigo(codigoLocalizar);
+				} else {
+					buscaNomeAluno(codigoLocalizar);
+				}
+			} catch (IndexOutOfBoundsException ex) {
+				
 			}
+//			
+//			if(verificarCodigo(codigoLocalizar) ) {
+//				buscarCodigo(codigoLocalizar);
+//			} else {
+//				buscaNomeAluno(codigoLocalizar);
+//			}
 		}
 	};
 
@@ -439,15 +453,16 @@ public class EventosAluno extends EventosPadrao {
 	 * Realizar a busca por nome do aluno
 	 **/
 	protected void buscaNomeAluno(String nomeLocalizar) {
-		List<Aluno> lista = daoAluno.buscarNome(nomeLocalizar);
-		listaAluno = lista;
-		modeloAlunoTable.setList(lista);
+			List<Aluno> lista = daoAluno.buscarNome(nomeLocalizar);
+			listaAluno = lista;
+			modeloAlunoTable.setList(lista);
 		
-		if (lista.size() > 0) {
-			PlusPainelDiscenteLista painelListaDiscente = 
-					new PlusPainelDiscenteLista(EventosAluno.this);
-			main.addCamada(painelListaDiscente.getMainDialog(), "Selecionar Aluno");
-		}
+			if (lista.size() > 0) {
+				PlusPainelDiscenteLista painelListaDiscente = 
+						new PlusPainelDiscenteLista(EventosAluno.this);
+				main.addCamada(painelListaDiscente.getMainDialog(), "Selecionar Aluno");
+			}
+//		}
 	}
 
 	/**

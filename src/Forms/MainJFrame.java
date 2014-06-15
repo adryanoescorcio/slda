@@ -86,7 +86,6 @@ public class MainJFrame {
 			if(!icone.dirExist()){
 				encerrar();
 			}
-			
 			try {
 				Path url = Paths.get("Icones/");
 				Path url2 = Paths.get("sysdrive/");
@@ -287,6 +286,5 @@ public class MainJFrame {
 	public void limparAta() {
 		cadastrarAta.limparCampos();
 	}
-
 }
 

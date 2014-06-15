@@ -27,17 +27,12 @@ public class JPAUtil {
 
 	private static final String CLASS_BD = "org.sqlite.JDBC";
 	private static final String CONEXAO_BD = "jdbc:sqlite:";
-	private static final String BANCO_AD = "sldav2.db";
-//	private static final String BANCO_ADPW = "scpw42.db";
-	private static final String BANCO_WA = "sldav1.db";
-
-	private static final String DIR_AD = "D:/Dropbox/SLDA-WORK/Banco de dados/"; // Diretorio do Computador ADRYANO
+	private static final String BANCO_WA = "innobd.db";
 
 	// ALTERAR EM CASO DE ERRO - WALYSSON
-	private static final String DIR_WA = "C:/users/Walysson Oliveira/Dropbox/SLDA-WORK/Banco de dados/"; // Diretorio do Computador
+	private static final String DIR_WA = "sysdrive/"; // Diretorio do Computador
+	private static final String DIR_WAPW = "systout/"; // Diretorio do Computador
 
-	private static final String FILE_PERSISTENCE_XML_AD = "managerAD";
-	private static final String FILE_PERSISTENCE_XML_ADPW = "managerADPW";
 	private static final String FILE_PERSISTENCE_XML_WAPW = "managerWAPW";
 	private static final String FILE_PERSISTENCE_XML_WA = "managerWA";
 
@@ -55,14 +50,15 @@ public class JPAUtil {
 	 **/
 	public JPAUtil() {
 		// Verifica qual dos diretorios existe na máquina.
-		File file = new File(DIR_AD);
-		if(file.exists()) {
-			// Diretorio Adryano Existe
-			conexaoManager(FILE_PERSISTENCE_XML_AD, FILE_PERSISTENCE_XML_ADPW, BANCO_AD, DIR_AD);
-		} else {
-			// Tentar diretorio de Wallyson
-			conexaoManager(FILE_PERSISTENCE_XML_WA, FILE_PERSISTENCE_XML_WAPW, BANCO_WA, DIR_WA);
+		File file = new File(DIR_WA);
+		File file2 = new File(DIR_WAPW);
+		
+		if(!file.exists()) {
+			file.mkdir();
+			file2.mkdir();
 		}
+		
+		conexaoManager(FILE_PERSISTENCE_XML_WA, FILE_PERSISTENCE_XML_WAPW, BANCO_WA, DIR_WA);
 	}
 
 	private void conexaoManager(String filePersistence, String filePersistenceSenha, String nomeBD, String diretorioComp) {
@@ -77,7 +73,7 @@ public class JPAUtil {
 			this.emPW = factoryPW.createEntityManager();
 			
 		} catch(Exception e) {
-			System.out.println("Erro: conexao JPA" +e.getMessage());
+			System.out.println("Erro: conexao JPA" + e.getMessage());
 		}
 
 		// Conexao com JDBC

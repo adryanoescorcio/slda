@@ -23,6 +23,7 @@ public class SenhaDAO extends DAO {
 		
 		try{
 			senhas = query.getResultList();
+			
 		}catch(Exception e){
 		}
 	

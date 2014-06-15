@@ -56,3 +56,4 @@ public class Senha implements InterfacePadraoEntidade {
 		this.mac = mac;
 	}
 }
+

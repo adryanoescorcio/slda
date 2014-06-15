@@ -1,5 +1,9 @@
 #Fat Jar Configuration File
+<<<<<<< HEAD
+#Sat Jun 07 20:05:33 GMT-03:00 2014
+=======
 #Tue Jun 10 16:39:49 GMT-03:00 2014
+>>>>>>> refs/heads/master
 onejar.license.required=false
 manifest.classpath=
 manifest.removesigners=true

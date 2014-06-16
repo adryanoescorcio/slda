@@ -15,7 +15,7 @@ import PrimaryKey.InterfaceKey;
  * @implements PadraoEntidade
  **/
 @Entity
-public class Arquivo implements InterfacePadraoEntidade{
+public class Arquivo implements InterfacePadraoEntidade {
 
 	@Transient
 	private Aluno aluno = null;
@@ -34,27 +34,6 @@ public class Arquivo implements InterfacePadraoEntidade{
 		return aluno;
 	}
 
-	public void setCodigo(Aluno aluno, Caixa caixa) {
-		this.arquivopk.setCodigoAluno(aluno.getCodigo());
-		this.codigoCaixa = caixa.getCodigo();
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-	}
-
-	public void setCaixa(Caixa caixa) {
-		this.caixa = caixa;
-	}
-
-	public void setArquivo (Arquivo arquivo) {
-		this.arquivopk.setCodigoAluno(arquivopk.getCodigoAluno());
-		this.setCodigoCaixa(arquivo.getCodigoCaixa());
-		this.setCodigoAluno(arquivo.getCodigoAluno());
-		this.setDatadeEntradaArquivo(arquivo.getDatadeEntradaArquivo());
-		this.setCodDossie(arquivo.getCodDossie());
-	}
-
 	public Caixa getCaixa() {
 		return caixa;
 	}
@@ -63,56 +42,74 @@ public class Arquivo implements InterfacePadraoEntidade{
 		return codDossie;
 	}
 
-	public void setCodDossie(String codDossie) {
-		this.codDossie = codDossie;
-	}
-
-	public String getDatadeEntradaArquivo() {
-		return datadeEntradaArquivo;
-	}
-
-	public void setDatadeEntradaArquivo(String datadeEntradaArquivo) {
-		this.datadeEntradaArquivo = datadeEntradaArquivo;
-	}
-
-	@Override
-	public String toString() {
-		return "" +
-				"Aluno: "+this.getCodigoAluno()+ ", " +
-				"Caixa: "+this.getCodigoCaixa()+ ", " +
-				"Codigo: "+this.codDossie+ ", " +
-				"Entrada: "+this.datadeEntradaArquivo+ ", " +
-				"";
-	}
-
-	@Override
-	public InterfaceKey getCodigoKEY() {
-		return (ArquivoPK) this.arquivopk;
-	}
-
-	@Override
-	public void setCodigoKEY(InterfaceKey chaveEntidade) {
-		this.arquivopk = (ArquivoPK) chaveEntidade;
+	public String getCodigoAluno() {
+		return arquivopk.getCodigoAluno();
 	}
 
 	public String getCodigoCaixa() {
 		return codigoCaixa;
 	}
 
-	public void setCodigo(String codigoAluno, String codigoCaixa) {
+	@Override
+	public InterfaceKey getCodigoKEY() {
+		return this.arquivopk;
+	}
+
+	public String getDatadeEntradaArquivo() {
+		return datadeEntradaArquivo;
+	}
+
+	public void setAluno(final Aluno aluno) {
+		this.aluno = aluno;
+	}
+
+	public void setArquivo(final Arquivo arquivo) {
+		this.arquivopk.setCodigoAluno(arquivopk.getCodigoAluno());
+		this.setCodigoCaixa(arquivo.getCodigoCaixa());
+		this.setCodigoAluno(arquivo.getCodigoAluno());
+		this.setDatadeEntradaArquivo(arquivo.getDatadeEntradaArquivo());
+		this.setCodDossie(arquivo.getCodDossie());
+	}
+
+	public void setCaixa(final Caixa caixa) {
+		this.caixa = caixa;
+	}
+
+	public void setCodDossie(final String codDossie) {
+		this.codDossie = codDossie;
+	}
+
+	public void setCodigo(final Aluno aluno, final Caixa caixa) {
+		this.arquivopk.setCodigoAluno(aluno.getCodigo());
+		this.codigoCaixa = caixa.getCodigo();
+	}
+
+	public void setCodigo(final String codigoAluno, final String codigoCaixa) {
 		this.codigoCaixa = codigoCaixa;
 		this.arquivopk.setCodigoAluno(codigoAluno);
 	}
 
-	public String getCodigoAluno() {
-		return arquivopk.getCodigoAluno();
-	}
-
-	public void setCodigoAluno(String codigoAluno) {
+	public void setCodigoAluno(final String codigoAluno) {
 		this.arquivopk.setCodigoAluno(codigoAluno);
 	}
 
-	public void setCodigoCaixa(String caixa) {
+	public void setCodigoCaixa(final String caixa) {
 		this.codigoCaixa = caixa;
+	}
+
+	@Override
+	public void setCodigoKEY(final InterfaceKey chaveEntidade) {
+		this.arquivopk = (ArquivoPK) chaveEntidade;
+	}
+
+	public void setDatadeEntradaArquivo(final String datadeEntradaArquivo) {
+		this.datadeEntradaArquivo = datadeEntradaArquivo;
+	}
+
+	@Override
+	public String toString() {
+		return Messages.getString("Arquivo.0") + Messages.getString("Arquivo.1") + this.getCodigoAluno() + Messages.getString("Arquivo.2") + Messages.getString("Arquivo.3") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				+ this.getCodigoCaixa() + Messages.getString("Arquivo.4") + Messages.getString("Arquivo.5") + this.codDossie //$NON-NLS-1$ //$NON-NLS-2$
+				+ Messages.getString("Arquivo.6") + Messages.getString("Arquivo.7") + this.datadeEntradaArquivo + Messages.getString("Arquivo.8") + Messages.getString("Arquivo.9"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 }

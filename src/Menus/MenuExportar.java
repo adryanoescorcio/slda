@@ -16,15 +16,15 @@ public class MenuExportar {
 
 	public MenuExportar() {
 
-		menuExportar = new JMenu("Exportar");	
-		//ADICIONA UM MNEMÔNICO OU ATALHO(ALT + E) 
+		menuExportar = new JMenu(Messages.getString("MenuExportar.0")); //$NON-NLS-1$
+		// ADICIONA UM MNEMÔNICO OU ATALHO(ALT + E)
 		menuExportar.setMnemonic('E');
-		JMenuItem itemBackup = new JMenuItem("Realizar Backup"); 
-		menuExportar.add(itemBackup); 
+		final JMenuItem itemBackup = new JMenuItem(Messages.getString("MenuExportar.1")); //$NON-NLS-1$
+		menuExportar.add(itemBackup);
 
 	}
 
-	public JMenu getMenuExportar(){
+	public JMenu getMenuExportar() {
 		return menuExportar;
 	}
 

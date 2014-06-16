@@ -13,89 +13,95 @@ import PrimaryKey.InterfaceKey;
 
 /**
  * Classe concreta para realizar o CRUD da Entidade AtaResultado.
- * <p><b>Extends</b><br>DAO
+ * <p>
+ * <b>Extends</b><br>
+ * DAO
+ * 
  * @author Adryano Escorcio
  * @version 1.5
  * */
 public class AtaResultadoDAO extends DAO {
 
 	/**
-	 * <b>Construtor</b><p>
+	 * <b>Construtor</b>
+	 * <p>
 	 * Transmite a conexao do BD para super classe.<br>
 	 * E inicia uma conexa transacao de dados.
-	 **/ 
-	public AtaResultadoDAO(JPAUtil conexaoBD) {
-		super(conexaoBD);
-	}
-
-	/**
-	 * Metodo para inserir/atualiza o Entidade no Banco de Dados.
 	 **/
-	public boolean save(AtaResultado ataResultado) {
-		return super.save(ataResultado);
+	public AtaResultadoDAO(final JPAUtil conexaoBD) {
+		super(conexaoBD);
 	}
 
 	/**
 	 * Buscar Caixa usando o codigo
 	 **/
-	public AtaResultado buscar(AtaResultadoPK codigo) {
+	public AtaResultado buscar(final AtaResultadoPK codigo) {
 		return (AtaResultado) this.consultar(codigo);
 	}
 
+	public List<AtaResultado> buscarAtaporAluno(final Aluno aluno) {
+
+		final String codAluno = aluno.getCodigo();
+
+		final Query query = em.createNamedQuery(Messages.getString("AtaResultadoDAO.0")); //$NON-NLS-1$
+		query.setParameter(Messages.getString("AtaResultadoDAO.1"), codAluno); //$NON-NLS-1$
+
+		@SuppressWarnings("unchecked")
+		final List<AtaResultado> ataResultado = query.getResultList();
+
+		return ataResultado;
+	}
+
 	@Override
-	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
+	protected InterfacePadraoEntidade consultar(final InterfaceKey codigo) {
 		em.clear();
 		return em.find(AtaResultado.class, codigo);
 	}
 
-	public List<AtaResultado> buscarAtaporAluno(Aluno aluno){
+	public void excluirPorAluno(final Aluno aluno) {
 
-		String codAluno = aluno.getCodigo();
+		final String codAluno = aluno.getCodigo();
 
-		Query query = em.createNamedQuery("AtaResultado.findByAluno");
-		query.setParameter("aluno", codAluno);
-
-		@SuppressWarnings("unchecked")
-		List<AtaResultado> ataResultado = query.getResultList();
-
-		return ataResultado;
-	}
-	
-	public void excluirPorAluno(Aluno aluno){
-		
-		String codAluno = aluno.getCodigo(); 
-		
-		try{
+		try {
 			em.getTransaction().begin();
-			Query query = em.createQuery("DELETE FROM AtaResultado a where a.atapk.aluno = :aluno");
-			query.setParameter("aluno", codAluno);
+			final Query query = em
+					.createQuery(Messages.getString("AtaResultadoDAO.2")); //$NON-NLS-1$
+			query.setParameter(Messages.getString("AtaResultadoDAO.3"), codAluno); //$NON-NLS-1$
 			query.executeUpdate();
 			em.getTransaction().commit();
-		}catch(Exception e){
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void excluirPorAta(Ata ata){
-		
-		String turma = ata.getTurmaAta();
-		String turno = ata.getTurnoAta();
-		String ano = ata.getAnoAta();
-		
-		try{
+
+	public void excluirPorAta(final Ata ata) {
+
+		final String turma = ata.getTurmaAta();
+		final String turno = ata.getTurnoAta();
+		final String ano = ata.getAnoAta();
+
+		try {
 			em.getTransaction().begin();
-			Query query = em.createQuery("DELETE FROM AtaResultado a where a.atapk.turmaAta = :turma AND" +
-											" a.atapk.turnoAta = :turno AND a.atapk.anoAta = :ano");
-		
-			query.setParameter("turma", turma);
-			query.setParameter("turno", turno);
-			query.setParameter("ano", ano);
+			final Query query = em
+					.createQuery(Messages.getString("AtaResultadoDAO.4") //$NON-NLS-1$
+							+ Messages.getString("AtaResultadoDAO.5")); //$NON-NLS-1$
+
+			query.setParameter(Messages.getString("AtaResultadoDAO.6"), turma); //$NON-NLS-1$
+			query.setParameter(Messages.getString("AtaResultadoDAO.7"), turno); //$NON-NLS-1$
+			query.setParameter(Messages.getString("AtaResultadoDAO.8"), ano); //$NON-NLS-1$
 			query.executeUpdate();
 			em.getTransaction().commit();
-			
-		}catch(Exception e){
+
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Metodo para inserir/atualiza o Entidade no Banco de Dados.
+	 **/
+	public boolean save(final AtaResultado ataResultado) {
+		return super.save(ataResultado);
 	}
 
 }

@@ -18,7 +18,7 @@ public class CaixaPK implements InterfaceKey {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(final String codigo) {
 		this.codigo = codigo;
 	}
 

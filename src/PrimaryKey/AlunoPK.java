@@ -11,20 +11,20 @@ import javax.persistence.Embeddable;
  **/
 @Embeddable
 public class AlunoPK implements InterfaceKey {
-	
+
 	private String codigoAluno = null;
+
+	public String getCodigo() {
+		return this.codigoAluno;
+	}
 
 	/**
 	 * Metodo que insere o valor da Chave Primaria
 	 **/
-	public void setCodigo(String codigo) {
+	public void setCodigo(final String codigo) {
 		this.codigoAluno = codigo;
 	}
-	
-	public String getCodigo() {
-		return this.codigoAluno;
-	}
-	
+
 	@Override
 	public String toString() {
 		return codigoAluno;

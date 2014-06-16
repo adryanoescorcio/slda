@@ -15,9 +15,9 @@ import PrimaryKey.InterfaceKey;
  * @implements PadraoEntidade
  **/
 
-@NamedQuery(name="Caixa.findAllC", query="SELECT c FROM Caixa c")
+@NamedQuery(name = "Caixa.findAllC", query = "SELECT c FROM Caixa c")
 @Entity
-public class Caixa implements InterfacePadraoEntidade{
+public class Caixa implements InterfacePadraoEntidade {
 
 	@EmbeddedId
 	private CaixaPK caixapk = new CaixaPK();
@@ -27,63 +27,9 @@ public class Caixa implements InterfacePadraoEntidade{
 	private String letra;
 	private String modalidadeAta = null;
 	private String ensinoAta = null;
-	
-	public String getModalidadeAta() {
-		return modalidadeAta;
-	}
-
-	public void setModalidadeAta(String modalidadeAta) {
-		this.modalidadeAta = modalidadeAta;
-	}
-
-	public String getEnsinoAta() {
-		return ensinoAta;
-	}
-
-	public void setEnsinoAta(String ensinoAta) {
-		this.ensinoAta = ensinoAta;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getTurno() {
-		return turno;
-	}
-
-	public void setTurno(String turno) {
-		this.turno = turno;
-	}
 
 	public String getCodigo() {
 		return this.caixapk.toString();
-	}
-
-	public void setCodigo(String codigo) {
-		this.caixapk.setCodigo(codigo);
-	}
-
-	public String getLetra() {
-		return this.letra;
-	}
-
-	public void setLetra(String string) {
-		this.letra = string;
-	}
-
-	@Override
-	public String toString() {
-		return "" +
-				"Codigo: "+this.caixapk.toString()+ ", " +
-				"Status: "+this.status+ ", " +
-				"Turno: "+this.turno+ ", " +
-				"Letra: "+this.letra +
-				"";
 	}
 
 	@Override
@@ -91,9 +37,60 @@ public class Caixa implements InterfacePadraoEntidade{
 		return this.caixapk;
 	}
 
+	public String getEnsinoAta() {
+		return ensinoAta;
+	}
+
+	public String getLetra() {
+		return this.letra;
+	}
+
+	public String getModalidadeAta() {
+		return modalidadeAta;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public String getTurno() {
+		return turno;
+	}
+
+	public void setCodigo(final String codigo) {
+		this.caixapk.setCodigo(codigo);
+	}
+
 	@Override
-	public void setCodigoKEY(InterfaceKey chaveEntidade) {
+	public void setCodigoKEY(final InterfaceKey chaveEntidade) {
 		this.caixapk = (CaixaPK) chaveEntidade;
+	}
+
+	public void setEnsinoAta(final String ensinoAta) {
+		this.ensinoAta = ensinoAta;
+	}
+
+	public void setLetra(final String string) {
+		this.letra = string;
+	}
+
+	public void setModalidadeAta(final String modalidadeAta) {
+		this.modalidadeAta = modalidadeAta;
+	}
+
+	public void setStatus(final String status) {
+		this.status = status;
+	}
+
+	public void setTurno(final String turno) {
+		this.turno = turno;
+	}
+
+	@Override
+	public String toString() {
+		return Messages.getString("Caixa.0") + Messages.getString("Caixa.1") + this.caixapk.toString() + Messages.getString("Caixa.2") + Messages.getString("Caixa.3") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				+ this.status + Messages.getString("Caixa.4") + Messages.getString("Caixa.5") + this.turno + Messages.getString("Caixa.6") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				+ Messages.getString("Caixa.7") + this.letra + Messages.getString("Caixa.8"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 }

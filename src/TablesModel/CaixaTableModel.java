@@ -18,38 +18,50 @@ public class CaixaTableModel extends AbstractTableModel {
 	private static final int COL_MODALIDADE = 4;
 	private static final int COL_ENSINO = 5;
 
-	private ArrayList<Caixa> linhas;
-	private String[] colunas = new String[]{"CODIGO", "TURNO", "STATUS", "LETRA", "MODALIDADE", "ENSINO"};
+	private final ArrayList<Caixa> linhas;
+	private final String[] colunas = new String[] { Messages.getString("CaixaTableModel.0"), Messages.getString("CaixaTableModel.1"), //$NON-NLS-1$ //$NON-NLS-2$
+			Messages.getString("CaixaTableModel.2"), Messages.getString("CaixaTableModel.3"), Messages.getString("CaixaTableModel.4"), Messages.getString("CaixaTableModel.5") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
-	public CaixaTableModel(List<Caixa> caixa) {
+	public CaixaTableModel(final List<Caixa> caixa) {
 		this.linhas = new ArrayList<>(caixa);
 	}
 
-	public int getRowCount() {
-		return linhas.size();
+	public void addContato(final Caixa contato) {
+		linhas.add(contato);
+		final int ultimoIndice = getRowCount() - 1;
+		fireTableRowsInserted(ultimoIndice, ultimoIndice);
+		// System.out.println("A lista: " + linhas);
 	}
 
+	@Override
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public Class getColumnClass(final int columnIndex) {
+		return String.class;
+	}
+
+	@Override
 	public int getColumnCount() {
 		return colunas.length;
 	}
 
-	public String getColumnName(int columnIndex) {
+	@Override
+	public String getColumnName(final int columnIndex) {
 		return colunas[columnIndex];
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Class getColumnClass(int columnIndex) {
-		return String.class;
+	public Caixa getContato(final int indiceLinha) {
+		return linhas.get(indiceLinha);
 	}
 
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-
-		return false;
+	@Override
+	public int getRowCount() {
+		return linhas.size();
 	}
 
-	public Object getValueAt(int row, int column) {
+	@Override
+	public Object getValueAt(final int row, final int column) {
 
-		Caixa m = linhas.get(row);
+		final Caixa m = linhas.get(row);
 
 		if (column == COL_ID) {
 			return m.getCodigo();
@@ -65,62 +77,58 @@ public class CaixaTableModel extends AbstractTableModel {
 			return m.getModalidadeAta();
 		}
 
-		return "";
+		return Messages.getString("CaixaTableModel.6"); //$NON-NLS-1$
 	}
 
-	public void setValueAt(Object aValue, int row, int column) {
+	@Override
+	public boolean isCellEditable(final int rowIndex, final int columnIndex) {
+
+		return false;
 	}
 
-	public Caixa getContato(int indiceLinha) {
-		return linhas.get(indiceLinha);
-	}
-
-	public void addContato(Caixa contato) {
-		linhas.add(contato);
-		int ultimoIndice = getRowCount() - 1;
-		fireTableRowsInserted(ultimoIndice, ultimoIndice);
-		//		System.out.println("A lista: " + linhas);
-	}
-
-	public void updateContato(int indiceLinha, Caixa marca) {
-		linhas.set(indiceLinha, marca);
-		fireTableRowsUpdated(indiceLinha, indiceLinha);
-	}
-
-	public void removeContato(int indiceLinha) {
-		linhas.remove(indiceLinha);
-		fireTableRowsDeleted(indiceLinha, indiceLinha);
-	}
-
-	//REMOVE A PATIR DO OBJETO
-	public void removeContato(Caixa object) {
+	// REMOVE A PATIR DO OBJETO
+	public void removeContato(final Caixa object) {
 		int indice = 0;
-		
-		for(int i = 0; i < linhas.size(); i++){
-			if(linhas.get(i).toString().equals(object.toString())){
+
+		for (int i = 0; i < linhas.size(); i++) {
+			if (linhas.get(i).toString().equals(object.toString())) {
 				indice = i;
 			}
 		}
-		
+
 		linhas.remove(indice);
 		fireTableRowsDeleted(indice, indice);
 
 	}
 
-	//ATUALIZAR NOVO A PARTIR DO VELHO
-	public void updateContato(Caixa velho, Caixa novo) {
+	public void removeContato(final int indiceLinha) {
+		linhas.remove(indiceLinha);
+		fireTableRowsDeleted(indiceLinha, indiceLinha);
+	}
+
+	@Override
+	public void setValueAt(final Object aValue, final int row, final int column) {
+	}
+
+	// ATUALIZAR NOVO A PARTIR DO VELHO
+	public void updateContato(final Caixa velho, final Caixa novo) {
 		Integer indice = null;
-		for(int i = 0; i < linhas.size(); i++){
-			if(linhas.get(i).toString().equals(velho.toString())){
+		for (int i = 0; i < linhas.size(); i++) {
+			if (linhas.get(i).toString().equals(velho.toString())) {
 				indice = i;
 			}
 		}
-		if(indice == null){
-			System.out.println("Elemento Não Encontrado :(");
-		}else{
+		if (indice == null) {
+			System.out.println(Messages.getString("CaixaTableModel.7")); //$NON-NLS-1$
+		} else {
 			linhas.set(indice, novo);
 			fireTableRowsUpdated(indice, indice);
 		}
+	}
+
+	public void updateContato(final int indiceLinha, final Caixa marca) {
+		linhas.set(indiceLinha, marca);
+		fireTableRowsUpdated(indiceLinha, indiceLinha);
 	}
 
 }

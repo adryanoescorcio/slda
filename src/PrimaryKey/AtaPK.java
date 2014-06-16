@@ -16,10 +16,8 @@ public class AtaPK implements InterfaceKey {
 	private String turnoAta;
 	private String anoAta;
 
-	public void setCodigo(String turmaAta, String turnoAta, String anoAta) {
-		this.turmaAta = turmaAta;
-		this.turnoAta = turnoAta;
-		this.anoAta = anoAta;
+	public String getAnoAta() {
+		return anoAta;
 	}
 
 	public String getTurmaAta() {
@@ -30,24 +28,27 @@ public class AtaPK implements InterfaceKey {
 		return turnoAta;
 	}
 
-	public String getAnoAta() {
-		return anoAta;
+	public void setAnoAta(final String anoAta) {
+		this.anoAta = anoAta;
 	}
 
-	public void setTurmaAta(String turmaAta) {
+	public void setCodigo(final String turmaAta, final String turnoAta,
+			final String anoAta) {
+		this.turmaAta = turmaAta;
+		this.turnoAta = turnoAta;
+		this.anoAta = anoAta;
+	}
+
+	public void setTurmaAta(final String turmaAta) {
 		this.turmaAta = turmaAta;
 	}
 
-	public void setTurnoAta(String turnoAta) {
+	public void setTurnoAta(final String turnoAta) {
 		this.turnoAta = turnoAta;
-	}
-
-	public void setAnoAta(String anoAta) {
-		this.anoAta = anoAta;
 	}
 
 	@Override
 	public String toString() {
-		return this.anoAta+this.turmaAta+this.turnoAta;
+		return this.anoAta + this.turmaAta + this.turnoAta;
 	}
 }

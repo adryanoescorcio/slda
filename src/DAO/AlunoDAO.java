@@ -14,120 +14,128 @@ import PrimaryKey.AlunoPK;
 import PrimaryKey.InterfaceKey;
 
 /**
- * Classe concreta para realizar o CRUD da Entidade Aluno.
- * <br>Obs.: Excepetion SQL não são capturadas.
- * <p><b>Extends</b><br>DAO
- *  
+ * Classe concreta para realizar o CRUD da Entidade Aluno. <br>
+ * Obs.: Excepetion SQL não são capturadas.
+ * <p>
+ * <b>Extends</b><br>
+ * DAO
+ * 
  * @author Adryano Escorcio
  * @version 2.0
  * */
 public class AlunoDAO extends DAO {
 
 	/**
-	 * <b>Construtor</b><p>
+	 * <b>Construtor</b>
+	 * <p>
 	 * Transmite a conexao do BD para super classe.<br>
 	 * E iniciar uma conexa transicao de dados.
-	 **/ 
-	public AlunoDAO(JPAUtil conexaoBD) {
-		super(conexaoBD);
-	}
-
-	/**
-	 * Metodo para inserir/atualiza o Entidade no Banco de Dados.
 	 **/
-	public boolean save(Aluno aluno) {
-		return super.save(aluno);
+	public AlunoDAO(final JPAUtil conexaoBD) {
+		super(conexaoBD);
 	}
 
 	/**
 	 * Buscar Aluno usando o CodigoAluno
 	 **/
-	public Aluno buscar(AlunoPK codigo) {
+	public Aluno buscar(final AlunoPK codigo) {
 		return (Aluno) this.consultar(codigo);
 	}
 
+	public List<Aluno> buscarNome(final String nomeLocalizar) {
+
+		// tenta fazer consulta composta usando o codigo PK
+		final List<Aluno> list = new ArrayList<Aluno>();
+		try {
+			Aluno aluno = null;
+			final ResultSet rs = this.consultarAlunoNome(nomeLocalizar);
+
+			while (rs.next()) {
+				aluno = new Aluno(); // cria um aluno vindo dos resultados
+
+				aluno.setCodigo(rs.getString(Messages.getString("AlunoDAO.0"))); // insere o //$NON-NLS-1$
+																// codigoDossie
+				aluno.setTranferenciaAluno(rs.getString(Messages.getString("AlunoDAO.1"))); //$NON-NLS-1$
+				aluno.setTelefoneAluno(rs.getString(Messages.getString("AlunoDAO.2"))); //$NON-NLS-1$
+				aluno.setSituacaoAluno(rs.getString(Messages.getString("AlunoDAO.3"))); //$NON-NLS-1$
+				aluno.setSexoAluno(rs.getString(Messages.getString("AlunoDAO.4"))); //$NON-NLS-1$
+				aluno.setNomeMae(rs.getString(Messages.getString("AlunoDAO.5"))); //$NON-NLS-1$
+				aluno.setNomeAluno(rs.getString(Messages.getString("AlunoDAO.6"))); //$NON-NLS-1$
+				aluno.setEstadoNascAluno(rs.getString(Messages.getString("AlunoDAO.7"))); //$NON-NLS-1$
+				aluno.setEnderecoAluno(rs.getString(Messages.getString("AlunoDAO.8"))); //$NON-NLS-1$
+				aluno.setDataNascimento(rs.getString(Messages.getString("AlunoDAO.9"))); //$NON-NLS-1$
+				aluno.setDataMatriculaAluno(rs.getString(Messages.getString("AlunoDAO.10"))); //$NON-NLS-1$
+				aluno.setCorAluno(rs.getString(Messages.getString("AlunoDAO.11"))); //$NON-NLS-1$
+				aluno.setCidadeNascAluno(rs.getString(Messages.getString("AlunoDAO.12"))); //$NON-NLS-1$
+				aluno.setCPF_Aluno(rs.getString(Messages.getString("AlunoDAO.13"))); //$NON-NLS-1$
+				aluno.setNis(rs.getString(Messages.getString("AlunoDAO.14"))); //$NON-NLS-1$
+				aluno.setLivro(rs.getString(Messages.getString("AlunoDAO.15"))); //$NON-NLS-1$
+				aluno.setFolha(rs.getString(Messages.getString("AlunoDAO.16"))); //$NON-NLS-1$
+				aluno.setNumCertificado(rs.getString(Messages.getString("AlunoDAO.17"))); //$NON-NLS-1$
+				aluno.setDataRegCertif(rs.getString(Messages.getString("AlunoDAO.18"))); //$NON-NLS-1$
+
+				list.add(aluno); // adiciona o aluno na lista
+				// System.out.println(aluno.getNomeAluno());
+			}
+
+			// serve para verificar se o objeto não é null;
+			System.out.println(Messages.getString("AlunoDAO.19") + aluno.getCodigo() //$NON-NLS-1$
+					+ Messages.getString("AlunoDAO.20")); // forçar o erro de nullPoint //$NON-NLS-1$
+			return list;
+
+		} catch (final NullPointerException e1) {
+			JOptionPane.showMessageDialog(null,
+					Messages.getString("AlunoDAO.21")); //$NON-NLS-1$
+			return list;
+		} catch (final SQLException e1) {
+			JOptionPane.showMessageDialog(null, Messages.getString("AlunoDAO.22") + e1.getMessage()); //$NON-NLS-1$
+			return list;
+		}
+	}
+
 	@Override
-	protected InterfacePadraoEntidade consultar(InterfaceKey codigo) {
+	protected InterfacePadraoEntidade consultar(final InterfaceKey codigo) {
 		em.clear();
 		return em.find(Aluno.class, codigo);
 	}
 
-	public boolean isExist(String codigo) {
-		AlunoPK pk = new AlunoPK();
-		pk.setCodigo(codigo);
-
-		Aluno alunoDaConsulta = (Aluno) this.consultar(pk);
-
-		try{
-			alunoDaConsulta.toString();
-			return true;
-		} catch (NullPointerException e) {
-			return false;
-		}
+	private ResultSet consultarAlunoNome(final String codigo)
+			throws SQLException {
+		return stm.executeQuery(Messages.getString("AlunoDAO.23") //$NON-NLS-1$
+				+ codigo + Messages.getString("AlunoDAO.24")); //$NON-NLS-1$
 	}
 
 	/**
 	 * RETORNA TODAS OS ALUNOS DO BANCO
 	 **/
-	public List<Aluno> getTodosAlunos(){
+	public List<Aluno> getTodosAlunos() {
 
-		Query query = em.createNamedQuery("Aluno.findAll");
+		final Query query = em.createNamedQuery(Messages.getString("AlunoDAO.25")); //$NON-NLS-1$
 		@SuppressWarnings("unchecked")
-		List<Aluno> alunos = query.getResultList();
+		final List<Aluno> alunos = query.getResultList();
 
 		return alunos;
 	}
 
-	public List<Aluno> buscarNome(String nomeLocalizar) {
+	public boolean isExist(final String codigo) {
+		final AlunoPK pk = new AlunoPK();
+		pk.setCodigo(codigo);
 
-		// tenta fazer consulta composta usando o codigo PK
-		List<Aluno> list = new ArrayList<Aluno>();
+		final Aluno alunoDaConsulta = (Aluno) this.consultar(pk);
+
 		try {
-			Aluno aluno = null;
-			ResultSet rs = this.consultarAlunoNome((String) nomeLocalizar);
-
-			while (rs.next()) {
-				aluno = new Aluno(); // cria um aluno vindo dos resultados
-
-				aluno.setCodigo(rs.getString("codigoaluno")); // insere o codigoDossie
-				aluno.setTranferenciaAluno(rs.getString("tranferenciaaluno"));
-				aluno.setTelefoneAluno(rs.getString("telefonealuno"));
-				aluno.setSituacaoAluno(rs.getString("situacaoaluno"));
-				aluno.setSexoAluno(rs.getString("sexoaluno"));
-				aluno.setNomeMae(rs.getString("nomemae"));
-				aluno.setNomeAluno(rs.getString("nomealuno"));
-				aluno.setEstadoNascAluno(rs.getString("estadonascaluno"));
-				aluno.setEnderecoAluno(rs.getString("enderecoaluno"));
-				aluno.setDataNascimento(rs.getString("datanascimento"));
-				aluno.setDataMatriculaAluno(rs.getString("datamatriculaaluno"));
-				aluno.setCorAluno(rs.getString("coraluno"));
-				aluno.setCidadeNascAluno(rs.getString("cidadenascaluno"));
-				aluno.setCPF_Aluno(rs.getString("cpf_aluno"));
-				aluno.setNis(rs.getString("nis"));
-				aluno.setLivro(rs.getString("livro"));
-				aluno.setFolha(rs.getString("folha"));
-				aluno.setNumCertificado(rs.getString("numcertificado"));
-				aluno.setDataRegCertif(rs.getString("dataregcertif"));
-
-				list.add(aluno); // adiciona o aluno na lista
-				//				System.out.println(aluno.getNomeAluno());
-			}
-
-			// serve para verificar se o objeto não é null;
-			System.out.println("Não Excluir: "+ aluno.getCodigo() +"(TESTE OBJETO)"); // forçar o erro de nullPoint
-			return list;
-
-		} catch (NullPointerException e1) {
-			JOptionPane.showMessageDialog(null, "Nenhum Aluno foi encontrado no banco de dados.");
-			return list;
-		} catch (SQLException e1) {
-			JOptionPane.showMessageDialog(null, "Erro SQL: " + e1.getMessage());
-			return list;
+			alunoDaConsulta.toString();
+			return true;
+		} catch (final NullPointerException e) {
+			return false;
 		}
 	}
 
-	private ResultSet consultarAlunoNome(String codigo) throws SQLException {
-		return stm.executeQuery("SELECT * FROM ALUNO WHERE nomealuno LIKE '%"+codigo+"%'");
+	/**
+	 * Metodo para inserir/atualiza o Entidade no Banco de Dados.
+	 **/
+	public boolean save(final Aluno aluno) {
+		return super.save(aluno);
 	}
 
 }

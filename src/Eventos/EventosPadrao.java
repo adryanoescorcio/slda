@@ -36,9 +36,9 @@ import Model.Documento;
  **/
 public abstract class EventosPadrao {
 
-	//CONEXÃO - DAOS
+	// CONEXÃO - DAOS
 	public JPAUtil conexaoBD = new JPAUtil();
-	protected AlunoDAO daoAluno = new AlunoDAO(conexaoBD);	
+	protected AlunoDAO daoAluno = new AlunoDAO(conexaoBD);
 	protected DocumentoDAO daoDoc = new DocumentoDAO(conexaoBD);
 	protected AtaDAO daoAta = new AtaDAO(conexaoBD);
 	protected ArquivoDAO daoArquivo = new ArquivoDAO(conexaoBD);
@@ -47,8 +47,8 @@ public abstract class EventosPadrao {
 
 	// scroll que envolve a tabela
 	public JScrollPane scroll = new JScrollPane();
-	
-	//ENTIDADES
+
+	// ENTIDADES
 	protected Aluno aluno;
 	protected Caixa caixa;
 	protected Ata ata;
@@ -62,56 +62,43 @@ public abstract class EventosPadrao {
 	public IconesGroup icone = new IconesGroup();
 
 	protected EditPanelGroup editPanel = new EditPanelGroup();
-	
-	public JTextField tfDiscente = new JTextField(); // campo que estará em todos os Jpanel
-	protected MaskFormatterGroup mask = new MaskFormatterGroup();	
+
+	public JTextField tfDiscente = new JTextField(); // campo que estará em
+														// todos os Jpanel
+	protected MaskFormatterGroup mask = new MaskFormatterGroup();
 
 	protected ComboBoxGroup comboGroup = new ComboBoxGroup();
 
-	public JButton btnPesquisar = new JButton("Pesquisar",icone.getIconePesquisar());
-	public JButton btnSalvar = new JButton("Salvar",icone.getIconeSalvar());
-	public JButton btnLimpar = new JButton("Limpar",icone.getIconeLimpar());
-	public JButton btnExcluir = new JButton("Excluir",icone.getIconeExcluir());
-	public JButton btnAlterar = new JButton("Alterar",icone.getIconeAlterar());
-	public JButton btnDocumento = new JButton("Doc", icone.getIconeDoc());
-	public JButton btnAta = new JButton("Ata",icone.getIconeAta());
-	public JButton btnAtaResul = new JButton("Ata",icone.getIconeAta());
-	public JButton btnCaixa = new JButton("Caixa", icone.getIconeCaixa());
-	public JButton btnCancelar = new JButton("Cancelar", icone.getIconeCancelar());
-	public JButton btnInserirCaixa = new JButton("Criar Caixa", icone.getIconeCaixa());
-	public JButton btnInserir = new JButton("Inserir", icone.getIconeInserir());
-	public JButton btnRetirar = new JButton("Retirar", icone.getIconeRetirar());
+	public JButton btnPesquisar = new JButton(Messages.getString("EventosPadrao.0"), //$NON-NLS-1$
+			icone.getIconePesquisar());
+	public JButton btnSalvar = new JButton(Messages.getString("EventosPadrao.1"), icone.getIconeSalvar()); //$NON-NLS-1$
+	public JButton btnLimpar = new JButton(Messages.getString("EventosPadrao.2"), icone.getIconeLimpar()); //$NON-NLS-1$
+	public JButton btnExcluir = new JButton(Messages.getString("EventosPadrao.3"), icone.getIconeExcluir()); //$NON-NLS-1$
+	public JButton btnAlterar = new JButton(Messages.getString("EventosPadrao.4"), icone.getIconeAlterar()); //$NON-NLS-1$
+	public JButton btnDocumento = new JButton(Messages.getString("EventosPadrao.5"), icone.getIconeDoc()); //$NON-NLS-1$
+	public JButton btnAta = new JButton(Messages.getString("EventosPadrao.6"), icone.getIconeAta()); //$NON-NLS-1$
+	public JButton btnAtaResul = new JButton(Messages.getString("EventosPadrao.7"), icone.getIconeAta()); //$NON-NLS-1$
+	public JButton btnCaixa = new JButton(Messages.getString("EventosPadrao.8"), icone.getIconeCaixa()); //$NON-NLS-1$
+	public JButton btnCancelar = new JButton(Messages.getString("EventosPadrao.9"), //$NON-NLS-1$
+			icone.getIconeCancelar());
+	public JButton btnInserirCaixa = new JButton(Messages.getString("EventosPadrao.10"), //$NON-NLS-1$
+			icone.getIconeCaixa());
+	public JButton btnInserir = new JButton(Messages.getString("EventosPadrao.11"), icone.getIconeInserir()); //$NON-NLS-1$
+	public JButton btnRetirar = new JButton(Messages.getString("EventosPadrao.12"), icone.getIconeRetirar()); //$NON-NLS-1$
 
 	protected JTextField tfLocalizar = new JTextField();
 
-	protected static final String SUCESSO = "Operação realizada com sucesso.";
-	protected static final String ERROPROC = "Ocorreu um erro durante o processo.";
+	protected static final String SUCESSO = Messages.getString("EventosPadrao.13"); //$NON-NLS-1$
+	protected static final String ERROPROC = Messages.getString("EventosPadrao.14"); //$NON-NLS-1$
 
 	public EventosPadrao() {
 		configInit();
 		alterarFont();
 	}
-	
-	public Aluno getAluno() {
-		return aluno;
-	}
-	
-	public Ata getAta() {
-		return ata;
-	}
-
-	public void setAluno(Aluno aluno) {
-		tfDiscente.setText(aluno.getNomeAluno());
-		this.aluno = aluno;
-	}
-
-	public JPanel painelLocaliza(JLabel titulo) {
-		return editPanel.painelLocaliza(titulo, tfLocalizar, btnPesquisar);
-	}
 
 	private void alterarFont() {
 		tfLocalizar.setFont(font.font_NEG_15);
-		tfLocalizar.setPreferredSize(new Dimension(200,0));
+		tfLocalizar.setPreferredSize(new Dimension(200, 0));
 		tfDiscente.setEditable(false); // nunca ira mudar.
 	}
 
@@ -119,7 +106,7 @@ public abstract class EventosPadrao {
 		btnRetirar.setFont(font.font_PLA_14);
 		btnInserir.setFont(font.font_PLA_14);
 		btnPesquisar.setFont(font.font_PLA_14);
-		btnPesquisar.setPreferredSize(new Dimension(140,26));
+		btnPesquisar.setPreferredSize(new Dimension(140, 26));
 		btnPesquisar.setRolloverEnabled(false);
 		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
 		btnExcluir.setEnabled(false); // necessario a pesquisa para ativar botão
@@ -130,16 +117,35 @@ public abstract class EventosPadrao {
 		btnRetirar.setEnabled(false);
 	}
 
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public Ata getAta() {
+		return ata;
+	}
+
+	/**
+	 * Captura os valores dos campos.
+	 * 
+	 * @throws erroNullRequisitoException
+	 **/
+	public abstract Object getValoresDosCampos()
+			throws erroNullRequisitoException;
+
 	/**
 	 * Classe que limpa todos os campos de um Frame
 	 **/
 	public abstract void limparCampos();
 
-	/**
-	 * Captura os valores dos campos.
-	 * @throws erroNullRequisitoException 
-	 **/
-	public abstract Object getValoresDosCampos() throws erroNullRequisitoException;
+	public JPanel painelLocaliza(final JLabel titulo) {
+		return editPanel.painelLocaliza(titulo, tfLocalizar, btnPesquisar);
+	}
+
+	public void setAluno(final Aluno aluno) {
+		tfDiscente.setText(aluno.getNomeAluno());
+		this.aluno = aluno;
+	}
 
 	/**
 	 * Atribui valores aos campos da Frame

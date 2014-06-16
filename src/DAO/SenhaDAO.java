@@ -10,39 +10,39 @@ import PrimaryKey.InterfaceKey;
 
 public class SenhaDAO extends DAO {
 
-	public SenhaDAO(JPAUtil conexaoBD) {
+	public SenhaDAO(final JPAUtil conexaoBD) {
 		super(conexaoBD);
 	}
-	
-	public List<Senha> getSenhas(){
+
+	@Override
+	protected InterfacePadraoEntidade consultar(final InterfaceKey key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Senha> getSenhas() {
 		emPW.clear();
-		String comando = "Select s From Senha s";
-		TypedQuery<Senha> query = emPW.createQuery(comando, Senha.class);
-		
+		final String comando = Messages.getString("SenhaDAO.0"); //$NON-NLS-1$
+		final TypedQuery<Senha> query = emPW.createQuery(comando, Senha.class);
+
 		List<Senha> senhas = null;
-		
-		try{
+
+		try {
 			senhas = query.getResultList();
-			
-		}catch(Exception e){
+
+		} catch (final Exception e) {
 		}
-	
+
 		return senhas;
 	}
-	
-	public void setMacSenhas(Senha senha, String mac){
+
+	public void setMacSenhas(final Senha senha, final String mac) {
 		senha.setMac(mac);
-		
+
 		emPW.getTransaction().begin();
 		emPW.persist(senha);
 		emPW.getTransaction().commit();
 		emPW.clear(); // limpa a conexao
-	}
-	
-	@Override
-	protected InterfacePadraoEntidade consultar(InterfaceKey key) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

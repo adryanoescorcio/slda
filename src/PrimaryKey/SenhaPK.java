@@ -3,7 +3,7 @@ package PrimaryKey;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class SenhaPK implements InterfaceKey{
+public class SenhaPK implements InterfaceKey {
 
 	private String pass;
 
@@ -11,7 +11,7 @@ public class SenhaPK implements InterfaceKey{
 		return pass;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(final String codigo) {
 		this.pass = codigo;
 	}
 

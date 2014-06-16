@@ -8,7 +8,7 @@ package PrimaryKey;
  **/
 public interface InterfaceKey {
 	/*
-	 * Interface não não implementa nenhuma classe. 
-	 * Mas é utilizada para generalizar as Classe de Chave Primária.
-	 ***/
+	 * Interface não não implementa nenhuma classe. Mas é utilizada para
+	 * generalizar as Classe de Chave Primária.*
+	 */
 }

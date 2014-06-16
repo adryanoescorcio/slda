@@ -14,15 +14,15 @@ public class ArquivoPK implements InterfaceKey {
 
 	private String codigoAluno = null;
 
+	public String getCodigoAluno() {
+		return this.codigoAluno;
+	}
+
 	/**
 	 * Metodo que insere o valor da Chave Primaria
 	 **/
-	public void setCodigoAluno(String codigo) {
+	public void setCodigoAluno(final String codigo) {
 		this.codigoAluno = codigo;
-	}
-
-	public String getCodigoAluno() {
-		return this.codigoAluno;
 	}
 
 	@Override

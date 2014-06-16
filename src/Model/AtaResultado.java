@@ -16,10 +16,10 @@ import PrimaryKey.InterfaceKey;
  * @implements PadraoEntidade
  **/
 
-@NamedQuery(name="AtaResultado.findByAluno", query="SELECT a FROM AtaResultado a where a.atapk.aluno = :aluno")
-
+@NamedQuery(name = "AtaResultado.findByAluno", query = "SELECT a FROM AtaResultado a where a.atapk.aluno = :aluno")
 @Entity
-public class AtaResultado implements InterfacePadraoEntidade, InterfacePadraoAta {
+public class AtaResultado implements InterfacePadraoEntidade,
+		InterfacePadraoAta {
 
 	@EmbeddedId
 	private AtaResultadoPK atapk = new AtaResultadoPK();
@@ -28,50 +28,36 @@ public class AtaResultado implements InterfacePadraoEntidade, InterfacePadraoAta
 	private String ensinoAta = null;
 
 	@Transient
-	private String nomeAluno = "";
+	private String nomeAluno = Messages.getString("AtaResultado.0"); //$NON-NLS-1$
+
+	@Override
+	public boolean equals(final Object obj) {
+		return atapk.equals(obj);
+	}
+
+	public String getAluno() {
+		return atapk.getAluno();
+	}
+
+	@Override
+	public String getAnoAta() {
+		return atapk.getAnoAta();
+	}
+
+	public Ata getAta() {
+		final Ata ata = new Ata();
+
+		ata.setAnoAta(atapk.getAnoAta());
+		ata.setModalidadeAta(modalidadeAta);
+		ata.setEnsinoAta(ensinoAta);
+		ata.setTurmaAta(atapk.getTurmaAta());
+		ata.setTurnoAta(atapk.getTurnoAta());
+
+		return ata;
+	}
 
 	public AtaResultadoPK getAtapk() {
 		return atapk;
-	}
-
-	public void setAtapk(AtaResultadoPK atapk) {
-		this.atapk = atapk;
-	}
-
-	public String getModalidadeAta() {
-		return modalidadeAta;
-	}
-
-	public void setModalidadeAta(String modalidadeAta) {
-		this.modalidadeAta = modalidadeAta;
-	}
-
-	public String getEnsinoAta() {
-		return ensinoAta;
-	}
-
-	public void setEnsinoAta(String ensinoAta) {
-		this.ensinoAta = ensinoAta;
-	}
-
-	public void setCodigo(String aluno, String turnoAta, String turmaAta, String anoAta) {
-		atapk.setCodigo(aluno, turmaAta, turnoAta, anoAta);
-	}
-
-	public String getNomeAluno() {
-		return nomeAluno;
-	}
-
-	public String getTurmaAta() {
-		return atapk.getTurmaAta();
-	}
-
-	public String getTurnoAta() {
-		return atapk.getTurnoAta();
-	}
-
-	public String getAnoAta() {
-		return atapk.getAnoAta();
 	}
 
 	@Override
@@ -80,54 +66,44 @@ public class AtaResultado implements InterfacePadraoEntidade, InterfacePadraoAta
 	}
 
 	@Override
-	public void setCodigoKEY(InterfaceKey chaveEntidade) {
-		this.atapk = (AtaResultadoPK) chaveEntidade;
+	public String getEnsinoAta() {
+		return ensinoAta;
 	}
 
-	public String toString() {
-		return "" +
-				"Turma: "+this.atapk.getTurmaAta()+ ", " +
-						"Ano: "+this.atapk.getAnoAta()+ ", " +
-								"Turno: "+this.atapk.getTurnoAta()+ ", " +
-										"Aluno: "+this.atapk.getAluno()+ ", " +
-												"Ensino: "+ getEnsinoAta()+ ", " +
-												"Modalidade: "+ getModalidadeAta()+ ", " +
-												"";
+	@Override
+	public String getModalidadeAta() {
+		return modalidadeAta;
 	}
 
-	public boolean equals(Object obj) {
-		return atapk.equals(obj);
+	public String getNomeAluno() {
+		return nomeAluno;
 	}
 
-	public String getAluno() {
-		return atapk.getAluno();
+	@Override
+	public String getTurmaAta() {
+		return atapk.getTurmaAta();
 	}
 
+	@Override
+	public String getTurnoAta() {
+		return atapk.getTurnoAta();
+	}
+
+	@Override
 	public int hashCode() {
 		return atapk.hashCode();
 	}
 
-	public void setNomeAluno(String nomeAluno) {
-		this.nomeAluno = nomeAluno;
-	}
-
-	public void setAluno(String aluno) {
+	public void setAluno(final String aluno) {
 		atapk.setAluno(aluno);
 	}
 
-	public void setTurmaAta(String turmaAta) {
-		atapk.setTurmaAta(turmaAta);
-	}
-
-	public void setTurnoAta(String turnoAta) {
-		atapk.setTurnoAta(turnoAta);
-	}
-
-	public void setAnoAta(String anoAta) {
+	@Override
+	public void setAnoAta(final String anoAta) {
 		atapk.setAnoAta(anoAta);
 	}
 
-	public void setAta(Ata ata) {
+	public void setAta(final Ata ata) {
 		this.setEnsinoAta(ata.getEnsinoAta());
 		this.setModalidadeAta(ata.getModalidadeAta());
 		this.setTurmaAta(ata.getTurmaAta());
@@ -135,15 +111,50 @@ public class AtaResultado implements InterfacePadraoEntidade, InterfacePadraoAta
 		this.setAnoAta(ata.getAnoAta());
 	}
 
-	public Ata getAta() {
-		Ata ata = new Ata();
-		
-		ata.setAnoAta(atapk.getAnoAta());
-		ata.setModalidadeAta(modalidadeAta);
-		ata.setEnsinoAta(ensinoAta);
-		ata.setTurmaAta(atapk.getTurmaAta());
-		ata.setTurnoAta(atapk.getTurnoAta());
-		
-		return ata;
+	public void setAtapk(final AtaResultadoPK atapk) {
+		this.atapk = atapk;
+	}
+
+	public void setCodigo(final String aluno, final String turnoAta,
+			final String turmaAta, final String anoAta) {
+		atapk.setCodigo(aluno, turmaAta, turnoAta, anoAta);
+	}
+
+	@Override
+	public void setCodigoKEY(final InterfaceKey chaveEntidade) {
+		this.atapk = (AtaResultadoPK) chaveEntidade;
+	}
+
+	@Override
+	public void setEnsinoAta(final String ensinoAta) {
+		this.ensinoAta = ensinoAta;
+	}
+
+	@Override
+	public void setModalidadeAta(final String modalidadeAta) {
+		this.modalidadeAta = modalidadeAta;
+	}
+
+	public void setNomeAluno(final String nomeAluno) {
+		this.nomeAluno = nomeAluno;
+	}
+
+	@Override
+	public void setTurmaAta(final String turmaAta) {
+		atapk.setTurmaAta(turmaAta);
+	}
+
+	@Override
+	public void setTurnoAta(final String turnoAta) {
+		atapk.setTurnoAta(turnoAta);
+	}
+
+	@Override
+	public String toString() {
+		return Messages.getString("AtaResultado.1") + Messages.getString("AtaResultado.2") + this.atapk.getTurmaAta() + Messages.getString("AtaResultado.3") + Messages.getString("AtaResultado.4") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				+ this.atapk.getAnoAta() + Messages.getString("AtaResultado.5") + Messages.getString("AtaResultado.6") //$NON-NLS-1$ //$NON-NLS-2$
+				+ this.atapk.getTurnoAta() + Messages.getString("AtaResultado.7") + Messages.getString("AtaResultado.8") //$NON-NLS-1$ //$NON-NLS-2$
+				+ this.atapk.getAluno() + Messages.getString("AtaResultado.9") + Messages.getString("AtaResultado.10") + getEnsinoAta() //$NON-NLS-1$ //$NON-NLS-2$
+				+ Messages.getString("AtaResultado.11") + Messages.getString("AtaResultado.12") + getModalidadeAta() + Messages.getString("AtaResultado.13") + Messages.getString("AtaResultado.14"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 }

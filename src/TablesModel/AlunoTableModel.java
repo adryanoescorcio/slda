@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 
 import Model.Aluno;
 
-public class AlunoTableModel extends AbstractTableModel{
+public class AlunoTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,42 +19,48 @@ public class AlunoTableModel extends AbstractTableModel{
 	private static final int COL_SEXO = 5;
 
 	private List<Aluno> linhas;
-	private String[] colunas = new String[]{"CODIGO", "NOME", "CPF", "NASCIMENTO.", "ESTADO NASC.", 
-			"SEXO"};
+	private final String[] colunas = new String[] { Messages.getString("AlunoTableModel.0"), Messages.getString("AlunoTableModel.1"), Messages.getString("AlunoTableModel.2"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			Messages.getString("AlunoTableModel.3"), Messages.getString("AlunoTableModel.4"), Messages.getString("AlunoTableModel.5") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-	public AlunoTableModel(List<Aluno> Aluno) {
+	public AlunoTableModel(final List<Aluno> Aluno) {
 		this.linhas = new ArrayList<>(Aluno);
 	}
 
-	public void setList(List<Aluno> list) {
-		this.linhas = list;
-		fireTableDataChanged();
+	public void addContato(final Aluno contato) {
+		linhas.add(contato);
+		final int ultimoIndice = getRowCount() - 1;
+		fireTableRowsInserted(ultimoIndice, ultimoIndice);
+
 	}
 
-	public int getRowCount() {
-		return linhas.size();
+	@Override
+	public Class<String> getColumnClass(final int columnIndex) {
+		return String.class;
 	}
 
+	@Override
 	public int getColumnCount() {
 		return colunas.length;
 	}
 
-	public String getColumnName(int columnIndex) {
+	@Override
+	public String getColumnName(final int columnIndex) {
 		return colunas[columnIndex];
 	}
 
-
-	public Class<String> getColumnClass(int columnIndex) {
-		return String.class;
+	public Aluno getContato(final int indiceLinha) {
+		return linhas.get(indiceLinha);
 	}
 
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return false;
+	@Override
+	public int getRowCount() {
+		return linhas.size();
 	}
 
-	public Object getValueAt(int row, int column) {
+	@Override
+	public Object getValueAt(final int row, final int column) {
 
-		Aluno m = linhas.get(row);
+		final Aluno m = linhas.get(row);
 
 		if (column == COL_ID) {
 			return m.getCodigo();
@@ -70,47 +76,47 @@ public class AlunoTableModel extends AbstractTableModel{
 			return m.getSexoAluno();
 		}
 
-		return "";
+		return Messages.getString("AlunoTableModel.6"); //$NON-NLS-1$
 	}
 
-	public void setValueAt(Object aValue, int row, int column) {
-		// TODO
+	@Override
+	public boolean isCellEditable(final int rowIndex, final int columnIndex) {
+		return false;
 	}
 
-	public Aluno getContato(int indiceLinha) {
-		return linhas.get(indiceLinha);
-	}
-
-	public void addContato(Aluno contato) {
-		linhas.add(contato);
-		int ultimoIndice = getRowCount() - 1;
-		fireTableRowsInserted(ultimoIndice, ultimoIndice);
-
-	}
-
-	public void updateContato(int indiceLinha, Aluno marca) {
-		linhas.set(indiceLinha, marca);
-		fireTableRowsUpdated(indiceLinha, indiceLinha);
-
-	}
-
-	public void removeContato(int indiceLinha) {
+	public void removeContato(final int indiceLinha) {
 		linhas.remove(indiceLinha);
 		fireTableRowsDeleted(indiceLinha, indiceLinha);
 
 	}
 
-	//REMOVE A PATIR DO OBJETO
-	public void removeContato(Object object) {
-		int indiceLinha = linhas.indexOf(object);
+	// REMOVE A PATIR DO OBJETO
+	public void removeContato(final Object object) {
+		final int indiceLinha = linhas.indexOf(object);
 		linhas.remove(object);
 		fireTableRowsDeleted(indiceLinha, indiceLinha);
 
 	}
 
-	//ATUALIZAR NOVO A PARTIR DO VELHO
-	public void updateContato(Object velho, Aluno novo) {
-		int indiceLinha = linhas.indexOf(velho);
+	public void setList(final List<Aluno> list) {
+		this.linhas = list;
+		fireTableDataChanged();
+	}
+
+	@Override
+	public void setValueAt(final Object aValue, final int row, final int column) {
+		// TODO
+	}
+
+	public void updateContato(final int indiceLinha, final Aluno marca) {
+		linhas.set(indiceLinha, marca);
+		fireTableRowsUpdated(indiceLinha, indiceLinha);
+
+	}
+
+	// ATUALIZAR NOVO A PARTIR DO VELHO
+	public void updateContato(final Object velho, final Aluno novo) {
+		final int indiceLinha = linhas.indexOf(velho);
 		linhas.set(indiceLinha, novo);
 		fireTableRowsUpdated(indiceLinha, indiceLinha);
 	}

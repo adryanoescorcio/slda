@@ -15,19 +15,19 @@ public class MenuVisualizar {
 	JMenu menuVisualizar;
 
 	public MenuVisualizar() {
-		menuVisualizar = new JMenu("Visualizar");
-		//ADICIONA UM MNEMÔNICO OU ATALHO(ALT + V)
+		menuVisualizar = new JMenu(Messages.getString("MenuVisualizar.0")); //$NON-NLS-1$
+		// ADICIONA UM MNEMÔNICO OU ATALHO(ALT + V)
 		menuVisualizar.setMnemonic('V');
-		JMenuItem itemVisAlunos = new JMenuItem("Todos os Alunos"); 
-		menuVisualizar.add(itemVisAlunos); 
-		JMenuItem itemVisCaixas = new JMenuItem("Todas as Caixas"); 
+		final JMenuItem itemVisAlunos = new JMenuItem(Messages.getString("MenuVisualizar.1")); //$NON-NLS-1$
+		menuVisualizar.add(itemVisAlunos);
+		final JMenuItem itemVisCaixas = new JMenuItem(Messages.getString("MenuVisualizar.2")); //$NON-NLS-1$
 		menuVisualizar.add(itemVisCaixas);
-		JMenuItem itemVisAtas = new JMenuItem("Todas as Atas"); 
+		final JMenuItem itemVisAtas = new JMenuItem(Messages.getString("MenuVisualizar.3")); //$NON-NLS-1$
 		menuVisualizar.add(itemVisAtas);
 
 	}
 
-	public JMenu getMenuVisualizar(){
+	public JMenu getMenuVisualizar() {
 		return menuVisualizar;
 	}
 

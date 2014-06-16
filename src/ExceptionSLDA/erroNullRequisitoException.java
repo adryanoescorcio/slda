@@ -6,9 +6,11 @@ public class erroNullRequisitoException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	public erroNullRequisitoException(String message, String codigoErro) {
-		super(message, new Throwable("ERROO"));
-		JOptionPane.showMessageDialog(null, message, codigoErro, JOptionPane.ERROR_MESSAGE);
+	public erroNullRequisitoException(final String message,
+			final String codigoErro) {
+		super(message, new Throwable(Messages.getString("erroNullRequisitoException.0"))); //$NON-NLS-1$
+		JOptionPane.showMessageDialog(null, message, codigoErro,
+				JOptionPane.ERROR_MESSAGE);
 	}
 
 }

@@ -4,6 +4,7 @@ import PrimaryKey.InterfaceKey;
 
 /**
  * Interface que todas as entidades devem possuir
+ * 
  * @author Adryano Escorcio
  * @version 1.5
  **/

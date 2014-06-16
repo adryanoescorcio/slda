@@ -31,7 +31,8 @@ public class PlusEventoDiscenteLista extends EventosPadrao {
 	protected JTable tabela = table.getTabela();
 
 	protected JFormattedTextField ftData;
-	protected JComboBox<String> comboBoxSubSecao = comboGroup.getComboBoxSubSecao();
+	protected JComboBox<String> comboBoxSubSecao = comboGroup
+			.getComboBoxSubSecao();
 
 	private JPanel main;
 	protected List<Ata> listaAta;
@@ -41,16 +42,10 @@ public class PlusEventoDiscenteLista extends EventosPadrao {
 
 	protected EventosAluno evento;
 
-	public PlusEventoDiscenteLista(JPanel main, EventosAluno evento) {
-		this.evento = evento;
-		this.main = main;
-		this.aluno = evento.getAluno();
-	}
-
 	protected ActionListener onClickCancelar = new ActionListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(final ActionEvent e) {
 			finalizeOperation();
 		}
 	};
@@ -58,58 +53,65 @@ public class PlusEventoDiscenteLista extends EventosPadrao {
 	protected ActionListener onClickSalvar = new ActionListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			try{
-				Aluno aluno = evento.modeloAlunoTable.getContato(
-						tabela.getSelectedRow());
+		public void actionPerformed(final ActionEvent e) {
+			try {
+				final Aluno aluno = evento.modeloAlunoTable.getContato(tabela
+						.getSelectedRow());
 				evento.processoMostarAluno(aluno);
 				finalizeOperation();
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "Selecione um aluno na tabela.", "ER09", JOptionPane.ERROR_MESSAGE);
+			} catch (final Exception ex) {
+				JOptionPane.showMessageDialog(null,
+						Messages.getString("PlusEventoDiscenteLista.0"), Messages.getString("PlusEventoDiscenteLista.1"), //$NON-NLS-1$ //$NON-NLS-2$
+						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	};
 
-	//OBJETO QUE REALIZA UMA BUSCA ATRAVÉS DAS LINHAS DA TABELA
-		protected MouseListener onClickRowTable = new MouseListener() {
+	// OBJETO QUE REALIZA UMA BUSCA ATRAVÉS DAS LINHAS DA TABELA
+	protected MouseListener onClickRowTable = new MouseListener() {
 
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(e.getClickCount() == 2){
-					try{
-						Aluno aluno = evento.modeloAlunoTable.getContato(
-								tabela.getSelectedRow());
-						evento.processoMostarAluno(aluno);
-						finalizeOperation();
-					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(null, "Selecione um aluno na tabela.", "ER09", JOptionPane.ERROR_MESSAGE);
-					}
+		@Override
+		public void mouseClicked(final MouseEvent e) {
+			if (e.getClickCount() == 2) {
+				try {
+					final Aluno aluno = evento.modeloAlunoTable
+							.getContato(tabela.getSelectedRow());
+					evento.processoMostarAluno(aluno);
+					finalizeOperation();
+				} catch (final Exception ex) {
+					JOptionPane.showMessageDialog(null,
+							Messages.getString("PlusEventoDiscenteLista.2"), Messages.getString("PlusEventoDiscenteLista.3"), //$NON-NLS-1$ //$NON-NLS-2$
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
+		}
 
-			@Override
-			public void mouseEntered(MouseEvent e) {}
-			@Override
-			public void mouseExited(MouseEvent e) {}
-			@Override
-			public void mousePressed(MouseEvent e) {}
-			@Override
-			public void mouseReleased(MouseEvent e) {}
-		};
+		@Override
+		public void mouseEntered(final MouseEvent e) {
+		}
 
-	
-	public void setMainJDialog(JPanel mainJDialog) {
-		this.main = mainJDialog;
+		@Override
+		public void mouseExited(final MouseEvent e) {
+		}
+
+		@Override
+		public void mousePressed(final MouseEvent e) {
+		}
+
+		@Override
+		public void mouseReleased(final MouseEvent e) {
+		}
+	};
+
+	public PlusEventoDiscenteLista(final JPanel main, final EventosAluno evento) {
+		this.evento = evento;
+		this.main = main;
+		this.aluno = evento.getAluno();
 	}
 
 	protected void finalizeOperation() {
 		evento.normalizarCamadas();
-		main.removeAll();		
-	}
-
-	@Override
-	public void limparCampos() {
-		// TODO Auto-generated method stub
+		main.removeAll();
 	}
 
 	@Override
@@ -119,7 +121,16 @@ public class PlusEventoDiscenteLista extends EventosPadrao {
 	}
 
 	@Override
-	public void setValoresDosCampos(Object object) {
+	public void limparCampos() {
+		// TODO Auto-generated method stub
+	}
+
+	public void setMainJDialog(final JPanel mainJDialog) {
+		this.main = mainJDialog;
+	}
+
+	@Override
+	public void setValoresDosCampos(final Object object) {
 		// TODO Auto-generated method stub
 
 	}

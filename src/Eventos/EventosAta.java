@@ -24,8 +24,8 @@ import PrimaryKey.AtaPK;
 import TablesModel.AtaTableModel;
 
 /**
- * Classe responsavel pelos eventos do painelAta
- * $$
+ * Classe responsavel pelos eventos do painelAta $$
+ * 
  * @author Walysson Oliveira
  * @author Adryano Escorcio
  * @version 2.0
@@ -34,12 +34,12 @@ import TablesModel.AtaTableModel;
 
 public class EventosAta extends EventosPadrao {
 
-	//OBJETO UTILIZADO NAS BUSCAS
+	// OBJETO UTILIZADO NAS BUSCAS
 	private Ata ataPesquisa = new Ata();
-	
+
 	private MainJFrame main;
 
-	//TABELA
+	// TABELA
 	protected PainelTabela table = new PainelTabela();
 	protected JTable tabela = table.getTabela();
 	protected List<Ata> lista = daoAta.getTodasAtas();
@@ -48,203 +48,143 @@ public class EventosAta extends EventosPadrao {
 	// Objeto Mask
 	protected MaskFormatterGroup mask = new MaskFormatterGroup();
 
-	//COMPONENTES NECESSÁRIOS
+	// COMPONENTES NECESSÁRIOS
 	protected JTextField tfTurma = new JTextField();
-	protected JFormattedTextField ftAno = new JFormattedTextField(mask.getMascaraAno());
+	protected JFormattedTextField ftAno = new JFormattedTextField(
+			mask.getMascaraAno());
 	protected JComboBox<String> comboTurno = comboGroup.getComboBoxTurno();
-	protected JComboBox<String> comboEnsino  = comboGroup.getComboBoxEnsinoFUNDAMENTAL();
-	protected JComboBox<String> comboModalidade  = comboGroup.getComboBoxEnsinoMF();
+	protected JComboBox<String> comboEnsino = comboGroup
+			.getComboBoxEnsinoFUNDAMENTAL();
+	protected JComboBox<String> comboModalidade = comboGroup
+			.getComboBoxEnsinoMF();
 
 	protected AtaPK pk = new AtaPK(); // chave primaria da ata.
-
-	public EventosAta(MainJFrame main) {
-		this.main = main;
-		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
-		btnExcluir.setEnabled(false); // necessario a pesquisa para ativar botão
-	}
-
-	@Override
-	public void limparCampos() {
-
-		tfTurma.setText("");
-		ftAno.setText("");
-		aluno = null;
-		ata = null;
-		tfDiscente.setText("");
-		comboTurno.setSelectedIndex(0);
-		comboModalidade.setSelectedIndex(0);
-		comboEnsino.setSelectedIndex(0);
-
-		//RESCONTRÓI A TABELA CASO ELA TENHA SIDO REDUZIDA NA BUSCA 
-		lista = daoAta.getTodasAtas();
-		modeloAta = new AtaTableModel(lista);
-		tabela.setModel(modeloAta);
-	
-		setMudarPerfil(false);
-		habilitarBotoes(false);
-
-	}
-	
-	public MainJFrame getMain() {
-		return main;
-	}
-
-	public void setMain(MainJFrame main) {
-		this.main = main;
-	}
-	
-	public void setMudarPerfil(boolean bool) {
-		btnSalvar.setEnabled(!bool);
-		btnAlterar.setEnabled(!bool);
-		btnExcluir.setEnabled(!bool);
-		
-		btnRetirar.setEnabled(bool);
-		btnInserir.setEnabled(bool);
-		
-		tfTurma.setEditable(!bool);
-		ftAno.setEditable(!bool);
-		
-		comboEnsino.setEnabled(!bool);
-		comboModalidade.setEnabled(!bool);
-		comboTurno.setEnabled(!bool);
-		
-	}
-
-	@Override
-	public Object getValoresDosCampos() {
-		ata = new Ata();
-		ata.setCodigo((String)comboTurno.getSelectedItem(), tfTurma.getText(), (mask.verificarMascara(ftAno)).trim());
-		ata.setModalidadeAta((String)comboModalidade.getSelectedItem());
-		ata.setEnsinoAta((String)comboEnsino.getSelectedItem());
-
-		return ata;
-	}
-
-	@Override
-	public void setValoresDosCampos(Object objeto) {
-		ata = (Ata) objeto;
-
-		tfTurma.setText(ata.getTurmaAta());
-		comboTurno.setSelectedItem(ata.getTurnoAta());
-		ftAno.setText(ata.getAnoAta());
-		comboModalidade.setSelectedItem(ata.getModalidadeAta());
-		comboEnsino.setSelectedItem(ata.getEnsinoAta());
-	}
 
 	/**
 	 * Metodos que realiza a função de limpar os campos.
 	 **/
-	protected ActionListener onClickLimparCampos = new ActionListener() {	
+	protected ActionListener onClickLimparCampos = new ActionListener() {
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(final ActionEvent e) {
 			limparCampos();
 		}
 	};
 
 	/**
-	 * Necessário verificar se houve alteração para poder atualiza a ata modificada.
+	 * Necessário verificar se houve alteração para poder atualiza a ata
+	 * modificada.
 	 **/
 	protected ActionListener onClickAterarAta = new ActionListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(final ActionEvent e) {
 			ata = (Ata) getValoresDosCampos();
 
-			if(!ata.toString().equals(ataPesquisa.toString())) {
-				if(daoAta.save(ata)) {
+			if (!ata.toString().equals(ataPesquisa.toString())) {
+				if (daoAta.save(ata)) {
 					JOptionPane.showMessageDialog(null, SUCESSO);
 					modeloAta.updateContato(ataPesquisa, ata);
-					limparCampos();					
-				}		
+					limparCampos();
+				}
 			} else {
-				JOptionPane.showMessageDialog(null, "(AT01) Não houve modificação.","ATENÇÃO AT01", 
+				JOptionPane.showMessageDialog(null,
+						Messages.getString("EventosAta.0"), Messages.getString("EventosAta.1"), //$NON-NLS-1$ //$NON-NLS-2$
 						JOptionPane.WARNING_MESSAGE);
 			}
 		}
 	};
 
-	public void setAta(AtaResultado ataR) {
-		ata = ataR.getAta();
-		setValoresDosCampos(ata);
-	}
-	
 	/**
 	 * Metodo com a função de salvar e alterar uma caixa.
 	 **/
 	protected ActionListener onClickSalvarAta = new ActionListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(final ActionEvent e) {
 			ata = (Ata) getValoresDosCampos();
-			pk.setCodigo(ata.getTurmaAta(), ata.getTurnoAta(), ata.getAnoAta()); // seta a chave
+			pk.setCodigo(ata.getTurmaAta(), ata.getTurnoAta(), ata.getAnoAta()); // seta
+																					// a
+																					// chave
 
-			try{
-				daoAta.buscar(pk).getCodigoKEY(); // realiza a busca no banco de dados
-				throw new erroNullRequisitoException("(ER04) Esta Ata já existe.", "ERRO ER04");
-			}catch(NullPointerException exc){
+			try {
+				daoAta.buscar(pk).getCodigoKEY(); // realiza a busca no banco de
+													// dados
+				throw new erroNullRequisitoException(
+						Messages.getString("EventosAta.2"), Messages.getString("EventosAta.3")); //$NON-NLS-1$ //$NON-NLS-2$
+			} catch (final NullPointerException exc) {
 
 				// Tentar pegar os valores
-				String turma = ata.getTurmaAta();
-				String turno = ata.getTurnoAta();
-				String ano = ata.getAnoAta();
+				final String turma = ata.getTurmaAta();
+				final String turno = ata.getTurnoAta();
+				final String ano = ata.getAnoAta();
 
 				// Verificar se os campos foram digitados
-				if(turma.equals("") || 
-						ano.equals("") || turno.equals("")){
-					JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios.", "ER08", JOptionPane.ERROR_MESSAGE);                
-				}else if(daoAta.save(ata)) {
+				if (turma.equals(Messages.getString("EventosAta.4")) || ano.equals(Messages.getString("EventosAta.5")) || turno.equals(Messages.getString("EventosAta.6"))) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					JOptionPane.showMessageDialog(null,
+							Messages.getString("EventosAta.7"), Messages.getString("EventosAta.8"), //$NON-NLS-1$ //$NON-NLS-2$
+							JOptionPane.ERROR_MESSAGE);
+				} else if (daoAta.save(ata)) {
 					JOptionPane.showMessageDialog(null, SUCESSO);
-					modeloAta.addContato(ata); // Insere a ata na tabela da tela ATA.
+					modeloAta.addContato(ata); // Insere a ata na tabela da tela
+												// ATA.
 					limparCampos();
 				}
 			}
 		}
 	};
-	
+
 	/***
-	 * Metodo com  a função de buscar um caixa
+	 * Metodo com a função de buscar um caixa
 	 */
 	protected ActionListener onClickBuscarAta = new ActionListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			String ano = tfLocalizar.getText().trim(); // pega o codigo digitado pelo cliente.
+		public void actionPerformed(final ActionEvent e) {
+			final String ano = tfLocalizar.getText().trim(); // pega o codigo
+																// digitado pelo
+																// cliente.
 
-			try{
-				List<Ata> atas = daoAta.getAtasByYear(ano); 
+			try {
+				final List<Ata> atas = daoAta.getAtasByYear(ano);
 				modeloAta = new AtaTableModel(atas);
 				tabela.setModel(modeloAta);
 
-			}catch(NullPointerException exc){
-				throw new erroNullRequisitoException("(ER03) Nenhuma Ata com ano: \"" +ano+ "\" foi encontrada.", "ERRO ER03");
+			} catch (final NullPointerException exc) {
+				throw new erroNullRequisitoException(
+						Messages.getString("EventosAta.9") + ano //$NON-NLS-1$
+								+ Messages.getString("EventosAta.10"), Messages.getString("EventosAta.11")); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		}
 	};
-	
+
 	protected ActionListener onClickInitInserir = new ActionListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(final ActionEvent e) {
 			try {
-				PlusEventoDiscenteAta disAta = new PlusEventoDiscenteAta(EventosAta.this);
-				
+				final PlusEventoDiscenteAta disAta = new PlusEventoDiscenteAta(
+						EventosAta.this);
+
 				// verificar se tudo deu certo.
 				if (disAta.onClickSalvarAtaResultado()) {
 					main.direcionarParaCamada(0);
 					main.atualizarTabelaAluno(aluno);
 					main.limparAta();
 				}
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "Um erro inesperado ocorreu. Verifique os dados e os campos preenchidos.");
+			} catch (final Exception ex) {
+				JOptionPane
+						.showMessageDialog(null,
+								Messages.getString("EventosAta.12")); //$NON-NLS-1$
 			}
 		}
 	};
-	
-	protected ActionListener onClickRetirarAtaResultado= new ActionListener() {
+
+	protected ActionListener onClickRetirarAtaResultado = new ActionListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			PlusEventoDiscenteAta disAta = new PlusEventoDiscenteAta(EventosAta.this);
+		public void actionPerformed(final ActionEvent e) {
+			final PlusEventoDiscenteAta disAta = new PlusEventoDiscenteAta(
+					EventosAta.this);
 			disAta.onClickRetirarAtaResultado();
 			main.direcionarParaCamada(0);
 			main.atualizarTabelaAluno(aluno);
@@ -257,11 +197,12 @@ public class EventosAta extends EventosPadrao {
 	protected ActionListener onClickExcluirAta = new ActionListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {			
-			if(JOptionPane.showConfirmDialog(null, "Deseja excluir a ata?") == 0) {
+		public void actionPerformed(final ActionEvent e) {
+			if (JOptionPane.showConfirmDialog(null, Messages.getString("EventosAta.13")) == 0) { //$NON-NLS-1$
 				daoAta.remover(ataPesquisa);
 				daoAtaResultado.excluirPorAta(ataPesquisa);
-				JOptionPane.showMessageDialog(null, "Ata excluída com sucesso.");
+				JOptionPane
+						.showMessageDialog(null, Messages.getString("EventosAta.14")); //$NON-NLS-1$
 				modeloAta.removeContato(ataPesquisa);
 				limparCampos();
 			}
@@ -270,36 +211,36 @@ public class EventosAta extends EventosPadrao {
 
 	protected ItemListener onClickChangeModalidade = new ItemListener() {
 		@Override
-		public void itemStateChanged(ItemEvent ev) {
-			//SE FUNDAMENTAL ESSE METODO RECONTRÓI O COMBO
-			if(comboModalidade.getSelectedIndex() == 0){
+		public void itemStateChanged(final ItemEvent ev) {
+			// SE FUNDAMENTAL ESSE METODO RECONTRÓI O COMBO
+			if (comboModalidade.getSelectedIndex() == 0) {
 				comboEnsino.removeAllItems();
-				comboEnsino.addItem("REGULAR");
-				comboEnsino.addItem("ACELERAÇÃO");
-				comboEnsino.addItem("AVANÇADO");
-				comboEnsino.addItem("CLASSE ESPECIAL");
-				comboEnsino.addItem("EJA");
+				comboEnsino.addItem(Messages.getString("EventosAta.15")); //$NON-NLS-1$
+				comboEnsino.addItem(Messages.getString("EventosAta.16")); //$NON-NLS-1$
+				comboEnsino.addItem(Messages.getString("EventosAta.17")); //$NON-NLS-1$
+				comboEnsino.addItem(Messages.getString("EventosAta.18")); //$NON-NLS-1$
+				comboEnsino.addItem(Messages.getString("EventosAta.19")); //$NON-NLS-1$
 
-				//SE MEDIO ESSE METODO RECONTRÓI O COMBO	
-			} else if(comboModalidade.getSelectedIndex() == 1){
+				// SE MEDIO ESSE METODO RECONTRÓI O COMBO
+			} else if (comboModalidade.getSelectedIndex() == 1) {
 				comboEnsino.removeAllItems();
-				comboEnsino.addItem("REGULAR");
-				comboEnsino.addItem("EJA");
-				comboEnsino.addItem("PROEJA");
-				comboEnsino.addItem("TÉC. CONTABILIDADE");
-			}	
+				comboEnsino.addItem(Messages.getString("EventosAta.20")); //$NON-NLS-1$
+				comboEnsino.addItem(Messages.getString("EventosAta.21")); //$NON-NLS-1$
+				comboEnsino.addItem(Messages.getString("EventosAta.22")); //$NON-NLS-1$
+				comboEnsino.addItem(Messages.getString("EventosAta.23")); //$NON-NLS-1$
+			}
 		}
 	};
 
 	protected MouseListener onClickRowTable = new MouseListener() {
 
 		@Override
-		public void mouseClicked(MouseEvent e) {
-			if(e.getClickCount() == 2){
-				int linha = tabela.getSelectedRow();
+		public void mouseClicked(final MouseEvent e) {
+			if (e.getClickCount() == 2) {
+				final int linha = tabela.getSelectedRow();
 				ataPesquisa = modeloAta.getContato(linha);
 				setValoresDosCampos(ataPesquisa);
-				
+
 				if (aluno == null) {
 					habilitarBotoes(true);
 				} else {
@@ -307,34 +248,124 @@ public class EventosAta extends EventosPadrao {
 				}
 			}
 		}
-		
+
 		@Override
-		public void mouseEntered(MouseEvent e) {}
+		public void mouseEntered(final MouseEvent e) {
+		}
+
 		@Override
-		public void mouseExited(MouseEvent e) {}
+		public void mouseExited(final MouseEvent e) {
+		}
+
 		@Override
-		public void mousePressed(MouseEvent e) {}
+		public void mousePressed(final MouseEvent e) {
+		}
+
 		@Override
-		public void mouseReleased(MouseEvent e) {}
+		public void mouseReleased(final MouseEvent e) {
+		}
 	};
 
-	//METODO PARA HABILITAR OU DESABILITAR OS BOTOES QUE INICIAM Enabled E TAMBÉM OUTROS COMPONENTES NECESSÁRIOS
-	public void habilitarBotoes(boolean bool) {
-
-		btnAlterar.setEnabled(bool); 
-		btnExcluir.setEnabled(bool);
-		btnSalvar.setEnabled(!bool); 
-		tfTurma.setEditable(!bool); 
-		ftAno.setEditable(!bool); 
-		comboTurno.setEnabled(!bool);
+	public EventosAta(final MainJFrame main) {
+		this.main = main;
+		btnAlterar.setEnabled(false); // necessario a pesquisa para ativar botão
+		btnExcluir.setEnabled(false); // necessario a pesquisa para ativar botão
 	}
 
 	protected void desabilitarTudoFormulario() {
-		tfTurma.setEditable(false); // nao sera possivel alterar o codigo de objeto consultado.
-		ftAno.setEditable(false); // nao sera possivel alterar o codigo de objeto consultado.
+		tfTurma.setEditable(false); // nao sera possivel alterar o codigo de
+									// objeto consultado.
+		ftAno.setEditable(false); // nao sera possivel alterar o codigo de
+									// objeto consultado.
 		comboTurno.setEnabled(false);
 		comboModalidade.setEnabled(false);
 		comboEnsino.setEnabled(false);
+	}
+
+	public MainJFrame getMain() {
+		return main;
+	}
+
+	@Override
+	public Object getValoresDosCampos() {
+		ata = new Ata();
+		ata.setCodigo((String) comboTurno.getSelectedItem(), tfTurma.getText(),
+				(mask.verificarMascara(ftAno)).trim());
+		ata.setModalidadeAta((String) comboModalidade.getSelectedItem());
+		ata.setEnsinoAta((String) comboEnsino.getSelectedItem());
+
+		return ata;
+	}
+
+	// METODO PARA HABILITAR OU DESABILITAR OS BOTOES QUE INICIAM Enabled E
+	// TAMBÉM OUTROS COMPONENTES NECESSÁRIOS
+	public void habilitarBotoes(final boolean bool) {
+
+		btnAlterar.setEnabled(bool);
+		btnExcluir.setEnabled(bool);
+		btnSalvar.setEnabled(!bool);
+		tfTurma.setEditable(!bool);
+		ftAno.setEditable(!bool);
+		comboTurno.setEnabled(!bool);
+	}
+
+	@Override
+	public void limparCampos() {
+
+		tfTurma.setText(Messages.getString("EventosAta.24")); //$NON-NLS-1$
+		ftAno.setText(Messages.getString("EventosAta.25")); //$NON-NLS-1$
+		aluno = null;
+		ata = null;
+		tfDiscente.setText(Messages.getString("EventosAta.26")); //$NON-NLS-1$
+		comboTurno.setSelectedIndex(0);
+		comboModalidade.setSelectedIndex(0);
+		comboEnsino.setSelectedIndex(0);
+
+		// RESCONTRÓI A TABELA CASO ELA TENHA SIDO REDUZIDA NA BUSCA
+		lista = daoAta.getTodasAtas();
+		modeloAta = new AtaTableModel(lista);
+		tabela.setModel(modeloAta);
+
+		setMudarPerfil(false);
+		habilitarBotoes(false);
+
+	}
+
+	public void setAta(final AtaResultado ataR) {
+		ata = ataR.getAta();
+		setValoresDosCampos(ata);
+	}
+
+	public void setMain(final MainJFrame main) {
+		this.main = main;
+	}
+
+	public void setMudarPerfil(final boolean bool) {
+		btnSalvar.setEnabled(!bool);
+		btnAlterar.setEnabled(!bool);
+		btnExcluir.setEnabled(!bool);
+
+		btnRetirar.setEnabled(bool);
+		btnInserir.setEnabled(bool);
+
+		tfTurma.setEditable(!bool);
+		ftAno.setEditable(!bool);
+
+		comboEnsino.setEnabled(!bool);
+		comboModalidade.setEnabled(!bool);
+		comboTurno.setEnabled(!bool);
+
+	}
+
+	@Override
+	public void setValoresDosCampos(final Object objeto) {
+		ata = (Ata) objeto;
+
+		tfTurma.setText(ata.getTurmaAta());
+		comboTurno.setSelectedItem(ata.getTurnoAta());
+		ftAno.setText(ata.getAnoAta());
+		comboModalidade.setSelectedItem(ata.getModalidadeAta());
+		comboEnsino.setSelectedItem(ata.getEnsinoAta());
 	}
 
 }

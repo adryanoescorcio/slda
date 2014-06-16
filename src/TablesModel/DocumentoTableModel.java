@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 
 import Model.Documento;
 
-public class DocumentoTableModel extends AbstractTableModel{
+public class DocumentoTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -18,36 +18,58 @@ public class DocumentoTableModel extends AbstractTableModel{
 	private static final int COL_STATUS = 4; // status
 	private static final int COL_DESC = 5; // descrição
 
-	private List<Documento> linhas;
-	private String[] colunas = new String[]{"PROTOCOLO", "DOCUMENTO", "DATA PEDIDO", "DATA ENTREGA", "STATUS", "DESCRIÇÃO"};
+	private final List<Documento> linhas;
+	private final String[] colunas = new String[] { Messages.getString("DocumentoTableModel.0"), Messages.getString("DocumentoTableModel.1"), //$NON-NLS-1$ //$NON-NLS-2$
+			Messages.getString("DocumentoTableModel.2"), Messages.getString("DocumentoTableModel.3"), Messages.getString("DocumentoTableModel.4"), Messages.getString("DocumentoTableModel.5") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
-	public DocumentoTableModel(List<Documento> documento) {
+	public DocumentoTableModel(final List<Documento> documento) {
 		this.linhas = new ArrayList<>(documento);
 	}
 
-	public int getRowCount() {
-		return linhas.size();
+	public void addContato(final Documento contato) {
+		linhas.add(contato);
+		final int ultimoIndice = getRowCount() - 1;
+		fireTableRowsInserted(ultimoIndice, ultimoIndice);
+
 	}
 
+	/**
+	 * Apagar as linhas e limpar a lista da tabela.
+	 **/
+	public void clear() {
+		if (linhas.size() > 0) {
+			fireTableRowsDeleted(0, this.linhas.size() - 1);
+			linhas.clear();
+		}
+	}
+
+	@Override
+	public Class<String> getColumnClass(final int columnIndex) {
+		return String.class;
+	}
+
+	@Override
 	public int getColumnCount() {
 		return colunas.length;
 	}
 
-
-	public String getColumnName(int columnIndex) {
+	@Override
+	public String getColumnName(final int columnIndex) {
 		return colunas[columnIndex];
 	}
 
-	public Class<String> getColumnClass(int columnIndex) {
-		return String.class;
+	public Documento getContato(final int indiceLinha) {
+		return linhas.get(indiceLinha);
 	}
 
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return false;
+	@Override
+	public int getRowCount() {
+		return linhas.size();
 	}
 
-	public Object getValueAt(int row, int column) {
-		Documento m = linhas.get(row);
+	@Override
+	public Object getValueAt(final int row, final int column) {
+		final Documento m = linhas.get(row);
 
 		if (column == COL_PROT) {
 			return m.getCodigo();
@@ -63,40 +85,24 @@ public class DocumentoTableModel extends AbstractTableModel{
 			return m.getStatus();
 		}
 
-		return "";
+		return Messages.getString("DocumentoTableModel.6"); //$NON-NLS-1$
 	}
 
-	public void setValueAt(Object aValue, int row, int column) {
-		// TODO
+	@Override
+	public boolean isCellEditable(final int rowIndex, final int columnIndex) {
+		return false;
 	}
 
-	public Documento getContato(int indiceLinha) {
-		return linhas.get(indiceLinha);
-	}
-
-	public void addContato(Documento contato) {
-		linhas.add(contato);
-		int ultimoIndice = getRowCount() - 1;
-		fireTableRowsInserted(ultimoIndice, ultimoIndice);
-
-	}
-
-	public void updateContato(int indiceLinha, Documento marca) {
-		linhas.set(indiceLinha, marca);
-		fireTableRowsUpdated(indiceLinha, indiceLinha);
-
-	}
-
-	public void removeContato(int indiceLinha) {
+	public void removeContato(final int indiceLinha) {
 		linhas.remove(indiceLinha);
 		fireTableRowsDeleted(indiceLinha, indiceLinha);
 	}
 
-	//REMOVE A PATIR DO OBJETO
-	public void removeContato(Object object) {
+	// REMOVE A PATIR DO OBJETO
+	public void removeContato(final Object object) {
 		int indice = 0;
-		for(int i = 0; i < linhas.size(); i++){
-			if(linhas.get(i).toString().equals(object.toString())){
+		for (int i = 0; i < linhas.size(); i++) {
+			if (linhas.get(i).toString().equals(object.toString())) {
 				indice = i;
 			}
 		}
@@ -105,22 +111,22 @@ public class DocumentoTableModel extends AbstractTableModel{
 
 	}
 
-	//ATUALIZAR NOVO A PARTIR DO VELHO
-	public void updateContato(Object velho, Documento novo) {
-		int indiceLinha = linhas.indexOf(velho);
+	@Override
+	public void setValueAt(final Object aValue, final int row, final int column) {
+		// TODO
+	}
+
+	public void updateContato(final int indiceLinha, final Documento marca) {
+		linhas.set(indiceLinha, marca);
+		fireTableRowsUpdated(indiceLinha, indiceLinha);
+
+	}
+
+	// ATUALIZAR NOVO A PARTIR DO VELHO
+	public void updateContato(final Object velho, final Documento novo) {
+		final int indiceLinha = linhas.indexOf(velho);
 		linhas.set(indiceLinha, novo);
 		fireTableRowsUpdated(indiceLinha, indiceLinha);
 	}
 
-	/**
-	 * Apagar as linhas e limpar a lista da tabela.
-	 **/
-	public void clear() {
-		if(linhas.size() > 0) {
-			fireTableRowsDeleted(0, this.linhas.size()-1);
-			linhas.clear();
-		}
-	}
-
 }
-

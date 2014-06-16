@@ -15,15 +15,15 @@ public class MenuImportar {
 	JMenu menuImportar;
 
 	public MenuImportar() {
-		menuImportar = new JMenu("Importar");	
-		//ADICIONA UM MNEMÔNICO OU ATALHO(ALT + I) 
+		menuImportar = new JMenu(Messages.getString("MenuImportar.0")); //$NON-NLS-1$
+		// ADICIONA UM MNEMÔNICO OU ATALHO(ALT + I)
 		menuImportar.setMnemonic('I');
-		JMenuItem itemOutroBD = new JMenuItem("Usar outro Banco de Dados"); 
+		final JMenuItem itemOutroBD = new JMenuItem(Messages.getString("MenuImportar.1")); //$NON-NLS-1$
 		menuImportar.add(itemOutroBD);
 
 	}
 
-	public JMenu getMenuImportar(){
+	public JMenu getMenuImportar() {
 		return menuImportar;
 	}
 

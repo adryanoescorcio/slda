@@ -5,16 +5,16 @@ import javax.swing.JMenuItem;
 
 public class MenuUsuario {
 
-	private JMenu menuUsuario;
+	private final JMenu menuUsuario;
 
 	public MenuUsuario() {
-		menuUsuario = new JMenu("Usuário");	
-		//ADICIONA UM MNEMÔNICO OU ATALHO(ALT + U) 
+		menuUsuario = new JMenu(Messages.getString("MenuUsuario.0")); //$NON-NLS-1$
+		// ADICIONA UM MNEMÔNICO OU ATALHO(ALT + U)
 		menuUsuario.setMnemonic('U');
-		JMenuItem itemFazerLogin = new JMenuItem("Fazer Login"); 
-		menuUsuario.add(itemFazerLogin); 
-		JMenuItem itemFazerLogoff = new JMenuItem("Fazer Logoff"); 
-		menuUsuario.add(itemFazerLogoff); 
+		final JMenuItem itemFazerLogin = new JMenuItem(Messages.getString("MenuUsuario.1")); //$NON-NLS-1$
+		menuUsuario.add(itemFazerLogin);
+		final JMenuItem itemFazerLogoff = new JMenuItem(Messages.getString("MenuUsuario.2")); //$NON-NLS-1$
+		menuUsuario.add(itemFazerLogoff);
 	}
 
 	public JMenu getMenuUsuario() {

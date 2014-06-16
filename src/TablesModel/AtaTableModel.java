@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 
 import Model.Ata;
 
-public class AtaTableModel extends AbstractTableModel{
+public class AtaTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -17,35 +17,54 @@ public class AtaTableModel extends AbstractTableModel{
 	private static final int COL_MODALIDADE = 3;
 	private static final int COL_ENSINO = 4;
 
-	private ArrayList<Ata> linhas;
-	private String[] colunas = new String[]{"TURMA", "TURNO", "ANO", "MODALIDADE", "ENSINO"};
+	private final ArrayList<Ata> linhas;
+	private final String[] colunas = new String[] { Messages.getString("AtaTableModel.0"), Messages.getString("AtaTableModel.1"), Messages.getString("AtaTableModel.2"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			Messages.getString("AtaTableModel.3"), Messages.getString("AtaTableModel.4") }; //$NON-NLS-1$ //$NON-NLS-2$
 
-	public AtaTableModel(List<Ata> ata) {
+	public AtaTableModel(final List<Ata> ata) {
 		this.linhas = new ArrayList<>(ata);
 	}
 
-	public int getRowCount() {
-		return linhas.size();
+	public void addContato(final Ata contato) {
+		linhas.add(contato);
+		final int ultimoIndice = getRowCount() - 1;
+		fireTableRowsInserted(ultimoIndice, ultimoIndice);
+
 	}
 
+	public void changedAll(final List<Ata> list) {
+		this.linhas.removeAll(this.linhas);
+		fireTableRowsDeleted(0, this.linhas.size() - 1);
+		this.linhas.addAll(list);
+	}
+
+	@Override
+	public Class<String> getColumnClass(final int columnIndex) {
+		return String.class;
+	}
+
+	@Override
 	public int getColumnCount() {
 		return colunas.length;
 	}
 
-	public String getColumnName(int columnIndex) {
+	@Override
+	public String getColumnName(final int columnIndex) {
 		return colunas[columnIndex];
 	}
 
-	public Class<String> getColumnClass(int columnIndex) {
-		return String.class;
+	public Ata getContato(final int indiceLinha) {
+		return linhas.get(indiceLinha);
 	}
 
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return false;
+	@Override
+	public int getRowCount() {
+		return linhas.size();
 	}
 
-	public Object getValueAt(int row, int column) {
-		Ata m = linhas.get(row);
+	@Override
+	public Object getValueAt(final int row, final int column) {
+		final Ata m = linhas.get(row);
 
 		if (column == COL_TURMA) {
 			return m.getTurmaAta();
@@ -59,47 +78,19 @@ public class AtaTableModel extends AbstractTableModel{
 			return m.getModalidadeAta();
 		}
 
-		return "";
+		return Messages.getString("AtaTableModel.5"); //$NON-NLS-1$
 	}
 
-	public void setValueAt(Object aValue, int row, int column) {
-		// TODO
+	@Override
+	public boolean isCellEditable(final int rowIndex, final int columnIndex) {
+		return false;
 	}
 
-	public Ata getContato(int indiceLinha) {
-		return linhas.get(indiceLinha);
-	}
-
-	public void addContato(Ata contato) {
-		linhas.add(contato);
-		int ultimoIndice = getRowCount() - 1;
-		fireTableRowsInserted(ultimoIndice, ultimoIndice);
-
-	}
-
-	public void updateContato(int indiceLinha, Ata marca) {
-		linhas.set(indiceLinha, marca);
-		fireTableRowsUpdated(indiceLinha, indiceLinha);
-
-	}
-
-	public void removeContato(int indiceLinha) {
-		linhas.remove(indiceLinha);
-		fireTableRowsDeleted(indiceLinha, indiceLinha);
-
-	}
-
-	public void changedAll(List<Ata> list){
-		this.linhas.removeAll(this.linhas);
-		fireTableRowsDeleted(0, this.linhas.size()-1);
-		this.linhas.addAll(list);
-	}
-
-	//REMOVE A PATIR DO OBJETO
-	public void removeContato(Ata object) {
+	// REMOVE A PATIR DO OBJETO
+	public void removeContato(final Ata object) {
 		int indice = 0;
-		for(int i = 0; i < linhas.size(); i++){
-			if(linhas.get(i).toString().equals(object.toString())){
+		for (int i = 0; i < linhas.size(); i++) {
+			if (linhas.get(i).toString().equals(object.toString())) {
 				indice = i;
 			}
 		}
@@ -107,20 +98,37 @@ public class AtaTableModel extends AbstractTableModel{
 		fireTableRowsDeleted(indice, indice);
 	}
 
-	//ATUALIZAR NOVO A PARTIR DO VELHO
+	public void removeContato(final int indiceLinha) {
+		linhas.remove(indiceLinha);
+		fireTableRowsDeleted(indiceLinha, indiceLinha);
 
-	public void updateContato(Ata velho, Ata novo) {
+	}
+
+	@Override
+	public void setValueAt(final Object aValue, final int row, final int column) {
+		// TODO
+	}
+
+	public void updateContato(final Ata velho, final Ata novo) {
 		Integer indice = null;
-		for(int i = 0; i < linhas.size(); i++){
-			if(linhas.get(i).toString().equals(velho.toString())){
+		for (int i = 0; i < linhas.size(); i++) {
+			if (linhas.get(i).toString().equals(velho.toString())) {
 				indice = i;
 			}
 		}
-		if(indice == null){
-			System.out.println("Elemento Não Encontrado :(");
-		}else{
+		if (indice == null) {
+			System.out.println(Messages.getString("AtaTableModel.6")); //$NON-NLS-1$
+		} else {
 			linhas.set(indice, novo);
 			fireTableRowsUpdated(indice, indice);
 		}
+	}
+
+	// ATUALIZAR NOVO A PARTIR DO VELHO
+
+	public void updateContato(final int indiceLinha, final Ata marca) {
+		linhas.set(indiceLinha, marca);
+		fireTableRowsUpdated(indiceLinha, indiceLinha);
+
 	}
 }

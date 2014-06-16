@@ -21,11 +21,8 @@ public class AtaResultadoPK implements InterfaceKey {
 		return aluno;
 	}
 
-	public void setCodigo(String aluno, String turmaAta, String turnoAta, String anoAta) {
-		this.aluno = aluno;
-		this.turmaAta = turmaAta;
-		this.turnoAta = turnoAta;
-		this.anoAta = anoAta;
+	public String getAnoAta() {
+		return anoAta;
 	}
 
 	public String getTurmaAta() {
@@ -36,27 +33,32 @@ public class AtaResultadoPK implements InterfaceKey {
 		return turnoAta;
 	}
 
-	public String getAnoAta() {
-		return anoAta;
-	}
-
-	public void setAluno(String aluno) {
+	public void setAluno(final String aluno) {
 		this.aluno = aluno;
 	}
 
-	public void setTurmaAta(String turmaAta) {
-		this.turmaAta = turmaAta;
-	}
-
-	public void setTurnoAta(String turnoAta) {
-		this.turnoAta = turnoAta;
-	}
-
-	public void setAnoAta(String anoAta) {
+	public void setAnoAta(final String anoAta) {
 		this.anoAta = anoAta;
 	}
 
+	public void setCodigo(final String aluno, final String turmaAta,
+			final String turnoAta, final String anoAta) {
+		this.aluno = aluno;
+		this.turmaAta = turmaAta;
+		this.turnoAta = turnoAta;
+		this.anoAta = anoAta;
+	}
+
+	public void setTurmaAta(final String turmaAta) {
+		this.turmaAta = turmaAta;
+	}
+
+	public void setTurnoAta(final String turnoAta) {
+		this.turnoAta = turnoAta;
+	}
+
+	@Override
 	public String toString() {
-		return this.anoAta+this.turmaAta+this.turnoAta+this.aluno;
+		return this.anoAta + this.turmaAta + this.turnoAta + this.aluno;
 	}
 }

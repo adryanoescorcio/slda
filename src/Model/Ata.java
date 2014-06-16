@@ -16,9 +16,8 @@ import PrimaryKey.InterfaceKey;
  * @implements PadraoEntidade
  **/
 @NamedQueries({
-	@NamedQuery(name="Ata.findAll", query="SELECT a FROM Ata a"),
-	@NamedQuery(name="Ata.findByYear", query="SELECT a FROM Ata a where a.ata.anoAta = :ano ORDER BY a.ata.turmaAta")
-})
+		@NamedQuery(name = "Ata.findAll", query = "SELECT a FROM Ata a"),
+		@NamedQuery(name = "Ata.findByYear", query = "SELECT a FROM Ata a where a.ata.anoAta = :ano ORDER BY a.ata.turmaAta") })
 @Entity
 public class Ata implements InterfacePadraoEntidade, InterfacePadraoAta {
 
@@ -28,54 +27,13 @@ public class Ata implements InterfacePadraoEntidade, InterfacePadraoAta {
 	private String modalidadeAta;
 	private String ensinoAta;
 
-	public AtaPK getAtapk() {
-		return ata;
-	}
-
-	public String getTurmaAta() {
-		return ata.getTurmaAta();
-	}
-
-	public String getTurnoAta() {
-		return ata.getTurnoAta();
-	}
-
+	@Override
 	public String getAnoAta() {
 		return ata.getAnoAta();
 	}
 
-	public String getModalidadeAta() {
-		return modalidadeAta;
-	}
-
-	public void setModalidadeAta(String modalidadeAta) {
-		this.modalidadeAta = modalidadeAta;
-	}
-
-	public String getEnsinoAta() {
-		return ensinoAta;
-	}
-
-	public void setEnsinoAta(String ensinoAta) {
-		this.ensinoAta = ensinoAta;
-	}
-
-	@Override
-	public String toString() {
-		return "" +
-				"Turma: "+this.ata.getTurmaAta()+ ", " +
-				"Ano: "+this.ata.getAnoAta()+ ", " +
-				"Turno: "+this.ata.getTurnoAta()+ ", " +
-				"Modalidade de Ensino: "+this.modalidadeAta+ ", " +
-				"Nivel de Ensino: "+this.ensinoAta+ ", " +
-				"";
-	}
-
-	/**
-	 * Não implementada para esta Entidade que possui chave composta.
-	 **/
-	public void setCodigo(String turnoAta, String turmaAta, String anoAta) {
-		this.ata.setCodigo(turmaAta, turnoAta, anoAta);
+	public AtaPK getAtapk() {
+		return ata;
 	}
 
 	@Override
@@ -84,22 +42,69 @@ public class Ata implements InterfacePadraoEntidade, InterfacePadraoAta {
 	}
 
 	@Override
-	public void setCodigoKEY(InterfaceKey chaveEntidade) {
+	public String getEnsinoAta() {
+		return ensinoAta;
+	}
+
+	@Override
+	public String getModalidadeAta() {
+		return modalidadeAta;
+	}
+
+	@Override
+	public String getTurmaAta() {
+		return ata.getTurmaAta();
+	}
+
+	@Override
+	public String getTurnoAta() {
+		return ata.getTurnoAta();
+	}
+
+	@Override
+	public void setAnoAta(final String anoAta) {
+		ata.setAnoAta(anoAta);
+	}
+
+	/**
+	 * Não implementada para esta Entidade que possui chave composta.
+	 **/
+	public void setCodigo(final String turnoAta, final String turmaAta,
+			final String anoAta) {
+		this.ata.setCodigo(turmaAta, turnoAta, anoAta);
+	}
+
+	@Override
+	public void setCodigoKEY(final InterfaceKey chaveEntidade) {
 		this.ata = (AtaPK) chaveEntidade;
 	}
 
 	@Override
-	public void setTurmaAta(String turmaAta) {
+	public void setEnsinoAta(final String ensinoAta) {
+		this.ensinoAta = ensinoAta;
+	}
+
+	@Override
+	public void setModalidadeAta(final String modalidadeAta) {
+		this.modalidadeAta = modalidadeAta;
+	}
+
+	@Override
+	public void setTurmaAta(final String turmaAta) {
 		ata.setTurmaAta(turmaAta);
 	}
 
 	@Override
-	public void setTurnoAta(String turnoAta) {
+	public void setTurnoAta(final String turnoAta) {
 		ata.setTurnoAta(turnoAta);
 	}
 
 	@Override
-	public void setAnoAta(String anoAta) {
-		ata.setAnoAta(anoAta);
+	public String toString() {
+		return Messages.getString("Ata.0") + Messages.getString("Ata.1") + this.ata.getTurmaAta() + Messages.getString("Ata.2") + Messages.getString("Ata.3") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				+ this.ata.getAnoAta() + Messages.getString("Ata.4") + Messages.getString("Ata.5") //$NON-NLS-1$ //$NON-NLS-2$
+				+ this.ata.getTurnoAta() + Messages.getString("Ata.6") + Messages.getString("Ata.7") //$NON-NLS-1$ //$NON-NLS-2$
+				+ this.modalidadeAta + Messages.getString("Ata.8") + Messages.getString("Ata.9") //$NON-NLS-1$ //$NON-NLS-2$
+				+ this.ensinoAta + Messages.getString("Ata.10") + Messages.getString("Ata.11"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 }

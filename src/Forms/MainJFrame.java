@@ -33,134 +33,156 @@ import Segurança.Validar;
 
 public class MainJFrame {
 
+	public static void main(final String[] args) throws IOException {
+
+		// splash.run();
+		if (validar.validar()) {
+			// splash.setAlwaysOnTop(true);
+			new MainJFrame();
+		} else {
+			// splash.stop();
+			System.exit(0);
+		}
+	}
+
 	// JFRAME MAINJFRAME ESTA EM TELAPADRAO
-	private JFrame mainJFrame = new JFrame();
-
+	private final JFrame mainJFrame = new JFrame();
 	// constantes
-	private static final String TITULO_WINDOW = "SLDA - Sistema de Localização de Documentos do Aluno";
-	private static final int TOP = JTabbedPane.TOP;
+	private static final String TITULO_WINDOW = Messages.getString("MainJFrame.0"); //$NON-NLS-1$
 
+	private static final int TOP = JTabbedPane.TOP;
 	private static final int PAINEL_ALUNO = 0;
 	private static final int PAINEL_CAIXA = 1;
 	private static final int PAINEL_ATA = 2;
+
 	private static final int PAINEL_EXTRA = 3;
 
 	/**
-	 * CRIADO UM PAINEL EM CAMADAS(JTABBEDPANE) PRINCIPAL - TOP
-	 * EM QUE CADA CAMADA TEM OUTROS PAINEIS EM CAMADAS(JTABBEDPANE) LATERAIS
+	 * CRIADO UM PAINEL EM CAMADAS(JTABBEDPANE) PRINCIPAL - TOP EM QUE CADA
+	 * CAMADA TEM OUTROS PAINEIS EM CAMADAS(JTABBEDPANE) LATERAIS
 	 **/
 	private JTabbedPane camadaExterna = new JTabbedPane(TOP);
 
 	// ICONES
-	private IconesGroup icone = new IconesGroup();
+	private final IconesGroup icone = new IconesGroup();
 
 	// Menu Principal
-	private JMenuBar menuBar = new JMenuBar();
-
+	private final JMenuBar menuBar = new JMenuBar();
 	// Itens do Menu Principal
-	private MenuUsuario menuUsuario = new MenuUsuario();
-	private MenuVisualizar menuVisualizar = new MenuVisualizar();
-	private MenuAvancado menuAvancado = new MenuAvancado();
+	private final MenuUsuario menuUsuario = new MenuUsuario();
+	private final MenuVisualizar menuVisualizar = new MenuVisualizar();
+
+	private final MenuAvancado menuAvancado = new MenuAvancado();
 
 	/**
-	 * Painel Principal e mais externo da JFrame. 
+	 * Painel Principal e mais externo da JFrame.
 	 **/
 
-	private JPanel mainJPanel = new JPanel(new BorderLayout(2, 2));
-
-	//INSTANCIANDO OS PAINEIS CRUD
+	private final JPanel mainJPanel = new JPanel(new BorderLayout(2, 2));
+	// INSTANCIANDO OS PAINEIS CRUD
 	// ALUNO
-	private PainelMainCaixa cadastrarCaixa = new PainelMainCaixa(this);
-	private PainelMainAluno cadastrarAluno = new PainelMainAluno(this);
-	private PainelMainAta cadastrarAta = new PainelMainAta(this);
+	private final PainelMainCaixa cadastrarCaixa = new PainelMainCaixa(this);
+	private final PainelMainAluno cadastrarAluno = new PainelMainAluno(this);
 
-	private Font font = new Font(Font.SANS_SERIF, 0, 18);
-	
-	//---SEGURANÇA
-	private static Validar validar = new Validar(Paths.get("C:/335b0BB5dfbfSD0d009382MN022/systemfat86x.txt"));
-	
-//	private static SplashJProgressBar splash = new SplashJProgressBar();
-	public MainJFrame(){
+	private final PainelMainAta cadastrarAta = new PainelMainAta(this);
+
+	private final Font font = new Font(Font.SANS_SERIF, 0, 18);
+
+	// ---SEGURANÇA
+	private static Validar validar = new Validar(
+			Paths.get(Messages.getString("MainJFrame.1"))); //$NON-NLS-1$
+
+	public WindowListener onListenerCloseOperation = new WindowListener() {
+
+		@Override
+		public void windowActivated(final WindowEvent arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void windowClosed(final WindowEvent arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void windowClosing(final WindowEvent arg0) {
+			encerrar();
+		}
+
+		@Override
+		public void windowDeactivated(final WindowEvent arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void windowDeiconified(final WindowEvent arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void windowIconified(final WindowEvent arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void windowOpened(final WindowEvent arg0) {
+			// TODO Auto-generated method stub
+		}
+	};
+
+	// private static SplashJProgressBar splash = new SplashJProgressBar();
+	public MainJFrame() {
 		try {
-			
-			if(!icone.dirExist()){
+
+			if (!icone.dirExist()) {
 				encerrar();
 			}
 			try {
-				Path url = Paths.get("Icones/");
-				Path url2 = Paths.get("sysdrive/");
-				Path url1 = Paths.get("sysout/");
-				Runtime.getRuntime().exec("attrib -h -s -r /s /d " + url1);
-				Runtime.getRuntime().exec("attrib +h +s +r /s /d " + url);
-				Runtime.getRuntime().exec("attrib +h +s +r /s /d " + url2);
-			} catch (IOException e1) {
+				final Path url = Paths.get(Messages.getString("MainJFrame.2")); //$NON-NLS-1$
+				final Path url2 = Paths.get(Messages.getString("MainJFrame.3")); //$NON-NLS-1$
+				final Path url1 = Paths.get(Messages.getString("MainJFrame.4")); //$NON-NLS-1$
+				Runtime.getRuntime().exec(Messages.getString("MainJFrame.5") + url1); //$NON-NLS-1$
+				Runtime.getRuntime().exec(Messages.getString("MainJFrame.6") + url); //$NON-NLS-1$
+				Runtime.getRuntime().exec(Messages.getString("MainJFrame.7") + url2); //$NON-NLS-1$
+			} catch (final IOException e1) {
 				encerrar();
-			}  
-			
+			}
+
 			menusWindows();
 			alterandoFontes();
 			addComponentesMainJPanel();
 			configuracaoMainJFrame();
-	
-			//SETANDO AS CAMADAS COM O FUNDO BRANCO
+
+			// SETANDO AS CAMADAS COM O FUNDO BRANCO
 			camadaExterna.setOpaque(true);
 			camadaExterna.setBackground(Color.LIGHT_GRAY);
-	
-			//DEFININDO OS PAINEIS DA CAMADA EXTERNA 
-			camadaExterna.addTab("Discente", icone.getIconeAluno(), 
-					cadastrarAluno.getTelaPrincipal(), "Gerenciar Alunos");
-	
-			camadaExterna.addTab("Caixa",  icone.getIconeArquivo(), 
-					cadastrarCaixa.getTelaPrincipal(),"Gerenciar Caixas");
-	
-			camadaExterna.addTab("Ata", icone.getIconeAta32x(), 
-					cadastrarAta.getTelaPrincipal(), "Gerenciar Atas");
-	
-//			splash.stop();
-		} catch (Exception ex) {
+
+			// DEFININDO OS PAINEIS DA CAMADA EXTERNA
+			camadaExterna.addTab(Messages.getString("MainJFrame.8"), icone.getIconeAluno(), //$NON-NLS-1$
+					cadastrarAluno.getTelaPrincipal(), Messages.getString("MainJFrame.9")); //$NON-NLS-1$
+
+			camadaExterna.addTab(Messages.getString("MainJFrame.10"), icone.getIconeArquivo(), //$NON-NLS-1$
+					cadastrarCaixa.getTelaPrincipal(), Messages.getString("MainJFrame.11")); //$NON-NLS-1$
+
+			camadaExterna.addTab(Messages.getString("MainJFrame.12"), icone.getIconeAta32x(), //$NON-NLS-1$
+					cadastrarAta.getTelaPrincipal(), Messages.getString("MainJFrame.13")); //$NON-NLS-1$
+
+			// splash.stop();
+		} catch (final Exception ex) {
 			encerrar();
 		}
-			
+
 	}
 
-	private void encerrar() {
-		cadastrarAluno.conexaoBD.closeAllConexao();
-		cadastrarAta.conexaoBD.closeAllConexao();
-		cadastrarCaixa.conexaoBD.closeAllConexao();
-		System.exit(0);
-	}
-
-	private void alterandoFontes() {
-		camadaExterna.setFont(font);
-	}
-	
-	public void mudarPerfilAta(Aluno aluno) {
-		cadastrarAta.setMudarPerfil(true);
-		cadastrarAta.setAluno(aluno);
-	}
-	
-	public void mudarPerfilAta(Aluno aluno, AtaResultado ataR) {
-		mudarPerfilAta(aluno);
-		cadastrarAta.setAta(ataR);
-	}
-	
-	public void mudarPerfilCaixa(Aluno aluno, EventosAluno evento) {
-		cadastrarCaixa.setMudarPerfil(true);
-		cadastrarCaixa.setAluno(aluno);
-	}
-
-	public JTabbedPane getCamadaExterna() {
-		return camadaExterna;
-	}
-
-	public void setCamadaExterna(JTabbedPane camadaExterna) {
-		this.camadaExterna = camadaExterna;
-	}
-	
 	/**
 	 * Insere uma aba na camada JTabbed e desativa as outras abas.
 	 **/
-	public void addCamada(JPanel painel, String titulo) {
+	public void addCamada(final JPanel painel, final String titulo) {
 		camadaExterna.addTab(titulo, painel); // insere um aba
 		// Desativar a outras abas
 		camadaExterna.setEnabledAt(PAINEL_CAIXA, false);
@@ -170,18 +192,30 @@ public class MainJFrame {
 	}
 
 	private void addComponentesMainJPanel() {
-		//ADICIONANDO A CAMADA EXTERNA À JANELA(JFrame)
+		// ADICIONANDO A CAMADA EXTERNA À JANELA(JFrame)
 		mainJPanel.add(camadaExterna);
 	}
 
+	private void alterandoFontes() {
+		camadaExterna.setFont(font);
+	}
+
+	public void atualizarCaixaAluno(final Aluno aluno) {
+		cadastrarAluno.pesquisarCaixa(aluno);
+	}
+
+	public void atualizarTabelaAluno(final Aluno aluno) {
+		cadastrarAluno.tabelaAta(aluno);
+	}
+
 	private void configuracaoMainJFrame() {
-		
-//		Não Funciona no JAR
-//		mainJFrame.setIconImage(icone.createFaviIcon("Icones/icon.png"));
-		
+
+		// Não Funciona no JAR
+		// mainJFrame.setIconImage(icone.createFaviIcon("Icones/icon.png"));
+
 		mainJFrame.setTitle(TITULO_WINDOW);
 		mainJFrame.addWindowListener(onListenerCloseOperation);
-		
+
 		mainJFrame.setVisible(true);
 		mainJFrame.setSize(1050, 700);
 
@@ -193,69 +227,53 @@ public class MainJFrame {
 		mainJFrame.add(mainJPanel);
 	}
 
-	public WindowListener onListenerCloseOperation =  new WindowListener() {
-		
-		@Override
-		public void windowOpened(WindowEvent arg0) {
-			// TODO Auto-generated method stub
-		}
-		
-		@Override
-		public void windowIconified(WindowEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public void windowDeiconified(WindowEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public void windowDeactivated(WindowEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public void windowClosing(WindowEvent arg0) {
-			encerrar();
-		}
-		
-		@Override
-		public void windowClosed(WindowEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public void windowActivated(WindowEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-	};
+	public void direcionarParaCamada(final int i) {
+		camadaExterna.setSelectedIndex(i);
+	}
+
+	private void encerrar() {
+		cadastrarAluno.conexaoBD.closeAllConexao();
+		cadastrarAta.conexaoBD.closeAllConexao();
+		cadastrarCaixa.conexaoBD.closeAllConexao();
+		System.exit(0);
+	}
+
+	public JTabbedPane getCamadaExterna() {
+		return camadaExterna;
+	}
+
+	public void limparAta() {
+		cadastrarAta.limparCampos();
+	}
+
+	public void limparCaixa() {
+		cadastrarCaixa.limparCampos();
+	}
 
 	/**
 	 * Classe responsavel pela criação dos itens do Menu da Janela
 	 **/
 	private void menusWindows() {
-		//---------> CRIANDO A BARRA DE MENUS E ADICIONANDO MENUS A ELA <-----------
+		// ---------> CRIANDO A BARRA DE MENUS E ADICIONANDO MENUS A ELA
+		// <-----------
 		menuBar.add(menuUsuario.getMenuUsuario());
 		menuBar.add(menuVisualizar.getMenuVisualizar());
 		menuBar.add(menuAvancado.getMenuAvancado());
 	}
 
-	public static void main(String[] args) throws IOException {
-		
-//		splash.run();
-		if(validar.validar()){
-//			splash.setAlwaysOnTop(true);
-			new MainJFrame();
-		}else{
-//			splash.stop();	
-			System.exit(0);
-		}
+	public void mudarPerfilAta(final Aluno aluno) {
+		cadastrarAta.setMudarPerfil(true);
+		cadastrarAta.setAluno(aluno);
+	}
+
+	public void mudarPerfilAta(final Aluno aluno, final AtaResultado ataR) {
+		mudarPerfilAta(aluno);
+		cadastrarAta.setAta(ataR);
+	}
+
+	public void mudarPerfilCaixa(final Aluno aluno, final EventosAluno evento) {
+		cadastrarCaixa.setMudarPerfil(true);
+		cadastrarCaixa.setAluno(aluno);
 	}
 
 	public void normalizarCamadas() {
@@ -263,28 +281,12 @@ public class MainJFrame {
 		// volta a camadas ao normal
 		camadaExterna.setEnabledAt(PAINEL_CAIXA, true);
 		camadaExterna.setEnabledAt(PAINEL_ALUNO, true);
-		camadaExterna.setSelectedIndex(PAINEL_ALUNO); // volta a tela para o painel do aluno
+		camadaExterna.setSelectedIndex(PAINEL_ALUNO); // volta a tela para o
+														// painel do aluno
 		camadaExterna.setEnabledAt(PAINEL_ATA, true);
 	}
 
-	public void direcionarParaCamada (int i) {
-		camadaExterna.setSelectedIndex(i);
-	}
-
-	public void atualizarTabelaAluno(Aluno aluno) {
-		cadastrarAluno.tabelaAta(aluno);
-	}
-	
-	public void atualizarCaixaAluno(Aluno aluno) {
-		cadastrarAluno.pesquisarCaixa(aluno);
-	}
-
-	public void limparCaixa() {
-		cadastrarCaixa.limparCampos();
-	}
-
-	public void limparAta() {
-		cadastrarAta.limparCampos();
+	public void setCamadaExterna(final JTabbedPane camadaExterna) {
+		this.camadaExterna = camadaExterna;
 	}
 }
-

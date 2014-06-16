@@ -27,8 +27,8 @@ import Model.Documento;
 import TablesModel.DocumentoTableModel;
 
 /**
- * Classe responsavel pelos eventos do painelCaixa
- * $$
+ * Classe responsavel pelos eventos do painelCaixa $$
+ * 
  * @author Walysson Oliveira
  * @author Adryano Escorcio
  * @version 2.0
@@ -37,138 +37,73 @@ import TablesModel.DocumentoTableModel;
 
 public class PlusEventoDocumento extends EventosPadrao {
 
+	// PEQUENA CLASSE DE COMPARAÇÃO UTILIZADA NA ORDENAÇÃO DA LISTA
+	public static class ComparadorObjetos implements Comparator<Caixa> {
+
+		@Override
+		public int compare(final Caixa objetoParaComparar,
+				final Caixa objetoAserComparado) {
+			return objetoParaComparar.getCodigo().compareTo(
+					objetoAserComparado.getCodigo());
+		}
+	}
+
 	private static final int INTERVALO = 35;
 
-	//OBJETO UTILIZADO NAS BUSCAS
+	// OBJETO UTILIZADO NAS BUSCAS
 	Documento DocPesquisa = new Documento();
-
-	//TABELA
+	// TABELA
 	PainelTabela table = new PainelTabela();
 	protected JTable tabela = table.getTabela();
 	protected List<Documento> lista;
 	protected DocumentoTableModel modelo;
-	protected String strCodigo;
 
-	//COMPONENTES NECESSÁRIOS
+	protected String strCodigo;
+	// COMPONENTES NECESSÁRIOS
 	protected JTextField tfProtocolo = new JTextField();
 	protected JTextField tfDocumento = new JTextField();
-	protected JFormattedTextField ftDataPedido = new JFormattedTextField(mask.getMascaraData());
-	protected JFormattedTextField ftDataEntrega = new JFormattedTextField(mask.getMascaraData());
-	protected JComboBox<String> comboStatus = comboGroup.getComboBoxStatusDocumento();
-	
+	protected JFormattedTextField ftDataPedido = new JFormattedTextField(
+			mask.getMascaraData());
+	protected JFormattedTextField ftDataEntrega = new JFormattedTextField(
+			mask.getMascaraData());
+
+	protected JComboBox<String> comboStatus = comboGroup
+			.getComboBoxStatusDocumento();
+
 	protected JTextArea taDescricao = new JTextArea();
-	
 	protected MainJFrame main;
+
 	protected EventosAluno evento;
-
-	public PlusEventoDocumento(MainJFrame main, EventosAluno evento) {
-		this.main = main;
-		this.evento = evento;
-		dataPedidoCampo();
-		
-		lista = daoDoc.buscarDocumentoporAluno(evento.aluno);
-		modelo = new DocumentoTableModel(lista);
-		tfProtocolo.setEditable(false);
-	}
-
-	private String dateToday() {
-
-		Date date = new Date();
-		SimpleDateFormat dateToday = new SimpleDateFormat("dd/MM/yyyy");
-		String strDateToday = dateToday.format(date);
-		
-		return strDateToday;
-	}
-	
-	private void dataPedidoCampo() {
-		ftDataPedido.setText(dateToday());
-	}
-
-	public MainJFrame getMain() {
-		return main;
-	}
-
-	public void setMain(MainJFrame main) {
-		this.main = main;
-	}
-
-	@Override
-	public Object getValoresDosCampos() {
-		
-		if(!(((String) ftDataPedido.getText()) == "")){
-
-			documento = new Documento();
-			documento.setNomeDocumento(tfDocumento.getText());
-			documento.setCodigo(tfProtocolo.getText().trim());
-			documento.setAluno(evento.aluno);
-			documento.setStatus((String) comboStatus.getSelectedItem());
-			documento.setDataEntrega(ftDataEntrega.getText());
-			documento.setDataPedido(ftDataPedido.getText());
-			documento.setDescricao(taDescricao.getText().trim());
-
-			return documento;
-			
-		} else {
-			throw new erroNullRequisitoException("(ER02) Preencha todos os requisitos com dados válidos.", "ERRO ER02");
-		}
-	}
-
-	public int numAleatorio() {
-		Random rand = new Random();
-		return rand.nextInt(INTERVALO);
-	}
-	
-	private String stringRandon() {
-		String str = "ABCDEFGHIJKLMNOPQRSTUVXWYZ0123456789";
-		String strRandom = "";
-		
-		for (int i=0; i < 8; i++) {
-			strRandom += str.charAt(numAleatorio());
-		}
-		
-		return strRandom;
-	}
-
-	@Override
-	public void setValoresDosCampos(Object object) throws NullPointerException {
-		Documento doc = (Documento) object;
-
-		tfProtocolo.setText(doc.getCodigo());
-		tfDocumento.setText(doc.getNomeDocumento());
-		ftDataEntrega.setText(doc.getDataEntrega());
-		ftDataPedido.setText(doc.getDataPedido());
-		comboStatus.setSelectedItem(doc.getStatus());
-		taDescricao.setText(doc.getDescricao());
-		
-	}
 
 	/**
 	 * Metodos que realiza a função de limpar os campos.
 	 **/
-	protected ActionListener onClickLimparCampos = new ActionListener() {  
+	protected ActionListener onClickLimparCampos = new ActionListener() {
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(final ActionEvent e) {
 			limparCampos();
 		}
 	};
 
 	/**
-	 * Necessário verificar se houve alteração para poder atualiza a caixa modificada.
+	 * Necessário verificar se houve alteração para poder atualiza a caixa
+	 * modificada.
 	 **/
 	protected ActionListener onClickAlterarCaixa = new ActionListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(final ActionEvent e) {
 			documento = (Documento) getValoresDosCampos();
 
-			if(!documento.toString().equals(DocPesquisa.toString())) {                        
-				if(daoDoc.save(documento)) {
+			if (!documento.toString().equals(DocPesquisa.toString())) {
+				if (daoDoc.save(documento)) {
 					JOptionPane.showMessageDialog(null, SUCESSO);
 					modelo.updateContato(DocPesquisa, documento);
 					limparCampos();
-				}      
+				}
 			} else {
-				JOptionPane.showMessageDialog(null, "(AT01) Não houve modificação.","ATENÇÃO AT01",
+				JOptionPane.showMessageDialog(null,
+						Messages.getString("PlusEventoDocumento.0"), Messages.getString("PlusEventoDocumento.1"), //$NON-NLS-1$ //$NON-NLS-2$
 						JOptionPane.WARNING_MESSAGE);
 			}
 		}
@@ -180,17 +115,16 @@ public class PlusEventoDocumento extends EventosPadrao {
 	protected ActionListener onClickSalvarCaixa = new ActionListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(final ActionEvent e) {
 
 			try {
-				
+
 				// gerando protocolo
-				tfProtocolo.setText((String.valueOf
-						(numAleatorio()) 
-							+ stringRandon() + numAleatorio()));
-				
-				Documento doc = (Documento) getValoresDosCampos();
-				if(daoDoc.save(doc)) {
+				tfProtocolo.setText((String.valueOf(numAleatorio())
+						+ stringRandon() + numAleatorio()));
+
+				final Documento doc = (Documento) getValoresDosCampos();
+				if (daoDoc.save(doc)) {
 					JOptionPane.showMessageDialog(null, SUCESSO);
 					modelo.addContato(doc);
 					evento.modeloDoc.addContato(doc);
@@ -198,17 +132,17 @@ public class PlusEventoDocumento extends EventosPadrao {
 				} else {
 					JOptionPane.showMessageDialog(null, ERROPROC);
 				}
-				
-			} catch (Exception ex) {
-				System.out.println("Dados estão incompletos" + ex.getMessage());
+
+			} catch (final Exception ex) {
+				System.out.println(Messages.getString("PlusEventoDocumento.2") + ex.getMessage()); //$NON-NLS-1$
 			}
 		}
 	};
-	
+
 	protected ItemListener onClickChangeModalidade = new ItemListener() {
 		@Override
-		public void itemStateChanged(ItemEvent ev) {
-			if(comboStatus.getSelectedIndex() == 1) {			
+		public void itemStateChanged(final ItemEvent ev) {
+			if (comboStatus.getSelectedIndex() == 1) {
 				ftDataEntrega.setText(dateToday());
 			} else {
 				ftDataEntrega.setText(null);
@@ -222,54 +156,86 @@ public class PlusEventoDocumento extends EventosPadrao {
 	protected ActionListener onClickExcluirCaixa = new ActionListener() {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			Documento documentoSelect = (Documento) getValoresDosCampos();
-			if (JOptionPane.showConfirmDialog(null, "Deseja excluir o documento?") == 0) {
+		public void actionPerformed(final ActionEvent e) {
+			final Documento documentoSelect = (Documento) getValoresDosCampos();
+			if (JOptionPane.showConfirmDialog(null,
+					Messages.getString("PlusEventoDocumento.3")) == 0) { //$NON-NLS-1$
 				daoDoc.remover(documentoSelect);
-				JOptionPane.showMessageDialog(null, "Documento foi excluído com sucesso.");
+				JOptionPane.showMessageDialog(null,
+						Messages.getString("PlusEventoDocumento.4")); //$NON-NLS-1$
 				modelo.removeContato(documentoSelect);
 				evento.modeloDoc.removeContato(documentoSelect);
 				limparCampos();
 
-				//LIMPA A CAIXA
+				// LIMPA A CAIXA
 				documento = null;
 			}
 		}
 	};
 
-	//OBJETO QUE REALIZA UMA BUSCA ATRAVÉS DAS LINHAS DA TABELA
+	// OBJETO QUE REALIZA UMA BUSCA ATRAVÉS DAS LINHAS DA TABELA
 	protected MouseListener onClickRowTable = new MouseListener() {
 
 		@Override
-		public void mouseClicked(MouseEvent e) {
-			if(e.getClickCount() == 2){
-				int linha = tabela.getSelectedRow();
-				
+		public void mouseClicked(final MouseEvent e) {
+			if (e.getClickCount() == 2) {
+				final int linha = tabela.getSelectedRow();
+
 				DocPesquisa = modelo.getContato(linha);
 				setValoresDosCampos(DocPesquisa);
-				habilitarBotoes(true,1);
+				habilitarBotoes(true, 1);
 			}
 		}
 
 		@Override
-		public void mouseEntered(MouseEvent e) {}
+		public void mouseEntered(final MouseEvent e) {
+		}
+
 		@Override
-		public void mouseExited(MouseEvent e) {}
+		public void mouseExited(final MouseEvent e) {
+		}
+
 		@Override
-		public void mousePressed(MouseEvent e) {}
+		public void mousePressed(final MouseEvent e) {
+		}
+
 		@Override
-		public void mouseReleased(MouseEvent e) {}
+		public void mouseReleased(final MouseEvent e) {
+		}
 	};
-	
-	protected ActionListener onClickCancelarOperacao = new ActionListener() {      
+
+	protected ActionListener onClickCancelarOperacao = new ActionListener() {
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(final ActionEvent e) {
 			main.normalizarCamadas();
 		}
 	};
-	
-	public void atualizarAlunoTela(){
+
+	public PlusEventoDocumento(final MainJFrame main, final EventosAluno evento) {
+		this.main = main;
+		this.evento = evento;
+		dataPedidoCampo();
+
+		lista = daoDoc.buscarDocumentoporAluno(evento.aluno);
+		modelo = new DocumentoTableModel(lista);
+		tfProtocolo.setEditable(false);
+	}
+
+	public void atualizarAlunoTela() {
 		tfDiscente.setText(evento.aluno.getNomeAluno());
+	}
+
+	private void dataPedidoCampo() {
+		ftDataPedido.setText(dateToday());
+	}
+
+	private String dateToday() {
+
+		final Date date = new Date();
+		final SimpleDateFormat dateToday = new SimpleDateFormat(Messages.getString("PlusEventoDocumento.5")); //$NON-NLS-1$
+		final String strDateToday = dateToday.format(date);
+
+		return strDateToday;
 	}
 
 	protected void desabilitarAll() {
@@ -282,6 +248,54 @@ public class PlusEventoDocumento extends EventosPadrao {
 		ftDataPedido.setEditable(false);
 	}
 
+	public Documento getCaixa() {
+		return documento;
+	}
+
+	public MainJFrame getMain() {
+		return main;
+	}
+
+	@Override
+	public Object getValoresDosCampos() {
+
+		if (!((ftDataPedido.getText()) == Messages.getString("PlusEventoDocumento.6"))) { //$NON-NLS-1$
+
+			documento = new Documento();
+			documento.setNomeDocumento(tfDocumento.getText());
+			documento.setCodigo(tfProtocolo.getText().trim());
+			documento.setAluno(evento.aluno);
+			documento.setStatus((String) comboStatus.getSelectedItem());
+			documento.setDataEntrega(ftDataEntrega.getText());
+			documento.setDataPedido(ftDataPedido.getText());
+			documento.setDescricao(taDescricao.getText().trim());
+
+			return documento;
+
+		} else {
+			throw new erroNullRequisitoException(
+					Messages.getString("PlusEventoDocumento.7"), //$NON-NLS-1$
+					Messages.getString("PlusEventoDocumento.8")); //$NON-NLS-1$
+		}
+	}
+
+	// METODO PARA HABILITAR OU DESABILITAR OS BOTOES QUE INICIAM Enabled E
+	// TAMBÉM OUTROS COMPONENTES NECESSÁRIOS
+	public void habilitarBotoes(final boolean bool, final int i) {
+
+		if (i != 1) {
+			tfDocumento.setEditable(!bool);
+			comboStatus.setEnabled(!bool);
+			ftDataEntrega.setEditable(!bool);
+			ftDataPedido.setEditable(!bool);
+			taDescricao.setEditable(!bool);
+		}
+
+		btnAlterar.setEnabled(bool);
+		btnExcluir.setEnabled(bool);
+		btnSalvar.setEnabled(!bool);
+	}
+
 	@Override
 	public void limparCampos() {
 		tfProtocolo.setText(null);
@@ -290,46 +304,51 @@ public class PlusEventoDocumento extends EventosPadrao {
 		ftDataPedido.setText(dateToday());
 		comboStatus.setSelectedIndex(0);
 		taDescricao.setText(null);
-		
-		habilitarBotoes(false,0);
+
+		habilitarBotoes(false, 0);
 	}
 
-	protected void mostarDadoSalvo(Caixa caixa) {
+	protected void mostarDadoSalvo(final Caixa caixa) {
 		setValoresDosCampos(caixa);
 		tfDocumento.setEnabled(false);
 		ftDataEntrega.setEnabled(false);
 		ftDataPedido.setEnabled(false);
 		comboStatus.setEnabled(false);
-		
+
 		btnSalvar.setEnabled(false);
 	}
 
-	//METODO PARA HABILITAR OU DESABILITAR OS BOTOES QUE INICIAM Enabled E TAMBÉM OUTROS COMPONENTES NECESSÁRIOS
-	public void habilitarBotoes(boolean bool, int i) {
-		
-		if(i != 1) {
-			tfDocumento.setEditable(!bool);
-			comboStatus.setEnabled(!bool);
-			ftDataEntrega.setEditable(!bool);
-			ftDataPedido.setEditable(!bool);
-			taDescricao.setEditable(!bool);
-		}
-		
-		btnAlterar.setEnabled(bool);
-		btnExcluir.setEnabled(bool);
-		btnSalvar.setEnabled(!bool);
+	public int numAleatorio() {
+		final Random rand = new Random();
+		return rand.nextInt(INTERVALO);
 	}
 
-	//PEQUENA CLASSE DE COMPARAÇÃO UTILIZADA NA ORDENAÇÃO DA LISTA
-	public static class  ComparadorObjetos implements Comparator<Caixa> {
+	public void setMain(final MainJFrame main) {
+		this.main = main;
+	}
 
-		@Override
-		public int compare(Caixa objetoParaComparar, Caixa objetoAserComparado) {
-			return  objetoParaComparar.getCodigo().compareTo(objetoAserComparado.getCodigo());
+	@Override
+	public void setValoresDosCampos(final Object object)
+			throws NullPointerException {
+		final Documento doc = (Documento) object;
+
+		tfProtocolo.setText(doc.getCodigo());
+		tfDocumento.setText(doc.getNomeDocumento());
+		ftDataEntrega.setText(doc.getDataEntrega());
+		ftDataPedido.setText(doc.getDataPedido());
+		comboStatus.setSelectedItem(doc.getStatus());
+		taDescricao.setText(doc.getDescricao());
+
+	}
+
+	private String stringRandon() {
+		final String str = Messages.getString("PlusEventoDocumento.9"); //$NON-NLS-1$
+		String strRandom = Messages.getString("PlusEventoDocumento.10"); //$NON-NLS-1$
+
+		for (int i = 0; i < 8; i++) {
+			strRandom += str.charAt(numAleatorio());
 		}
-	}   
 
-	public Documento getCaixa() {
-		return documento;
+		return strRandom;
 	}
 }

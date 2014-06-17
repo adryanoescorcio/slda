@@ -13,6 +13,7 @@
       <class>Model.Arquivo</class>
       <class>Model.Ata</class>
       <class>Model.AtaResultado</class>
+      <class>Model.SequenceCode</class>
       
       <properties>
         <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
@@ -45,6 +46,8 @@
       <class>Model.Arquivo</class>
       <class>Model.Ata</class>
       <class>Model.AtaResultado</class>
+      <class>Model.SequenceCode</class>
+      
       <properties>
         <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
         <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:D:/Dropbox/SLDA-WORK/Banco de dados/sldav2.db" />

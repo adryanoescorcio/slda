@@ -38,14 +38,14 @@ public abstract class DAO {
 	/**
 	 * Indica para o BD que uma transicao será iniciada
 	 **/
-	protected void beginTransaction() {
+	public void beginTransaction() {
 		this.em.getTransaction().begin();
 	}
 
 	/**
 	 * Concretiza uma transicao com o BD
 	 **/
-	protected void doCommit() {
+	public void doCommit() {
 		this.em.getTransaction().commit();
 		this.em.clear(); // limpa a conexao
 	}

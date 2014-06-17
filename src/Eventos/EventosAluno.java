@@ -131,40 +131,50 @@ public class EventosAluno extends EventosPadrao {
 		
 	}
 
-	@Override
-	public Aluno getValoresDosCampos(){
+	 @Override
+     public Aluno getValoresDosCampos(){
 
-		if(!tfCodigo.getText().trim().equals("")){
+             aluno = new Aluno();
+            
+             //TESTA SE O CAMPO CÓDIGO DO ALUNO ESTÁ VAZIO, SE SIM ELE GERA AUTOMATICAMENTE UM CÓDIGO
+             if(tfCodigo.getText().trim().equals("")){
+            	 String codigo = daoAluno.gerarCodigo();
+            	 System.out.println(codigo + " SKIS");
+                     aluno.setCodigo(codigo);
+             }else{
+                     aluno.setCodigo(tfCodigo.getText());
+             }
+            
+             if(!tfNome.getText().trim().equals("")){
 
-			aluno = new Aluno();
-			aluno.setNomeAluno(tfNome.getText());
-			aluno.setCodigo(tfCodigo.getText());
-			aluno.setCidadeNascAluno(tfCidade.getText());
-			aluno.setEnderecoAluno(tfEnd.getText());
-			aluno.setNomeMae(tfNomeMae.getText());
-			aluno.setNis(tfNis.getText());
-			aluno.setNumCertificado(tfNumCertificado.getText());
-			aluno.setFolha(tfFolha.getText());
-			aluno.setLivro(tfLivro.getText());
+                     aluno.setNomeAluno(tfNome.getText());
+                     aluno.setCidadeNascAluno(tfCidade.getText());
+                     aluno.setEnderecoAluno(tfEnd.getText());
+                     aluno.setNomeMae(tfNomeMae.getText());
+                     aluno.setNis(tfNis.getText());
+                     aluno.setNumCertificado(tfNumCertificado.getText());
+                     aluno.setFolha(tfFolha.getText());
+                     aluno.setLivro(tfLivro.getText());
 
-			aluno.setCPF_Aluno(mask.verificarMascara(ftCpf));
-			aluno.setDataNascimento(mask.verificarMascara(ftDataNasc));
-			aluno.setDataMatriculaAluno(mask.verificarMascara(ftDataMatricula));
-			aluno.setTelefoneAluno(mask.verificarMascara(ftFone));
-			aluno.setDataRegCertif(mask.verificarMascara(ftDataReg));
+                     aluno.setCPF_Aluno(mask.verificarMascara(ftCpf));
+                     aluno.setDataNascimento(mask.verificarMascara(ftDataNasc));
+                     aluno.setDataMatriculaAluno(mask.verificarMascara(ftDataMatricula));
+                     aluno.setTelefoneAluno(mask.verificarMascara(ftFone));
+                     aluno.setDataRegCertif(mask.verificarMascara(ftDataReg));
 
-			aluno.setEstadoNascAluno((String) comboUFAluno.getSelectedItem());
-			aluno.setCorAluno((String) comboCor.getSelectedItem());
-			aluno.setSexoAluno((String) comboSexo.getSelectedItem());
-			aluno.setTranferenciaAluno((String) comboTranferencia.getSelectedItem());
-			aluno.setSituacaoAluno((String) comboSituacao.getSelectedItem());	
+                     aluno.setEstadoNascAluno((String) comboUFAluno.getSelectedItem());
+                     aluno.setCorAluno((String) comboCor.getSelectedItem());
+                     aluno.setSexoAluno((String) comboSexo.getSelectedItem());
+                     aluno.setTranferenciaAluno((String) comboTranferencia.getSelectedItem());
+                     aluno.setSituacaoAluno((String) comboSituacao.getSelectedItem());      
 
-			return aluno;
+                     return aluno;
 
-		} else{
-			throw new erroNullRequisitoException("(ER02) Preencha todos os requisitos com dados válidos.", "ERRO ER02");
-		}
-	}
+             } else{
+                     throw new erroNullRequisitoException("(ER02) Preencha todos os requisitos com dados válidos.", "ERRO ER02");
+             }
+     }
+
 
 	@Override
 	public void setValoresDosCampos(Object object) throws NullPointerException{
@@ -218,17 +228,20 @@ public class EventosAluno extends EventosPadrao {
 		public void actionPerformed(ActionEvent e) {
 			String codigo = tfCodigo.getText().trim(); // pega o codigo digitado pelo cliente.
 
-			AlunoPK pk = new AlunoPK(); // chave primaria da caixa.
-			pk.setCodigo(codigo); // seta a chave
-
-			try{
-				// realiza a busca no banco de dados
-				daoAluno.buscar(pk).getCodigo();
-				throw new erroNullRequisitoException("(ER04) Aluno \"" +codigo+ "\" já existe.", "ERRO ER04");
-			}catch(NullPointerException exc){
-				metodoSalvarValidar();
+			if(!(codigo.length() >= 4 && codigo.substring(0, 4).equals("SLDA"))) {
+				AlunoPK pk = new AlunoPK(); // chave primaria da caixa.
+				pk.setCodigo(codigo); // seta a chave
+	
+				try{
+					// realiza a busca no banco de dados
+					daoAluno.buscar(pk).getCodigo();
+					throw new erroNullRequisitoException("(ER04) Aluno \"" +codigo+ "\" já existe.", "ERRO ER04");
+				}catch(NullPointerException exc){
+					metodoSalvarValidar();
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Codigo digitado é invalido.");
 			}
-
 		}
 	};
 
@@ -243,7 +256,6 @@ public class EventosAluno extends EventosPadrao {
 			
 			try {
 				if(codigoLocalizar.length() >= 4 && codigoLocalizar.substring(0, 4).equals("SLDA")) {
-					System.out.println("Caiu aki");
 					buscarCodigo(codigoLocalizar);
 				} else if (verificarCodigo(codigoLocalizar)){
 					buscarCodigo(codigoLocalizar);
@@ -253,12 +265,6 @@ public class EventosAluno extends EventosPadrao {
 			} catch (IndexOutOfBoundsException ex) {
 				
 			}
-//			
-//			if(verificarCodigo(codigoLocalizar) ) {
-//				buscarCodigo(codigoLocalizar);
-//			} else {
-//				buscaNomeAluno(codigoLocalizar);
-//			}
 		}
 	};
 
@@ -551,13 +557,11 @@ public class EventosAluno extends EventosPadrao {
 	private void metodoSalvarValidar() {
 		// Tentar pegar os valores
 		aluno = (Aluno) getValoresDosCampos();
-		String matricula = aluno.getCodigo();
 		String nome = aluno.getNomeAluno();
-		String data = aluno.getDataNascimento();
+		String data = aluno.getDataNascimento().trim();
 
 		// Verificar se os campos foram digitados
-		if(matricula.equals("") || 
-				nome.equals("") || data.equals("")){
+		if(nome.equals("") || data.length() < 10) {
 			JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios.", "ER08", JOptionPane.ERROR_MESSAGE);                
 		}else if(daoAluno.save(aluno)) {
 			JOptionPane.showMessageDialog(null, SUCESSO);

@@ -424,43 +424,90 @@ public class EventosAluno extends EventosPadrao {
 		return main;
 	}
 
-	@Override
-	public Aluno getValoresDosCampos() {
-
-		if (!tfCodigo.getText().trim().equals(Messages.getString("EventosAluno.19"))) { //$NON-NLS-1$
-
-			aluno = new Aluno();
-			aluno.setNomeAluno(tfNome.getText());
-			aluno.setCodigo(tfCodigo.getText());
-			aluno.setCidadeNascAluno(tfCidade.getText());
-			aluno.setEnderecoAluno(tfEnd.getText());
-			aluno.setNomeMae(tfNomeMae.getText());
-			aluno.setNis(tfNis.getText());
-			aluno.setNumCertificado(tfNumCertificado.getText());
-			aluno.setFolha(tfFolha.getText());
-			aluno.setLivro(tfLivro.getText());
-
-			aluno.setCPF_Aluno(mask.verificarMascara(ftCpf));
-			aluno.setDataNascimento(mask.verificarMascara(ftDataNasc));
-			aluno.setDataMatriculaAluno(mask.verificarMascara(ftDataMatricula));
-			aluno.setTelefoneAluno(mask.verificarMascara(ftFone));
-			aluno.setDataRegCertif(mask.verificarMascara(ftDataReg));
-
-			aluno.setEstadoNascAluno((String) comboUFAluno.getSelectedItem());
-			aluno.setCorAluno((String) comboCor.getSelectedItem());
-			aluno.setSexoAluno((String) comboSexo.getSelectedItem());
-			aluno.setTranferenciaAluno((String) comboTranferencia
-					.getSelectedItem());
-			aluno.setSituacaoAluno((String) comboSituacao.getSelectedItem());
-
-			return aluno;
-
-		} else {
-			throw new erroNullRequisitoException(
-					Messages.getString("EventosAluno.20"), //$NON-NLS-1$
-					Messages.getString("EventosAluno.21")); //$NON-NLS-1$
-		}
+	public void setMain(MainJFrame main) {
+		this.main = main;
 	}
+
+	@Override	
+	public void limparCampos(){
+
+		tfNome.setText("");
+		tfCodigo.setText("");
+		tfCidade.setText("");
+		tfEnd.setText("");
+		tfNomeMae.setText("");
+		tfRefBox.setText("");
+		tfLocaInter.setText("");
+		tfNis.setText("");
+		tfNumCertificado.setText("");
+		tfFolha.setText("");
+		tfLivro.setText("");
+		
+		ftData.setValue(null);
+		ftCpf.setValue(null);
+		ftDataReg.setValue(null);
+		ftDataNasc.setValue(null);
+		ftDataMatricula.setValue(null);
+		ftFone.setValue(null);	
+
+		comboUFAluno.setSelectedIndex(0);
+		comboCor.setSelectedIndex(0);		
+		comboSexo.setSelectedIndex(0);	
+		comboTranferencia.setSelectedIndex(0);	
+		comboSituacao.setSelectedIndex(0);	
+
+		//DESABILITA OS BOTOES
+		habilitarBotoes(false);		
+		modeloAtaResultado.clear();
+		modeloDoc.clear();
+		
+	}
+
+	 @Override
+     public Aluno getValoresDosCampos(){
+		if (!tfCodigo.getText().trim().equals(Messages.getString("EventosAluno.19"))) { //$NON-NLS-1$
+             aluno = new Aluno();
+            
+             //TESTA SE O CAMPO CÓDIGO DO ALUNO ESTÁ VAZIO, SE SIM ELE GERA AUTOMATICAMENTE UM CÓDIGO
+             if(tfCodigo.getText().trim().equals("")){
+            	 String codigo = daoAluno.gerarCodigo();
+            	 System.out.println(codigo + " SKIS");
+                     aluno.setCodigo(codigo);
+             }else{
+                     aluno.setCodigo(tfCodigo.getText());
+             }
+            
+             if(!tfNome.getText().trim().equals("")){
+
+                     aluno.setNomeAluno(tfNome.getText());
+                     aluno.setCidadeNascAluno(tfCidade.getText());
+                     aluno.setEnderecoAluno(tfEnd.getText());
+                     aluno.setNomeMae(tfNomeMae.getText());
+                     aluno.setNis(tfNis.getText());
+                     aluno.setNumCertificado(tfNumCertificado.getText());
+                     aluno.setFolha(tfFolha.getText());
+                     aluno.setLivro(tfLivro.getText());
+
+                     aluno.setCPF_Aluno(mask.verificarMascara(ftCpf));
+                     aluno.setDataNascimento(mask.verificarMascara(ftDataNasc));
+                     aluno.setDataMatriculaAluno(mask.verificarMascara(ftDataMatricula));
+                     aluno.setTelefoneAluno(mask.verificarMascara(ftFone));
+                     aluno.setDataRegCertif(mask.verificarMascara(ftDataReg));
+
+                     aluno.setEstadoNascAluno((String) comboUFAluno.getSelectedItem());
+                     aluno.setCorAluno((String) comboCor.getSelectedItem());
+                     aluno.setSexoAluno((String) comboSexo.getSelectedItem());
+                     aluno.setTranferenciaAluno((String) comboTranferencia.getSelectedItem());
+                     aluno.setSituacaoAluno((String) comboSituacao.getSelectedItem());      
+
+                     return aluno;
+
+             } else{
+                     throw new erroNullRequisitoException("(ER02) Preencha todos os requisitos com dados válidos.", "ERRO ER02");
+             }
+		}
+	 }
+
 
 	// METODO PARA HABILITAR OU DESABILITAR OS BOTOES QUE INICIAM Enabled E
 	// TAMBÉM OUTROS COMPONENTES NECESSÁRIOS
@@ -627,10 +674,242 @@ public class EventosAluno extends EventosPadrao {
 		comboSituacao.setSelectedItem(aluno.getSituacaoAluno());
 	}
 
-	public void tabelaAta(final Aluno aln) {
-		final List<AtaResultado> lista = daoAtaResultado.buscarAtaporAluno(aln); // realizando
-																					// a
-																					// busca
+	//OBJETO ActionListener QUE SALVA O ALUNO
+	protected ActionListener onClickAlterarAluno = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			aluno = (Aluno) getValoresDosCampos();
+			Aluno aluno2 = daoAluno.buscar(aluno.getCodigoKEY());
+
+			if(!aluno.toString().equals(aluno2.toString())) {
+				metodoSalvarValidar();
+
+			} else {
+				JOptionPane.showMessageDialog(null, "(AT01) Não houve modificação.","ATENÇÃO AT01", 
+						JOptionPane.WARNING_MESSAGE);
+			}
+		}
+	};
+
+	//OBJETO ActionListener QUE SALVA O ALUNO
+	protected ActionListener onClickSalvarAluno = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String codigo = tfCodigo.getText().trim(); // pega o codigo digitado pelo cliente.
+
+			if(!(codigo.length() >= 4 && codigo.substring(0, 4).equals("SLDA"))) {
+				AlunoPK pk = new AlunoPK(); // chave primaria da caixa.
+				pk.setCodigo(codigo); // seta a chave
+	
+				try{
+					// realiza a busca no banco de dados
+					daoAluno.buscar(pk).getCodigo();
+					throw new erroNullRequisitoException("(ER04) Aluno \"" +codigo+ "\" já existe.", "ERRO ER04");
+				}catch(NullPointerException exc){
+					metodoSalvarValidar();
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Codigo digitado é invalido.");
+			}
+		}
+	};
+
+	//OBJETO ActionListener QUE BUSCA O ALUNO NO BANCO
+	protected ActionListener onClickBuscarAluno = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			aluno = null;
+			String codigoLocalizar = tfLocalizar.getText().trim(); // pega o codigo digitado pelo cliente.
+			
+			try {
+				if(codigoLocalizar.length() >= 4 && codigoLocalizar.substring(0, 4).equals("SLDA")) {
+					buscarCodigo(codigoLocalizar);
+				} else if (verificarCodigo(codigoLocalizar)){
+					buscarCodigo(codigoLocalizar);
+				} else {
+					buscaNomeAluno(codigoLocalizar);
+				}
+			} catch (IndexOutOfBoundsException ex) {
+				
+			}
+		}
+	};
+
+	//OBJETO ActionListener QUE EXCLUI O ALUNO NO BANCO
+	protected ActionListener onClickExcluirAluno = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {			
+			if(JOptionPane.showConfirmDialog(null, "Deseja excluir o Discente?") == 0) {
+				
+				//CHAVE DO TIPO ARQUIVO - NECESSARIO PARA EXCLUIR O ALUNO DA CAIXA
+				ArquivoPK pk = new ArquivoPK();
+				pk.setCodigoAluno(aluno.getCodigo());
+				
+				//REMOVE O ALUNO E SEUS VESTÍGIOS
+				daoAluno.remover(aluno);
+				daoAtaResultado.excluirPorAluno(aluno);
+				daoArquivo.remover(pk);
+				
+				JOptionPane.showMessageDialog(null, "Discente excluído com sucesso.");
+				limparCampos();
+			}
+		}
+	};
+
+	protected ActionListener onClickCaixa = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {	
+			if(JOptionPane.showConfirmDialog(null, "Deseja inserir/remover o aluno de uma caixa?") == 0) {
+				try {
+					main.mudarPerfilCaixa(aluno, EventosAluno.this);
+					main.direcionarParaCamada(1);
+				} catch (Exception ex) {
+					// o metodo foi parado por falta dos requisitos minimos.
+				}
+			}
+		}
+	};
+	
+	protected MouseListener onClickMudarTabelaAta = new MouseListener() {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(e.getClickCount() == 1){
+				scroll = table.organizandoColunasTables(modeloAtaResultado);
+			} else if (e.getClickCount() == 2) {
+				if(JOptionPane.showConfirmDialog(null, "Deseja inserir/remover o aluno de uma ata?") == 0) {
+					try {
+						main.mudarPerfilAta(aluno);
+						main.direcionarParaCamada(2);
+					} catch (Exception ex) {
+						// o metodo foi parado por falta dos requisitos minimos.
+					}
+				}
+			}
+		}
+		
+		@Override
+		public void mouseEntered(MouseEvent e) {}
+		@Override
+		public void mouseExited(MouseEvent e) {}
+		@Override
+		public void mousePressed(MouseEvent e) {}
+		@Override
+		public void mouseReleased(MouseEvent e) {}
+	};
+	
+	protected MouseListener onClickDocumento = new MouseListener() {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(e.getClickCount() == 1){
+				scroll = table.organizandoColunasTables(modeloAtaResultado);
+			} else if (e.getClickCount() == 2) {
+				if(JOptionPane.showConfirmDialog(null, "Deseja inserir/remover o aluno de um documento?") == 0) {
+					try {
+						main.mudarPerfilAta(aluno);
+						main.direcionarParaCamada(2);
+					} catch (Exception ex) {
+						// o metodo foi parado por falta dos requisitos minimos.
+					}
+				}
+			}
+		}
+		
+		@Override
+		public void mouseEntered(MouseEvent e) {}
+		@Override
+		public void mouseExited(MouseEvent e) {}
+		@Override
+		public void mousePressed(MouseEvent e) {}
+		@Override
+		public void mouseReleased(MouseEvent e) {}
+	};
+
+
+	protected MouseListener onClickMudarTabelaDocumento = new MouseListener() {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(e.getClickCount() == 1){
+				scroll = table.organizandoColunasTables(modeloDoc);
+			} else if (e.getClickCount() == 2) {
+				if(JOptionPane.showConfirmDialog(null, "Deseja inserir/remover o documento requisitado pelo aluno?") == 0) {
+					try {
+						 PlusPainelDocumento painelDocumento= new PlusPainelDocumento(main, EventosAluno.this);
+
+						 main.addCamada(painelDocumento.getTelaPrincipal(), "Inserir Documento");
+					} catch (Exception ex) {
+						// o metodo foi parado por falta dos requisitos minimos.
+					}
+				}
+			}
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+	};
+	
+	protected MouseListener onClickSelecionarAtaAluno = new MouseListener() {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if (e.getClickCount() == 2) {
+				if(JOptionPane.showConfirmDialog(null, "Deseja selecionar esta ata?") == 0) {
+					try {
+						int linha = table.getTabela().getSelectedRow();
+						System.out.println(linha);
+						 AtaResultado ataR = modeloAtaResultado.getContato(linha);
+						 main.mudarPerfilAta(aluno, ataR);
+						 main.direcionarParaCamada(2);
+					} catch (Exception ex) {
+						// o metodo foi parado por falta dos requisitos minimos.
+					}
+				}
+			}
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+	};
+	
+	//OBJETO ActionListener QUE LIMPA OS CAMPOS DA TELA
+	protected ActionListener onClickLimparCampos = new ActionListener() {	
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			limparCampos();
+		}
+	};
+	
+	public void tabelaAta(Aluno aln){
+		List<AtaResultado> lista = daoAtaResultado.buscarAtaporAluno(aln); // realizando a busca
+>>>>>>> refs/heads/master
 		listaAtaResul = lista; // passando para a variavel global
 		modeloAtaResultado.setList(lista); // Inserindo a nova lista no modelo
 		scroll = table.organizandoColunasTables(modeloAtaResultado);
@@ -650,5 +929,79 @@ public class EventosAluno extends EventosPadrao {
 		} catch (final Exception ex) {
 			return false;
 		}
+<<<<<<< HEAD
+=======
+	}
+
+	public void pesquisarCaixa(Aluno aln) {
+		
+		Arquivo arq = new Arquivo();
+		ArquivoPK pk = new ArquivoPK();
+		pk.setCodigoAluno(aln.getCodigo());
+
+		// colocar as informações para o cliente
+		try {
+			arq = daoArquivo.buscar(pk);
+		
+			tfRefBox.setText("");
+			tfLocaInter.setText("");
+			ftData.setText("");
+			
+			tfRefBox.setText(arq.getCodigoCaixa()); // a caixa em que se encontram os documentos
+			tfLocaInter.setText(arq.getCodDossie()); // a localização interna dos documentos
+			ftData.setText(arq.getDatadeEntradaArquivo());
+			
+			arq = null;
+			
+		}catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+			tfRefBox.setText("Sem caixa");
+			tfLocaInter.setText("Sem caixa");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	protected void pesquisarDoc() {
+		// TODO Auto-generated method stub
+	}
+
+	private void metodoSalvarValidar() {
+		// Tentar pegar os valores
+		aluno = (Aluno) getValoresDosCampos();
+		String nome = aluno.getNomeAluno();
+		String data = aluno.getDataNascimento().trim();
+
+		// Verificar se os campos foram digitados
+		if(nome.equals("") || data.length() < 10) {
+			JOptionPane.showMessageDialog(null, "Preencha os campos obrigatórios.", "ER08", JOptionPane.ERROR_MESSAGE);                
+		}else if(daoAluno.save(aluno)) {
+			JOptionPane.showMessageDialog(null, SUCESSO);
+			limparCampos();
+			//LIMPA A CAIXA
+			aluno = null;
+		}
+	}
+
+	public List<AtaResultado> getListaAtaResul() {
+		return listaAtaResul;
+	}
+
+	public void setListaAtaResul(List<AtaResultado> listaAtaResul) {
+		this.listaAtaResul = listaAtaResul;
+	}	
+	
+	//METODO PARA HABILITAR OU DESABILITAR OS BOTOES QUE INICIAM Enabled E TAMBÉM OUTROS COMPONENTES NECESSÁRIOS
+	public void habilitarBotoes(boolean bool) {
+		tfCodigo.setEditable(!bool);
+		btnSalvar.setEnabled(!bool);
+		btnAlterar.setEnabled(bool); 
+		btnExcluir.setEnabled(bool);
+		btnAtaResul.setEnabled(bool);
+		btnDocumento.setEnabled(bool);
+		btnCaixa.setEnabled(bool);
+>>>>>>> refs/heads/master
 	}
 }

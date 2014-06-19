@@ -10,8 +10,10 @@ import javax.swing.JOptionPane;
 
 import Model.Aluno;
 import Model.InterfacePadraoEntidade;
+import Model.SequenceCode;
 import PrimaryKey.AlunoPK;
 import PrimaryKey.InterfaceKey;
+import PrimaryKey.SequenceCodePK;
 
 /**
  * Classe concreta para realizar o CRUD da Entidade Aluno. <br>
@@ -136,6 +138,35 @@ public class AlunoDAO extends DAO {
 	 **/
 	public boolean save(final Aluno aluno) {
 		return super.save(aluno);
+	}
+
+	public String gerarCodigo() {
+		
+		String codigo = "SLDA-0";
+		
+		try {
+			SequenceCodePK pk = new SequenceCodePK();
+			pk.setCodigo("code");
+			em.clear();
+			SequenceCode valor = em.find(SequenceCode.class, pk);
+			
+			codigo += String.valueOf(valor.getValor());
+			valor.setValor(valor.getValor()+2);
+			transactionBeginAndCommit();
+			
+			return codigo;
+			
+		} catch(Exception ex) {
+			SequenceCode code = new SequenceCode();
+			code.setCode("code");
+			code.setValor(2);
+			
+			beginTransaction();
+			em.persist(code);
+			doCommit();
+		}
+		
+		return gerarCodigo();
 	}
 
 }

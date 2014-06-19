@@ -13,6 +13,7 @@
       <class>Model.Arquivo</class>
       <class>Model.Ata</class>
       <class>Model.AtaResultado</class>
+      <class>Model.SequenceCode</class>
       
       <properties>
         <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />

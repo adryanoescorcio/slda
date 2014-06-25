@@ -142,11 +142,11 @@ public class AlunoDAO extends DAO {
 
 	public String gerarCodigo() {
 		
-		String codigo = "SLDA-0";
+		String codigo = Messages.getString("AlunoDAO.26"); //$NON-NLS-1$
 		
 		try {
 			SequenceCodePK pk = new SequenceCodePK();
-			pk.setCodigo("code");
+			pk.setCodigo(Messages.getString("AlunoDAO.27")); //$NON-NLS-1$
 			em.clear();
 			SequenceCode valor = em.find(SequenceCode.class, pk);
 			
@@ -158,7 +158,7 @@ public class AlunoDAO extends DAO {
 			
 		} catch(Exception ex) {
 			SequenceCode code = new SequenceCode();
-			code.setCode("code");
+			code.setCode(Messages.getString("AlunoDAO.28")); //$NON-NLS-1$
 			code.setValor(2);
 			
 			beginTransaction();

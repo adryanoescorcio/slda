@@ -125,7 +125,7 @@ public class PlusPainelDocumento extends PlusEventoDocumento {
 		tfProtocolo.setFont(font.font_NEG_15);
 		tfProtocolo.setPreferredSize(new Dimension(200, 0));
 		tfDocumento.setFont(font.font_NEG_15);
-		tfDocumento.setPreferredSize(new Dimension(200, 0));
+		tfDocumento.setPreferredSize(new Dimension(400, 0));
 
 		ftDataEntrega.setPreferredSize(new Dimension(70, 0));
 		ftDataPedido.setPreferredSize(new Dimension(70, 0));
@@ -134,7 +134,7 @@ public class PlusPainelDocumento extends PlusEventoDocumento {
 
 		tfDiscente.setPreferredSize(new Dimension(350, 0));
 
-		taDescricao.setPreferredSize(new Dimension(200, 100));
+		taDescricao.setPreferredSize(new Dimension(200, 200));
 		taDescricao
 				.setToolTipText(Messages.getString("PlusPainelDocumento.26")); //$NON-NLS-1$
 		taDescricao.setLineWrap(true);

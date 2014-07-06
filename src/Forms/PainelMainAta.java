@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Panel;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -29,17 +30,17 @@ public class PainelMainAta extends EventosAta {
 	private static final int QUANT_LINHAS_GRID = 4;
 
 	private final JPanel mainJPanel = new JPanel(new BorderLayout(2, 2));
-	private final JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(
+	private final Panel painelLocalizarArquivo = new Panel(new BorderLayout(
 			2, 2));
-	private final JPanel painelInternoNorte = new JPanel(new BorderLayout(2, 2));
-	private final JPanel painelInternoSul = new JPanel(new BorderLayout(2, 2));
-	private final JPanel painelEsquerdoLabel = new JPanel(new GridLayout(
+	private final Panel painelInternoNorte = new Panel(new BorderLayout(2, 2));
+	private final Panel painelInternoSul = new Panel(new BorderLayout(2, 2));
+	private final Panel painelEsquerdoLabel = new Panel(new GridLayout(
 			QUANT_LINHAS_GRID, 1, DIST, DIST));
-	private final JPanel painelDireitoField = new JPanel(new GridLayout(
+	private final Panel painelDireitoField = new Panel(new GridLayout(
 			QUANT_LINHAS_GRID, 1, DIST, DIST));
-	private final JPanel painelTabela = new JPanel(new BorderLayout(2, 2));
-	private final JPanel painelContentEIA = new JPanel(new BorderLayout(2, 2));
-	private final JPanel contentPainel = new JPanel(new BorderLayout(2, 2));
+	private final Panel painelTabela = new Panel(new BorderLayout(2, 2));
+	private final Panel painelContentEIA = new Panel(new BorderLayout(2, 2));
+	private final Panel contentPainel = new Panel(new BorderLayout(2, 2));
 
 	private final JScrollPane scroll = new JScrollPane();
 	private final JScrollPane scrollMain = new JScrollPane();
@@ -159,8 +160,8 @@ public class PainelMainAta extends EventosAta {
 		tabela.addMouseListener(onClickRowTable);
 	}
 
-	public JPanel getTelaPrincipal() {
-		final JPanel painelScrollMain = new JPanel(new BorderLayout(1, 1));
+	public Panel getTelaPrincipal() {
+		final Panel painelScrollMain = new Panel(new BorderLayout(1, 1));
 
 		scrollMain.setPreferredSize(mainJPanel.getPreferredSize());
 		scrollMain.setViewportView(mainJPanel);
@@ -178,9 +179,9 @@ public class PainelMainAta extends EventosAta {
 		return painelScrollMain;
 	}
 
-	private JPanel painelBotoes() {
-		final JPanel painelBotoes = new JPanel(new BorderLayout(2, 2));
-		final JPanel painelContentBotoes = new JPanel(
+	private Panel painelBotoes() {
+		final Panel painelBotoes = new Panel(new BorderLayout(2, 2));
+		final Panel painelContentBotoes = new Panel(
 				new GridLayout(1, 6, 5, 1));
 
 		painelContentBotoes.add(btnSalvar);
@@ -198,14 +199,14 @@ public class PainelMainAta extends EventosAta {
 
 	private JPanel painelDiscente() {
 
-		final JPanel painelDiscenteLabel = new JPanel(
+		final Panel painelDiscenteLabel = new Panel(
 				new GridLayout(1, 2, 1, 1));
-		final JPanel painelDiscenteText = new JPanel(new GridLayout(1, 2, 1, 1));
+		final Panel painelDiscenteText = new Panel(new GridLayout(1, 2, 1, 1));
 		final JPanel painelContentMain = new JPanel(new BorderLayout(2, 2));
-		final JPanel contentMain = new JPanel(new BorderLayout(2, 2));
-		final JPanel contentDiscenteBotoes = new JPanel(new BorderLayout(2, 2));
-		final JPanel contentDiscente = new JPanel(new BorderLayout(2, 2));
-		final JPanel painelDiscenteBotoes = new JPanel(new GridLayout(1, 2, 10,
+		final Panel contentMain = new Panel(new BorderLayout(2, 2));
+		final Panel contentDiscenteBotoes = new Panel(new BorderLayout(2, 2));
+		final Panel contentDiscente = new Panel(new BorderLayout(2, 2));
+		final Panel painelDiscenteBotoes = new Panel(new GridLayout(1, 2, 10,
 				1));
 
 		painelDiscenteLabel.add(lbDiscente);
@@ -252,15 +253,15 @@ public class PainelMainAta extends EventosAta {
 		painelInternoNorte.add(Messages.getString("PainelMainAta.53"), painelInternoSul()); //$NON-NLS-1$
 	}
 
-	private JPanel painelInternoSul() {
+	private Panel painelInternoSul() {
 		painelInternoSul.add(Messages.getString("PainelMainAta.54"), editPanel.painelNull(200, 0)); //$NON-NLS-1$
 		painelInternoSul.add(Messages.getString("PainelMainAta.55"), painelTable()); //$NON-NLS-1$
 
 		return painelInternoSul;
 	}
 
-	private JPanel painelLabelConsultar() {
-		final JPanel painel = new JPanel(new BorderLayout(1, 1));
+	private Panel painelLabelConsultar() {
+		final Panel painel = new Panel(new BorderLayout(1, 1));
 		painel.add(Messages.getString("PainelMainAta.56"), lbDadosAta); //$NON-NLS-1$
 		painel.add(Messages.getString("PainelMainAta.57"), contentPainelLocalizar()); //$NON-NLS-1$
 		painel.add(Messages.getString("PainelMainAta.58"), editPanel.painelNull(200, 0)); //$NON-NLS-1$
@@ -271,12 +272,12 @@ public class PainelMainAta extends EventosAta {
 	/**
 	 * Painel para organizar horizontalmente o Telefone e o Endereço
 	 **/
-	private JPanel painelLadoLado(final Component comp1, final JLabel lb2,
+	private Panel painelLadoLado(final Component comp1, final JLabel lb2,
 			final Component comp2) {
 
-		final JPanel painelEndTelefone = new JPanel(new BorderLayout(2, 2));
-		final JPanel painelTelefone = new JPanel(new BorderLayout(2, 2));
-		final JPanel painelSeparador2 = new JPanel(new BorderLayout(2, 2));
+		final Panel painelEndTelefone = new Panel(new BorderLayout(2, 2));
+		final Panel painelTelefone = new Panel(new BorderLayout(2, 2));
+		final Panel painelSeparador2 = new Panel(new BorderLayout(2, 2));
 
 		// Telefone
 		painelTelefone.add(Messages.getString("PainelMainAta.59"), lb2); //$NON-NLS-1$
@@ -293,7 +294,7 @@ public class PainelMainAta extends EventosAta {
 		return painelEndTelefone;
 	}
 
-	private JPanel painelTable() {
+	private Panel painelTable() {
 		tabela.setModel(modeloAta);
 		tabela.setToolTipText(Messages.getString("PainelMainAta.67")); //$NON-NLS-1$
 

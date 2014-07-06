@@ -67,8 +67,7 @@ public class PlusEventoDocumento extends EventosPadrao {
 	protected JFormattedTextField ftDataEntrega = new JFormattedTextField(
 			mask.getMascaraData());
 
-	protected JComboBox<String> comboStatus = comboGroup
-			.getComboBoxStatusDocumento();
+	protected JComboBox<String> comboStatus = comboGroup.getComboBoxStatusDocumento();
 
 	protected JTextArea taDescricao = new JTextArea();
 	protected MainJFrame main;
@@ -183,7 +182,7 @@ public class PlusEventoDocumento extends EventosPadrao {
 
 				DocPesquisa = modelo.getContato(linha);
 				setValoresDosCampos(DocPesquisa);
-				habilitarBotoes(true, 1);
+				habilitarBotoes(true, true);
 			}
 		}
 
@@ -281,19 +280,17 @@ public class PlusEventoDocumento extends EventosPadrao {
 
 	// METODO PARA HABILITAR OU DESABILITAR OS BOTOES QUE INICIAM Enabled E
 	// TAMBÉM OUTROS COMPONENTES NECESSÁRIOS
-	public void habilitarBotoes(final boolean bool, final int i) {
+	public void habilitarBotoes(final boolean bool, final boolean i) {
 
-		if (i != 1) {
-			tfDocumento.setEditable(!bool);
-			comboStatus.setEnabled(!bool);
-			ftDataEntrega.setEditable(!bool);
-			ftDataPedido.setEditable(!bool);
-			taDescricao.setEditable(!bool);
-		}
+			tfDocumento.setEditable(i);
+			comboStatus.setEnabled(i);
+			ftDataEntrega.setEditable(i);
+			ftDataPedido.setEditable(i);
+			taDescricao.setEditable(i);
 
 		btnAlterar.setEnabled(bool);
 		btnExcluir.setEnabled(bool);
-		btnSalvar.setEnabled(!bool);
+		btnSalvar.setEnabled(!i);
 	}
 
 	@Override
@@ -305,7 +302,19 @@ public class PlusEventoDocumento extends EventosPadrao {
 		comboStatus.setSelectedIndex(0);
 		taDescricao.setText(null);
 
-		habilitarBotoes(false, 0);
+		habilitarBotoesLimpar();
+	}
+
+	private void habilitarBotoesLimpar() {
+	tfDocumento.setEditable(true);
+	comboStatus.setEnabled(true);
+	ftDataEntrega.setEditable(true);
+	ftDataPedido.setEditable(true);
+	taDescricao.setEditable(true);
+
+	btnAlterar.setEnabled(false);
+	btnExcluir.setEnabled(false);
+	btnSalvar.setEnabled(true);
 	}
 
 	protected void mostarDadoSalvo(final Caixa caixa) {

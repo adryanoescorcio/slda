@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Panel;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -35,16 +36,16 @@ public class PainelMainCaixa extends EventosCaixa {
 	protected static final int QUANT_LINHAS_GRID = 4;
 
 	protected JPanel mainJPanel = new JPanel(new BorderLayout(2, 2));
-	protected JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2, 2));
-	protected JPanel painelInternoNorte = new JPanel(new BorderLayout(2, 2));
-	protected JPanel painelInternoSul = new JPanel(new BorderLayout(2, 2));
-	protected JPanel painelEsquerdo = new JPanel(new GridLayout(
+	protected Panel painelLocalizarArquivo = new Panel(new BorderLayout(2, 2));
+	protected Panel painelInternoNorte = new Panel(new BorderLayout(2, 2));
+	protected Panel painelInternoSul = new Panel(new BorderLayout(2, 2));
+	protected Panel painelEsquerdo = new Panel(new GridLayout(
 			QUANT_LINHAS_GRID, 1, DIST, DIST));
-	protected JPanel painelDireito = new JPanel(new GridLayout(
+	protected Panel painelDireito = new Panel(new GridLayout(
 			QUANT_LINHAS_GRID, 1, DIST, DIST));
-	protected JPanel painelTabela = new JPanel(new BorderLayout(2, 2));
-	protected JPanel painelContentEIA = new JPanel(new BorderLayout(2, 2));
-	protected JPanel contentPainel = new JPanel(new BorderLayout(2, 2));
+	protected Panel painelTabela = new Panel(new BorderLayout(2, 2));
+	protected Panel painelContentEIA = new Panel(new BorderLayout(2, 2));
+	protected Panel contentPainel = new Panel(new BorderLayout(2, 2));
 
 	protected JScrollPane scroll = new JScrollPane();
 	protected JScrollPane scrollMain = new JScrollPane();
@@ -156,9 +157,9 @@ public class PainelMainCaixa extends EventosCaixa {
 
 	}
 
-	public JPanel getTelaPrincipal() {
+	public Panel getTelaPrincipal() {
 
-		final JPanel painelScrollMain = new JPanel(new BorderLayout(1, 1));
+		final Panel painelScrollMain = new Panel(new BorderLayout(1, 1));
 
 		scrollMain.setPreferredSize(mainJPanel.getPreferredSize());
 		scrollMain.setViewportView(mainJPanel);
@@ -177,9 +178,9 @@ public class PainelMainCaixa extends EventosCaixa {
 		return painelScrollMain;
 	}
 
-	private JPanel painelBotoes() {
-		final JPanel painelBotoes = new JPanel(new BorderLayout(2, 2));
-		final JPanel painelContentBotoes = new JPanel(
+	private Panel painelBotoes() {
+		final Panel painelBotoes = new Panel(new BorderLayout(2, 2));
+		final Panel painelContentBotoes = new Panel(
 				new GridLayout(1, 4, 5, 5));
 
 		painelContentBotoes.add(btnSalvar);
@@ -197,14 +198,14 @@ public class PainelMainCaixa extends EventosCaixa {
 
 	private JPanel painelDiscente() {
 
-		final JPanel painelDiscenteLabel = new JPanel(
+		final Panel painelDiscenteLabel = new Panel(
 				new GridLayout(1, 2, 2, 2));
-		final JPanel painelDiscenteText = new JPanel(new GridLayout(1, 2, 2, 2));
+		final Panel painelDiscenteText = new Panel(new GridLayout(1, 2, 2, 2));
 		final JPanel painelContentMain = new JPanel(new BorderLayout(2, 2));
-		final JPanel contentMain = new JPanel(new BorderLayout(2, 2));
-		final JPanel contentDiscenteBotoes = new JPanel(new BorderLayout(2, 2));
-		final JPanel contentDiscente = new JPanel(new BorderLayout(2, 2));
-		final JPanel painelDiscenteBotoes = new JPanel(new GridLayout(1, 3, 2,
+		final Panel contentMain = new Panel(new BorderLayout(2, 2));
+		final Panel contentDiscenteBotoes = new Panel(new BorderLayout(2, 2));
+		final Panel contentDiscente = new Panel(new BorderLayout(2, 2));
+		final Panel painelDiscenteBotoes = new Panel(new GridLayout(1, 3, 2,
 				2));
 
 		painelDiscenteLabel.add(lbDiscente);
@@ -251,7 +252,7 @@ public class PainelMainCaixa extends EventosCaixa {
 		painelInternoNorte.add(Messages.getString("PainelMainCaixa.54"), painelInternoSul()); //$NON-NLS-1$
 	}
 
-	private JPanel painelInternoSul() {
+	private Panel painelInternoSul() {
 		// painelInternoSul.add("Center",editPanel.painelContentComponent("West",
 		// painelBotoes()));
 		painelInternoSul.add(Messages.getString("PainelMainCaixa.55"), editPanel.painelNull(0, 5)); //$NON-NLS-1$
@@ -262,7 +263,7 @@ public class PainelMainCaixa extends EventosCaixa {
 	}
 
 	private Component painelLabelConsultar() {
-		final JPanel painel = new JPanel(new BorderLayout(2, 2));
+		final Panel painel = new Panel(new BorderLayout(2, 2));
 		painel.add(Messages.getString("PainelMainCaixa.58"), lbDadosCaixa); //$NON-NLS-1$
 		painel.add(Messages.getString("PainelMainCaixa.59"), contentPainelLocalizar()); //$NON-NLS-1$
 		painel.add(Messages.getString("PainelMainCaixa.60"), editPanel.painelNull(200, 0)); //$NON-NLS-1$
@@ -270,12 +271,12 @@ public class PainelMainCaixa extends EventosCaixa {
 		return painel;
 	}
 
-	private JPanel painelLadoLado(final Component comp1, final JLabel lb2,
+	private Panel painelLadoLado(final Component comp1, final JLabel lb2,
 			final Component comp2) {
 
-		final JPanel painelEndTelefone = new JPanel(new BorderLayout(2, 2));
-		final JPanel painelTelefone = new JPanel(new BorderLayout(2, 2));
-		final JPanel painelSeparador2 = new JPanel(new BorderLayout(2, 2));
+		final Panel painelEndTelefone = new Panel(new BorderLayout(2, 2));
+		final Panel painelTelefone = new Panel(new BorderLayout(2, 2));
+		final Panel painelSeparador2 = new Panel(new BorderLayout(2, 2));
 
 		// Telefone
 		painelTelefone.add(Messages.getString("PainelMainCaixa.61"), lb2); //$NON-NLS-1$
@@ -292,7 +293,7 @@ public class PainelMainCaixa extends EventosCaixa {
 		return painelEndTelefone;
 	}
 
-	private JPanel painelTable() {
+	private Panel painelTable() {
 		tabela.setModel(modelo);
 		tabela.setToolTipText(Messages.getString("PainelMainCaixa.69")); //$NON-NLS-1$
 

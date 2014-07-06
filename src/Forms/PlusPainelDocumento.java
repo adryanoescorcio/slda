@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Panel;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -14,6 +15,7 @@ import javax.swing.SwingConstants;
 import ComponentGroupPlus.FontGroup;
 import Eventos.EventosAluno;
 import Eventos.PlusEventoDocumento;
+import Model.Documento;
 
 public class PlusPainelDocumento extends PlusEventoDocumento {
 
@@ -55,8 +57,20 @@ public class PlusPainelDocumento extends PlusEventoDocumento {
 	protected JLabel lbStatus = new JLabel(Messages.getString("PlusPainelDocumento.8"), //$NON-NLS-1$
 			SwingConstants.RIGHT);
 
+	public PlusPainelDocumento(MainJFrame main, EventosAluno evento, Documento docR) {
+		super(main, evento);
+		padraoInit();
+		setValoresDosCampos(docR);
+		habilitarBotoes(true, true);
+	}
+	
 	public PlusPainelDocumento(final MainJFrame main, final EventosAluno evento) {
 		super(main, evento);
+		padraoInit();
+		
+	}
+	
+	public void padraoInit () {
 		atualizarAlunoTela();
 		eventosBotoes();
 
@@ -134,7 +148,7 @@ public class PlusPainelDocumento extends PlusEventoDocumento {
 
 		tfDiscente.setPreferredSize(new Dimension(350, 0));
 
-		taDescricao.setPreferredSize(new Dimension(200, 200));
+		taDescricao.setPreferredSize(new Dimension(200, 100));
 		taDescricao
 				.setToolTipText(Messages.getString("PlusPainelDocumento.26")); //$NON-NLS-1$
 		taDescricao.setLineWrap(true);
@@ -158,9 +172,9 @@ public class PlusPainelDocumento extends PlusEventoDocumento {
 
 	}
 
-	public JPanel getTelaPrincipal() {
+	public Panel getTelaPrincipal() {
 
-		final JPanel painelScrollMain = new JPanel(new BorderLayout(1, 1));
+		final Panel painelScrollMain = new Panel(new BorderLayout(1, 1));
 
 		scrollMain.setPreferredSize(mainJPanel.getPreferredSize());
 		scrollMain.setViewportView(mainJPanel);
@@ -179,9 +193,9 @@ public class PlusPainelDocumento extends PlusEventoDocumento {
 		return painelScrollMain;
 	}
 
-	private JPanel painelBotoes() {
-		final JPanel painelBotoes = new JPanel(new BorderLayout(2, 2));
-		final JPanel painelContentBotoes = new JPanel(
+	private Panel painelBotoes() {
+		final Panel painelBotoes = new Panel(new BorderLayout(2, 2));
+		final Panel painelContentBotoes = new Panel(
 				new GridLayout(1, 5, 5, 5));
 
 		btnCancelar.setText(Messages.getString("PlusPainelDocumento.32")); //$NON-NLS-1$
@@ -200,9 +214,9 @@ public class PlusPainelDocumento extends PlusEventoDocumento {
 		return painelBotoes;
 	}
 
-	private JPanel painelDescricao() {
-		final JPanel painelDescricao = new JPanel(new BorderLayout(2, 2));
-		final JPanel painelDescricaoButton = new JPanel(new GridLayout(1, 2, 5,
+	private Panel painelDescricao() {
+		final Panel painelDescricao = new Panel(new BorderLayout(2, 2));
+		final Panel painelDescricaoButton = new Panel(new GridLayout(1, 2, 5,
 				5));
 
 		taDescricao.setBorder(BorderFactory.createTitledBorder(BorderFactory
@@ -220,12 +234,12 @@ public class PlusPainelDocumento extends PlusEventoDocumento {
 
 	private JPanel painelDiscente() {
 
-		final JPanel painelDiscenteLabel = new JPanel(
+		final Panel painelDiscenteLabel = new Panel(
 				new GridLayout(1, 2, 5, 5));
-		final JPanel painelDiscenteText = new JPanel(new GridLayout(1, 3, 5, 5));
+		final Panel painelDiscenteText = new Panel(new GridLayout(1, 3, 5, 5));
 		final JPanel painelContentMain = new JPanel(new BorderLayout(2, 2));
-		final JPanel contentMain = new JPanel(new BorderLayout(2, 2));
-		final JPanel contentDiscente = new JPanel(new BorderLayout(2, 2));
+		final Panel contentMain = new Panel(new BorderLayout(2, 2));
+		final Panel contentDiscente = new Panel(new BorderLayout(2, 2));
 
 		btnPesquisar.setEnabled(false);
 

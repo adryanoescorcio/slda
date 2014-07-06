@@ -17,6 +17,8 @@ public class PainelTabela {
 	public JScrollPane scroll = new JScrollPane();
 	public JTable tabela = new JTable(); // Table para todas as Jframes
 
+	public AbstractTableModel model;
+
 	public PainelTabela() {
 		loadConfigTable();
 	}
@@ -49,7 +51,7 @@ public class PainelTabela {
 	 **/
 	public JScrollPane organizandoColunasTables(final AbstractTableModel modelo) {
 		// carregando modelo da tabela.
-
+		this.model = modelo;
 		tabela.setModel(modelo);
 		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		final int numColunas = tabela.getColumnCount();

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Panel;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -34,16 +35,16 @@ public class PainelMainAluno extends EventosAluno {
 	protected JScrollPane scrollMain = new JScrollPane();
 
 	protected JPanel mainJPanel = new JPanel(new BorderLayout(2, 2));
-	protected JPanel painelLocalizarArquivo = new JPanel(new BorderLayout(2, 2));
-	protected JPanel painelInternoNorte = new JPanel(new BorderLayout(2, 2));
-	protected JPanel painelInternoSul = new JPanel(new BorderLayout(2, 2));
-	protected JPanel painelEsquerdoInfoAluno = new JPanel(new GridLayout(
+	protected Panel painelLocalizarArquivo = new Panel(new BorderLayout(2, 2));
+	protected Panel painelInternoNorte = new Panel(new BorderLayout(2, 2));
+	protected Panel painelInternoSul = new Panel(new BorderLayout(2, 2));
+	protected Panel painelEsquerdoInfoAluno = new Panel(new GridLayout(
 			QUANT_LINHAS_GRID, 1, DIST, DIST));
-	protected JPanel painelDireito = new JPanel(new GridLayout(
+	protected Panel painelDireito = new Panel(new GridLayout(
 			QUANT_LINHAS_GRID, 1, DIST, DIST));
-	protected JPanel painelTabela = new JPanel(new BorderLayout(2, 2));
-	protected JPanel painelContentEIA = new JPanel(new BorderLayout(2, 2));
-	protected JPanel painelBotoes = new JPanel(new BorderLayout(2, 2));
+	protected Panel painelTabela = new Panel(new BorderLayout(2, 2));
+	protected Panel painelContentEIA = new Panel(new BorderLayout(2, 2));
+	protected Panel painelBotoes = new Panel(new BorderLayout(2, 2));
 
 	protected JLabel lbDadosAluno = new JLabel(Messages.getString("PainelMainAluno.1"), //$NON-NLS-1$
 			SwingConstants.CENTER);
@@ -125,7 +126,7 @@ public class PainelMainAluno extends EventosAluno {
 																		// Folha
 		painelDireito.add(editPanel.painelContentComponent(Messages.getString("PainelMainAluno.32"), ftDataReg)); // Data //$NON-NLS-1$
 
-		final JPanel painete = new JPanel(new BorderLayout(2, 2));
+		final Panel painete = new Panel(new BorderLayout(2, 2));
 		painete.setBackground(Color.black);
 
 		painelContentEIA.add(Messages.getString("PainelMainAluno.33"), lbDadosAluno); //$NON-NLS-1$
@@ -253,8 +254,8 @@ public class PainelMainAluno extends EventosAluno {
 		table.getTabela().addMouseListener(onClickSelecionarAtaAluno);
 	}
 
-	public JPanel getTelaPrincipal() {
-		final JPanel painelScrollMain = new JPanel(new BorderLayout(1, 1));
+	public Panel getTelaPrincipal() {
+		final Panel painelScrollMain = new Panel(new BorderLayout(1, 1));
 
 		scrollMain.setPreferredSize(mainJPanel.getPreferredSize());
 		scrollMain.setViewportView(mainJPanel);
@@ -288,8 +289,8 @@ public class PainelMainAluno extends EventosAluno {
 		btnCaixa.setToolTipText(Messages.getString("PainelMainAluno.48")); //$NON-NLS-1$
 	}
 
-	private JPanel painelBotoes() {
-		final JPanel painelContentBotoes = new JPanel(
+	private Panel painelBotoes() {
+		final Panel painelContentBotoes = new Panel(
 				new GridLayout(1, 8, 5, 5));
 
 		painelContentBotoes.add(btnSalvar);
@@ -309,13 +310,13 @@ public class PainelMainAluno extends EventosAluno {
 	/**
 	 * Painel para organizar horizontalmente a Data, Sexo e a Cor lado-a-lado.
 	 **/
-	private JPanel painelDataSexoCor() {
-		final JPanel painelDataSexoCor = new JPanel(new BorderLayout(10, 10));
-		final JPanel painelCor = new JPanel(new BorderLayout(10, 10));
-		final JPanel painelSexo = new JPanel(new BorderLayout(10, 10));
+	private Panel painelDataSexoCor() {
+		final Panel painelDataSexoCor = new Panel(new BorderLayout(10, 10));
+		final Panel painelCor = new Panel(new BorderLayout(10, 10));
+		final Panel painelSexo = new Panel(new BorderLayout(10, 10));
 
-		final JPanel painelSeparador = new JPanel(new BorderLayout(10, 10));
-		final JPanel painelSeparador2 = new JPanel(new BorderLayout(10, 10));
+		final Panel painelSeparador = new Panel(new BorderLayout(10, 10));
+		final Panel painelSeparador2 = new Panel(new BorderLayout(10, 10));
 
 		// COR
 		painelCor.add(Messages.getString("PainelMainAluno.50"), lbCor); // COR //$NON-NLS-1$
@@ -352,7 +353,7 @@ public class PainelMainAluno extends EventosAluno {
 		painelInternoNorte.add(Messages.getString("PainelMainAluno.67"), painelReferenciaDireito()); //$NON-NLS-1$
 	}
 
-	private JPanel painelInternoSul() {
+	private Panel painelInternoSul() {
 		painelInternoSul.add(Messages.getString("PainelMainAluno.68"), //$NON-NLS-1$
 				editPanel.painelContentComponent(Messages.getString("PainelMainAluno.69"), painelBotoes())); //$NON-NLS-1$
 		painelInternoSul.add(Messages.getString("PainelMainAluno.70"), editPanel.painelNull(0, 5)); //$NON-NLS-1$
@@ -365,12 +366,12 @@ public class PainelMainAluno extends EventosAluno {
 	/**
 	 * Painel para organizar horizontalmente o Telefone e o Endereço
 	 **/
-	private JPanel painelLadoLado(final Component comp1, final JLabel lb2,
+	private Panel painelLadoLado(final Component comp1, final JLabel lb2,
 			final Component comp2) {
 
-		final JPanel painelEndTelefone = new JPanel(new BorderLayout(2, 2));
-		final JPanel painelTelefone = new JPanel(new BorderLayout(2, 2));
-		final JPanel painelSeparador2 = new JPanel(new BorderLayout(2, 2));
+		final Panel painelEndTelefone = new Panel(new BorderLayout(2, 2));
+		final Panel painelTelefone = new Panel(new BorderLayout(2, 2));
+		final Panel painelSeparador2 = new Panel(new BorderLayout(2, 2));
 
 		// Telefone
 		painelTelefone.add(Messages.getString("PainelMainAluno.73"), lb2); //$NON-NLS-1$
@@ -387,13 +388,13 @@ public class PainelMainAluno extends EventosAluno {
 		return painelEndTelefone;
 	}
 
-	private JPanel painelReferenciaDireito() {
+	private Panel painelReferenciaDireito() {
 		// Icone
 		final IconesGroup icone = new IconesGroup();
 
-		final JPanel painel = new JPanel(new BorderLayout(2, 2));
-		final JPanel painelGrid = new JPanel(new GridLayout(6, 1, 0, 0));
-		final JPanel painelContent = new JPanel(new BorderLayout(2, 2));
+		final Panel painel = new Panel(new BorderLayout(2, 2));
+		final Panel painelGrid = new Panel(new GridLayout(6, 1, 0, 0));
+		final Panel painelContent = new Panel(new BorderLayout(2, 2));
 
 		final JLabel lbImagem = new JLabel(Messages.getString("PainelMainAluno.81"), 0); //$NON-NLS-1$
 		lbImagem.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -419,7 +420,7 @@ public class PainelMainAluno extends EventosAluno {
 		return painelContent;
 	}
 
-	private JPanel painelTable() {
+	private Panel painelTable() {
 		scroll = table.organizandoColunasTables(modeloAtaResultado);
 
 		painelTabela.add(Messages.getString("PainelMainAluno.93"), editPanel.painelNull(0, 10)); //$NON-NLS-1$

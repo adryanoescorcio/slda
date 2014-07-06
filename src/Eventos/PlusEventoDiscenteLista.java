@@ -1,5 +1,6 @@
 package Eventos;
 
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -9,7 +10,6 @@ import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -34,7 +34,7 @@ public class PlusEventoDiscenteLista extends EventosPadrao {
 	protected JComboBox<String> comboBoxSubSecao = comboGroup
 			.getComboBoxSubSecao();
 
-	private JPanel main;
+	private Panel main;
 	protected List<Ata> listaAta;
 	protected Ata ultimaAtaList;
 
@@ -103,9 +103,9 @@ public class PlusEventoDiscenteLista extends EventosPadrao {
 		}
 	};
 
-	public PlusEventoDiscenteLista(final JPanel main, final EventosAluno evento) {
+	public PlusEventoDiscenteLista(final Panel mainDialog, final EventosAluno evento) {
 		this.evento = evento;
-		this.main = main;
+		this.main = mainDialog;
 		this.aluno = evento.getAluno();
 	}
 
@@ -125,7 +125,7 @@ public class PlusEventoDiscenteLista extends EventosPadrao {
 		// TODO Auto-generated method stub
 	}
 
-	public void setMainJDialog(final JPanel mainJDialog) {
+	public void setMainJDialog(final Panel mainJDialog) {
 		this.main = mainJDialog;
 	}
 

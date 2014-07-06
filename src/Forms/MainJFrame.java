@@ -3,6 +3,7 @@ package Forms;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Panel;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import Menus.MenuUsuario;
 import Menus.MenuVisualizar;
 import Model.Aluno;
 import Model.AtaResultado;
+import Model.Documento;
 import Segurança.Validar;
 
 /**
@@ -182,8 +184,8 @@ public class MainJFrame {
 	/**
 	 * Insere uma aba na camada JTabbed e desativa as outras abas.
 	 **/
-	public void addCamada(final JPanel painel, final String titulo) {
-		camadaExterna.addTab(titulo, painel); // insere um aba
+	public void addCamada(final Panel panel, final String titulo) {
+		camadaExterna.addTab(titulo, panel); // insere um aba
 		// Desativar a outras abas
 		camadaExterna.setEnabledAt(PAINEL_CAIXA, false);
 		camadaExterna.setEnabledAt(PAINEL_ALUNO, false);
@@ -269,6 +271,10 @@ public class MainJFrame {
 	public void mudarPerfilAta(final Aluno aluno, final AtaResultado ataR) {
 		mudarPerfilAta(aluno);
 		cadastrarAta.setAta(ataR);
+	}
+	
+	public void mudarPerfilDoc(final Aluno aluno, final Documento docR) {
+
 	}
 
 	public void mudarPerfilCaixa(final Aluno aluno, final EventosAluno evento) {

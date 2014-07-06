@@ -408,8 +408,8 @@ public class EventosCaixa extends EventosPadrao {
 		comboTurno.setEnabled(true);
 		comboLetra.setEnabled(true);
 		comboStatus.setEnabled(true);
-		comboEnsino.setEnabled(false);
-		comboModalidade.setEnabled(false);
+		comboEnsino.setEnabled(true);
+		comboModalidade.setEnabled(true);
 		btnAlterar.setEnabled(bool);
 		btnExcluir.setEnabled(bool);
 		btnSalvar.setEnabled(!bool);

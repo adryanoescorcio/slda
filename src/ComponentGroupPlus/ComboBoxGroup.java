@@ -42,6 +42,7 @@ public class ComboBoxGroup {
 
 		combo.setBackground(Color.WHITE);
 		combo.setFont(fonte.font_PLA_14);
+		combo.setLightWeightPopupEnabled(false);
 
 		return combo;
 	}
@@ -56,6 +57,7 @@ public class ComboBoxGroup {
 
 		combo.setBackground(Color.WHITE);
 		combo.setFont(fonte.font_PLA_14);
+		combo.setLightWeightPopupEnabled(false);
 
 		return combo;
 	}
@@ -72,6 +74,7 @@ public class ComboBoxGroup {
 
 		combo.setBackground(Color.WHITE);
 		combo.setFont(fonte.font_PLA_14);
+		combo.setLightWeightPopupEnabled(false);
 
 		return combo;
 	}
@@ -115,6 +118,7 @@ public class ComboBoxGroup {
 		combo.addItem(Messages.getString("ComboBoxGroup.45")); //$NON-NLS-1$
 
 		combo.setFont(fonte.font_PLA_14);
+		combo.setLightWeightPopupEnabled(false);
 
 		return combo;
 	}
@@ -154,6 +158,7 @@ public class ComboBoxGroup {
 
 		combo.setBackground(Color.white);
 		combo.setFont(fonte.font_PLA_14);
+		combo.setLightWeightPopupEnabled(false);
 
 		return combo;
 	}
@@ -168,6 +173,7 @@ public class ComboBoxGroup {
 
 		combo.setBackground(Color.WHITE);
 		combo.setFont(fonte.font_PLA_14);
+		combo.setLightWeightPopupEnabled(false);
 
 		return combo;
 	}
@@ -184,7 +190,8 @@ public class ComboBoxGroup {
 		combo.addItem(Messages.getString("ComboBoxGroup.72")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.73")); //$NON-NLS-1$
 		combo.setFont(fonte.font_PLA_14);
-
+		combo.setLightWeightPopupEnabled(false);
+		
 		return combo;
 	}
 
@@ -219,6 +226,7 @@ public class ComboBoxGroup {
 
 		combo.setBackground(Color.white);
 		combo.setFont(fonte.font_PLA_14);
+		combo.setLightWeightPopupEnabled(false);
 
 		return combo;
 	}
@@ -232,7 +240,8 @@ public class ComboBoxGroup {
 
 		combo.setBackground(Color.white);
 		combo.setFont(fonte.font_PLA_14);
-
+		combo.setLightWeightPopupEnabled(false);
+		
 		return combo;
 	}
 
@@ -246,6 +255,7 @@ public class ComboBoxGroup {
 
 		combo.setBackground(Color.WHITE);
 		combo.setFont(fonte.font_PLA_14);
+		combo.setLightWeightPopupEnabled(false);
 
 		return combo;
 	}
@@ -277,6 +287,7 @@ public class ComboBoxGroup {
 
 		combo.setBackground(Color.white);
 		combo.setFont(fonte.font_PLA_14);
+		combo.setLightWeightPopupEnabled(false);
 
 		return combo;
 	}

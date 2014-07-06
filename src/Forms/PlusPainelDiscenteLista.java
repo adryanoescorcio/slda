@@ -3,6 +3,7 @@ package Forms;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Panel;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -14,19 +15,18 @@ import Eventos.PlusEventoDiscenteLista;
 
 public class PlusPainelDiscenteLista extends PlusEventoDiscenteLista {
 
-	private static JPanel mainDialog = new JPanel(new BorderLayout(2, 2));
+	private static Panel mainDialog = new Panel(new BorderLayout(2, 2));
 
-	public static void setMainDialog(final JPanel mainDialog) {
+	public static void setMainDialog(final Panel mainDialog) {
 		PlusPainelDiscenteLista.mainDialog = mainDialog;
 	}
 
 	// Tabela
-	protected JPanel painelTabela = new JPanel(new BorderLayout(2, 2));
+	protected Panel painelTabela = new Panel(new BorderLayout(2, 2));
+	private final Panel painelInternoNorte = new Panel(new BorderLayout(2, 2));
+
 	protected JScrollPane scroll = new JScrollPane();
-
 	protected JScrollPane scrollMain = new JScrollPane();
-
-	private final JPanel painelInternoNorte = new JPanel(new BorderLayout(2, 2));
 
 	public PlusPainelDiscenteLista(final EventosAluno evento) {
 		super(mainDialog, evento); // passado a tela principal e o evento de
@@ -43,7 +43,7 @@ public class PlusPainelDiscenteLista extends PlusEventoDiscenteLista {
 
 	}
 
-	public JPanel getMainDialog() {
+	public Panel getMainDialog() {
 		return mainDialog;
 	}
 
@@ -56,12 +56,12 @@ public class PlusPainelDiscenteLista extends PlusEventoDiscenteLista {
 		}
 	}
 
-	private JPanel painelbotoes() {
+	private Panel painelbotoes() {
 		// mudando o nome do botão salvar
 		btnSalvar.setText(Messages.getString("PlusPainelDiscenteLista.1")); //$NON-NLS-1$
 		btnCancelar.setText(Messages.getString("PlusPainelDiscenteLista.2")); //$NON-NLS-1$
 
-		final JPanel painelbotoe = new JPanel(new GridLayout(1, 2, 5, 5));
+		final Panel painelbotoe = new Panel(new GridLayout(1, 2, 5, 5));
 		painelbotoe.add(btnSalvar);
 		painelbotoe.add(btnCancelar);
 
@@ -71,12 +71,12 @@ public class PlusPainelDiscenteLista extends PlusEventoDiscenteLista {
 	/**
 	 * Painel para construir GUI
 	 **/
-	private JPanel painelInternoNorte() {
+	private Panel painelInternoNorte() {
 
 		final JPanel controleSuperior = new JPanel(new BorderLayout(2, 2));
-		final JPanel contendControl = new JPanel(new BorderLayout(2, 2));
-		final JPanel contentPainel = new JPanel(new BorderLayout(2, 2));
-		final JPanel contentPainelBotao = new JPanel(new BorderLayout(2, 2));
+		final Panel contendControl = new Panel(new BorderLayout(2, 2));
+		final Panel contentPainel = new Panel(new BorderLayout(2, 2));
+		final Panel contentPainelBotao = new Panel(new BorderLayout(2, 2));
 
 		contentPainelBotao.add(Messages.getString("PlusPainelDiscenteLista.3"), //$NON-NLS-1$
 				editPanel.painelContentComponent(Messages.getString("PlusPainelDiscenteLista.4"), painelbotoes())); //$NON-NLS-1$
@@ -105,7 +105,7 @@ public class PlusPainelDiscenteLista extends PlusEventoDiscenteLista {
 		return painelInternoNorte;
 	}
 
-	private JPanel painelTable() {
+	private Panel painelTable() {
 		eventos();
 		// carregando modelo da tabela.
 		tabela.setModel(evento.modeloAlunoTable);

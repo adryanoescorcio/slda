@@ -399,16 +399,30 @@ public class EventosAluno extends EventosPadrao {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if (e.getClickCount() == 2) {
-				if(JOptionPane.showConfirmDialog(null, Messages.getString("EventosAluno.74")) == 0) { //$NON-NLS-1$
-					try {
-						int linha = table.getTabela().getSelectedRow();
-						System.out.println(linha);
-						 AtaResultado ataR = modeloAtaResultado.getContato(linha);
-						 main.mudarPerfilAta(aluno, ataR);
-						 main.direcionarParaCamada(2);
-					} catch (Exception ex) {
-						// o metodo foi parado por falta dos requisitos minimos.
+			if(table.model.findColumn("PROTOCOLO") == -1){
+				if (e.getClickCount() == 2) {
+					if(JOptionPane.showConfirmDialog(null, Messages.getString("EventosAluno.74")) == 0) { //$NON-NLS-1$
+						try {
+							int linha = table.getTabela().getSelectedRow();
+							 AtaResultado ataR = modeloAtaResultado.getContato(linha);
+							 main.mudarPerfilAta(aluno, ataR);
+							 main.direcionarParaCamada(2);
+						} catch (Exception ex) {
+							System.out.println("Erro selecionar Ata");
+						}
+					}
+				}
+			} else {
+				if (e.getClickCount() == 2) {
+					if(JOptionPane.showConfirmDialog(null, Messages.getString("Deseja selecionar esta documento?")) == 0) { //$NON-NLS-1$
+						try {
+							int linha = table.getTabela().getSelectedRow();
+							 Documento docR = modeloDoc.getContato(linha);
+							 PlusPainelDocumento painelDocumento= new PlusPainelDocumento(main, EventosAluno.this, docR);
+							 main.addCamada(painelDocumento.getTelaPrincipal(), Messages.getString("EventosAluno.73")); //$NON-NLS-1$
+						} catch (Exception ex) {
+							System.out.println("Erro selecionar Ata");
+						}
 					}
 				}
 			}

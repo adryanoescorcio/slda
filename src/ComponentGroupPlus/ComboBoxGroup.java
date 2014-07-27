@@ -204,9 +204,12 @@ public class ComboBoxGroup {
 
 		combo.addItem(Messages.getString("ComboBoxGroup.74")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.75")); //$NON-NLS-1$
+		combo.addItem(Messages.getString("ComboBoxGroup.91")); //$NON-NLS-1$
+		combo.addItem(Messages.getString("ComboBoxGroup.92")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.76")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.77")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.78")); //$NON-NLS-1$
+		combo.addItem("REPROVADO");
 
 		combo.setFont(fonte.font_PLA_14);
 		combo.setBackground(Color.WHITE);

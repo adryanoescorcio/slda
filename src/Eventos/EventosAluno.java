@@ -255,12 +255,18 @@ public class EventosAluno extends EventosPadrao {
 			String codigoLocalizar = tfLocalizar.getText().trim(); // pega o codigo digitado pelo cliente.
 			
 			try {
-				if(codigoLocalizar.length() >= 4 && codigoLocalizar.substring(0, 4).equals(Messages.getString("EventosAluno.66"))) { //$NON-NLS-1$
-					buscarCodigo(codigoLocalizar);
-				} else if (verificarCodigo(codigoLocalizar)){
-					buscarCodigo(codigoLocalizar);
+				// verifica se o codigo digitado é SLDA
+				if(!(codigoLocalizar.length() == 0)){
+					if(codigoLocalizar.length() >= 4 && codigoLocalizar.substring(0, 4).equals(Messages.getString("EventosAluno.66"))) { //$NON-NLS-1$
+						buscarCodigo(codigoLocalizar);
+					} else if (verificarCodigo(codigoLocalizar)){
+						buscarCodigo(codigoLocalizar);
+					} else {
+						buscaNomeAluno(codigoLocalizar);
+					}
 				} else {
-					buscaNomeAluno(codigoLocalizar);
+					JOptionPane.showMessageDialog(null, "Insira um dado para realizar a consulta. Por seguraça não poderá deixar este campo vazio.","ERRO",
+							JOptionPane.WARNING_MESSAGE);
 				}
 			} catch (IndexOutOfBoundsException ex) {
 				

@@ -210,6 +210,7 @@ public class ComboBoxGroup {
 		combo.addItem(Messages.getString("ComboBoxGroup.77")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.78")); //$NON-NLS-1$
 		combo.addItem("REPROVADO");
+		combo.addItem("APROVADO");
 
 		combo.setFont(fonte.font_PLA_14);
 		combo.setBackground(Color.WHITE);

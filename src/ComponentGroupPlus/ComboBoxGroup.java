@@ -88,7 +88,7 @@ public class ComboBoxGroup {
 		final JComboBox<String> combo = new JComboBox<String>();
 
 		combo.setBackground(Color.WHITE);
-		combo.addItem(Messages.getString("ComboBoxGroup.18")); //$NON-NLS-1$
+		combo.addItem(Messages.getString("ComboBoxGroup.0")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.19")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.20")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.21")); //$NON-NLS-1$
@@ -186,7 +186,7 @@ public class ComboBoxGroup {
 		final JComboBox<String> combo = new JComboBox<String>();
 
 		combo.setBackground(Color.WHITE);
-		combo.addItem(Messages.getString("ComboBoxGroup.71")); //$NON-NLS-1$
+		combo.addItem(Messages.getString("ComboBoxGroup.0")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.72")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.73")); //$NON-NLS-1$
 		combo.setFont(fonte.font_PLA_14);
@@ -202,7 +202,7 @@ public class ComboBoxGroup {
 
 		final JComboBox<String> combo = new JComboBox<String>();
 
-		combo.addItem(Messages.getString("ComboBoxGroup.74")); //$NON-NLS-1$
+		combo.addItem(Messages.getString("ComboBoxGroup.0")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.75")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.91")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.92")); //$NON-NLS-1$

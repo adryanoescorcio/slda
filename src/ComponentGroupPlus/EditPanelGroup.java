@@ -58,12 +58,12 @@ public class EditPanelGroup {
 
 		painelLocalizar.add(painelContentComponent(Messages.getString("EditPanelGroup.0"), titulo)); //$NON-NLS-1$
 		painelLocalizar.add(painelContentComponent(Messages.getString("EditPanelGroup.1"), localizar)); //$NON-NLS-1$
-		painelBtnSearch.add(Messages.getString("EditPanelGroup.2"), painelLocalizar); //$NON-NLS-1$
-		painelBtnSearch.add(Messages.getString("EditPanelGroup.3"), painelContentComponent(Messages.getString("EditPanelGroup.4"), search)); //$NON-NLS-1$ //$NON-NLS-2$
+		painelBtnSearch.add(Messages.getString("EditPanelGroup.1"), painelLocalizar); //$NON-NLS-1$
+		painelBtnSearch.add(Messages.getString("EditPanelGroup.3"), painelContentComponent(Messages.getString("EditPanelGroup.1"), search)); //$NON-NLS-1$ //$NON-NLS-2$
 
 		painelContentLocalizar.add(Messages.getString("EditPanelGroup.5"), painelNull(0, 1)); //$NON-NLS-1$
 		painelContentLocalizar.add(Messages.getString("EditPanelGroup.6"), painelNull(0, 1)); //$NON-NLS-1$
-		painelContentLocalizar.add(Messages.getString("EditPanelGroup.7"), painelBtnSearch); //$NON-NLS-1$
+		painelContentLocalizar.add(Messages.getString("EditPanelGroup.3"), painelBtnSearch); //$NON-NLS-1$
 
 		return painelContentLocalizar;
 	}

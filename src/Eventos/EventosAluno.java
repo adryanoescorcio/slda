@@ -488,7 +488,6 @@ public class EventosAluno extends EventosPadrao {
 						new PlusPainelDiscenteLista(EventosAluno.this);
 				main.addCamada(painelListaDiscente.getMainDialog(), Messages.getString("EventosAluno.75")); //$NON-NLS-1$
 			}
-//		}
 	}
 
 	/**
@@ -531,7 +530,8 @@ public class EventosAluno extends EventosPadrao {
 	}
 
 	public void normalizarCamadas() {
-		main.normalizarCamadas();
+		main.normalizarCamadas(); // normaliza as camadas ativando elas
+		
 		try {
 			tabelaAta(aluno);
 		}catch (Exception ex) {

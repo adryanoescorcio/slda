@@ -152,6 +152,8 @@ public class PainelMainCaixa extends EventosCaixa {
 		btnExcluir.addActionListener(onClickExcluirCaixa);
 		btnInserir.addActionListener(onClickInitInserir);
 		btnRetirar.addActionListener(onClickInitRetirar);
+		btnAbrirCaixa.addActionListener(onClickAbrirCaixa);
+		
 		tabela.addMouseListener(onClickRowTable);
 		comboModalidade.addItemListener(onClickChangeModalidade);
 
@@ -179,18 +181,21 @@ public class PainelMainCaixa extends EventosCaixa {
 	}
 
 	private Panel painelBotoes() {
+		// painel que guarda o painel de botões. estiliza o posicionamento.
 		final Panel painelBotoes = new Panel(new BorderLayout(2, 2));
+		// painel que guarda os botões
 		final Panel painelContentBotoes = new Panel(
-				new GridLayout(1, 4, 5, 5));
+				new GridLayout(1, 5, 5, 5));
 
 		painelContentBotoes.add(btnSalvar);
 		painelContentBotoes.add(btnAlterar);
 		painelContentBotoes.add(btnExcluir);
 		painelContentBotoes.add(btnLimpar);
+		painelContentBotoes.add(btnAbrirCaixa);
 
 		painelBotoes.add(Messages.getString("PainelMainCaixa.33"), painelContentBotoes); //$NON-NLS-1$
 		painelBotoes.add(Messages.getString("PainelMainCaixa.34"), editPanel.painelNull(0, 10)); //$NON-NLS-1$
-		painelBotoes.add(Messages.getString("PainelMainCaixa.35"), editPanel.painelNull(250, 0)); //$NON-NLS-1$
+		painelBotoes.add(Messages.getString("PainelMainCaixa.35"), editPanel.painelNull(200, 0)); //$NON-NLS-1$
 		painelBotoes.add(Messages.getString("PainelMainCaixa.36"), editPanel.painelNull(0, 10)); //$NON-NLS-1$
 
 		return painelBotoes;

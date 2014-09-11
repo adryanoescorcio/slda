@@ -295,4 +295,10 @@ public class MainJFrame {
 	public void setCamadaExterna(final JTabbedPane camadaExterna) {
 		this.camadaExterna = camadaExterna;
 	}
+
+	public void mostrarAluno(Aluno aluno) {
+		direcionarParaCamada(0);
+		cadastrarAluno.setValoresDosCampos(aluno);
+		
+	}
 }

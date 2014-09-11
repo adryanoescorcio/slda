@@ -10,10 +10,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import Eventos.EventosAluno;
-import Eventos.PlusEventoDiscenteLista;
+import Eventos.EventosCaixa;
+import Eventos.PlusEventoArquivoDiscente;
 
-public class PlusPainelDiscenteLista extends PlusEventoDiscenteLista {
+public class PlusPainelArquivoDiscente extends PlusEventoArquivoDiscente {
 
 	private static Panel mainDialog = new Panel(new BorderLayout(2, 2));
 
@@ -24,20 +24,17 @@ public class PlusPainelDiscenteLista extends PlusEventoDiscenteLista {
 	protected JScrollPane scroll = new JScrollPane();
 	protected JScrollPane scrollMain = new JScrollPane();
 
-	public PlusPainelDiscenteLista(final EventosAluno evento) {
-		super(mainDialog, evento); // passado a tela principal e o evento de aluno com as instancias
+	public PlusPainelArquivoDiscente(final EventosCaixa evento) {
+		super(mainDialog, evento); // passado a tela principal e o evento de
+									// aluno com as instancias
 
 		mainDialog.add(Messages.getString("PlusPainelDiscenteLista.0"), painelInternoNorte()); //$NON-NLS-1$
 		initJDialog();
 	}
 
-	public static void setMainDialog(final Panel mainDialog) {
-		PlusPainelDiscenteLista.mainDialog = mainDialog;
-	}
-
 	private void eventos() {
 		btnCancelar.addActionListener(onClickCancelar);
-		btnSalvar.addActionListener(onClickSalvar);
+//		btnSalvar.addActionListener(onClickSalvar);
 		tabela.addMouseListener(onClickRowTable);
 	}
 
@@ -106,7 +103,7 @@ public class PlusPainelDiscenteLista extends PlusEventoDiscenteLista {
 	private Panel painelTable() {
 		eventos();
 		// carregando modelo da tabela.
-		tabela.setModel(evento.modeloAlunoTable);
+		tabela.setModel(evento.modeloArquivo);
 
 		scroll.setPreferredSize(new Dimension(0, 200)); // Define o tamanho da
 														// tabela.
@@ -117,7 +114,7 @@ public class PlusPainelDiscenteLista extends PlusEventoDiscenteLista {
 
 		painelTabela.add(Messages.getString("PlusPainelDiscenteLista.20"), editPanel.painelNull(0, 10)); //$NON-NLS-1$
 		painelTabela.add(Messages.getString("PlusPainelDiscenteLista.21"), //$NON-NLS-1$
-				table.organizandoColunasTables(evento.modeloAlunoTable));
+				table.organizandoColunasTables(evento.modeloArquivo));
 		painelTabela.add(Messages.getString("PlusPainelDiscenteLista.22"), editPanel.painelNull(0, 10)); //$NON-NLS-1$
 
 		return painelTabela;

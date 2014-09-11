@@ -65,6 +65,7 @@ public class IconesGroup {
 	private ImageIcon iconeCancelar = new ImageIcon(DIR_ICONES + Messages.getString("IconesGroup.10")); //$NON-NLS-1$
 	private ImageIcon iconeInserir = new ImageIcon(DIR_ICONES + Messages.getString("IconesGroup.11")); //$NON-NLS-1$
 	private ImageIcon iconeRetirar = new ImageIcon(DIR_ICONES + Messages.getString("IconesGroup.12")); //$NON-NLS-1$
+	private ImageIcon iconeAbrir = new ImageIcon(DIR_ICONES + "abrir.png");
 
 	private ImageIcon icone = new ImageIcon(DIR_ICONES + Messages.getString("IconesGroup.13")); //$NON-NLS-1$
 	private ImageIcon imageAbout = new ImageIcon(DIR_ICONES + Messages.getString("IconesGroup.14")); //$NON-NLS-1$
@@ -157,6 +158,14 @@ public class IconesGroup {
 
 	public void setIcone(final ImageIcon icone) {
 		this.icone = icone;
+	}
+
+	public ImageIcon getIconeAbrir() {
+		return iconeAbrir;
+	}
+
+	public void setIconeAbrir(ImageIcon iconeAbrir) {
+		this.iconeAbrir = iconeAbrir;
 	}
 
 	public void setIconeAlterar(final ImageIcon iconeAlterar) {

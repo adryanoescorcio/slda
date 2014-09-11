@@ -19,9 +19,13 @@ import javax.swing.JTextField;
 import ComponentGroupPlus.PainelTabela;
 import ExceptionSLDA.erroNullRequisitoException;
 import Forms.MainJFrame;
+import Forms.PlusPainelArquivoDiscente;
+import Model.Aluno;
 import Model.Arquivo;
 import Model.Caixa;
+import PrimaryKey.AlunoPK;
 import PrimaryKey.CaixaPK;
+import TablesModel.ArquivoTableModel;
 import TablesModel.CaixaTableModel;
 
 /**
@@ -55,7 +59,9 @@ public class EventosCaixa extends EventosPadrao {
 	PainelTabela table = new PainelTabela();
 	protected JTable tabela = table.getTabela();
 	protected List<Caixa> lista = daoCaixa.getTodasCaixas();
+	protected List<Arquivo> listaArquivo;
 	protected CaixaTableModel modelo;
+	public ArquivoTableModel modeloArquivo;
 
 	protected String strCodigo;
 	// COMPONENTES NECESSÁRIOS
@@ -294,6 +300,44 @@ public class EventosCaixa extends EventosPadrao {
 			}
 		}
 	};
+	
+	protected ActionListener onClickAbrirCaixa = new ActionListener() {
+
+		@Override
+		public void actionPerformed(final ActionEvent e) {
+			try {
+				// pesquisa os arquivos, e todos os alunos que estão dentro dele
+				List<Arquivo> arqui = daoArquivo.buscarAlunos(caixaPesquisa);
+				
+				// faz a pesquisa do codigo dos alunos que estão na caixa
+				for(int i = 0; i < arqui.size(); i++){
+					AlunoPK pk = new AlunoPK();
+					pk.setCodigo(arqui.get(i).getCodigoAluno());
+					arqui.get(i).setAluno(daoAluno.buscar(pk));
+				}
+				
+				modeloArquivo = new ArquivoTableModel(arqui);
+				
+				if (arqui.size() > 0) {
+					PlusPainelArquivoDiscente painelArquivoDiscente = 
+							new PlusPainelArquivoDiscente(EventosCaixa.this);
+					main.addCamada(painelArquivoDiscente.getMainDialog(), "Abrir Caixa-Arquivo");
+				} else {
+					JOptionPane
+					.showMessageDialog(null,
+							"Esta caixa está vazia!");
+				}
+				
+				
+								
+			} catch (final Exception ex) {
+				JOptionPane
+						.showMessageDialog(null,
+								Messages.getString("EventosCaixa.21")); //$NON-NLS-1$
+			}
+		}
+	};
+	
 
 	// OBJETO QUE REALIZA UMA BUSCA ATRAVÉS DAS LINHAS DA TABELA
 	protected MouseListener onClickRowTable = new MouseListener() {
@@ -479,4 +523,24 @@ public class EventosCaixa extends EventosPadrao {
 		comboModalidade.setSelectedItem(caixa.getModalidadeAta());
 
 	}
+
+	public void normalizarCamadas() {
+		main.normalizarCamadas();
+		
+//		try {
+//			tabelaAta(aluno);
+//		}catch (Exception ex) {
+//			// nenhum aluno foi escolhido pelo usuário. sem erro. 
+//		}
+	}
+
+	public void processoMostarAluno(Aluno aluno) {
+		main.mostrarAluno(aluno);
+		
+	}
+
+	public void direcionarParaCamada(int i) {
+		main.direcionarParaCamada(i);
+	}
+
 }

@@ -259,6 +259,7 @@ public class PainelMainAluno extends EventosAluno {
 
 		scrollMain.setPreferredSize(mainJPanel.getPreferredSize());
 		scrollMain.setViewportView(mainJPanel);
+		scrollMain.getVerticalScrollBar().setUnitIncrement(50);
 
 		painelScrollMain.add(scrollMain);
 		painelLocalizarArquivo.add(Messages.getString("PainelMainAluno.38"), painelInternoNorte); //$NON-NLS-1$

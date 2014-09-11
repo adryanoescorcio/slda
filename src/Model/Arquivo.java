@@ -2,6 +2,7 @@ package Model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
 import PrimaryKey.ArquivoPK;
@@ -14,6 +15,10 @@ import PrimaryKey.InterfaceKey;
  * @version 1.8
  * @implements PadraoEntidade
  **/
+
+// O order by esta fazendo grupos com os numeros
+@NamedQuery(name = "Arquivo.Search", 
+	query = "SELECT a FROM Arquivo a WHERE a.codigoCaixa LIKE :caixa")
 @Entity
 public class Arquivo implements InterfacePadraoEntidade {
 

@@ -71,8 +71,10 @@ public abstract class EventosPadrao {
 
 	public JButton btnPesquisar = new JButton(Messages.getString("EventosPadrao.0"), //$NON-NLS-1$
 			icone.getIconePesquisar());
+	
 	public JButton btnSalvar = new JButton(Messages.getString("EventosPadrao.1"), icone.getIconeSalvar()); //$NON-NLS-1$
 	public JButton btnLimpar = new JButton(Messages.getString("EventosPadrao.2"), icone.getIconeLimpar()); //$NON-NLS-1$
+	public JButton btnAbrirCaixa = new JButton("Abrir", icone.getIconeAbrir());
 	public JButton btnExcluir = new JButton(Messages.getString("EventosPadrao.3"), icone.getIconeExcluir()); //$NON-NLS-1$
 	public JButton btnAlterar = new JButton(Messages.getString("EventosPadrao.4"), icone.getIconeAlterar()); //$NON-NLS-1$
 	public JButton btnDocumento = new JButton(Messages.getString("EventosPadrao.5"), icone.getIconeDoc()); //$NON-NLS-1$

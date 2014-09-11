@@ -146,6 +146,7 @@ public class ComboBoxGroup {
 		combo.addItem(Messages.getString("ComboBoxGroup.59")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.60")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.61")); //$NON-NLS-1$
+		combo.addItem("Q");
 		combo.addItem(Messages.getString("ComboBoxGroup.62")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.63")); //$NON-NLS-1$
 		combo.addItem(Messages.getString("ComboBoxGroup.64")); //$NON-NLS-1$

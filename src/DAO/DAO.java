@@ -206,7 +206,7 @@ public abstract class DAO {
 	 * <b>Obervação:</b><br>
 	 * Usado para persistencia indireta de objetos, ou seja quando um objeto é
 	 * setado do BD e seus atributos alterado. Para efetivar a alteração execute
-	 * o metodo.
+	 * o metodo. Inicia e finaliza.
 	 * 
 	 * @return True, caso a execução tenha terminado com sucesso. <br>
 	 *         False, caso a execução tenha terminado com erro.

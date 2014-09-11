@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.persistence.Query;
 
@@ -81,5 +82,16 @@ public class ArquivoDAO extends DAO {
 	 **/
 	public boolean save(final Arquivo arquivo) {
 		return super.save(arquivo);
+	}
+
+	public List<Arquivo> buscarAlunos(Caixa caixaPesquisa) {
+		final Query query = em.createNamedQuery("Arquivo.Search");
+		query.setParameter("caixa", caixaPesquisa.getCodigo());
+		
+		@SuppressWarnings("unchecked")
+		final List<Arquivo> arquivo = query.getResultList();
+			
+		return arquivo;
+		
 	}
 }

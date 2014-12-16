@@ -39,17 +39,6 @@ import TablesModel.CaixaTableModel;
 
 public class EventosCaixa extends EventosPadrao {
 
-	// PEQUENA CLASSE DE COMPARAÇÃO UTILIZADA NA ORDENAÇÃO DA LISTA
-	public static class ComparadorObjetos implements Comparator<Caixa> {
-
-		@Override
-		public int compare(final Caixa objetoParaComparar,
-				final Caixa objetoAserComparado) {
-			return objetoParaComparar.getCodigo().compareTo(
-					objetoAserComparado.getCodigo());
-		}
-	}
-
 	// OBJETO UTILIZADO NAS BUSCAS
 	Caixa caixaPesquisa = new Caixa();
 
@@ -76,7 +65,25 @@ public class EventosCaixa extends EventosPadrao {
 	protected JComboBox<String> comboEnsino = comboGroup
 			.getComboBoxEnsinoFUNDAMENTAL();
 
-	protected MainJFrame main;
+	public EventosCaixa(final MainJFrame main) {
+		super.main = main;
+		// INICIA A TABELA ORDENADA
+		Collections.sort(lista, comparador);
+		modelo = new CaixaTableModel(lista);
+		tfCodigo.setEditable(false);
+		comboNumero.setEnabled(false);
+	}	
+	
+	// PEQUENA CLASSE DE COMPARAÇÃO UTILIZADA NA ORDENAÇÃO DA LISTA
+	public static class ComparadorObjetos implements Comparator<Caixa> {
+
+		@Override
+		public int compare(final Caixa objetoParaComparar,
+				final Caixa objetoAserComparado) {
+			return objetoParaComparar.getCodigo().compareTo(
+					objetoAserComparado.getCodigo());
+		}
+	}
 
 	/**
 	 * Metodos que realiza a função de limpar os campos.
@@ -309,7 +316,8 @@ public class EventosCaixa extends EventosPadrao {
 				// pesquisa os arquivos, e todos os alunos que estão dentro dele
 				List<Arquivo> arqui = daoArquivo.buscarAlunos(caixaPesquisa);
 				
-				// faz a pesquisa do codigo dos alunos que estão na caixa
+				// faz a pesquisa do codigo dos alunos que estão na caixa, busca os nomes
+				// porque é necessário complemento da tabela.
 				for(int i = 0; i < arqui.size(); i++){
 					AlunoPK pk = new AlunoPK();
 					pk.setCodigo(arqui.get(i).getCodigoAluno());
@@ -374,15 +382,6 @@ public class EventosCaixa extends EventosPadrao {
 		public void mouseReleased(final MouseEvent e) {
 		}
 	};
-
-	public EventosCaixa(final MainJFrame main) {
-		this.main = main;
-		// INICIA A TABELA ORDENADA
-		Collections.sort(lista, comparador);
-		modelo = new CaixaTableModel(lista);
-		tfCodigo.setEditable(false);
-		comboNumero.setEnabled(false);
-	}
 
 	protected void desabilitarCamposPesquisa() {
 		comboTurno.setEnabled(false);
@@ -538,9 +537,4 @@ public class EventosCaixa extends EventosPadrao {
 		main.mostrarAluno(aluno);
 		
 	}
-
-	public void direcionarParaCamada(int i) {
-		main.direcionarParaCamada(i);
-	}
-
 }

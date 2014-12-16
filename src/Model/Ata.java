@@ -2,7 +2,6 @@ package Model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 import PrimaryKey.AtaPK;
@@ -15,9 +14,8 @@ import PrimaryKey.InterfaceKey;
  * @version 1.5
  * @implements PadraoEntidade
  **/
-@NamedQueries({
-		@NamedQuery(name = "Ata.findAll", query = "SELECT a FROM Ata a"),
-		@NamedQuery(name = "Ata.findByYear", query = "SELECT a FROM Ata a where a.ata.anoAta = :ano ORDER BY a.ata.turmaAta") })
+
+@NamedQuery(name = "Ata.findAll", query = "SELECT a FROM Ata a")
 @Entity
 public class Ata implements InterfacePadraoEntidade, InterfacePadraoAta {
 

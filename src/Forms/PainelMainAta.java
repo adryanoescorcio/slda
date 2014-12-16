@@ -150,7 +150,7 @@ public class PainelMainAta extends EventosAta {
 		// ADD EVENTOS
 		btnLimpar.addActionListener(onClickLimparCampos);
 		btnSalvar.addActionListener(onClickSalvarAta);
-		btnAlterar.addActionListener(onClickAterarAta);
+		btnAlterar.addActionListener(onClickAbrirAtaTurma);
 		btnExcluir.addActionListener(onClickExcluirAta);
 		btnPesquisar.addActionListener(onClickBuscarAta);
 		btnInserir.addActionListener(onClickInitInserir);

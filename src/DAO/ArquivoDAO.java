@@ -84,14 +84,14 @@ public class ArquivoDAO extends DAO {
 		return super.save(arquivo);
 	}
 
-	public List<Arquivo> buscarAlunos(Caixa caixaPesquisa) {
-		final Query query = em.createNamedQuery("Arquivo.Search");
-		query.setParameter("caixa", caixaPesquisa.getCodigo());
+	public List<Arquivo> buscarAlunos(Caixa pesquisa) {
 		
+		final Query query = em.createNamedQuery("Arquivo.Search");
+		query.setParameter("caixa", pesquisa.getCodigoKEY().toString());
+	
 		@SuppressWarnings("unchecked")
 		final List<Arquivo> arquivo = query.getResultList();
 			
 		return arquivo;
-		
 	}
 }

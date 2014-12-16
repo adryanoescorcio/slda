@@ -8,6 +8,7 @@ import Model.Aluno;
 import Model.Ata;
 import Model.AtaResultado;
 import Model.InterfacePadraoEntidade;
+import PrimaryKey.AtaPK;
 import PrimaryKey.AtaResultadoPK;
 import PrimaryKey.InterfaceKey;
 
@@ -102,6 +103,17 @@ public class AtaResultadoDAO extends DAO {
 	 **/
 	public boolean save(final AtaResultado ataResultado) {
 		return super.save(ataResultado);
+	}
+
+	public List<AtaResultado> buscarAlunos(AtaPK ataPK) {
+		
+		final Query query1 = em.createNamedQuery("AtaResultado.findByTurma");
+		query1.setParameter("turmaata",ataPK.getTurmaAta()).setParameter("anoata", ataPK.getAnoAta());
+		
+		@SuppressWarnings("unchecked")
+		final List<AtaResultado> ataResultadoFilter = query1.getResultList();
+		
+		return ataResultadoFilter;
 	}
 
 }

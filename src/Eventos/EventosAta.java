@@ -18,6 +18,7 @@ import ComponentGroupPlus.MaskFormatterGroup;
 import ComponentGroupPlus.PainelTabela;
 import ExceptionSLDA.erroNullRequisitoException;
 import Forms.MainJFrame;
+import Forms.PlusPainelAtaResultadoDiscente;
 import Model.Ata;
 import Model.AtaResultado;
 import PrimaryKey.AtaPK;
@@ -94,6 +95,32 @@ public class EventosAta extends EventosPadrao {
 		}
 	};
 
+	protected ActionListener onClickAbrirAtaTurma = new ActionListener() {
+
+		@Override
+		public void actionPerformed(final ActionEvent e) {
+			
+			// verifica se existe uma busca realizada. Metodo só pode ser invocado se existir uma busca anterior.
+			if (!btnSalvar.isEnabled()) {
+				// pesquisa os arquivos, e todos os alunos que estão dentro dele
+				List<AtaResultado> arqui = daoAtaResultado.buscarAlunos(ataPesquisa.getAtapk());
+				
+				if (arqui.size() > 0) {
+					PlusPainelAtaResultadoDiscente painelArquivoDiscente = 
+							new PlusPainelAtaResultadoDiscente(EventosAta.this);
+					main.addCamada(painelArquivoDiscente.getMainDialog(), "Abrir Ata-Turma");
+				} else {
+					JOptionPane
+					.showMessageDialog(null,
+							"Esta caixa está vazia!");
+				}
+				
+			} else {
+				System.out.println("ERRO AO LUGAR");
+			}
+		}
+	};
+		
 	/**
 	 * Metodo com a função de salvar e alterar uma caixa.
 	 **/
@@ -140,9 +167,7 @@ public class EventosAta extends EventosPadrao {
 
 		@Override
 		public void actionPerformed(final ActionEvent e) {
-			final String ano = tfLocalizar.getText().trim(); // pega o codigo
-																// digitado pelo
-																// cliente.
+			final String ano = tfLocalizar.getText().trim(); // pega o codigo digitado pelo cliente.
 
 			try {
 				final List<Ata> atas = daoAta.getAtasByYear(ano);
@@ -367,5 +392,5 @@ public class EventosAta extends EventosPadrao {
 		comboModalidade.setSelectedItem(ata.getModalidadeAta());
 		comboEnsino.setSelectedItem(ata.getEnsinoAta());
 	}
-
+	
 }

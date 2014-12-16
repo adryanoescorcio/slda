@@ -2,6 +2,7 @@ package Model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
@@ -16,7 +17,10 @@ import PrimaryKey.InterfaceKey;
  * @implements PadraoEntidade
  **/
 
-@NamedQuery(name = "AtaResultado.findByAluno", query = "SELECT a FROM AtaResultado a where a.atapk.aluno = :aluno")
+@NamedQueries({
+	@NamedQuery(name = "AtaResultado.findByAluno", query = "SELECT a FROM AtaResultado a where a.atapk.aluno = :aluno"),
+	@NamedQuery(name = "AtaResultado.findByTurma", query = "SELECT a FROM AtaResultado a WHERE a.atapk.turmaAta LIKE :turmaata AND a.atapk.anoAta LIKE :anoata")
+})
 @Entity
 public class AtaResultado implements InterfacePadraoEntidade,
 		InterfacePadraoAta {

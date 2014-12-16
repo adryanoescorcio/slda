@@ -21,6 +21,7 @@ import DAO.CaixaDAO;
 import DAO.DocumentoDAO;
 import DAO.JPAUtil;
 import ExceptionSLDA.erroNullRequisitoException;
+import Forms.MainJFrame;
 import Model.Aluno;
 import Model.Arquivo;
 import Model.Ata;
@@ -44,6 +45,7 @@ public abstract class EventosPadrao {
 	protected ArquivoDAO daoArquivo = new ArquivoDAO(conexaoBD);
 	protected CaixaDAO daoCaixa = new CaixaDAO(conexaoBD);
 	protected AtaResultadoDAO daoAtaResultado = new AtaResultadoDAO(conexaoBD);
+	protected MainJFrame main;
 
 	// scroll que envolve a tabela
 	public JScrollPane scroll = new JScrollPane();
@@ -153,5 +155,9 @@ public abstract class EventosPadrao {
 	 * Atribui valores aos campos da Frame
 	 **/
 	public abstract void setValoresDosCampos(Object object);
+	
+	public void direcionarParaCamada(int i) {
+		main.direcionarParaCamada(i);
+	}
 
 }
